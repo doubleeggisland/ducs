@@ -27,6 +27,7 @@ public class Menu extends BaseDeiEntity {
     private String isCache;
     private String icon;
     private String status;
+    private Long sysPrjSid;
 
     public void setDefaultValueIfNeed() {
         if (Objects.isNull(pid)) {
@@ -67,7 +68,8 @@ public class Menu extends BaseDeiEntity {
                 && Objects.nonNull(that.getSid())) {
             return Objects.equals(getSid(), that.getSid());
         } else {
-            return Objects.equals(code, that.code);
+            return StringUtils.equals(code, that.code)
+                    && Objects.equals(sysPrjSid, that.sysPrjSid);
         }
     }
 
@@ -90,6 +92,7 @@ public class Menu extends BaseDeiEntity {
         IS_CACHE("isCache", "是否缓存标记(Y: 是, N: 否)"),
         ICON("icon", "菜单图标"),
         STATUS("status", "菜单状态"),
+        SYS_PRJ_SID("sysPrjSid", "菜单所属项目主键ID"),
         ;
         private final String code;
         private final String desc;

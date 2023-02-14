@@ -28,9 +28,9 @@ public class TenantUser extends Acct {
             return StringUtils.equals(getUsername(), that.getUsername());
         } else {
             if (Objects.equals(tenantSid, that.tenantSid)) {
-                if (StringUtils.isNotBlank(getUsername())
-                        && StringUtils.isNotBlank(that.getUsername())) {
-                    return StringUtils.equals(getUsername(), that.getUsername());
+                if (StringUtils.isNotBlank(getMobile())
+                        && StringUtils.isNotBlank(that.getMobile())) {
+                    return StringUtils.equals(getMobile(), that.getMobile());
                 } else {
                     return StringUtils.equals(getEmail(), that.getEmail());
                 }

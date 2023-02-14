@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Objects;
 
@@ -22,12 +23,14 @@ public class MenuSysApiMapping extends BaseDeiEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MenuSysApiMapping that = (MenuSysApiMapping) o;
-        return Objects.equals(menuSid, that.menuSid) && Objects.equals(sysApiSid, that.sysApiSid);
+        return Objects.equals(menuSid, that.menuSid)
+                && Objects.equals(sysApiSid, that.sysApiSid)
+                && StringUtils.equals(interactForm, that.interactForm);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(menuSid, sysApiSid);
+        return Objects.hash(menuSid, sysApiSid, interactForm);
     }
 
     @Getter

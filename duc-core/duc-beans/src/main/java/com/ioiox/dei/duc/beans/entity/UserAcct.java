@@ -29,8 +29,8 @@ public class UserAcct extends Acct {
             return StringUtils.equals(getUsername(), that.getUsername());
         } else {
             if (Objects.equals(corpSid, that.corpSid)) {
-                if (StringUtils.isNotBlank(getUsername())
-                        && StringUtils.isNotBlank(that.getUsername())) {
+                if (StringUtils.isNotBlank(getMobile())
+                        && StringUtils.isNotBlank(that.getMobile())) {
                     return StringUtils.equals(getUsername(), that.getUsername());
                 } else {
                     return StringUtils.equals(getEmail(), that.getEmail());
