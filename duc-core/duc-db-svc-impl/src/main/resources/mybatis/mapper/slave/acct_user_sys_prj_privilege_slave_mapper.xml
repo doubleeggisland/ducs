@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ioiox.dei.duc.db.mapper.slave.AcctUserGrpSlaveMapper">
-  <resultMap type="com.ioiox.dei.duc.beans.entity.AcctUserGrp" id="BaseResultMap">
+<mapper namespace="com.ioiox.dei.duc.db.mapper.slave.AcctUserSysPrjPrivilegeSlaveMapper">
+  <resultMap type="com.ioiox.dei.duc.beans.entity.UserSysPrjPrivilege" id="BaseResultMap">
     <id property="sid" column="sid"/>
 
-    <result property="code" column="code"/>
-    <result property="name" column="name"/>
-    <result property="memo" column="memo"/>
-    <result property="status" column="status"/>
-    <result property="corpSid" column="corp_sid"/>
-    <result property="tenantSid" column="tenant_sid"/>
+    <result property="userSid" column="user_acct_sid"/>
+    <result property="sysPrjSid" column="sys_prj_sid"/>
+    <result property="accessCondition" column="access_condition"/>
 
     <result property="createdBy" column="created_by"/>
     <result property="createdTime" column="created_time"/>
@@ -19,7 +16,7 @@
   </resultMap>
 
   <sql id="Base_Column_List">
-    a.sid, a.code, a.name, a.memo, a.status, a.corp_sid, a.tenant_sid,
+    a.sid, a.user_acct_sid, a.sys_prj_sid, a.access_condition,
     a.created_by, a.created_time, a.updated_by, a.updated_time, a.version_num
   </sql>
 
@@ -31,32 +28,25 @@
       and a.sid in
       <foreach collection="sids" item="sid" separator="," open="(" close=")">#{sid}</foreach>
     </if>
-    <if test="corpSid != null">
-      and a.corp_sid = #{corpSid}
+    <if test="userSid != null">
+      and a.user_acct_sid = #{userSid}
     </if>
-    <if test="corpSids != null and corpSids.size > 0">
-      and a.corp_sid in
-      <foreach collection="corpSids" item="corpSid" separator="," open="(" close=")">#{corpSid}</foreach>
+    <if test="userSids != null and userSids.size > 0">
+      and a.user_acct_sid in
+      <foreach collection="userSids" item="userSid" separator="," open="(" close=")">#{userSid}</foreach>
     </if>
-    <if test="tenantSid != null">
-      and a.tenant_sid = #{tenantSid}
+    <if test="sysPrjSid != null">
+      and a.sys_prj_sid = #{sysPrjSid}
     </if>
-    <if test="tenantSids != null and tenantSids.size > 0">
-      and a.tenant_sid in
-      <foreach collection="tenantSids" item="tenantSid" separator="," open="(" close=")">#{tenantSid}</foreach>
-    </if>
-    <if test="status != null">
-      and a.status = #{status}
-    </if>
-    <if test="statuses != null and statuses.size > 0">
-      and a.status in
-      <foreach collection="statuses" item="status" separator="," open="(" close=")">#{status}</foreach>
+    <if test="sysPrjSids != null and sysPrjSids.size > 0">
+      and a.sys_prj_sid in
+      <foreach collection="sysPrjSids" item="sysPrjSid" separator="," open="(" close=")">#{sysPrjSid}</foreach>
     </if>
   </sql>
 
   <select id="countByParams" resultType="int" parameterType="map" statementType="PREPARED">
     select count(1)
-    from acct_user_grp a
+    from acct_user_sys_prj_privilege a
     <where>
       <include refid="Query_Conditions" />
     </where>
@@ -65,7 +55,7 @@
   <select id="findByParams" resultMap="BaseResultMap" parameterType="map" statementType="PREPARED">
     select
     <include refid="Base_Column_List"/>
-    from acct_user_grp a
+    from acct_user_sys_prj_privilege a
     <where>
       <include refid="Query_Conditions" />
     </where>
@@ -77,23 +67,14 @@
       <if test="sidShow != null">
         a.sid,
       </if>
-      <if test="codeShow != null">
-        a.code,
+      <if test="userSidShow != null">
+        a.user_acct_sid,
       </if>
-      <if test="nameShow != null">
-        a.name,
+      <if test="sysPrjSidShow != null">
+        a.sys_prj_sid,
       </if>
-      <if test="memoShow != null">
-        a.memo,
-      </if>
-      <if test="statusShow != null">
-        a.status,
-      </if>
-      <if test="corpSidShow != null">
-        a.corp_sid,
-      </if>
-      <if test="tenantSidShow != null">
-        a.tenant_sid,
+      <if test="accessConditionShow != null">
+        a.access_condition,
       </if>
       <if test="createdByShow != null">
         a.created_by,
@@ -111,7 +92,7 @@
         a.version_num,
       </if>
     </trim>
-    from acct_user_grp a
+    from acct_user_sys_prj_privilege a
     <where>
       <include refid="Query_Conditions" />
     </where>
