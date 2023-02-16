@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ioiox.dei.duc.db.mapper.master.MenuMasterMapper">
+
+  <insert id="insert" keyProperty="sid" keyColumn="sid" useGeneratedKeys="true" parameterType="com.ioiox.dei.duc.beans.entity.Menu" statementType="PREPARED">
+    insert into menu
+    (code, name, pid, lvl, route_path, component_url, redirect_path, is_hidden, is_cache, icon, status, sys_prj_sid,
+    created_by, created_time, updated_time, version_num)
+    values
+    (#{code}, #{name}, #{pid}, #{lvl}, #{routePath}, #{componentUrl}, #{redirectPath}, #{isHidden}, #{isCache}, #{icon}, #{status}, #{sysPrjSid},
+    #{createdBy}, #{createdTime}, #{updatedTime}, #{versionNum})
+  </insert>
+
+  <insert id="batchInsert" keyProperty="sid" keyColumn="sid" useGeneratedKeys="true" parameterType="list" statementType="PREPARED">
+    insert into menu
+    (code, name, pid, lvl, route_path, component_url, redirect_path, is_hidden, is_cache, icon, status, sys_prj_sid,
+    created_by, created_time, updated_time, version_num)
+    values
+    <foreach collection="list" index="index" item="item" separator=",">
+      (#{item.code}, #{item.name}, #{item.pid}, #{item.lvl}, #{item.routePath}, #{item.componentUrl}, #{item.redirectPath}, #{item.isHidden}, #{item.isCache}, #{item.icon}, #{item.status}, #{item.sysPrjSid},
+      #{item.createdBy}, #{item.createdTime}, #{item.updatedTime}, #{item.versionNum})
+    </foreach>
+  </insert>
+
+  <update id="updateByExample" parameterType="com.ioiox.dei.duc.beans.entity.Menu" statementType="PREPARED">
+    update menu
+    <set>
+      version_num = version_num + 1,
+      <if test="code != null">
+        code = #{code},
+      </if>
+      <if test="name != null">
+        name = #{name},
+      </if>
+      <if test="pid != null">
+        pid = #{pid},
+      </if>
+      <if test="lvl != null">
+        lvl = #{lvl},
+      </if>
+      <if test="routePath != null">
+        route_path = #{routePath},
+      </if>
+      <if test="componentUrl != null">
+        component_url = #{componentUrl},
+      </if>
+      <if test="redirectPath != null">
+        redirect_path = #{redirectPath},
+      </if>
+      <if test="isHidden != null">
+        is_hidden = #{isHidden},
+      </if>
+      <if test="isCache != null">
+        is_cache = #{isCache},
+      </if>
+      <if test="icon != null">
+        icon = #{icon},
+      </if>
+      <if test="status != null">
+        status = #{status},
+      </if>
+      <if test="sysPrjSid != null">
+        sys_prj_sid = #{sysPrjSid},
+      </if>
+      <if test="updatedBy != null">
+        updated_by = #{updatedBy},
+      </if>
+      <if test="updatedTime != null">
+        updated_time = #{updatedTime},
+      </if>
+    </set>
+    where sid = #{sid} and version_num = #{versionNum}
+  </update>
+
+  <update id="updateByParams" parameterType="map" statementType="PREPARED">
+    update menu
+    <set>
+      version_num = version_num + 1,
+      <if test="isHidden != null">
+        is_hidden = #{isHidden},
+      </if>
+      <if test="isCache != null">
+        is_cache = #{isCache},
+      </if>
+      <if test="icon != null">
+        icon = #{icon},
+      </if>
+      <if test="status != null">
+        status = #{status},
+      </if>
+      <if test="updatedBy != null">
+        updated_by = #{updatedBy},
+      </if>
+      <if test="updatedTime != null">
+        updated_time = #{updatedTime},
+      </if>
+    </set>
+    <where>
+      <if test="sidCondition != null">
+        and sid = #{sidCondition}
+      </if>
+      <if test="sidsCondition != null and sidsCondition.size > 0">
+        and sid in
+        <foreach collection="sidsCondition" item="sid" separator="," open="(" close=")">#{sid}</foreach>
+      </if>
+      <if test="pidCondition != null">
+        and pid = #{pidCondition}
+      </if>
+      <if test="pidsCondition != null and pidsCondition.size > 0">
+        and pid in
+        <foreach collection="pidsCondition" item="pid" separator="," open="(" close=")">#{pid}</foreach>
+      </if>
+    </where>
+  </update>
+
+  <delete id="deleteByParams" parameterType="map" statementType="PREPARED">
+    delete from menu
+    <where>
+      <if test="sid != null">
+        and sid = #{sid}
+      </if>
+      <if test="sids != null and sids.size > 0">
+        and sid in
+        <foreach collection="sids" item="sid" separator="," open="(" close=")">#{sid}</foreach>
+      </if>
+      <if test="pid != null">
+        and pid = #{pid}
+      </if>
+      <if test="pids != null and pids.size > 0">
+        and pid in
+        <foreach collection="pids" item="pid" separator="," open="(" close=")">#{pid}</foreach>
+      </if>
+      <if test="sysPrjSid != null">
+        and sys_prj_sid = #{sysPrjSid}
+      </if>
+      <if test="sysPrjSids != null and sysPrjSids.size > 0">
+        and sys_prj_sid in
+        <foreach collection="sysPrjSids" item="sysPrjSid" separator="," open="(" close=")">#{sysPrjSid}</foreach>
+      </if>
+      <if test="status != null">
+        and status = #{status}
+      </if>
+      <if test="statuses != null and statuses.size > 0">
+        and status in
+        <foreach collection="statuses" item="status" separator="," open="(" close=")">#{status}</foreach>
+      </if>
+    </where>
+  </delete>
+</mapper>

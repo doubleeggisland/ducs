@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ioiox.dei.duc.db.mapper.master.MenuSysApiMappingMasterMapper">
+
+  <insert id="insert" keyProperty="sid" keyColumn="sid" useGeneratedKeys="true" parameterType="com.ioiox.dei.duc.beans.entity.MenuSysApiMapping"
+          statementType="PREPARED">
+    insert into menu_sys_api_mapping
+    (menu_sid, sys_api_sid, interact_form,
+    created_by, created_time, updated_time, version_num)
+    values
+    (#{menuSid}, #{sysApiSid}, #{interactForm},
+    #{createdBy}, #{createdTime}, #{updatedTime}, #{versionNum})
+  </insert>
+
+  <insert id="batchInsert" keyProperty="sid" keyColumn="sid" useGeneratedKeys="true" parameterType="list" statementType="PREPARED">
+    insert into menu_sys_api_mapping
+    (menu_sid, sys_api_sid, interact_form,
+    created_by, created_time, updated_time, version_num)
+    values
+    <foreach collection="list" index="index" item="item" separator=",">
+      (#{item.menuSid}, #{item.sysApiSid}, #{item.interactForm},
+      #{item.createdBy}, #{item.createdTime}, #{item.updatedTime}, #{item.versionNum})
+    </foreach>
+  </insert>
+
+  <update id="updateByExample" parameterType="com.ioiox.dei.duc.beans.entity.MenuSysApiMapping" statementType="PREPARED">
+    update menu_sys_api_mapping
+    <set>
+      version_num = version_num + 1,
+      <if test="menuSid != null">
+        menu_sid = #{menuSid},
+      </if>
+      <if test="sysApiSid != null">
+        sys_api_sid = #{sysApiSid},
+      </if>
+      <if test="interactForm != null">
+        interact_form = #{interactForm},
+      </if>
+      <if test="updatedBy != null">
+        updated_by = #{updatedBy},
+      </if>
+      <if test="updatedTime != null">
+        updated_time = #{updatedTime},
+      </if>
+    </set>
+    where sid = #{sid} and version_num = #{versionNum}
+  </update>
+
+  <update id="updateByParams" parameterType="map" statementType="PREPARED">
+    update menu_sys_api_mapping
+    <set>
+      version_num = version_num + 1,
+      <if test="interactForm != null">
+        interact_form = #{interactForm},
+      </if>
+      <if test="updatedBy != null">
+        updated_by = #{updatedBy},
+      </if>
+      <if test="updatedTime != null">
+        updated_time = #{updatedTime},
+      </if>
+    </set>
+    <where>
+      <if test="menuSidCondition != null">
+        and menu_sid = #{menuSidCondition}
+      </if>
+      <if test="menuSidsCondition != null and menuSidsCondition.size > 0">
+        and menu_sid in
+        <foreach collection="menuSidsCondition" item="menuSid" separator="," open="(" close=")">#{menuSid}</foreach>
+      </if>
+      <if test="sysApiSidCondition != null">
+        and sys_api_sid = #{sysApiSidCondition}
+      </if>
+      <if test="sysApiSidsCondition != null and sysApiSidsCondition.size > 0">
+        and sys_api_sid in
+        <foreach collection="sysApiSidsCondition" item="sysApiSid" separator="," open="(" close=")">#{sysApiSid}</foreach>
+      </if>
+    </where>
+  </update>
+
+  <delete id="deleteByParams" parameterType="map" statementType="PREPARED">
+    delete from menu_sys_api_mapping
+    <where>
+      <if test="menuSid != null">
+        and menu_sid = #{menuSid}
+      </if>
+      <if test="menuSids != null and menuSids.size > 0">
+        and menu_sid in
+        <foreach collection="menuSids" item="menuSid" separator="," open="(" close=")">#{menuSid}</foreach>
+      </if>
+      <if test="sysApiSid != null">
+        and sys_api_sid = #{sysApiSid}
+      </if>
+      <if test="sysApiSids != null and sysApiSids.size > 0">
+        and sys_api_sid in
+        <foreach collection="sysApiSids" item="sysApiSid" separator="," open="(" close=")">#{sysApiSid}</foreach>
+      </if>
+    </where>
+  </delete>
+</mapper>

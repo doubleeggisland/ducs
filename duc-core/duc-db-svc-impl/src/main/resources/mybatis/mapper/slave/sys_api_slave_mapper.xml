@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ioiox.dei.duc.db.mapper.slave.SysApiSlaveMapper">
+  <resultMap type="com.ioiox.dei.duc.beans.entity.SysApi" id="BaseResultMap">
+    <id property="sid" column="sid"/>
+
+    <result property="code" column="code"/>
+    <result property="name" column="name"/>
+    <result property="memo" column="memo"/>
+    <result property="url" column="url"/>
+    <result property="httpMethod" column="http_method"/>
+    <result property="sysPrjModuleName" column="sys_prj_module_name"/>
+    <result property="sysPrjModuleCode" column="sys_prj_module_code"/>
+    <result property="sysPrjSid" column="sys_prj_sid"/>
+    <result property="status" column="status"/>
+
+    <result property="createdBy" column="created_by"/>
+    <result property="createdTime" column="created_time"/>
+    <result property="updatedBy" column="updated_by"/>
+    <result property="updatedTime" column="updated_time"/>
+    <result property="versionNum" column="version_num"/>
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    a.sid, a.code, a.name, a.memo, a.url, a.http_method, a.sys_prj_module_name, a.sys_prj_module_code, a.sys_prj_sid, a.status,
+    a.created_by, a.created_time, a.updated_by, a.updated_time, a.version_num
+  </sql>
+
+  <sql id="Query_Conditions">
+    <if test="sid != null">
+      and a.sid = #{sid}
+    </if>
+    <if test="sids != null and sids.size > 0">
+      and a.sid in
+      <foreach collection="sids" item="sid" separator="," open="(" close=")">#{sid}</foreach>
+    </if>
+    <if test="code != null">
+      and a.code = #{code}
+    </if>
+    <if test="codes != null and codes.size > 0">
+      and a.code in
+      <foreach collection="codes" item="code" separator="," open="(" close=")">#{code}</foreach>
+    </if>
+    <if test="sysPrjSid != null">
+      and a.sys_prj_sid = #{sysPrjSid}
+    </if>
+    <if test="sysPrjSids != null and sysPrjSids.size > 0">
+      and a.sys_prj_sid in
+      <foreach collection="sysPrjSids" item="sysPrjSid" separator="," open="(" close=")">#{sysPrjSid}</foreach>
+    </if>
+    <if test="status != null">
+      and a.status = #{status}
+    </if>
+    <if test="statuses != null and statuses.size > 0">
+      and a.status in
+      <foreach collection="statuses" item="status" separator="," open="(" close=")">#{status}</foreach>
+    </if>
+  </sql>
+
+  <select id="countByParams" resultType="int" parameterType="map" statementType="PREPARED">
+    select count(1)
+    from sys_api a
+    <where>
+      <include refid="Query_Conditions" />
+    </where>
+  </select>
+
+  <select id="findByParams" resultMap="BaseResultMap" parameterType="map" statementType="PREPARED">
+    select
+    <include refid="Base_Column_List"/>
+    from sys_api a
+    <where>
+      <include refid="Query_Conditions" />
+    </where>
+  </select>
+
+  <select id="findByParamsOnSelective" parameterType="map" resultMap="BaseResultMap" statementType="PREPARED">
+    select
+    <trim suffixOverrides=",">
+      <if test="sidShow != null">
+        a.sid,
+      </if>
+      <if test="codeShow != null">
+        a.code,
+      </if>
+      <if test="nameShow != null">
+        a.name,
+      </if>
+      <if test="memoShow != null">
+        a.memo,
+      </if>
+      <if test="urlShow != null">
+        a.url,
+      </if>
+      <if test="httpMethodShow != null">
+        a.http_method,
+      </if>
+      <if test="sysPrjModuleNameShow != null">
+        a.sys_prj_module_name,
+      </if>
+      <if test="sysPrjModuleCodeShow != null">
+        a.sys_prj_module_code,
+      </if>
+      <if test="sysPrjSidShow != null">
+        a.sys_prj_sid,
+      </if>
+      <if test="statusShow != null">
+        a.status,
+      </if>
+      <if test="createdByShow != null">
+        a.created_by,
+      </if>
+      <if test="createdTimeShow != null">
+        a.created_time,
+      </if>
+      <if test="updatedByShow != null">
+        a.updated_by,
+      </if>
+      <if test="updatedTimeShow != null">
+        a.updated_time,
+      </if>
+      <if test="versionNumShow != null">
+        a.version_num,
+      </if>
+    </trim>
+    from sys_api a
+    <where>
+      <include refid="Query_Conditions" />
+    </where>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null and offset != null">
+      limit #{offset}, #{limit}
+    </if>
+  </select>
+</mapper>
