@@ -61,9 +61,15 @@
       </if>
     </set>
     <where>
+      <if test="userGrpSidCondition != null">
+        and user_grp_sid = #{userGrpSidCondition}
+      </if>
       <if test="userGrpSidsCondition != null and userGrpSidsCondition.size > 0">
         and user_grp_sid in
         <foreach collection="userGrpSidsCondition" item="userGrpSid" separator="," open="(" close=")">#{userGrpSid}</foreach>
+      </if>
+      <if test="roleSidCondition != null">
+        and role_sid = #{roleSidCondition}
       </if>
       <if test="roleSidsCondition != null and roleSidsCondition.size > 0">
         and role_sid in
