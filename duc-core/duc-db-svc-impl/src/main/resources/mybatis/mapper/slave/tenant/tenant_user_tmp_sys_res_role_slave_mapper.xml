@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ioiox.dei.duc.db.mapper.slave.tenant.TenantUserTmpSysResRoleSlaveMapper">
+  <resultMap type="com.ioiox.dei.duc.beans.entity.TenantUserTmpSysResRole" id="BaseResultMap">
+    <id property="sid" column="sid"/>
+
+    <result property="code" column="code"/>
+    <result property="name" column="name"/>
+    <result property="type" column="type"/>
+    <result property="memo" column="memo"/>
+    <result property="status" column="status"/>
+
+    <result property="tenantSid" column="tenant_sid"/>
+
+    <result property="sysPrjSid" column="sys_prj_sid"/>
+
+    <result property="unlimitedDateRangeFlag" column="unlimited_date_range"/>
+    <result property="effectiveStartDate" column="effective_start_date"/>
+    <result property="effectiveEndDate" column="effective_end_date"/>
+    <result property="unlimitedTimeRangeFlag" column="unlimited_time_range"/>
+    <result property="effectiveStartTime" column="effective_start_time"/>
+    <result property="effectiveEndTime" column="effective_end_time"/>
+
+    <result property="createdBy" column="created_by"/>
+    <result property="createdTime" column="created_time"/>
+    <result property="updatedBy" column="updated_by"/>
+    <result property="updatedTime" column="updated_time"/>
+    <result property="versionNum" column="version_num"/>
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    a.sid, a.code, a.name, a.type, a.memo, a.status, a.tenant_sid, a.sys_prj_sid,
+    a.unlimited_date_range, a.effective_start_date, a.effective_end_date, a.unlimited_time_range, a.effective_start_time, a.effective_end_time,
+    a.created_by, a.created_time, a.updated_by, a.updated_time, a.version_num
+  </sql>
+
+  <sql id="Query_Conditions">
+    <if test="sid != null">
+      and a.sid = #{sid}
+    </if>
+    <if test="sids != null and sids.size > 0">
+      and a.sid in
+      <foreach collection="sids" item="sid" separator="," open="(" close=")">#{sid}</foreach>
+    </if>
+    <if test="code != null">
+      and a.code = #{code}
+    </if>
+    <if test="codes != null and codes.size > 0">
+      and a.code in
+      <foreach collection="codes" item="code" separator="," open="(" close=")">#{code}</foreach>
+    </if>
+    <if test="tenantSid != null">
+      and a.tenant_sid = #{tenantSid}
+    </if>
+    <if test="tenantSids != null and tenantSids.size > 0">
+      and a.tenant_sid in
+      <foreach collection="tenantSids" item="tenantSid" separator="," open="(" close=")">#{tenantSid}</foreach>
+    </if>
+    <if test="sysPrjSid != null">
+      and a.sys_prj_sid = #{sysPrjSid}
+    </if>
+    <if test="sysPrjSids != null and sysPrjSids.size > 0">
+      and a.sys_prj_sid in
+      <foreach collection="sysPrjSids" item="sysPrjSid" separator="," open="(" close=")">#{sysPrjSid}</foreach>
+    </if>
+    <if test="status != null">
+      and a.status = #{status}
+    </if>
+    <if test="statuses != null and statuses.size > 0">
+      and a.status in
+      <foreach collection="statuses" item="status" separator="," open="(" close=")">#{status}</foreach>
+    </if>
+  </sql>
+
+  <select id="countByParams" resultType="int" parameterType="map" statementType="PREPARED">
+    select count(1)
+    from tenant_user_tmp_sys_res_role a
+    <where>
+      <include refid="Query_Conditions" />
+    </where>
+  </select>
+
+  <select id="findByParams" resultMap="BaseResultMap" parameterType="map" statementType="PREPARED">
+    select
+    <include refid="Base_Column_List"/>
+    from tenant_user_tmp_sys_res_role a
+    <where>
+      <include refid="Query_Conditions" />
+    </where>
+  </select>
+
+  <select id="findByParamsOnSelective" parameterType="map" resultMap="BaseResultMap" statementType="PREPARED">
+    select
+    <trim suffixOverrides=",">
+      <if test="sidShow != null">
+        a.sid,
+      </if>
+      <if test="codeShow != null">
+        a.code,
+      </if>
+      <if test="nameShow != null">
+        a.name,
+      </if>
+      <if test="typeShow != null">
+        a.type,
+      </if>
+      <if test="memoShow != null">
+        a.memo,
+      </if>
+      <if test="statusShow != null">
+        a.status,
+      </if>
+      <if test="tenantSidShow != null">
+        a.tenant_sid,
+      </if>
+      <if test="sysPrjSidShow != null">
+        a.sys_prj_sid,
+      </if>
+      <if test="unlimitedDateRangeFlagShow != null">
+        a.unlimited_date_range,
+      </if>
+      <if test="effectiveStartDateShow != null">
+        a.effective_start_date,
+      </if>
+      <if test="effectiveEndDateShow != null">
+        a.effective_end_date,
+      </if>
+      <if test="unlimitedTimeRangeFlagShow != null">
+        a.unlimited_time_range,
+      </if>
+      <if test="effectiveStartTimeShow != null">
+        a.effective_start_time,
+      </if>
+      <if test="effectiveEndTimeShow != null">
+        a.effective_end_time,
+      </if>
+      <if test="createdByShow != null">
+        a.created_by,
+      </if>
+      <if test="createdTimeShow != null">
+        a.created_time,
+      </if>
+      <if test="updatedByShow != null">
+        a.updated_by,
+      </if>
+      <if test="updatedTimeShow != null">
+        a.updated_time,
+      </if>
+      <if test="versionNumShow != null">
+        a.version_num,
+      </if>
+    </trim>
+    from tenant_user_tmp_sys_res_role a
+    <where>
+      <include refid="Query_Conditions" />
+    </where>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null and offset != null">
+      limit #{offset}, #{limit}
+    </if>
+  </select>
+</mapper>

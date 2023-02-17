@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ioiox.dei.duc.db.mapper.master.tenant.TenantUserGrpR2SysResRoleMasterMapper">
+
+  <insert id="insert" keyProperty="sid" keyColumn="sid" useGeneratedKeys="true" parameterType="com.ioiox.dei.duc.beans.entity.UserGrpR2SysResRole"
+          statementType="PREPARED">
+    insert into tenant_user_grp_r2_sys_res_role
+    (user_grp_sid, sys_res_role_sid,
+    created_by, created_time, updated_time, version_num)
+    values
+    (#{userGrpSid}, #{sysResRoleSid},
+    #{createdBy}, #{createdTime}, #{updatedTime}, #{versionNum})
+  </insert>
+
+  <insert id="batchInsert" keyProperty="sid" keyColumn="sid" useGeneratedKeys="true" parameterType="list" statementType="PREPARED">
+    insert into tenant_user_grp_r2_sys_res_role
+    (user_grp_sid, sys_res_role_sid,
+    created_by, created_time, updated_time, version_num)
+    values
+    <foreach collection="list" index="index" item="item" separator=",">
+      (#{item.userGrpSid}, #{item.sysResRoleSid},
+      #{item.createdBy}, #{item.createdTime}, #{item.updatedTime}, #{item.versionNum})
+    </foreach>
+  </insert>
+
+  <update id="updateByExample" parameterType="com.ioiox.dei.duc.beans.entity.UserGrpR2SysResRole" statementType="PREPARED">
+    update tenant_user_grp_r2_sys_res_role
+    <set>
+      version_num = version_num + 1,
+      <if test="userGrpSid != null">
+        user_grp_sid = #{userGrpSid},
+      </if>
+      <if test="sysResRoleSid != null">
+        sys_res_role_sid = #{sysResRoleSid},
+      </if>
+      <if test="updatedBy != null">
+        updated_by = #{updatedBy},
+      </if>
+      <if test="updatedTime != null">
+        updated_time = #{updatedTime},
+      </if>
+    </set>
+    where sid = #{sid} and version_num = #{versionNum}
+  </update>
+
+  <update id="updateByParams" parameterType="map" statementType="PREPARED">
+    update tenant_user_grp_r2_sys_res_role
+    <set>
+      version_num = version_num + 1,
+      <if test="userGrpSid != null">
+        user_grp_sid = #{userGrpSid},
+      </if>
+      <if test="sysResRoleSid != null">
+        sys_res_role_sid = #{sysResRoleSid},
+      </if>
+      <if test="updatedBy != null">
+        updated_by = #{updatedBy},
+      </if>
+      <if test="updatedTime != null">
+        updated_time = #{updatedTime},
+      </if>
+    </set>
+    <where>
+      <if test="userGrpSidCondition != null">
+        and user_grp_sid = #{userGrpSidCondition}
+      </if>
+      <if test="userGrpSidsCondition != null and userGrpSidsCondition.size > 0">
+        and user_grp_sid in
+        <foreach collection="userGrpSidsCondition" item="userGrpSid" separator="," open="(" close=")">#{userGrpSid}</foreach>
+      </if>
+      <if test="sysResRoleSidCondition != null">
+        and sys_res_role_sid = #{sysResRoleSidCondition}
+      </if>
+      <if test="sysResRoleSidsCondition != null and sysResRoleSidsCondition.size > 0">
+        and sys_res_role_sid in
+        <foreach collection="sysResRoleSidsCondition" item="sysResRoleSid" separator="," open="(" close=")">#{sysResRoleSid}</foreach>
+      </if>
+    </where>
+  </update>
+
+  <delete id="deleteByParams" parameterType="map" statementType="PREPARED">
+    delete from tenant_user_grp_r2_sys_res_role
+    <where>
+      <if test="userGrpSid != null">
+        and user_grp_sid = #{userGrpSid}
+      </if>
+      <if test="userGrpSids != null and userGrpSids.size > 0">
+        and user_grp_sid in
+        <foreach collection="userGrpSids" item="userGrpSid" separator="," open="(" close=")">#{userGrpSid}</foreach>
+      </if>
+      <if test="sysResRoleSid != null">
+        and sys_res_role_sid = #{sysResRoleSid}
+      </if>
+      <if test="sysResRoleSids != null and sysResRoleSids.size > 0">
+        and sys_res_role_sid in
+        <foreach collection="sysResRoleSids" item="sysResRoleSid" separator="," open="(" close=")">#{sysResRoleSid}</foreach>
+      </if>
+    </where>
+  </delete>
+</mapper>

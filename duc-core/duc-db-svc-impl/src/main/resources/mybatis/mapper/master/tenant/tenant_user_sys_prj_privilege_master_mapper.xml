@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ioiox.dei.duc.db.mapper.master.tenant.TenantUserSysPrjPrivilegeMasterMapper">
+
+  <insert id="insert" keyProperty="sid" keyColumn="sid" useGeneratedKeys="true" parameterType="com.ioiox.dei.duc.beans.entity.UserSysPrjPrivilege" statementType="PREPARED">
+    insert into tenant_user_sys_prj_privilege
+    (tenant_user_sid, sys_prj_sid, access_condition,
+    created_by, created_time, updated_time, version_num)
+    values
+    (#{userSid}, #{sysPrjSid}, #{accessCondition},
+    #{createdBy}, #{createdTime}, #{updatedTime}, #{versionNum})
+  </insert>
+
+  <insert id="batchInsert" keyProperty="sid" keyColumn="sid" useGeneratedKeys="true" parameterType="list" statementType="PREPARED">
+    insert into tenant_user_sys_prj_privilege
+    (tenant_user_sid, sys_prj_sid, access_condition,
+    created_by, created_time, updated_time, version_num)
+    values
+    <foreach collection="list" index="index" item="item" separator=",">
+      (#{item.userSid}, #{item.sysPrjSid}, #{item.accessCondition},
+      #{item.createdBy}, #{item.createdTime}, #{item.updatedTime}, #{item.versionNum})
+    </foreach>
+  </insert>
+
+  <update id="updateByExample" parameterType="com.ioiox.dei.duc.beans.entity.UserSysPrjPrivilege" statementType="PREPARED">
+    update tenant_user_sys_prj_privilege
+    <set>
+      version_num = version_num + 1,
+      <if test="userSid != null">
+        tenant_user_sid = #{userSid},
+      </if>
+      <if test="sysPrjSid != null">
+        sys_prj_sid = #{sysPrjSid},
+      </if>
+      <if test="accessCondition != null">
+        access_condition = #{accessCondition},
+      </if>
+      <if test="updatedBy != null">
+        updated_by = #{updatedBy},
+      </if>
+      <if test="updatedTime != null">
+        updated_time = #{updatedTime},
+      </if>
+    </set>
+    where sid = #{sid} and version_num = #{versionNum}
+  </update>
+
+  <update id="updateByParams" parameterType="map" statementType="PREPARED">
+    update tenant_user_sys_prj_privilege
+    <set>
+      version_num = version_num + 1,
+      <if test="accessCondition != null">
+        access_condition = #{accessCondition},
+      </if>
+      <if test="updatedBy != null">
+        updated_by = #{updatedBy},
+      </if>
+      <if test="updatedTime != null">
+        updated_time = #{updatedTime},
+      </if>
+    </set>
+    <where>
+      <if test="sidCondition != null">
+        and sid = #{sidCondition}
+      </if>
+      <if test="sidsCondition != null and sidsCondition.size > 0">
+        and sid in
+        <foreach collection="sidsCondition" item="sid" separator="," open="(" close=")">#{sid}</foreach>
+      </if>
+      <if test="userSidCondition != null">
+        and tenant_user_sid = #{userSidCondition}
+      </if>
+      <if test="userSidsCondition != null and userSidsCondition.size > 0">
+        and tenant_user_sid in
+        <foreach collection="userSidsCondition" item="userSid" separator="," open="(" close=")">#{userSid}</foreach>
+      </if>
+      <if test="sysPrjSidCondition != null">
+        and sys_prj_sid = #{sysPrjSidCondition}
+      </if>
+      <if test="sysPrjSidsCondition != null and sysPrjSidsCondition.size > 0">
+        and sys_prj_sid in
+        <foreach collection="sysPrjSidsCondition" item="sysPrjSid" separator="," open="(" close=")">#{sysPrjSid}</foreach>
+      </if>
+    </where>
+  </update>
+
+  <delete id="deleteByParams" parameterType="map" statementType="PREPARED">
+    delete from tenant_user_sys_prj_privilege
+    <where>
+      <if test="sid != null">
+        and sid = #{sid}
+      </if>
+      <if test="sids != null and sids.size > 0">
+        and sid in
+        <foreach collection="sids" item="sid" separator="," open="(" close=")">#{sid}</foreach>
+      </if>
+      <if test="userSid != null">
+        and tenant_user_sid = #{userSid}
+      </if>
+      <if test="userSids != null and userSids.size > 0">
+        and tenant_user_sid in
+        <foreach collection="userSids" item="userSid" separator="," open="(" close=")">#{userSid}</foreach>
+      </if>
+      <if test="sysPrjSid != null">
+        and sys_prj_sid = #{sysPrjSid}
+      </if>
+      <if test="sysPrjSids != null and sysPrjSids.size > 0">
+        and sys_prj_sid in
+        <foreach collection="sysPrjSids" item="sysPrjSid" separator="," open="(" close=")">#{sysPrjSid}</foreach>
+      </if>
+    </where>
+  </delete>
+</mapper>

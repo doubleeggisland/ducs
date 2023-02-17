@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ioiox.dei.duc.db.mapper.slave.UserAcctR2TmpSysResRoleSlaveMapper">
+<mapper namespace="com.ioiox.dei.duc.db.mapper.slave.user.UserAcctR2TmpSysResRoleSlaveMapper">
   <resultMap type="com.ioiox.dei.duc.beans.entity.UserAcctR2SysResRole" id="BaseResultMap">
     <id property="sid" column="sid"/>
 

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ioiox.dei.duc.db.mapper.master.tenant.TenantUserGrpMasterMapper">
+
+  <insert id="insert" keyProperty="sid" keyColumn="sid" useGeneratedKeys="true" parameterType="com.ioiox.dei.duc.beans.entity.TenantUserGrp"
+          statementType="PREPARED">
+    insert into tenant_user_grp
+    (code, name, memo, status, tenant_sid,
+    created_by, created_time, updated_time, version_num)
+    values
+    (#{code}, #{name}, #{memo}, #{status}, #{tenantSid},
+    #{createdBy}, #{createdTime}, #{updatedTime}, #{versionNum})
+  </insert>
+
+  <insert id="batchInsert" keyProperty="sid" keyColumn="sid" useGeneratedKeys="true" parameterType="list" statementType="PREPARED">
+    insert into tenant_user_grp
+    (code, name, memo, status, tenant_sid,
+    created_by, created_time, updated_time, version_num)
+    values
+    <foreach collection="list" index="index" item="item" separator=",">
+      (#{item.code}, #{item.name}, #{item.memo}, #{item.status}, #{item.tenantSid},
+      #{item.createdBy}, #{item.createdTime}, #{item.updatedTime}, #{item.versionNum})
+    </foreach>
+  </insert>
+
+  <update id="updateByExample" parameterType="com.ioiox.dei.duc.beans.entity.TenantUserGrp" statementType="PREPARED">
+    update tenant_user_grp
+    <set>
+      version_num = version_num + 1,
+      <if test="code != null">
+        code = #{code},
+      </if>
+      <if test="name != null">
+        name = #{name},
+      </if>
+      <if test="memo != null">
+        memo = #{memo},
+      </if>
+      <if test="status != null">
+        status = #{status},
+      </if>
+      <if test="tenantSid != null">
+        tenant_sid = #{tenantSid},
+      </if>
+      <if test="updatedBy != null">
+        updated_by = #{updatedBy},
+      </if>
+      <if test="updatedTime != null">
+        updated_time = #{updatedTime},
+      </if>
+    </set>
+    where sid = #{sid} and version_num = #{versionNum}
+  </update>
+
+  <update id="updateByParams" parameterType="map" statementType="PREPARED">
+    update tenant_user_grp
+    <set>
+      version_num = version_num + 1,
+      <if test="memo != null">
+        memo = #{memo},
+      </if>
+      <if test="status != null">
+        status = #{status},
+      </if>
+      <if test="updatedBy != null">
+        updated_by = #{updatedBy},
+      </if>
+      <if test="updatedTime != null">
+        updated_time = #{updatedTime},
+      </if>
+    </set>
+    <where>
+      <if test="sidCondition != null">
+        and sid = #{sidCondition}
+      </if>
+      <if test="sidsCondition != null and sidsCondition.size > 0">
+        and sid in
+        <foreach collection="sidsCondition" item="sid" separator="," open="(" close=")">#{sid}</foreach>
+      </if>
+    </where>
+  </update>
+
+  <delete id="deleteByParams" parameterType="map" statementType="PREPARED">
+    delete from tenant_user_grp
+    <where>
+      <if test="sid != null">
+        and sid = #{sid}
+      </if>
+      <if test="sids != null and sids.size > 0">
+        and sid in
+        <foreach collection="sids" item="sid" separator="," open="(" close=")">#{sid}</foreach>
+      </if>
+      <if test="status != null">
+        and status = #{status}
+      </if>
+      <if test="statuses != null and statuses.size > 0">
+        and status in
+        <foreach collection="statuses" item="status" separator="," open="(" close=")">#{status}</foreach>
+      </if>
+    </where>
+  </delete>
+</mapper>
