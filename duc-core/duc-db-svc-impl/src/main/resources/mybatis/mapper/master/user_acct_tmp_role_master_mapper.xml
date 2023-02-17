@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ioiox.dei.duc.db.mapper.master.UserAcctTmpRoleMasterMapper">
+
+  <insert id="insert" keyProperty="sid" keyColumn="sid" useGeneratedKeys="true" parameterType="com.ioiox.dei.duc.beans.entity.UserAcctTmpRole"
+          statementType="PREPARED">
+    insert into user_acct_tmp_role
+    (code, name, type, memo, status, tenant_sid, corp_sid,
+    unlimited_date_range, effective_start_date, effective_end_date, unlimited_time_range, effective_start_time, effective_end_time, 
+    created_by, created_time, updated_time, version_num)
+    values
+    (#{code}, #{name}, #{type}, #{memo}, #{status}, #{tenantSid}, #{corpSid},
+    #{unlimitedDateRangeFlag}, #{effectiveStartDate}, #{effectiveEndDate}, #{unlimitedTimeRangeFlag}, #{effectiveStartTime}, #{effectiveEndTime},
+    #{createdBy}, #{createdTime}, #{updatedTime}, #{versionNum})
+  </insert>
+
+  <insert id="batchInsert" keyProperty="sid" keyColumn="sid" useGeneratedKeys="true" parameterType="list" statementType="PREPARED">
+    insert into user_acct_tmp_role
+    (code, name, type, memo, status, tenant_sid, corp_sid,
+    unlimited_date_range, effective_start_date, effective_end_date, unlimited_time_range, effective_start_time, effective_end_time,
+    created_by, created_time, updated_time, version_num)
+    values
+    <foreach collection="list" index="index" item="item" separator=",">
+      (#{item.code}, #{item.name}, #{item.type}, #{item.memo}, #{item.status}, #{item.tenantSid}, #{item.corpSid},
+      #{item.unlimitedDateRangeFlag}, #{item.effectiveStartDate}, #{item.effectiveEndDate}, #{item.unlimitedTimeRangeFlag}, #{item.effectiveStartTime}, #{item.effectiveEndTime},
+      #{item.createdBy}, #{item.createdTime}, #{item.updatedTime}, #{item.versionNum})
+    </foreach>
+  </insert>
+
+  <update id="updateByExample" parameterType="com.ioiox.dei.duc.beans.entity.UserAcctTmpRole" statementType="PREPARED">
+    update user_acct_tmp_role
+    <set>
+      version_num = version_num + 1,
+      <if test="code != null">
+        code = #{code},
+      </if>
+      <if test="name != null">
+        name = #{name},
+      </if>
+      <if test="type != null">
+        type = #{type},
+      </if>
+      <if test="memo != null">
+        memo = #{memo},
+      </if>
+      <if test="status != null">
+        status = #{status},
+      </if>
+      <if test="tenantSid != null">
+        tenant_sid = #{tenantSid},
+      </if>
+      <if test="corpSid != null">
+        corp_sid = #{corpSid},
+      </if>
+      <if test="unlimitedDateRangeFlag != null">
+        unlimited_date_range = #{unlimitedDateRangeFlag},
+      </if>
+      <if test="effectiveStartDate != null">
+        effective_start_date = #{effectiveStartDate},
+      </if>
+      <if test="effectiveEndDate != null">
+        effective_end_date = #{effectiveEndDate},
+      </if>
+      <if test="unlimitedTimeRangeFlag != null">
+        unlimited_time_range = #{unlimitedTimeRangeFlag},
+      </if>
+      <if test="effectiveStartTime != null">
+        effective_start_time = #{effectiveStartTime},
+      </if>
+      <if test="effectiveEndTime != null">
+        effective_end_time = #{effectiveEndTime},
+      </if>
+      <if test="updatedBy != null">
+        updated_by = #{updatedBy},
+      </if>
+      <if test="updatedTime != null">
+        updated_time = #{updatedTime},
+      </if>
+    </set>
+    where sid = #{sid} and version_num = #{versionNum}
+  </update>
+
+  <update id="updateByParams" parameterType="map" statementType="PREPARED">
+    update user_acct_tmp_role
+    <set>
+      version_num = version_num + 1,
+      <if test="type != null">
+        type = #{type},
+      </if>
+      <if test="memo != null">
+        memo = #{memo},
+      </if>
+      <if test="status != null">
+        status = #{status},
+      </if>
+      <if test="updatedBy != null">
+        updated_by = #{updatedBy},
+      </if>
+      <if test="updatedTime != null">
+        updated_time = #{updatedTime},
+      </if>
+    </set>
+    <where>
+      <if test="sidCondition != null">
+        and sid = #{sidCondition}
+      </if>
+      <if test="sidsCondition != null and sidsCondition.size > 0">
+        and sid in
+        <foreach collection="sidsCondition" item="sid" separator="," open="(" close=")">#{sid}</foreach>
+      </if>
+      <if test="corpSidCondition != null">
+        and corp_sid = #{corpSidCondition}
+      </if>
+      <if test="corpSidsCondition != null and corpSidsCondition.size > 0">
+        and corp_sid in
+        <foreach collection="corpSidsCondition" item="corpSid" separator="," open="(" close=")">#{corpSid}</foreach>
+      </if>
+    </where>
+  </update>
+
+  <delete id="deleteByParams" parameterType="map" statementType="PREPARED">
+    delete from user_acct_tmp_role
+    <where>
+      <if test="sid != null">
+        and sid = #{sid}
+      </if>
+      <if test="sids != null and sids.size > 0">
+        and sid in
+        <foreach collection="sids" item="sid" separator="," open="(" close=")">#{sid}</foreach>
+      </if>
+      <if test="corpSid != null">
+        and corp_sid = #{corpSid}
+      </if>
+      <if test="corpSids != null and corpSids.size > 0">
+        and corp_sid in
+        <foreach collection="corpSids" item="corpSid" separator="," open="(" close=")">#{corpSid}</foreach>
+      </if>
+      <if test="status != null">
+        and status = #{status}
+      </if>
+      <if test="statuses != null and statuses.size > 0">
+        and status in
+        <foreach collection="statuses" item="status" separator="," open="(" close=")">#{status}</foreach>
+      </if>
+    </where>
+  </delete>
+</mapper>
