@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ioiox.dei.duc.db.mapper.master.employee.EmployeeR2TmpRoleMasterMapper">
+
+  <insert id="insert" keyProperty="sid" keyColumn="sid" useGeneratedKeys="true" parameterType="com.ioiox.dei.duc.beans.entity.EmployeeR2Role"
+          statementType="PREPARED">
+    insert into employee_r2_tmp_role
+    (employee_sid, tmp_role_sid,
+    created_by, created_time, updated_time, version_num)
+    values
+    (#{userSid}, #{roleSid},
+    #{createdBy}, #{createdTime}, #{updatedTime}, #{versionNum})
+  </insert>
+
+  <insert id="batchInsert" keyProperty="sid" keyColumn="sid" useGeneratedKeys="true" parameterType="list" statementType="PREPARED">
+    insert into employee_r2_tmp_role
+    (employee_sid, tmp_role_sid,
+    created_by, created_time, updated_time, version_num)
+    values
+    <foreach collection="list" index="index" item="item" separator=",">
+      (#{item.userSid}, #{item.roleSid},
+      #{item.createdBy}, #{item.createdTime}, #{item.updatedTime}, #{item.versionNum})
+    </foreach>
+  </insert>
+
+  <update id="updateByExample" parameterType="com.ioiox.dei.duc.beans.entity.EmployeeR2Role" statementType="PREPARED">
+    update employee_r2_tmp_role
+    <set>
+      version_num = version_num + 1,
+      <if test="userSid != null">
+        employee_sid = #{userSid},
+      </if>
+      <if test="roleSid != null">
+        tmp_role_sid = #{roleSid},
+      </if>
+      <if test="updatedBy != null">
+        updated_by = #{updatedBy},
+      </if>
+      <if test="updatedTime != null">
+        updated_time = #{updatedTime},
+      </if>
+    </set>
+    where sid = #{sid} and version_num = #{versionNum}
+  </update>
+
+  <update id="updateByParams" parameterType="map" statementType="PREPARED">
+    update employee_r2_tmp_role
+    <set>
+      version_num = version_num + 1,
+      <if test="userSid != null">
+        employee_sid = #{userSid},
+      </if>
+      <if test="roleSid != null">
+        tmp_role_sid = #{roleSid},
+      </if>
+      <if test="updatedBy != null">
+        updated_by = #{updatedBy},
+      </if>
+      <if test="updatedTime != null">
+        updated_time = #{updatedTime},
+      </if>
+    </set>
+    <where>
+      <if test="userSidCondition != null">
+        and employee_sid = #{userSidCondition}
+      </if>
+      <if test="userSidsCondition != null and userSidsCondition.size > 0">
+        and employee_sid in
+        <foreach collection="userSidsCondition" item="userSid" separator="," open="(" close=")">#{userSid}</foreach>
+      </if>
+      <if test="roleSidCondition != null">
+        and tmp_role_sid = #{roleSidCondition}
+      </if>
+      <if test="roleSidsCondition != null and roleSidsCondition.size > 0">
+        and tmp_role_sid in
+        <foreach collection="roleSidsCondition" item="roleSid" separator="," open="(" close=")">#{roleSid}</foreach>
+      </if>
+    </where>
+  </update>
+
+  <delete id="deleteByParams" parameterType="map" statementType="PREPARED">
+    delete from employee_r2_tmp_role
+    <where>
+      <if test="userSid != null">
+        and employee_sid = #{userSid}
+      </if>
+      <if test="userSids != null and userSids.size > 0">
+        and employee_sid in
+        <foreach collection="userSids" item="userSid" separator="," open="(" close=")">#{userSid}</foreach>
+      </if>
+      <if test="roleSid != null">
+        and tmp_role_sid = #{roleSid}
+      </if>
+      <if test="roleSids != null and roleSids.size > 0">
+        and tmp_role_sid in
+        <foreach collection="roleSids" item="roleSid" separator="," open="(" close=")">#{roleSid}</foreach>
+      </if>
+    </where>
+  </delete>
+</mapper>

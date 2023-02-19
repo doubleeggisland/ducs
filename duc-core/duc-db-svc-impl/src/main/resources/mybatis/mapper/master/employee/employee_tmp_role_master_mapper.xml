@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ioiox.dei.duc.db.mapper.master.tenant.TenantUserTmpRoleMasterMapper">
+<mapper namespace="com.ioiox.dei.duc.db.mapper.master.employee.EmployeeTmpRoleMasterMapper">
 
-  <insert id="insert" keyProperty="sid" keyColumn="sid" useGeneratedKeys="true" parameterType="com.ioiox.dei.duc.beans.entity.TenantUserTmpRole"
+  <insert id="insert" keyProperty="sid" keyColumn="sid" useGeneratedKeys="true" parameterType="com.ioiox.dei.duc.beans.entity.EmployeeTmpRole"
           statementType="PREPARED">
-    insert into tenant_user_tmp_role
-    (code, name, type, memo, status, tenant_sid,
+    insert into employee_tmp_role
+    (code, name, type, memo, status,
     unlimited_date_range, effective_start_date, effective_end_date, unlimited_time_range, effective_start_time, effective_end_time,
     created_by, created_time, updated_time, version_num)
     values
-    (#{code}, #{name}, #{type}, #{memo}, #{status}, #{tenantSid},
+    (#{code}, #{name}, #{type}, #{memo}, #{status},
     #{unlimitedDateRangeFlag}, #{effectiveStartDate}, #{effectiveEndDate}, #{unlimitedTimeRangeFlag}, #{effectiveStartTime}, #{effectiveEndTime},
     #{createdBy}, #{createdTime}, #{updatedTime}, #{versionNum})
   </insert>
 
   <insert id="batchInsert" keyProperty="sid" keyColumn="sid" useGeneratedKeys="true" parameterType="list" statementType="PREPARED">
-    insert into tenant_user_tmp_role
-    (code, name, type, memo, status, tenant_sid,
+    insert into employee_tmp_role
+    (code, name, type, memo, status,
     unlimited_date_range, effective_start_date, effective_end_date, unlimited_time_range, effective_start_time, effective_end_time,
     created_by, created_time, updated_time, version_num)
     values
     <foreach collection="list" index="index" item="item" separator=",">
-      (#{item.code}, #{item.name}, #{item.type}, #{item.memo}, #{item.status}, #{item.tenantSid},
+      (#{item.code}, #{item.name}, #{item.type}, #{item.memo}, #{item.status},
       #{item.unlimitedDateRangeFlag}, #{item.effectiveStartDate}, #{item.effectiveEndDate}, #{item.unlimitedTimeRangeFlag}, #{item.effectiveStartTime}, #{item.effectiveEndTime},
       #{item.createdBy}, #{item.createdTime}, #{item.updatedTime}, #{item.versionNum})
     </foreach>
   </insert>
 
-  <update id="updateByExample" parameterType="com.ioiox.dei.duc.beans.entity.TenantUserTmpRole" statementType="PREPARED">
-    update tenant_user_tmp_role
+  <update id="updateByExample" parameterType="com.ioiox.dei.duc.beans.entity.EmployeeTmpRole" statementType="PREPARED">
+    update employee_tmp_role
     <set>
       version_num = version_num + 1,
       <if test="code != null">
@@ -45,9 +45,6 @@
       </if>
       <if test="status != null">
         status = #{status},
-      </if>
-      <if test="tenantSid != null">
-        tenant_sid = #{tenantSid},
       </if>
       <if test="unlimitedDateRangeFlag != null">
         unlimited_date_range = #{unlimitedDateRangeFlag},
@@ -78,7 +75,7 @@
   </update>
 
   <update id="updateByParams" parameterType="map" statementType="PREPARED">
-    update tenant_user_tmp_role
+    update employee_tmp_role
     <set>
       version_num = version_num + 1,
       <if test="type != null">
@@ -109,7 +106,7 @@
   </update>
 
   <delete id="deleteByParams" parameterType="map" statementType="PREPARED">
-    delete from tenant_user_tmp_role
+    delete from employee_tmp_role
     <where>
       <if test="sid != null">
         and sid = #{sid}

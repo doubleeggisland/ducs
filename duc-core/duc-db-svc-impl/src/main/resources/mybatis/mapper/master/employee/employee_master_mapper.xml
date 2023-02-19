@@ -1,71 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ioiox.dei.duc.db.mapper.master.tenant.TenantUserTmpRoleMasterMapper">
+<mapper namespace="com.ioiox.dei.duc.db.mapper.master.employee.EmployeeMasterMapper">
 
-  <insert id="insert" keyProperty="sid" keyColumn="sid" useGeneratedKeys="true" parameterType="com.ioiox.dei.duc.beans.entity.TenantUserTmpRole"
+  <insert id="insert" keyProperty="sid" keyColumn="sid" useGeneratedKeys="true" parameterType="com.ioiox.dei.duc.beans.entity.Employee"
           statementType="PREPARED">
-    insert into tenant_user_tmp_role
-    (code, name, type, memo, status, tenant_sid,
-    unlimited_date_range, effective_start_date, effective_end_date, unlimited_time_range, effective_start_time, effective_end_time,
+    insert into employee
+    (user_name, nick_name, mobile, email, status, pwd, avatar_url,
+    real_name, date_of_birth, gender,
     created_by, created_time, updated_time, version_num)
     values
-    (#{code}, #{name}, #{type}, #{memo}, #{status}, #{tenantSid},
-    #{unlimitedDateRangeFlag}, #{effectiveStartDate}, #{effectiveEndDate}, #{unlimitedTimeRangeFlag}, #{effectiveStartTime}, #{effectiveEndTime},
+    (#{username}, #{nickName}, #{mobile}, #{email}, #{status}, #{pwd}, #{avatarUrl}, #{tenantSid},
+    #{realName}, #{dateOfBirth}, #{gender},
     #{createdBy}, #{createdTime}, #{updatedTime}, #{versionNum})
   </insert>
 
   <insert id="batchInsert" keyProperty="sid" keyColumn="sid" useGeneratedKeys="true" parameterType="list" statementType="PREPARED">
-    insert into tenant_user_tmp_role
-    (code, name, type, memo, status, tenant_sid,
-    unlimited_date_range, effective_start_date, effective_end_date, unlimited_time_range, effective_start_time, effective_end_time,
+    insert into employee
+    (user_name, nick_name, mobile, email, status, pwd, avatar_url, tenant_sid,
+    real_name, date_of_birth, gender,
     created_by, created_time, updated_time, version_num)
     values
     <foreach collection="list" index="index" item="item" separator=",">
-      (#{item.code}, #{item.name}, #{item.type}, #{item.memo}, #{item.status}, #{item.tenantSid},
-      #{item.unlimitedDateRangeFlag}, #{item.effectiveStartDate}, #{item.effectiveEndDate}, #{item.unlimitedTimeRangeFlag}, #{item.effectiveStartTime}, #{item.effectiveEndTime},
+      (#{item.username}, #{item.nickName}, #{item.mobile}, #{item.email}, #{item.status}, #{item.pwd}, #{item.avatarUrl}, #{item.tenantSid},
+      #{item.realName}, #{item.dateOfBirth}, #{item.gender},
       #{item.createdBy}, #{item.createdTime}, #{item.updatedTime}, #{item.versionNum})
     </foreach>
   </insert>
 
-  <update id="updateByExample" parameterType="com.ioiox.dei.duc.beans.entity.TenantUserTmpRole" statementType="PREPARED">
-    update tenant_user_tmp_role
+  <update id="updateByExample" parameterType="com.ioiox.dei.duc.beans.entity.Employee" statementType="PREPARED">
+    update employee
     <set>
       version_num = version_num + 1,
-      <if test="code != null">
-        code = #{code},
+      <if test="username != null">
+        user_name = #{username},
       </if>
-      <if test="name != null">
-        name = #{name},
+      <if test="nickName != null">
+        nick_name = #{nickName},
       </if>
-      <if test="type != null">
-        type = #{type},
+      <if test="mobile != null">
+        mobile = #{mobile},
       </if>
-      <if test="memo != null">
-        memo = #{memo},
+      <if test="email != null">
+        email = #{email},
       </if>
       <if test="status != null">
         status = #{status},
       </if>
-      <if test="tenantSid != null">
-        tenant_sid = #{tenantSid},
+      <if test="pwd != null">
+        pwd = #{pwd},
       </if>
-      <if test="unlimitedDateRangeFlag != null">
-        unlimited_date_range = #{unlimitedDateRangeFlag},
+      <if test="avatarUrl != null">
+        avatar_url = #{avatarUrl},
       </if>
-      <if test="effectiveStartDate != null">
-        effective_start_date = #{effectiveStartDate},
+      <if test="realName != null">
+        real_name = #{realName},
       </if>
-      <if test="effectiveEndDate != null">
-        effective_end_date = #{effectiveEndDate},
+      <if test="dateOfBirth != null">
+        date_of_birth = #{dateOfBirth},
       </if>
-      <if test="unlimitedTimeRangeFlag != null">
-        unlimited_time_range = #{unlimitedTimeRangeFlag},
-      </if>
-      <if test="effectiveStartTime != null">
-        effective_start_time = #{effectiveStartTime},
-      </if>
-      <if test="effectiveEndTime != null">
-        effective_end_time = #{effectiveEndTime},
+      <if test="gender != null">
+        gender = #{gender},
       </if>
       <if test="updatedBy != null">
         updated_by = #{updatedBy},
@@ -78,14 +72,11 @@
   </update>
 
   <update id="updateByParams" parameterType="map" statementType="PREPARED">
-    update tenant_user_tmp_role
+    update employee
     <set>
       version_num = version_num + 1,
-      <if test="type != null">
-        type = #{type},
-      </if>
-      <if test="memo != null">
-        memo = #{memo},
+      <if test="gender != null">
+        gender = #{gender},
       </if>
       <if test="status != null">
         status = #{status},
@@ -109,7 +100,7 @@
   </update>
 
   <delete id="deleteByParams" parameterType="map" statementType="PREPARED">
-    delete from tenant_user_tmp_role
+    delete from employee
     <where>
       <if test="sid != null">
         and sid = #{sid}
