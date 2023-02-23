@@ -13,6 +13,7 @@
 
 	<modules>
 		<module>duc-core</module>
+		<module>ducs-web</module>
 	</modules>
 
 	<dependencyManagement>
