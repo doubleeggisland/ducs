@@ -1,6 +1,6 @@
-package com.ioiox.dei.duc.beans.vo.std.master;
+package com.ioiox.dei.duc.beans.vo.std.slave;
 
-import com.ioiox.dei.core.vo.MasterStdDataVO;
+import com.ioiox.dei.core.vo.SlaveStdDataVO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,7 +10,8 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public abstract class UserGrpMasterStdVO extends MasterStdDataVO {
+public abstract class UserGrpSlaveStdVO<R extends RoleSlaveStdVO, RR extends SysResRoleSlaveStdVO>
+        extends SlaveStdDataVO {
     /**
      * 用户组编号
      */
@@ -30,9 +31,9 @@ public abstract class UserGrpMasterStdVO extends MasterStdDataVO {
     /**
      * 给用户组分配的角色
      */
-    private List<Long> roleIds;
+    private List<R> roles;
     /**
      * 给用户组分配的资源角色
      */
-    private List<Long> sysResRoleIds;
+    private List<RR> sysResRoles;
 }

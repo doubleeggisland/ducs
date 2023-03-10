@@ -1,6 +1,7 @@
-package com.ioiox.dei.duc.beans.vo.std.master;
+package com.ioiox.dei.duc.beans.vo.std.slave;
 
-import com.ioiox.dei.core.vo.MasterStdDataVO;
+import com.ioiox.dei.core.vo.SlaveStdDataVO;
+import com.ioiox.dei.duc.beans.vo.std.slave.user.UserAcctSlaveStdVO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,7 +11,13 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public abstract class AcctMasterStdVO extends MasterStdDataVO {
+public abstract class AcctSlaveStdVO<
+        R extends RoleSlaveStdVO,
+        RR extends SysResRoleSlaveStdVO,
+        TR extends TmpRoleSlaveStdVO,
+        TRR extends TmpSysResRoleSlaveStdVO,
+        UG extends UserGrpSlaveStdVO<R, RR>>
+        extends SlaveStdDataVO {
     /**
      * 用户名
      */
@@ -39,30 +46,29 @@ public abstract class AcctMasterStdVO extends MasterStdDataVO {
      * 个人头像URL
      */
     private String avatarUrl;
+
     /**
      * 分配的用户组
      */
-    private Long userGrpId;
+    private UG userGrp;
     /**
      * 分配的项目权限
      */
-    private List<UserSysPrjPrivilegeMasterStdVO> sysPrjPrivileges;
+    private List<UserSysPrjPrivilegeSlaveStdVO> sysPrjPrivileges;
     /**
      * 分配的角色
      */
-    private List<Long> roleIds;
+    private List<R> role;
     /**
      * 分配的系统资源角色
      */
-    private List<Long> sysResRoleIds;
+    private List<RR> sysResRoles;
     /**
      * 分配的临时角色
      */
-    private List<Long> tmpRoleIds;
+    private List<TR> tmpRoles;
     /**
      * 分配的临时系统资源角色
      */
-    private List<Long> tmpSysResRoleIds;
-
-
+    private List<TRR> tmpSysResRoles;
 }

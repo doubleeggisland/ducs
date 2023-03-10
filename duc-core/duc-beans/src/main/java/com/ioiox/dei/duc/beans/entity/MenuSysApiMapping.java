@@ -35,7 +35,7 @@ public class MenuSysApiMapping extends BaseDeiEntity {
 
     @Getter
     @AllArgsConstructor
-    public enum RoleType implements BaseDeiEnum {
+    public enum InteractForm implements BaseDeiEnum {
         BUTTON("btn", "按钮", "按钮"),
         LINK("link", "链接", "链接"),
         OTHER("other", "其他", "其他"),

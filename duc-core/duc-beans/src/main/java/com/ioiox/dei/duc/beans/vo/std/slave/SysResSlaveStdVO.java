@@ -1,6 +1,7 @@
-package com.ioiox.dei.duc.beans.vo.std.master;
+package com.ioiox.dei.duc.beans.vo.std.slave;
 
-import com.ioiox.dei.core.vo.MasterStdDataVO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ioiox.dei.core.vo.SlaveStdDataVO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -8,7 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class SysResMasterStdVO extends MasterStdDataVO {
+public class SysResSlaveStdVO extends SlaveStdDataVO {
     /**
      * 资源编号
      */
@@ -43,4 +44,9 @@ public class SysResMasterStdVO extends MasterStdDataVO {
      * 所属项目ID
      */
     private Long sysPrjId;
+    /**
+     * 所属项目
+     */
+    @JsonIgnore
+    private SysPrjSlaveStdVO sysPrj;
 }
