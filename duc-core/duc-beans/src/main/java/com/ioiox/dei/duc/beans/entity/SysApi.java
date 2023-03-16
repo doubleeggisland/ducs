@@ -16,6 +16,7 @@ import java.util.Objects;
 public class SysApi extends BaseDeiEntity {
     private String code;
     private String name;
+    private String type;
     private String memo;
     private String url;
     private String httpMethod;
@@ -52,16 +53,29 @@ public class SysApi extends BaseDeiEntity {
 
     @Getter
     @AllArgsConstructor
+    public enum Type implements BaseDeiEnum {
+        AUTH_NEEDED("auth-needed", "需授权的接口"),
+        AUTH_IGNORED("auth-ignored", "忽略授权的接口 (需要access token才能访问, 不需要授权的接口)"),
+        PUBLIC("public", "公共接口 (不需要access token就可以访问的接口)"),
+        ;
+
+        private final String code;
+        private final String desc;
+    }
+
+    @Getter
+    @AllArgsConstructor
     public enum ShowColumn implements BaseDeiEnum {
-        CODE("code", "系统API编号"),
-        NAME("name", "系统API名称"),
-        MEMO("memo", "系统API备注"),
-        URL("url", "系统API访问地址"),
-        HTTP_METHOD("httpMethod", "系统API的HTTP Method"),
-        SYS_PRJ_MODULE_NAME("sysPrjModuleName", "系统API所属模块名称"),
-        SYS_PRJ_MODULE_CODE("sysPrjModuleCode", "系统API所属模块编号"),
-        SYS_PRJ_SID("sysPrjSid", "系统API所属项目主键ID"),
-        STATUS("status", "系统API状态"),
+        CODE("code", "系统接口编号"),
+        NAME("name", "系统接口名称"),
+        TYPE("type", "系统接口类型"),
+        MEMO("memo", "系统接口备注"),
+        URL("url", "系统接口访问地址"),
+        HTTP_METHOD("httpMethod", "系统接口的HTTP Method"),
+        SYS_PRJ_MODULE_NAME("sysPrjModuleName", "系统接口所属模块名称"),
+        SYS_PRJ_MODULE_CODE("sysPrjModuleCode", "系统接口所属模块编号"),
+        SYS_PRJ_SID("sysPrjSid", "系统接口所属项目主键ID"),
+        STATUS("status", "系统接口状态"),
         ;
 
         private final String code;

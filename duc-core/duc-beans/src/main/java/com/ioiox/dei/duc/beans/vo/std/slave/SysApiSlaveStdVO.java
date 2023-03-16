@@ -19,6 +19,11 @@ public class SysApiSlaveStdVO extends SlaveStdDataVO {
      */
     private String name;
     /**
+     * 系统接口类型
+     * @see com.ioiox.dei.duc.beans.entity.SysApi.Type
+     */
+    private String type;
+    /**
      * 备注
      */
     private String memo;

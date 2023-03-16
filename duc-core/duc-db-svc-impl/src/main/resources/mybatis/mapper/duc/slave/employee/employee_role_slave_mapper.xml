@@ -9,6 +9,7 @@
     <result property="type" column="type"/>
     <result property="memo" column="memo"/>
     <result property="status" column="status"/>
+    <result property="sysPrjSid" column="sys_prj_sid"/>
 
     <result property="createdBy" column="created_by"/>
     <result property="createdTime" column="created_time"/>
@@ -18,7 +19,7 @@
   </resultMap>
 
   <sql id="Base_Column_List">
-    a.sid, a.code, a.name, a.type, a.memo, a.status,
+    a.sid, a.code, a.name, a.type, a.memo, a.status, a.sys_prj_sid,
     a.created_by, a.created_time, a.updated_by, a.updated_time, a.version_num
   </sql>
 
@@ -83,6 +84,9 @@
       </if>
       <if test="statusShow != null">
         a.status,
+      </if>
+      <if test="sysPrjSidShow != null">
+        a.sys_prj_sid,
       </if>
       <if test="createdByShow != null">
         a.created_by,

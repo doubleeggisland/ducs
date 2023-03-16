@@ -11,10 +11,6 @@ import java.util.List;
 @NoArgsConstructor
 public abstract class SysResRoleMasterStdVO extends BaseRoleMasterStdVO {
     /**
-     * 所属项目ID
-     */
-    private Long sysPrjId;
-    /**
      * 分配的系统资源权限
      */
     private List<Long> sysResIds;

@@ -33,6 +33,10 @@ public abstract class Role extends BaseDeiEntity {
      * 备注
      */
     private String memo;
+    /**
+     * 所属系统ID
+     */
+    private Long sysPrjSid;
 
     @Getter
     @AllArgsConstructor
@@ -42,6 +46,7 @@ public abstract class Role extends BaseDeiEntity {
         TYPE("type", "角色类型"),
         STATUS("status", "状态"),
         MEMO("memo", "备注"),
+        SYS_PRJ_SID("sysPrjSid", "所属系统ID"),
         ;
         private final String code;
         private final String desc;

@@ -4,20 +4,20 @@
 
   <insert id="insert" keyProperty="sid" keyColumn="sid" useGeneratedKeys="true" parameterType="com.ioiox.dei.duc.beans.entity.SysApi" statementType="PREPARED">
     insert into sys_api
-    (code, name, memo, url, http_method, sys_prj_module_name, sys_prj_module_code, sys_prj_sid, status,
+    (code, name, type, memo, url, http_method, sys_prj_module_name, sys_prj_module_code, sys_prj_sid, status,
     created_by, created_time, updated_time, version_num)
     values
-    (#{code}, #{name}, #{memo}, #{url}, #{httpMethod}, #{sysPrjModuleName}, #{sysPrjModuleCode}, #{sysPrjSid}, #{status},
+    (#{code}, #{name}, #{type}, #{memo}, #{url}, #{httpMethod}, #{sysPrjModuleName}, #{sysPrjModuleCode}, #{sysPrjSid}, #{status},
     #{createdBy}, #{createdTime}, #{updatedTime}, #{versionNum})
   </insert>
 
   <insert id="batchInsert" keyProperty="sid" keyColumn="sid" useGeneratedKeys="true" parameterType="list" statementType="PREPARED">
     insert into sys_api
-    (code, name, memo, url, http_method, sys_prj_module_name, sys_prj_module_code, sys_prj_sid, status,
+    (code, name, type, memo, url, http_method, sys_prj_module_name, sys_prj_module_code, sys_prj_sid, status,
     created_by, created_time, updated_time, version_num)
     values
     <foreach collection="list" index="index" item="item" separator=",">
-      (#{item.code}, #{item.name}, #{item.memo}, #{item.url}, #{item.httpMethod}, #{item.sysPrjModuleName}, #{item.sysPrjModuleCode}, #{item.sysPrjSid}, #{item.status},
+      (#{item.code}, #{item.name}, #{item.type}, #{item.memo}, #{item.url}, #{item.httpMethod}, #{item.sysPrjModuleName}, #{item.sysPrjModuleCode}, #{item.sysPrjSid}, #{item.status},
       #{item.createdBy}, #{item.createdTime}, #{item.updatedTime}, #{item.versionNum})
     </foreach>
   </insert>
@@ -31,6 +31,9 @@
       </if>
       <if test="name != null">
         name = #{name},
+      </if>
+      <if test="type != null">
+        type = #{type},
       </if>
       <if test="memo != null">
         memo = #{memo},

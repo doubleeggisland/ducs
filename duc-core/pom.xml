@@ -15,5 +15,7 @@
     <module>duc-beans</module>
     <module>duc-db-svc-api</module>
     <module>duc-db-svc-impl</module>
+    <module>duc-std-data-svc-api</module>
+    <module>duc-std-data-svc-impl</module>
   </modules>
 </project>

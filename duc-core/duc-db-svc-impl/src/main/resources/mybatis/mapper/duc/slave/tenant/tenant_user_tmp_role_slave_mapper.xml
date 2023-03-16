@@ -9,8 +9,8 @@
     <result property="type" column="type"/>
     <result property="memo" column="memo"/>
     <result property="status" column="status"/>
-
     <result property="tenantSid" column="tenant_sid"/>
+    <result property="sysPrjSid" column="sys_prj_sid"/>
 
     <result property="unlimitedDateRangeFlag" column="unlimited_date_range"/>
     <result property="effectiveStartDate" column="effective_start_date"/>
@@ -27,7 +27,7 @@
   </resultMap>
 
   <sql id="Base_Column_List">
-    a.sid, a.code, a.name, a.type, a.memo, a.status, a.tenant_sid,
+    a.sid, a.code, a.name, a.type, a.memo, a.status, a.tenant_sid, a.sys_prj_sid,
     a.unlimited_date_range, a.effective_start_date, a.effective_end_date, a.unlimited_time_range, a.effective_start_time, a.effective_end_time,
     a.created_by, a.created_time, a.updated_by, a.updated_time, a.version_num
   </sql>
@@ -103,6 +103,9 @@
       </if>
       <if test="tenantSidShow != null">
         a.tenant_sid,
+      </if>
+      <if test="sysPrjSidShow != null">
+        a.sys_prj_sid,
       </if>
       <if test="unlimitedDateRangeFlagShow != null">
         a.unlimited_date_range,

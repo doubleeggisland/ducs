@@ -5,20 +5,20 @@
   <insert id="insert" keyProperty="sid" keyColumn="sid" useGeneratedKeys="true" parameterType="com.ioiox.dei.duc.beans.entity.EmployeeRole"
           statementType="PREPARED">
     insert into employee_role
-    (code, name, type, memo, status,
+    (code, name, type, memo, status, sys_prj_sid,
     created_by, created_time, updated_time, version_num)
     values
-    (#{code}, #{name}, #{type}, #{memo}, #{status},
+    (#{code}, #{name}, #{type}, #{memo}, #{status}, #{sysPrjSid},
     #{createdBy}, #{createdTime}, #{updatedTime}, #{versionNum})
   </insert>
 
   <insert id="batchInsert" keyProperty="sid" keyColumn="sid" useGeneratedKeys="true" parameterType="list" statementType="PREPARED">
     insert into employee_role
-    (code, name, type, memo, status,
+    (code, name, type, memo, status, sys_prj_sid,
     created_by, created_time, updated_time, version_num)
     values
     <foreach collection="list" index="index" item="item" separator=",">
-      (#{item.code}, #{item.name}, #{item.type}, #{item.memo}, #{item.status},
+      (#{item.code}, #{item.name}, #{item.type}, #{item.memo}, #{item.status},  #{item.sysPrjSid},
       #{item.createdBy}, #{item.createdTime}, #{item.updatedTime}, #{item.versionNum})
     </foreach>
   </insert>
@@ -42,6 +42,9 @@
       <if test="status != null">
         status = #{status},
       </if>
+      <if test="sysPrjSid != null">
+        sys_prj_sid = #{sysPrjSid},
+      </if>
       <if test="updatedBy != null">
         updated_by = #{updatedBy},
       </if>
@@ -64,6 +67,9 @@
       </if>
       <if test="status != null">
         status = #{status},
+      </if>
+      <if test="sysPrjSid != null">
+        sys_prj_sid = #{sysPrjSid},
       </if>
       <if test="updatedBy != null">
         updated_by = #{updatedBy},

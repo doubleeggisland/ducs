@@ -13,10 +13,6 @@ import java.util.List;
 public abstract class TmpSysResRoleSlaveStdVO
         extends BaseTmpRoleSlaveStdVO {
     /**
-     * 所属项目ID
-     */
-    private Long sysPrjId;
-    /**
      * 所属项目
      */
     @JsonIgnore

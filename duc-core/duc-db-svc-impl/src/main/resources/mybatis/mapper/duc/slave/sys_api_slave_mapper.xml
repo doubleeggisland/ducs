@@ -6,6 +6,7 @@
 
     <result property="code" column="code"/>
     <result property="name" column="name"/>
+    <result property="type" column="type"/>
     <result property="memo" column="memo"/>
     <result property="url" column="url"/>
     <result property="httpMethod" column="http_method"/>
@@ -22,7 +23,7 @@
   </resultMap>
 
   <sql id="Base_Column_List">
-    a.sid, a.code, a.name, a.memo, a.url, a.http_method, a.sys_prj_module_name, a.sys_prj_module_code, a.sys_prj_sid, a.status,
+    a.sid, a.code, a.name, a.type, a.memo, a.url, a.http_method, a.sys_prj_module_name, a.sys_prj_module_code, a.sys_prj_sid, a.status,
     a.created_by, a.created_time, a.updated_by, a.updated_time, a.version_num
   </sql>
 
@@ -47,6 +48,13 @@
     <if test="sysPrjSids != null and sysPrjSids.size > 0">
       and a.sys_prj_sid in
       <foreach collection="sysPrjSids" item="sysPrjSid" separator="," open="(" close=")">#{sysPrjSid}</foreach>
+    </if>
+    <if test="type != null">
+      and a.type = #{type}
+    </if>
+    <if test="types != null and types.size > 0">
+      and a.status in
+      <foreach collection="types" item="type" separator="," open="(" close=")">#{type}</foreach>
     </if>
     <if test="status != null">
       and a.status = #{status}
@@ -85,6 +93,9 @@
       </if>
       <if test="nameShow != null">
         a.name,
+      </if>
+      <if test="typeShow != null">
+        a.type,
       </if>
       <if test="memoShow != null">
         a.memo,

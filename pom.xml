@@ -49,6 +49,18 @@
 				<artifactId>duc-db-svc-impl</artifactId>
 				<version>1.0.0-SNAPSHOT</version>
 			</dependency>
+
+			<dependency>
+				<groupId>com.ioiox.dei</groupId>
+				<artifactId>duc-std-data-svc-api</artifactId>
+				<version>1.0.0-SNAPSHOT</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.ioiox.dei</groupId>
+				<artifactId>duc-std-data-svc-impl</artifactId>
+				<version>1.0.0-SNAPSHOT</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 

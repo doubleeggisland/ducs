@@ -12,10 +12,6 @@ import java.util.List;
 @NoArgsConstructor
 public abstract class SysResRoleSlaveStdVO extends BaseRoleSlaveStdVO {
     /**
-     * 所属项目ID
-     */
-    private Long sysPrjId;
-    /**
      * 所属项目
      */
     @JsonIgnore

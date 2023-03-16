@@ -9,7 +9,17 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class MenuSysApiMappingMasterStdVO extends MasterStdDataVO {
+    /**
+     * 菜单ID
+     */
     private Long menuId;
+    /**
+     * 系统接口ID
+     */
     private Long sysApiId;
+    /**
+     * 交互形式
+     * @see com.ioiox.dei.duc.beans.entity.MenuSysApiMapping.InteractForm
+     */
     private String interactForm;
 }

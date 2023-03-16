@@ -31,4 +31,8 @@ public abstract class BaseRoleMasterStdVO extends MasterStdDataVO {
      * 备注
      */
     private String memo;
+    /**
+     * 所属项目ID
+     */
+    private Long sysPrjId;
 }
