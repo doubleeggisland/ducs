@@ -12,7 +12,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @NoArgsConstructor
-public class UserAcct extends Acct {
+public class UserAcct extends BaseUser {
     private Long tenantSid;
     private Long corpSid;
 

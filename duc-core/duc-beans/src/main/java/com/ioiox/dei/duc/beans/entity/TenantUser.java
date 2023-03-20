@@ -12,7 +12,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @NoArgsConstructor
-public class TenantUser extends Acct {
+public class TenantUser extends BaseUser {
     private Long tenantSid;
 
     @Override

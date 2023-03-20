@@ -68,6 +68,12 @@
     <if test="gender != null">
       and a.gender = #{gender}
     </if>
+    <if test="nickNameLike != null">
+      and a.nick_name like concat(concat('%',#{nickNameLike}),'%')
+    </if>
+    <if test="realNameLike != null">
+      and a.real_name like concat(concat('%',#{realNameLike}),'%')
+    </if>
   </sql>
 
   <select id="countByParams" resultType="int" parameterType="map" statementType="PREPARED">

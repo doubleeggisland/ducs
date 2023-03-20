@@ -29,6 +29,13 @@
       and a.sid in
       <foreach collection="sids" item="sid" separator="," open="(" close=")">#{sid}</foreach>
     </if>
+    <if test="code != null">
+      and a.code = #{code}
+    </if>
+    <if test="codes != null and codes.size > 0">
+      and a.code in
+      <foreach collection="codes" item="code" separator="," open="(" close=")">#{code}</foreach>
+    </if>
     <if test="status != null">
       and a.status = #{status}
     </if>

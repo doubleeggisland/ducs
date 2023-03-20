@@ -69,6 +69,9 @@
       and a.status in
       <foreach collection="statuses" item="status" separator="," open="(" close=")">#{status}</foreach>
     </if>
+    <if test="nickNameLike != null">
+      and a.nick_name like concat(concat('%',#{nickNameLike}),'%')
+    </if>
   </sql>
 
   <select id="countByParams" resultType="int" parameterType="map" statementType="PREPARED">

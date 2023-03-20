@@ -15,7 +15,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Employee extends Acct {
+public class Employee extends BaseUser {
     /**
      * 姓名
      */

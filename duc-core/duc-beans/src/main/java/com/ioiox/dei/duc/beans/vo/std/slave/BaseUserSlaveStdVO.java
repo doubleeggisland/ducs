@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public abstract class BaseAcctSlaveStdVO
+public abstract class BaseUserSlaveStdVO
         extends SlaveStdDataVO {
     /**
      * 用户名

@@ -46,6 +46,13 @@
       and a.code in
       <foreach collection="codes" item="code" separator="," open="(" close=")">#{code}</foreach>
     </if>
+    <if test="sysPrjSid != null">
+      and a.sys_prj_sid = #{sysPrjSid}
+    </if>
+    <if test="sysPrjSids != null and sysPrjSids.size > 0">
+      and a.sys_prj_sid in
+      <foreach collection="sysPrjSids" item="sysPrjSid" separator="," open="(" close=")">#{sysPrjSid}</foreach>
+    </if>
     <if test="status != null">
       and a.status = #{status}
     </if>

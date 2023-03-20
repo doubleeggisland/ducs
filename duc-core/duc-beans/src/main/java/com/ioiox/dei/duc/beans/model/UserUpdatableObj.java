@@ -2,7 +2,7 @@ package com.ioiox.dei.duc.beans.model;
 
 import com.ioiox.dei.core.vo.UpdatableAttr;
 import com.ioiox.dei.core.vo.UpdatableVO;
-import com.ioiox.dei.duc.beans.entity.Acct;
+import com.ioiox.dei.duc.beans.entity.BaseUser;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,7 +14,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @NoArgsConstructor
-public abstract class AcctUpdatableObj extends UpdatableVO {
+public abstract class UserUpdatableObj extends UpdatableVO {
 
     /**
      * 用户名
@@ -47,7 +47,7 @@ public abstract class AcctUpdatableObj extends UpdatableVO {
 
     @Override
     public Map<String, String> updateSummary() {
-        final Map<String, String> updateSummary = new HashMap<>(Acct.ShowColumn.values().length);
+        final Map<String, String> updateSummary = new HashMap<>(BaseUser.ShowColumn.values().length);
         if (Objects.nonNull(username)) {
             updateSummary.put(username.getAttrName(), String.valueOf(username));
         }

@@ -13,7 +13,7 @@ import org.apache.commons.lang3.StringUtils;
 @Getter
 @Setter
 @NoArgsConstructor
-public abstract class Acct extends BaseDeiEntity {
+public abstract class BaseUser extends BaseDeiEntity {
     /**
      * 用户名
      */

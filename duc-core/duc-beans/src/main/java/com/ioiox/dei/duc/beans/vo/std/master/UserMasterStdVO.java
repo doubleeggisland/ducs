@@ -10,7 +10,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public abstract class AcctMasterStdVO extends MasterStdDataVO {
+public abstract class UserMasterStdVO extends MasterStdDataVO {
     /**
      * 用户名
      */

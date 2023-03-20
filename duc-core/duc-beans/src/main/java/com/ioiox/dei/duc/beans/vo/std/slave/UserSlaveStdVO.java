@@ -9,13 +9,13 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public abstract class AcctSlaveStdVO<
+public abstract class UserSlaveStdVO<
         R extends RoleSlaveStdVO,
         RR extends SysResRoleSlaveStdVO,
         TR extends TmpRoleSlaveStdVO,
         TRR extends TmpSysResRoleSlaveStdVO,
         UG extends UserGrpSlaveStdVO<R, RR>>
-        extends BaseAcctSlaveStdVO {
+        extends BaseUserSlaveStdVO {
     /**
      * 分配的用户组
      */
