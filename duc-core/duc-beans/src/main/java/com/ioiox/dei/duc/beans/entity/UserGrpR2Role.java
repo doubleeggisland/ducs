@@ -1,7 +1,9 @@
 package com.ioiox.dei.duc.beans.entity;
 
-import com.ioiox.dei.core.beans.BaseDeiEntity;
 import com.ioiox.dei.core.beans.BaseDeiEnum;
+import com.ioiox.dei.core.beans.BaseDeiRelationshipEntity;
+
+import com.ioiox.dei.core.beans.RelationshipItem;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +14,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @NoArgsConstructor
-public class UserGrpR2Role extends BaseDeiEntity {
+public class UserGrpR2Role extends BaseDeiRelationshipEntity<Long, Long> {
     private Long userGrpSid;
     private Long roleSid;
 
@@ -28,6 +30,11 @@ public class UserGrpR2Role extends BaseDeiEntity {
     @Override
     public int hashCode() {
         return Objects.hash(userGrpSid, roleSid);
+    }
+
+    @Override
+    public RelationshipItem<Long, Long> toRelationshipItem() {
+        return new RelationshipItem<>(userGrpSid, roleSid);
     }
 
     @Getter

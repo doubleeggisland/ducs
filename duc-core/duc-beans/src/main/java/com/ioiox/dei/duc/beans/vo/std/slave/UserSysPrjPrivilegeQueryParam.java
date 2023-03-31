@@ -3,7 +3,6 @@ package com.ioiox.dei.duc.beans.vo.std.slave;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.ioiox.dei.core.utils.DeiCollectionUtil;
-import com.ioiox.dei.core.vo.StdDataQueryCfgBuilder;
 import com.ioiox.dei.core.vo.StdDataQueryParam;
 import com.ioiox.dei.core.vo.StdDataQueryParamBuilder;
 import lombok.Getter;

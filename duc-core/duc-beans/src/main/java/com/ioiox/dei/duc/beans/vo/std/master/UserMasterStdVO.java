@@ -42,7 +42,7 @@ public abstract class UserMasterStdVO extends MasterStdDataVO {
     /**
      * 分配的用户组
      */
-    private Long userGrpId;
+    private List<Long> userGrpIds;
     /**
      * 分配的项目权限
      */

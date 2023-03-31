@@ -1,7 +1,9 @@
 package com.ioiox.dei.duc.beans.entity;
 
-import com.ioiox.dei.core.beans.BaseDeiEntity;
 import com.ioiox.dei.core.beans.BaseDeiEnum;
+import com.ioiox.dei.core.beans.BaseDeiRelationshipEntity;
+
+import com.ioiox.dei.core.beans.RelationshipItem;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +14,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @NoArgsConstructor
-public class RoleR2SysApi extends BaseDeiEntity {
+public class RoleR2SysApi extends BaseDeiRelationshipEntity<Long, Long> {
     private Long roleSid;
     private Long sysApiSid;
 
@@ -27,6 +29,11 @@ public class RoleR2SysApi extends BaseDeiEntity {
     @Override
     public int hashCode() {
         return Objects.hash(roleSid, sysApiSid);
+    }
+
+    @Override
+    public RelationshipItem<Long, Long> toRelationshipItem() {
+        return new RelationshipItem<>(roleSid, sysApiSid);
     }
 
     @Getter

@@ -19,7 +19,7 @@ public abstract class UserSlaveStdVO<
     /**
      * 分配的用户组
      */
-    private UG userGrp;
+    private List<UG> userGrps;
     /**
      * 分配的项目权限
      */
@@ -27,7 +27,7 @@ public abstract class UserSlaveStdVO<
     /**
      * 分配的角色
      */
-    private List<R> role;
+    private List<R> roles;
     /**
      * 分配的系统资源角色
      */

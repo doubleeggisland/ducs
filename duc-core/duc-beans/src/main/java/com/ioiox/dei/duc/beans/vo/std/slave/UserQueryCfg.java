@@ -14,7 +14,7 @@ import lombok.Setter;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserQueryCfg extends StdDataQueryCfg {
-    private String needUserGrp;
+    private String needUserGrps;
     private String needSysPrjPrivileges;
     private String needRoles;
     private String needSysResRoles;
@@ -30,7 +30,7 @@ public class UserQueryCfg extends StdDataQueryCfg {
 
     private UserQueryCfg(final Builder builder) {
         super(builder);
-        needUserGrp = builder.needUserGrp;
+        needUserGrps = builder.needUserGrps;
         needSysPrjPrivileges = builder.needSysPrjPrivileges;
         needRoles = builder.needRoles;
         needSysResRoles = builder.needSysResRoles;
@@ -46,7 +46,7 @@ public class UserQueryCfg extends StdDataQueryCfg {
 
     public static class Builder
             extends StdDataQueryCfgBuilder<UserQueryCfg> {
-        private String needUserGrp;
+        private String needUserGrps;
         private String needSysPrjPrivileges;
         private String needRoles;
         private String needSysResRoles;
@@ -59,8 +59,8 @@ public class UserQueryCfg extends StdDataQueryCfg {
         private RoleQueryCfg tmpRoleQueryCfg;
         private SysResRoleQueryCfg tmpSysResRoleQueryCfg;
 
-        public Builder needUserGrp(final String needUserGrp) {
-            this.needUserGrp = needUserGrp;
+        public Builder needUserGrps(final String needUserGrps) {
+            this.needUserGrps = needUserGrps;
             return this;
         }
         public Builder needSysPrjPrivileges(final String needSysPrjPrivileges) {

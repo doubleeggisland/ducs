@@ -2,6 +2,7 @@ package com.ioiox.dei.duc.beans.vo.std.slave;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.ioiox.dei.core.utils.DeiCollectionUtil;
 import com.ioiox.dei.core.vo.StdDataQueryParam;
 import com.ioiox.dei.core.vo.StdDataQueryParamBuilder;
 import lombok.Getter;
@@ -9,6 +10,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -31,6 +34,39 @@ public class MenuQueryParam
         statuses = builder.statuses;
         lvlFrom = builder.lvlFrom;
         lvlTo = builder.lvlTo;
+    }
+
+    @Override
+    public Map<String, Object> queryParams() {
+        final Map<String, Object> queryParams = super.queryParams();
+        if (DeiCollectionUtil.isNotEmpty(this.pids)) {
+            if (this.pids.size() > 1) {
+                queryParams.put("pids", this.pids);
+            } else {
+                queryParams.put("pid", this.pids.get(0));
+            }
+        }
+        if (DeiCollectionUtil.isNotEmpty(this.sysPrjIds)) {
+            if (this.sysPrjIds.size() > 1) {
+                queryParams.put("sysPrjSids", this.sysPrjIds);
+            } else {
+                queryParams.put("sysPrjSid", this.sysPrjIds.get(0));
+            }
+        }
+        if (DeiCollectionUtil.isNotEmpty(this.statuses)) {
+            if (this.statuses.size() > 1) {
+                queryParams.put("statuses", this.statuses);
+            } else {
+                queryParams.put("status", this.statuses.get(0));
+            }
+        }
+        if (Objects.nonNull(lvlFrom)) {
+            queryParams.put("lvlFrom", lvlFrom);
+        }
+        if (Objects.nonNull(lvlTo)) {
+            queryParams.put("lvlTo", lvlTo);
+        }
+        return queryParams;
     }
 
     public static class Builder

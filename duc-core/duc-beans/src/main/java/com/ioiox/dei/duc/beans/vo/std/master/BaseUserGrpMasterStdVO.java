@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class BaseUserGrpMasterStdVO extends MasterStdDataVO {
+public abstract class BaseUserGrpMasterStdVO extends MasterStdDataVO {
     /**
      * 用户组编号
      */
