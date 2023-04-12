@@ -23,33 +23,33 @@ public class UserAcctRoleR2SysApiSlaveDbSvcImpl
     private UserAcctRoleR2SysApiSlaveMapper mapper;
 
     @Override
-    public Map<Long, List<Long>> getGroupedSysApiIds(final List<Long> roleIds) {
-        if (DeiCollectionUtil.isEmpty(roleIds)) {
+    public Map<Long, List<Long>> getGroupedMappingSids(final List<Long> roleSids) {
+        if (DeiCollectionUtil.isEmpty(roleSids)) {
             return Collections.emptyMap();
         }
         final QueryConditionsHolder conditionsHolder = new QueryConditionsHolder();
-        if (roleIds.size() > 1) {
-            conditionsHolder.addQueryCondition("roleSids", roleIds);
+        if (roleSids.size() > 1) {
+            conditionsHolder.addQueryCondition("roleSids", roleSids);
         } else {
-            conditionsHolder.addQueryCondition("roleSid", roleIds.get(0));
+            conditionsHolder.addQueryCondition("roleSid", roleSids.get(0));
         }
         return getUniqueKeysGroupedBy1st(conditionsHolder.queryParams(),
-                Arrays.asList(RoleR2SysApi.ShowColumn.ROLE_SID.getCode(), RoleR2SysApi.ShowColumn.SYS_API_SID.getCode()));
+                Arrays.asList(RoleR2SysApi.ShowColumn.ROLE_SID.getCode(), RoleR2SysApi.ShowColumn.MAPPING_SID.getCode()));
     }
 
     @Override
-    public Map<Long, List<Long>> getGroupedRoleIds(final List<Long> sysApiIds) {
-        if (DeiCollectionUtil.isEmpty(sysApiIds)) {
+    public Map<Long, List<Long>> getGroupedRoleSids(final List<Long> mappingSids) {
+        if (DeiCollectionUtil.isEmpty(mappingSids)) {
             return Collections.emptyMap();
         }
         final QueryConditionsHolder conditionsHolder = new QueryConditionsHolder();
-        if (sysApiIds.size() > 1) {
-            conditionsHolder.addQueryCondition("sysApiSids", sysApiIds);
+        if (mappingSids.size() > 1) {
+            conditionsHolder.addQueryCondition("mappingSids", mappingSids);
         } else {
-            conditionsHolder.addQueryCondition("sysApiSid", sysApiIds.get(0));
+            conditionsHolder.addQueryCondition("mappingSid", mappingSids.get(0));
         }
         return getUniqueKeysGroupedBy2nd(conditionsHolder.queryParams(),
-                Arrays.asList(RoleR2SysApi.ShowColumn.ROLE_SID.getCode(), RoleR2SysApi.ShowColumn.SYS_API_SID.getCode()));
+                Arrays.asList(RoleR2SysApi.ShowColumn.ROLE_SID.getCode(), RoleR2SysApi.ShowColumn.MAPPING_SID.getCode()));
     }
 
     @Override

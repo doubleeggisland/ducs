@@ -24,6 +24,7 @@ public class MenuSysApiMappingUpdatableAttrsAnalyser
                                        final MenuSysApiMappingSlaveStdVO existingApiMapping,
                                        final MenuSysApiMappingUpdateCtx updateCtx) {
         if (UpdatableVO.modified(existingApiMapping.getInteractForm(), apiMapping.getInteractForm())) {
+            updateCtx.getUpdatableObj().addUpdatedAttrName(MenuSysApiMapping.ShowColumn.INTERACT_FORM.getCode());
             updateCtx.getUpdatableObj().setInteractForm(new UpdatableAttr<>(MenuSysApiMapping.ShowColumn.INTERACT_FORM.getCode(), existingApiMapping.getInteractForm(), apiMapping.getInteractForm()));
         }
     }

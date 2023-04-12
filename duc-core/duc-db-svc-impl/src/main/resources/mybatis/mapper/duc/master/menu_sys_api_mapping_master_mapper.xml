@@ -81,6 +81,13 @@
   <delete id="deleteByParams" parameterType="map" statementType="PREPARED">
     delete from menu_sys_api_mapping
     <where>
+      <if test="sid != null">
+        and sid = #{sid}
+      </if>
+      <if test="sids != null and sids.size > 0">
+        and sid in
+        <foreach collection="sids" item="sid" separator="," open="(" close=")">#{sid}</foreach>
+      </if>
       <if test="menuSid != null">
         and menu_sid = #{menuSid}
       </if>

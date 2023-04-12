@@ -35,6 +35,18 @@ public class MenuSysApiMappingSlaveStdDataSvcImpl
     private SysApiSlaveStdDataSvc sysApiSlaveStdDataSvc;
 
     @Override
+    public List<MenuSysApiMappingSlaveStdVO> queryByPks(final List<Long> sysApiMappingIds,
+                                                        final MenuSysApiMappingQueryCfg queryCfg) {
+        if (DeiCollectionUtil.isEmpty(sysApiMappingIds)) {
+            return Collections.emptyList();
+        }
+        final MenuSysApiMappingQueryParam queryParam = new MenuSysApiMappingQueryParam.Builder()
+                .pks(sysApiMappingIds)
+                .build();
+        return queryByParam(queryParam, queryCfg);
+    }
+
+    @Override
     public List<MenuSysApiMappingSlaveStdVO> queryByMenuIds(final List<Long> menuIds,
                                                             final MenuSysApiMappingQueryCfg queryCfg) {
         if (DeiCollectionUtil.isEmpty(menuIds)) {

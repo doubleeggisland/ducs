@@ -2,6 +2,7 @@ package com.ioiox.dei.duc.beans.vo.std.slave;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ioiox.dei.core.vo.SlaveStdDataVO;
+import com.ioiox.dei.duc.beans.entity.MenuSysApiMapping;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -34,4 +35,14 @@ public class MenuSysApiMappingSlaveStdVO extends SlaveStdDataVO {
      * 关联的系统接口
      */
     private SysApiSlaveStdVO sysApi;
+
+    @Override
+    public String uniqueKeyDigest() {
+        final MenuSysApiMapping.UniqueKey uniqueKey = uniqueKey();
+        return uniqueKey.toString();
+    }
+
+    public MenuSysApiMapping.UniqueKey uniqueKey() {
+        return new MenuSysApiMapping.UniqueKey(menuId, sysApiId, interactForm);
+    }
 }

@@ -3,6 +3,7 @@ package com.ioiox.dei.duc.std.data.svc.impl.slave.user;
 import com.ioiox.dei.core.utils.DeiCollectionUtil;
 import com.ioiox.dei.duc.beans.entity.UserAcctRole;
 import com.ioiox.dei.duc.beans.vo.std.slave.MenuSlaveStdVO;
+import com.ioiox.dei.duc.beans.vo.std.slave.MenuSysApiMappingSlaveStdVO;
 import com.ioiox.dei.duc.beans.vo.std.slave.RoleQueryCfg;
 import com.ioiox.dei.duc.beans.vo.std.slave.SysApiSlaveStdVO;
 import com.ioiox.dei.duc.beans.vo.std.slave.user.UserAcctRoleQueryParam;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Service;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service("userAcctRoleSlaveStdDataSvc")
 public class UserAcctRoleSlaveStdDataSvcImpl
@@ -65,13 +67,25 @@ public class UserAcctRoleSlaveStdDataSvcImpl
     }
 
     @Override
-    protected Map<Long, List<Long>> getSysApiIds(final List<Long> roleIds) {
-        return userAcctRoleR2SysApiSlaveDbSvc.getGroupedSysApiIds(roleIds);
+    protected Map<Long, List<Long>> getSysApiMappingIds(final List<Long> roleIds) {
+        return userAcctRoleR2SysApiSlaveDbSvc.getGroupedMappingSids(roleIds);
     }
 
     @Override
-    protected void assembleMenus(final UserAcctRoleSlaveStdVO role, final List<MenuSlaveStdVO> menus) {
+    protected void assembleMenus(final UserAcctRoleSlaveStdVO role,
+                                 final List<MenuSlaveStdVO> menus) {
         role.setMenus(menus);
+    }
+
+    @Override
+    protected void assembleSysApiMappings(final UserAcctRoleSlaveStdVO role,
+                                          final List<MenuSysApiMappingSlaveStdVO> sysApiMappings) {
+        if (DeiCollectionUtil.isEmpty(sysApiMappings)) {
+            role.setSysApiMappings(Collections.emptyMap());
+        } else {
+            role.setSysApiMappings(sysApiMappings.stream()
+                    .collect(Collectors.groupingBy(MenuSysApiMappingSlaveStdVO::getMenuId)));
+        }
     }
 
     @Override

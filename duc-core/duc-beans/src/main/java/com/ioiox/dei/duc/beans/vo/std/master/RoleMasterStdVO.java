@@ -15,7 +15,7 @@ public abstract class RoleMasterStdVO extends BaseRoleMasterStdVO {
      */
     private List<Long> menuIds;
     /**
-     * 分配的系统API权限
+     * 分配的系统接口权限(菜单与系统接口映射ID)
      */
-    private List<Long> sysApiIds;
+    private List<Long> sysApiMappingIds;
 }

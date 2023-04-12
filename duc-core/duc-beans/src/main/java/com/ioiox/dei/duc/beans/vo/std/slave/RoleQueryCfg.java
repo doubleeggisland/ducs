@@ -15,39 +15,39 @@ import lombok.Setter;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class RoleQueryCfg extends StdDataQueryCfg {
     private String needMenus;
-    private String needSysApis;
+    private String needSysApiMappings;
     private MenuQueryCfg menuQueryCfg;
-    private StdDataQueryCfg sysApiQueryCfg;
+    private MenuSysApiMappingQueryCfg sysApiMappingQueryCfg;
 
     private RoleQueryCfg(final Builder builder) {
         super(builder);
         needMenus = builder.needMenus;
-        needSysApis = builder.needSysApis;
+        needSysApiMappings = builder.needSysApiMappings;
         menuQueryCfg = builder.menuQueryCfg;
-        sysApiQueryCfg = builder.sysApiQueryCfg;
+        sysApiMappingQueryCfg = builder.sysApiMappingQueryCfg;
     }
 
     public static class Builder
             extends StdDataQueryCfgBuilder<RoleQueryCfg> {
         private String needMenus;
-        private String needSysApis;
+        private String needSysApiMappings;
         private MenuQueryCfg menuQueryCfg;
-        private StdDataQueryCfg sysApiQueryCfg;
+        private MenuSysApiMappingQueryCfg sysApiMappingQueryCfg;
 
         public Builder needMenus(final String needMenus) {
             this.needMenus = needMenus;
             return this;
         }
-        public Builder needSysApis(final String needSysApis) {
-            this.needSysApis = needSysApis;
+        public Builder needSysApiMappings(final String needSysApiMappings) {
+            this.needSysApiMappings = needSysApiMappings;
             return this;
         }
         public Builder menuQueryCfg(final MenuQueryCfg menuQueryCfg) {
             this.menuQueryCfg = menuQueryCfg;
             return this;
         }
-        public Builder sysApiQueryCfg(final StdDataQueryCfg sysApiQueryCfg) {
-            this.sysApiQueryCfg = sysApiQueryCfg;
+        public Builder sysApiMappingQueryCfg(final MenuSysApiMappingQueryCfg sysApiMappingQueryCfg) {
+            this.sysApiMappingQueryCfg = sysApiMappingQueryCfg;
             return this;
         }
 

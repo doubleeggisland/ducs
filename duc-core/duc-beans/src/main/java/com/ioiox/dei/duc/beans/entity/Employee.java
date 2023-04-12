@@ -53,6 +53,7 @@ public class Employee extends BaseUser {
         return Objects.hash(getUsername(), getMobile(), getEmail());
     }
 
+    @Override
     public void setDefaultValueIfNeed() {
         super.setDefaultValueIfNeed();
         if (StringUtils.isBlank(realName)) {

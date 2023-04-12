@@ -14,7 +14,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @NoArgsConstructor
-public class UserR2SysResRole extends BaseDeiRelationshipEntity<Long, Long> {
+public abstract class UserR2SysResRole extends BaseDeiRelationshipEntity<Long, Long> {
     private Long userSid;
     private Long sysResRoleSid;
 

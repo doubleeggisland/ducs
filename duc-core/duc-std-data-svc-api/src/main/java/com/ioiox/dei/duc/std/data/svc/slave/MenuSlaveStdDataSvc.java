@@ -10,6 +10,8 @@ public interface MenuSlaveStdDataSvc {
     int countByParam (final MenuQueryParam queryParam);
     List<MenuSlaveStdVO> queryBySysPrjIds(final List<Long> sysPrjIds,
                                           final MenuQueryCfg queryCfg);
+    MenuSlaveStdVO getByPk(final Long menuId,
+                           final MenuQueryCfg queryCfg);
     List<MenuSlaveStdVO> queryByPks(final List<Long> menuIds,
                                     final MenuQueryCfg queryCfg);
     List<MenuSlaveStdVO> queryByParam(final MenuQueryParam queryParam,

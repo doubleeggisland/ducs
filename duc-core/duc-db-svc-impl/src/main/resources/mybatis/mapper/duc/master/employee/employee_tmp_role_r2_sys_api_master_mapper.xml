@@ -5,20 +5,20 @@
   <insert id="insert" keyProperty="sid" keyColumn="sid" useGeneratedKeys="true" parameterType="com.ioiox.dei.duc.beans.entity.RoleR2SysApi"
           statementType="PREPARED">
     insert into employee_tmp_role_r2_sys_api
-    (tmp_role_sid, sys_api_sid,
+    (tmp_role_sid, mapping_sid,
     created_by, created_time, updated_time, version_num)
     values
-    (#{roleSid}, #{sysApiSid},
+    (#{roleSid}, #{mappingSid},
     #{createdBy}, #{createdTime}, #{updatedTime}, #{versionNum})
   </insert>
 
   <insert id="batchInsert" keyProperty="sid" keyColumn="sid" useGeneratedKeys="true" parameterType="list" statementType="PREPARED">
     insert into employee_tmp_role_r2_sys_api
-    (tmp_role_sid, sys_api_sid,
+    (tmp_role_sid, mapping_sid,
     created_by, created_time, updated_time, version_num)
     values
     <foreach collection="list" index="index" item="item" separator=",">
-      (#{item.roleSid}, #{item.sysApiSid},
+      (#{item.roleSid}, #{item.mappingSid},
       #{item.createdBy}, #{item.createdTime}, #{item.updatedTime}, #{item.versionNum})
     </foreach>
   </insert>
@@ -30,8 +30,8 @@
       <if test="roleSid != null">
         tmp_role_sid = #{roleSid},
       </if>
-      <if test="sysApiSid != null">
-        sys_api_sid = #{sysApiSid},
+      <if test="mappingSid != null">
+        mapping_sid = #{mappingSid},
       </if>
       <if test="updatedBy != null">
         updated_by = #{updatedBy},
@@ -50,8 +50,8 @@
       <if test="roleSid != null">
         tmp_role_sid = #{roleSid},
       </if>
-      <if test="sysApiSid != null">
-        sys_api_sid = #{sysApiSid},
+      <if test="mappingSid != null">
+        mapping_sid = #{mappingSid},
       </if>
       <if test="updatedBy != null">
         updated_by = #{updatedBy},
@@ -68,12 +68,12 @@
         and tmp_role_sid in
         <foreach collection="roleSidsCondition" item="roleSid" separator="," open="(" close=")">#{roleSid}</foreach>
       </if>
-      <if test="sysApiSidCondition != null">
-        and sys_api_sid = #{sysApiSidCondition}
+      <if test="mappingSidCondition != null">
+        and mapping_sid = #{mappingSidCondition}
       </if>
-      <if test="sysApiSidsCondition != null and sysApiSidsCondition.size > 0">
-        and sys_api_sid in
-        <foreach collection="sysApiSidsCondition" item="sysApiSid" separator="," open="(" close=")">#{sysApiSid}</foreach>
+      <if test="mappingSidsCondition != null and mappingSidsCondition.size > 0">
+        and mapping_sid in
+        <foreach collection="mappingSidsCondition" item="mappingSid" separator="," open="(" close=")">#{mappingSid}</foreach>
       </if>
     </where>
   </update>
@@ -88,12 +88,12 @@
         and tmp_role_sid in
         <foreach collection="roleSids" item="roleSid" separator="," open="(" close=")">#{roleSid}</foreach>
       </if>
-      <if test="sysApiSid != null">
-        and sys_api_sid = #{sysApiSid}
+      <if test="mappingSid != null">
+        and mapping_sid = #{mappingSid}
       </if>
-      <if test="sysApiSids != null and sysApiSids.size > 0">
-        and sys_api_sid in
-        <foreach collection="sysApiSids" item="sysApiSid" separator="," open="(" close=")">#{sysApiSid}</foreach>
+      <if test="mappingSids != null and mappingSids.size > 0">
+        and mapping_sid in
+        <foreach collection="mappingSids" item="mappingSid" separator="," open="(" close=")">#{mappingSid}</foreach>
       </if>
     </where>
   </delete>

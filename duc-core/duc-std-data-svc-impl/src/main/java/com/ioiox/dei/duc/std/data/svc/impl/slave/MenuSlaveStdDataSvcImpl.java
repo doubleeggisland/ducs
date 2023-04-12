@@ -51,6 +51,20 @@ public class MenuSlaveStdDataSvcImpl
     }
 
     @Override
+    public MenuSlaveStdVO getByPk(final Long menuId,
+                                  final MenuQueryCfg queryCfg) {
+        if (Objects.isNull(menuId)) {
+            return null;
+        }
+        final List<MenuSlaveStdVO> menus =
+                queryByPks(Collections.singletonList(menuId), queryCfg);
+        if (DeiCollectionUtil.isEmpty(menus)) {
+            return null;
+        }
+        return menus.get(0);
+    }
+
+    @Override
     public List<MenuSlaveStdVO> queryByPks(final List<Long> menuIds,
                                            final MenuQueryCfg queryCfg) {
         if (DeiCollectionUtil.isEmpty(menuIds)) {
