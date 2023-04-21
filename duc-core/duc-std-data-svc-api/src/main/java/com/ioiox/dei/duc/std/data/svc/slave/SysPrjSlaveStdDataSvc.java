@@ -8,6 +8,8 @@ import java.util.List;
 
 public interface SysPrjSlaveStdDataSvc {
     int countByParam(final SysPrjQueryParam queryParam);
+    SysPrjSlaveStdVO queryByPk(final Long sysPrjId,
+                               final SysPrjQueryCfg queryCfg);
     List<SysPrjSlaveStdVO> queryByPks(final List<Long> sysPrjIds,
                                       final SysPrjQueryCfg queryCfg);
     List<SysPrjSlaveStdVO> queryByParam(final SysPrjQueryParam queryParam,

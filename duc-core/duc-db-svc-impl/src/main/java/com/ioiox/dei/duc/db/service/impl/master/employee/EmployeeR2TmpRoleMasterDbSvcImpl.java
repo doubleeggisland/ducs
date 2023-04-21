@@ -7,6 +7,9 @@ import com.ioiox.dei.duc.db.service.master.employee.EmployeeR2TmpRoleMasterDbSvc
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+import java.util.List;
+
 @Service("employeeR2TmpRoleMasterDbSvc")
 public class EmployeeR2TmpRoleMasterDbSvcImpl
         extends BaseDeiMasterDbService<EmployeeR2Role, EmployeeR2TmpRoleMasterMapper>
@@ -14,6 +17,11 @@ public class EmployeeR2TmpRoleMasterDbSvcImpl
 
     @Autowired
     private EmployeeR2TmpRoleMasterMapper mapper;
+
+    @Override
+    public int save(final List<Long> tmpRoleSids, final Long employeeSid, final String operator, final Date operateTime) {
+        return dbInsert(EmployeeR2Role.instances(tmpRoleSids, employeeSid, operator, operateTime));
+    }
 
     @Override
     protected EmployeeR2TmpRoleMasterMapper getMapper() {

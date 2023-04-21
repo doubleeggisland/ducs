@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ioiox.dei.duc.db.mapper.master.user.UserAcctTmpRoleR2MenuSysApiMasterMapper">
+
+  <insert id="insert" keyProperty="sid" keyColumn="sid" useGeneratedKeys="true" parameterType="com.ioiox.dei.duc.beans.entity.RoleR2MenuSysApi"
+          statementType="PREPARED">
+    insert into user_acct_tmp_role_r2_menu_sys_api
+    (tmp_role_sid, mapping_sid,
+    created_by, created_time, updated_time, version_num)
+    values
+    (#{roleSid}, #{mappingSid},
+    #{createdBy}, #{createdTime}, #{updatedTime}, #{versionNum})
+  </insert>
+
+  <insert id="batchInsert" keyProperty="sid" keyColumn="sid" useGeneratedKeys="true" parameterType="list" statementType="PREPARED">
+    insert into user_acct_tmp_role_r2_menu_sys_api
+    (tmp_role_sid, mapping_sid,
+    created_by, created_time, updated_time, version_num)
+    values
+    <foreach collection="list" index="index" item="item" separator=",">
+      (#{item.roleSid}, #{item.mappingSid},
+      #{item.createdBy}, #{item.createdTime}, #{item.updatedTime}, #{item.versionNum})
+    </foreach>
+  </insert>
+
+  <update id="updateByExample" parameterType="com.ioiox.dei.duc.beans.entity.RoleR2MenuSysApi" statementType="PREPARED">
+    update user_acct_tmp_role_r2_menu_sys_api
+    <set>
+      version_num = version_num + 1,
+      <if test="roleSid != null">
+        tmp_role_sid = #{roleSid},
+      </if>
+      <if test="mappingSid != null">
+        mapping_sid = #{mappingSid},
+      </if>
+      <if test="updatedBy != null">
+        updated_by = #{updatedBy},
+      </if>
+      <if test="updatedTime != null">
+        updated_time = #{updatedTime},
+      </if>
+    </set>
+    where sid = #{sid} and version_num = #{versionNum}
+  </update>
+
+  <update id="updateByParams" parameterType="map" statementType="PREPARED">
+    update user_acct_tmp_role_r2_menu_sys_api
+    <set>
+      version_num = version_num + 1,
+      <if test="roleSid != null">
+        tmp_role_sid = #{roleSid},
+      </if>
+      <if test="mappingSid != null">
+        mapping_sid = #{mappingSid},
+      </if>
+      <if test="updatedBy != null">
+        updated_by = #{updatedBy},
+      </if>
+      <if test="updatedTime != null">
+        updated_time = #{updatedTime},
+      </if>
+    </set>
+    <where>
+      <if test="roleSidCondition != null">
+        and tmp_role_sid = #{roleSidCondition}
+      </if>
+      <if test="roleSidsCondition != null and roleSidsCondition.size > 0">
+        and tmp_role_sid in
+        <foreach collection="roleSidsCondition" item="roleSid" separator="," open="(" close=")">#{roleSid}</foreach>
+      </if>
+      <if test="mappingSidCondition != null">
+        and mapping_sid = #{mappingSidCondition}
+      </if>
+      <if test="mappingSidsCondition != null and mappingSidsCondition.size > 0">
+        and mapping_sid in
+        <foreach collection="mappingSidsCondition" item="mappingSid" separator="," open="(" close=")">#{mappingSid}</foreach>
+      </if>
+    </where>
+  </update>
+
+  <delete id="deleteByParams" parameterType="map" statementType="PREPARED">
+    delete from user_acct_tmp_role_r2_menu_sys_api
+    <where>
+      <if test="roleSid != null">
+        and tmp_role_sid = #{roleSid}
+      </if>
+      <if test="roleSids != null and roleSids.size > 0">
+        and tmp_role_sid in
+        <foreach collection="roleSids" item="roleSid" separator="," open="(" close=")">#{roleSid}</foreach>
+      </if>
+      <if test="mappingSid != null">
+        and mapping_sid = #{mappingSid}
+      </if>
+      <if test="mappingSids != null and mappingSids.size > 0">
+        and mapping_sid in
+        <foreach collection="mappingSids" item="mappingSid" separator="," open="(" close=")">#{mappingSid}</foreach>
+      </if>
+    </where>
+  </delete>
+</mapper>

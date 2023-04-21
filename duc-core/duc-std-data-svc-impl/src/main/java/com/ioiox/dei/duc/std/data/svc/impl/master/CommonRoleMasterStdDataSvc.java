@@ -46,6 +46,7 @@ public abstract class CommonRoleMasterStdDataSvc<
     }
 
     protected void assembleRoleUpdatableAttrs(final Role example, final RoleUpdatableObj updatableObj) {
+        assembleCommonAttrs(example, updatableObj);
         if (Objects.nonNull(updatableObj.getName())) {
             example.setName(updatableObj.getName().getNewVal());
         }

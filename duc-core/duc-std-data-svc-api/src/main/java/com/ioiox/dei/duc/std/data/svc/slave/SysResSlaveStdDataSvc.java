@@ -10,6 +10,8 @@ public interface SysResSlaveStdDataSvc {
     int countByParam(final SysResQueryParam queryParam);
     List<SysResSlaveStdVO> queryBySysPrjIds(final List<Long> sysPrjIds,
                                             final StdDataQueryCfg queryCfg);
+    SysResSlaveStdVO queryByPk(final Long sysResId,
+                               final StdDataQueryCfg queryCfg);
     List<SysResSlaveStdVO> queryByPks(final List<Long> sysResIds,
                                       final StdDataQueryCfg queryCfg);
     List<SysResSlaveStdVO> queryByParam(final SysResQueryParam queryParam,

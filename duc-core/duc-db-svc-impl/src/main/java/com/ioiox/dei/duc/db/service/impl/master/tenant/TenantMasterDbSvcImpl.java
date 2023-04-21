@@ -22,6 +22,6 @@ public class TenantMasterDbSvcImpl
 
     @Override
     protected String getDesc() {
-        return "租户用户表";
+        return "租户表";
     }
 }

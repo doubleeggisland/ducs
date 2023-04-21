@@ -23,7 +23,7 @@ public class UserAcctRoleR2SysApiSlaveDbSvcImpl
     private UserAcctRoleR2SysApiSlaveMapper mapper;
 
     @Override
-    public Map<Long, List<Long>> getGroupedMappingSids(final List<Long> roleSids) {
+    public Map<Long, List<Long>> getGroupedSysApiSids(final List<Long> roleSids) {
         if (DeiCollectionUtil.isEmpty(roleSids)) {
             return Collections.emptyMap();
         }
@@ -34,22 +34,22 @@ public class UserAcctRoleR2SysApiSlaveDbSvcImpl
             conditionsHolder.addQueryCondition("roleSid", roleSids.get(0));
         }
         return getUniqueKeysGroupedBy1st(conditionsHolder.queryParams(),
-                Arrays.asList(RoleR2SysApi.ShowColumn.ROLE_SID.getCode(), RoleR2SysApi.ShowColumn.MAPPING_SID.getCode()));
+                Arrays.asList(RoleR2SysApi.ShowColumn.ROLE_SID.getCode(), RoleR2SysApi.ShowColumn.SYS_API_SID.getCode()));
     }
 
     @Override
-    public Map<Long, List<Long>> getGroupedRoleSids(final List<Long> mappingSids) {
-        if (DeiCollectionUtil.isEmpty(mappingSids)) {
+    public Map<Long, List<Long>> getGroupedRoleSids(final List<Long> sysApiSids) {
+        if (DeiCollectionUtil.isEmpty(sysApiSids)) {
             return Collections.emptyMap();
         }
         final QueryConditionsHolder conditionsHolder = new QueryConditionsHolder();
-        if (mappingSids.size() > 1) {
-            conditionsHolder.addQueryCondition("mappingSids", mappingSids);
+        if (sysApiSids.size() > 1) {
+            conditionsHolder.addQueryCondition("sysApiSids", sysApiSids);
         } else {
-            conditionsHolder.addQueryCondition("mappingSid", mappingSids.get(0));
+            conditionsHolder.addQueryCondition("sysApiSid", sysApiSids.get(0));
         }
         return getUniqueKeysGroupedBy2nd(conditionsHolder.queryParams(),
-                Arrays.asList(RoleR2SysApi.ShowColumn.ROLE_SID.getCode(), RoleR2SysApi.ShowColumn.MAPPING_SID.getCode()));
+                Arrays.asList(RoleR2SysApi.ShowColumn.ROLE_SID.getCode(), RoleR2SysApi.ShowColumn.SYS_API_SID.getCode()));
     }
 
     @Override
@@ -59,6 +59,6 @@ public class UserAcctRoleR2SysApiSlaveDbSvcImpl
 
     @Override
     protected String getDesc() {
-        return "用户角色与系统API关联表";
+        return "用户角色与系统接口关联表";
     }
 }

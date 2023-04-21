@@ -19,8 +19,8 @@ public class UserAcctTmpRoleR2SysApiMasterDbSvcImpl
     private UserAcctTmpRoleR2SysApiMasterMapper mapper;
 
     @Override
-    public int save(final List<Long> sysApiMappingSids, final Long tmpRoleSid, final String operator, final Date operateTime) {
-        return dbInsert(RoleR2SysApi.instances(sysApiMappingSids, tmpRoleSid, operator, operateTime));
+    public int save(final List<Long> sysApiSids, final Long tmpRoleSid, final String operator, final Date operateTime) {
+        return dbInsert(RoleR2SysApi.instances(sysApiSids, tmpRoleSid, operator, operateTime));
     }
 
     @Override
@@ -30,6 +30,6 @@ public class UserAcctTmpRoleR2SysApiMasterDbSvcImpl
 
     @Override
     protected String getDesc() {
-        return "用户临时角色与系统API关联表";
+        return "用户临时角色与系统接口关联表";
     }
 }

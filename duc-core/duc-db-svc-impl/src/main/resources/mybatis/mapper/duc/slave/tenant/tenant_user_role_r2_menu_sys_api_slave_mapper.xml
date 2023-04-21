@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ioiox.dei.duc.db.mapper.slave.tenant.TenantUserRoleR2MenuSysApiSlaveMapper">
+  <resultMap type="com.ioiox.dei.duc.beans.entity.RoleR2MenuSysApi" id="BaseResultMap">
+    <id property="sid" column="sid"/>
+
+    <result property="roleSid" column="role_sid"/>
+    <result property="mappingSid" column="mapping_sid"/>
+
+    <result property="createdBy" column="created_by"/>
+    <result property="createdTime" column="created_time"/>
+    <result property="updatedBy" column="updated_by"/>
+    <result property="updatedTime" column="updated_time"/>
+    <result property="versionNum" column="version_num"/>
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    a.sid, a.role_sid, a.mapping_sid,
+    a.created_by, a.created_time, a.updated_by, a.updated_time, a.version_num
+  </sql>
+
+  <sql id="Query_Conditions">
+    <if test="roleSid != null">
+      and a.role_sid = #{roleSid}
+    </if>
+    <if test="roleSids != null and roleSids.size > 0">
+      and a.role_sid in
+      <foreach collection="roleSids" item="roleSid" separator="," open="(" close=")">#{roleSid}</foreach>
+    </if>
+    <if test="mappingSid != null">
+      and a.mapping_sid = #{mappingSid}
+    </if>
+    <if test="mappingSids != null and mappingSids.size > 0">
+      and a.mapping_sid in
+      <foreach collection="mappingSids" item="mappingSid" separator="," open="(" close=")">#{mappingSid}</foreach>
+    </if>
+  </sql>
+
+  <select id="countByParams" resultType="int" parameterType="map" statementType="PREPARED">
+    select count(1)
+    from tenant_user_role_r2_menu_sys_api a
+    <where>
+      <include refid="Query_Conditions" />
+    </where>
+  </select>
+
+  <select id="findByParams" resultMap="BaseResultMap" parameterType="map" statementType="PREPARED">
+    select
+    <include refid="Base_Column_List"/>
+    from tenant_user_role_r2_menu_sys_api a
+    <where>
+      <include refid="Query_Conditions" />
+    </where>
+  </select>
+
+  <select id="findByParamsOnSelective" parameterType="map" resultMap="BaseResultMap" statementType="PREPARED">
+    select
+    <trim suffixOverrides=",">
+      <if test="sidShow != null">
+        a.sid,
+      </if>
+      <if test="roleSidShow != null">
+        a.role_sid,
+      </if>
+      <if test="mappingSidShow != null">
+        a.mapping_sid,
+      </if>
+      <if test="createdByShow != null">
+        a.created_by,
+      </if>
+      <if test="createdTimeShow != null">
+        a.created_time,
+      </if>
+      <if test="updatedByShow != null">
+        a.updated_by,
+      </if>
+      <if test="updatedTimeShow != null">
+        a.updated_time,
+      </if>
+      <if test="versionNumShow != null">
+        a.version_num,
+      </if>
+    </trim>
+    from tenant_user_role_r2_menu_sys_api a
+    <where>
+      <include refid="Query_Conditions" />
+    </where>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null and offset != null">
+      limit #{offset}, #{limit}
+    </if>
+  </select>
+</mapper>

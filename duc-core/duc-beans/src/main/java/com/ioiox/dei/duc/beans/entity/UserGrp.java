@@ -2,10 +2,12 @@ package com.ioiox.dei.duc.beans.entity;
 
 import com.ioiox.dei.core.beans.BaseDeiEntity;
 import com.ioiox.dei.core.beans.BaseDeiEnum;
+import com.ioiox.dei.core.beans.DeiStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * 用户组, 用于管理用户的权限
@@ -18,6 +20,12 @@ public abstract class UserGrp extends BaseDeiEntity {
     private String name;
     private String memo;
     private String status;
+
+    public void setDefaultValueIfNeed() {
+        if (StringUtils.isBlank(status)) {
+            status = DeiStatus.ENABLE.getCode();
+        }
+    }
 
     @Getter
     @AllArgsConstructor

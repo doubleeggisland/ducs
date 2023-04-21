@@ -5,7 +5,7 @@
     <id property="sid" column="sid"/>
 
     <result property="roleSid" column="role_sid"/>
-    <result property="mappingSid" column="mapping_sid"/>
+    <result property="sysApiSid" column="sys_api_sid"/>
 
     <result property="createdBy" column="created_by"/>
     <result property="createdTime" column="created_time"/>
@@ -15,7 +15,7 @@
   </resultMap>
 
   <sql id="Base_Column_List">
-    a.sid, a.role_sid, a.mapping_sid,
+    a.sid, a.role_sid, a.sys_api_sid,
     a.created_by, a.created_time, a.updated_by, a.updated_time, a.version_num
   </sql>
 
@@ -27,12 +27,12 @@
       and a.role_sid in
       <foreach collection="roleSids" item="roleSid" separator="," open="(" close=")">#{roleSid}</foreach>
     </if>
-    <if test="mappingSid != null">
-      and a.mapping_sid = #{mappingSid}
+    <if test="sysApiSid != null">
+      and a.sys_api_sid = #{sysApiSid}
     </if>
-    <if test="mappingSids != null and mappingSids.size > 0">
-      and a.mapping_sid in
-      <foreach collection="mappingSids" item="mappingSid" separator="," open="(" close=")">#{mappingSid}</foreach>
+    <if test="sysApiSids != null and sysApiSids.size > 0">
+      and a.sys_api_sid in
+      <foreach collection="sysApiSids" item="sysApiSid" separator="," open="(" close=")">#{sysApiSid}</foreach>
     </if>
   </sql>
 
@@ -62,8 +62,8 @@
       <if test="roleSidShow != null">
         a.role_sid,
       </if>
-      <if test="mappingSidShow != null">
-        a.mapping_sid,
+      <if test="sysApiSidShow != null">
+        a.sys_api_sid,
       </if>
       <if test="createdByShow != null">
         a.created_by,

@@ -113,7 +113,7 @@ public class MenuSlaveStdDataSvcImpl
     }
 
     private Map<Long, List<MenuSysApiMappingSlaveStdVO>> getSysApiMappings(final List<Long> menuIds,
-                                                                     final MenuSysApiMappingQueryCfg queryCfg) {
+                                                                           final MenuSysApiMappingQueryCfg queryCfg) {
         addShowColumnsIfNeeded(queryCfg, Collections.singletonList(MenuSysApiMapping.ShowColumn.MENU_SID.getCode()));
         final List<MenuSysApiMappingSlaveStdVO> sysApiMappings =
                 menuSysApiMappingSlaveStdDataSvc.queryByMenuIds(menuIds, queryCfg);

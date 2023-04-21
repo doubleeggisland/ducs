@@ -7,6 +7,7 @@ import com.ioiox.dei.core.orm.mybatis.service.BaseDeiMasterStdDataSvc;
 import com.ioiox.dei.core.utils.DeiCollectionUtil;
 import com.ioiox.dei.core.utils.JsonUtil;
 import com.ioiox.dei.duc.beans.entity.Menu;
+import com.ioiox.dei.duc.beans.entity.MenuSysApiMapping;
 import com.ioiox.dei.duc.beans.model.MenuUpdatableAttrsAnalyser;
 import com.ioiox.dei.duc.beans.model.MenuUpdatableObj;
 import com.ioiox.dei.duc.beans.model.MenuUpdateCtx;
@@ -14,10 +15,7 @@ import com.ioiox.dei.duc.beans.vo.std.master.MenuDelParam;
 import com.ioiox.dei.duc.beans.vo.std.master.MenuMasterStdVO;
 import com.ioiox.dei.duc.beans.vo.std.master.MenuSysApiMappingDelParam;
 import com.ioiox.dei.duc.beans.vo.std.master.MenuSysApiMappingMasterStdVO;
-import com.ioiox.dei.duc.beans.vo.std.slave.MenuQueryCfg;
-import com.ioiox.dei.duc.beans.vo.std.slave.MenuQueryParam;
-import com.ioiox.dei.duc.beans.vo.std.slave.MenuSlaveStdVO;
-import com.ioiox.dei.duc.beans.vo.std.slave.MenuSysApiMappingSlaveStdVO;
+import com.ioiox.dei.duc.beans.vo.std.slave.*;
 import com.ioiox.dei.duc.db.service.master.MenuMasterDbSvc;
 import com.ioiox.dei.duc.std.data.svc.master.MenuMasterStdDataSvc;
 import com.ioiox.dei.duc.std.data.svc.master.MenuSysApiMappingMasterStdDataSvc;
@@ -29,10 +27,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service("menuMasterStdDataSvc")
@@ -54,6 +49,8 @@ public class MenuMasterStdDataSvcImpl
     @Qualifier("menuSlaveStdDataSvc")
     private MenuSlaveStdDataSvc menuSlaveStdDataSvc;
 
+    private final MenuUpdatableAttrsAnalyser analyser = new MenuUpdatableAttrsAnalyser();
+
     @Override
     public Long save(final MenuMasterStdVO menu) {
         if (Objects.isNull(menu)) {
@@ -68,12 +65,31 @@ public class MenuMasterStdDataSvcImpl
         return menuId;
     }
 
+    private MenuSlaveStdVO getExistingMenu(final Long id) {
+        return menuSlaveStdDataSvc.getByPk(id,
+                new MenuQueryCfg.Builder()
+                        .needSysApiMappings(DeiGlobalConstant.FLAG_YES)
+                        .sysApiMappingQueryCfg(new MenuSysApiMappingQueryCfg.Builder()
+                                .showColumns(Arrays.asList(BaseDeiEntity.ShowColumn.ID.getCode(),
+                                        MenuSysApiMapping.ShowColumn.MENU_SID.getCode(), MenuSysApiMapping.ShowColumn.SYS_API_SID.getCode(),
+                                        MenuSysApiMapping.ShowColumn.INTERACT_FORM.getCode(), BaseDeiEntity.ShowColumn.VERSION_NUM.getCode()))
+                                .showColumns(Arrays.asList(BaseDeiEntity.ShowColumn.ID.getCode(),
+                                        Menu.ShowColumn.CODE.getCode(), Menu.ShowColumn.NAME.getCode(),
+                                        Menu.ShowColumn.PARENT_SID.getCode(), Menu.ShowColumn.LEVEL.getCode(),
+                                        Menu.ShowColumn.ROUTE_PATH.getCode(), Menu.ShowColumn.COMPONENT_URL.getCode(),
+                                        Menu.ShowColumn.REDIRECT_PATH.getCode(), Menu.ShowColumn.IS_HIDDEN.getCode(),
+                                        Menu.ShowColumn.IS_CACHE.getCode(), Menu.ShowColumn.ICON.getCode(),
+                                        Menu.ShowColumn.STATUS.getCode(), BaseDeiEntity.ShowColumn.VERSION_NUM.getCode()))
+                                .build())
+                        .build());
+    }
+
     @Override
     public boolean update(final MenuMasterStdVO menu) {
         if (Objects.isNull(menu) || Objects.isNull(menu.getId())) {
-            throw new DeiServiceException("Please choose a menu to delete!");
+            throw new DeiServiceException("Please choose a menu to update!");
         }
-        final MenuSlaveStdVO existingMenu = menuSlaveStdDataSvc.getByPk(menu.getId(), null);
+        final MenuSlaveStdVO existingMenu = getExistingMenu(menu.getId());
         if (Objects.isNull(existingMenu)) {
             throw new DeiServiceException(String.format("Menu doesn't exist =====> id: %s", menu.getId()));
         }
@@ -85,12 +101,11 @@ public class MenuMasterStdDataSvcImpl
         final int syncRows =
                 syncSysApiMappings(menu.getSysApiMappings(), existingMenu.getSysApiMappings(), existingMenu.getId(), menu.getUpdatedBy());
 
-        final MenuUpdatableAttrsAnalyser analyser = new MenuUpdatableAttrsAnalyser();
         final MenuUpdateCtx updateCtx = analyser.analyseUpdatedAttrs(menu, existingMenu);
         final MenuUpdatableObj updatableObj = updateCtx.getUpdatableObj();
         if (updatableObj.attrsNotUpdated()) {
             if (syncRows > DeiGlobalConstant.ZERO) {
-                analyser.updateLastModifiedTime(updateCtx);
+                updatableObj.updateLastModifiedTime();
             }
         }
 
@@ -101,7 +116,7 @@ public class MenuMasterStdDataSvcImpl
                     final Map<String, String> updateSummary = updatableObj.updateSummary();
                     log.info(String.format("update Menu =====> id: %s, updateSummary: %s", existingMenu.getId(), JsonUtil.toJsonStr(updateSummary)));
                 } else {
-                    log.info(String.format("update Menu lastUpdateTime =====> id: %s, lastUpdateTime: %s",
+                    log.info(String.format("update Menu lastModifiedTime =====> id: %s, lastUpdateTime: %s",
                             existingMenu.getId(), updatableObj.formatLastModifiedTime()));
                 }
             }
@@ -126,7 +141,8 @@ public class MenuMasterStdDataSvcImpl
                 if (Objects.isNull(sysApiMapping.getMenuId())) {
                     sysApiMapping.setMenuId(menuId);
                 }
-                if (StringUtils.isBlank(sysApiMapping.getUpdatedBy())) {
+                if (StringUtils.isNotBlank(operator)) {
+                    sysApiMapping.setCreatedBy(operator);
                     sysApiMapping.setUpdatedBy(operator);
                 }
             });
@@ -135,30 +151,34 @@ public class MenuMasterStdDataSvcImpl
     }
 
     @Override
-    public void remove(final MenuDelParam delParam) {
+    public int remove(final MenuDelParam delParam) {
         final Map<String, Object> deleteParams =
                 Objects.isNull(delParam) ? null : delParam.deleteParams();
         if (DeiCollectionUtil.isEmpty(deleteParams)) {
-            return;
+            return DeiGlobalConstant.ZERO;
         }
 
-        final MenuQueryParam queryParam = new MenuQueryParam.Builder()
-                .pids(delParam.getPids())
-                .sysPrjIds(delParam.getSysPrjIds())
-                .statuses(delParam.getStatuses())
-                .pks(delParam.getPks())
-                .build();
-        final List<MenuSlaveStdVO> existingMenus = menuSlaveStdDataSvc.queryByParam(queryParam,
-                new MenuQueryCfg.Builder()
-                        .showColumns(Collections.singletonList(BaseDeiEntity.ShowColumn.ID.getCode()))
-                        .build());
+        final List<MenuSlaveStdVO> existingMenus = queryExistingMenus(delParam);
         if (DeiCollectionUtil.isEmpty(existingMenus)) {
             throw new DeiServiceException(String.format("Cannot find any menus as per delParam =====> %s", JsonUtil.toJsonStr(delParam)));
         }
         menuSysApiMappingMasterStdDataSvc.remove(new MenuSysApiMappingDelParam.Builder()
                 .menuIds(existingMenus.stream().map(MenuSlaveStdVO::getId).collect(Collectors.toList()))
                 .build());
-        menuMasterDbSvc.deleteByParams(deleteParams);
+        return menuMasterDbSvc.deleteByParams(deleteParams);
+    }
+
+    private List<MenuSlaveStdVO> queryExistingMenus(final MenuDelParam delParam) {
+        final MenuQueryParam queryParam = new MenuQueryParam.Builder()
+                .pids(delParam.getPids())
+                .sysPrjIds(delParam.getSysPrjIds())
+                .statuses(delParam.getStatuses())
+                .pks(delParam.getPks())
+                .build();
+        return menuSlaveStdDataSvc.queryByParam(queryParam,
+                new MenuQueryCfg.Builder()
+                        .showColumns(Collections.singletonList(BaseDeiEntity.ShowColumn.ID.getCode()))
+                        .build());
     }
 
     @Override

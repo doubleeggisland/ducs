@@ -1,6 +1,7 @@
 package com.ioiox.dei.duc.beans.vo.std.slave;
 
 import com.ioiox.dei.core.vo.SlaveStdDataVO;
+import com.ioiox.dei.duc.beans.entity.UserSysPrjPrivilege;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -27,4 +28,8 @@ public class UserSysPrjPrivilegeSlaveStdVO
      * 项目
      */
     private SysPrjSlaveStdVO sysPrj;
+
+    public String uniqueKeyDigest() {
+        return new UserSysPrjPrivilege.UniqueKey(userId, sysPrjId).toString();
+    }
 }

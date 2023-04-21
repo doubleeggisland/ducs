@@ -138,6 +138,13 @@
         and corp_sid in
         <foreach collection="corpSids" item="corpSid" separator="," open="(" close=")">#{corpSid}</foreach>
       </if>
+      <if test="sysPrjSid != null">
+        and sys_prj_sid = #{sysPrjSid}
+      </if>
+      <if test="sysPrjSids != null and sysPrjSids.size > 0">
+        and sys_prj_sid in
+        <foreach collection="sysPrjSids" item="sysPrjSid" separator="," open="(" close=")">#{sysPrjSid}</foreach>
+      </if>
       <if test="status != null">
         and status = #{status}
       </if>

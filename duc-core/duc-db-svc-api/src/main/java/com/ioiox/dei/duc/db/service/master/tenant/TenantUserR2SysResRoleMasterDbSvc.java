@@ -3,5 +3,10 @@ package com.ioiox.dei.duc.db.service.master.tenant;
 import com.ioiox.dei.core.orm.mybatis.service.IBaseDeiMasterDbService;
 import com.ioiox.dei.duc.beans.entity.TenantUserR2SysResRole;
 
-public interface TenantUserR2SysResRoleMasterDbSvc extends IBaseDeiMasterDbService<TenantUserR2SysResRole> {
+import java.util.Date;
+import java.util.List;
+
+public interface TenantUserR2SysResRoleMasterDbSvc
+        extends IBaseDeiMasterDbService<TenantUserR2SysResRole> {
+    int save(final List<Long> sysResRoleSids, final Long tenantUserSid, final String operator, final Date operateTime);
 }

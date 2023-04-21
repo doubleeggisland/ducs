@@ -22,6 +22,8 @@ public class SysApiUpdatableObj extends UpdatableVO {
 
     private UpdatableAttr<String> type;
 
+    private UpdatableAttr<String> memo;
+
     private UpdatableAttr<String> url;
 
     private UpdatableAttr<String> httpMethod;
@@ -43,6 +45,9 @@ public class SysApiUpdatableObj extends UpdatableVO {
         }
         if (Objects.nonNull(type)) {
             updateSummary.put(type.getAttrName(), String.valueOf(type));
+        }
+        if (Objects.nonNull(memo)) {
+            updateSummary.put(memo.getAttrName(), String.valueOf(memo));
         }
         if (Objects.nonNull(url)) {
             updateSummary.put(url.getAttrName(), String.valueOf(url));

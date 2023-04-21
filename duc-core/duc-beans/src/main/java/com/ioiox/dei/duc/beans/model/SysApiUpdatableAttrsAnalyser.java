@@ -29,6 +29,9 @@ public class SysApiUpdatableAttrsAnalyser
         if (UpdatableVO.modified(existingSysApi.getType(), sysApi.getType())) {
             updateCtx.getUpdatableObj().setType(new UpdatableAttr<>(SysApi.ShowColumn.TYPE.getCode(), existingSysApi.getType(), sysApi.getType()));
         }
+        if (UpdatableVO.modified(existingSysApi.getMemo(), sysApi.getMemo())) {
+            updateCtx.getUpdatableObj().setMemo(new UpdatableAttr<>(SysApi.ShowColumn.MEMO.getCode(), existingSysApi.getMemo(), sysApi.getMemo()));
+        }
         if (UpdatableVO.modified(existingSysApi.getUrl(), sysApi.getUrl())) {
             updateCtx.getUpdatableObj().setUrl(new UpdatableAttr<>(SysApi.ShowColumn.URL.getCode(), existingSysApi.getUrl(), sysApi.getUrl()));
         }

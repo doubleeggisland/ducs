@@ -7,6 +7,9 @@ import com.ioiox.dei.duc.db.service.master.tenant.TenantUserSysResRoleR2ResMaste
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+import java.util.List;
+
 @Service("tenantUserSysResRoleR2ResMasterDbSvc")
 public class TenantUserSysResRoleR2ResMasterDbSvcImpl
         extends BaseDeiMasterDbService<SysResRoleR2Res, TenantUserSysResRoleR2ResMasterMapper>
@@ -14,6 +17,11 @@ public class TenantUserSysResRoleR2ResMasterDbSvcImpl
 
     @Autowired
     private TenantUserSysResRoleR2ResMasterMapper mapper;
+
+    @Override
+    public int save(final List<Long> sysResSids, final Long sysResRoleSid, final String operator, final Date operateTime) {
+        return dbInsert(SysResRoleR2Res.instances(sysResSids, sysResRoleSid, operator, operateTime));
+    }
 
     @Override
     protected TenantUserSysResRoleR2ResMasterMapper getMapper() {

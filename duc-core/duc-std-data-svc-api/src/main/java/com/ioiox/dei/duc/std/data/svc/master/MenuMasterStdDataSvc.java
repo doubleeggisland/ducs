@@ -9,6 +9,6 @@ import java.util.List;
 public interface MenuMasterStdDataSvc {
     Long save(final MenuMasterStdVO menu);
     boolean update(final MenuMasterStdVO menu);
-    void remove(final MenuDelParam delParam);
+    int remove(final MenuDelParam delParam);
     void remove(final List<Long> menuIds);
 }

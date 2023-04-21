@@ -2,6 +2,8 @@ package com.ioiox.dei.duc.beans.entity;
 
 import com.ioiox.dei.core.beans.BaseDeiEntity;
 import com.ioiox.dei.core.beans.BaseDeiEnum;
+import com.ioiox.dei.core.beans.DeiStatus;
+import com.ioiox.dei.core.constant.DeiGlobalConstant;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,6 +26,27 @@ public class SysApi extends BaseDeiEntity {
     private String sysPrjModuleCode;
     private Long sysPrjSid;
     private String status;
+
+    public void setDefaultValueIfNeed() {
+        if (StringUtils.isBlank(type)) {
+            type = Type.PUBLIC.getCode();
+        }
+        if (StringUtils.isBlank(url)) {
+            url = DeiGlobalConstant.NONE;
+        }
+        if (StringUtils.isBlank(sysPrjModuleName)) {
+            sysPrjModuleName = DeiGlobalConstant.NONE_CN;
+        }
+        if (StringUtils.isBlank(sysPrjModuleCode)) {
+            sysPrjModuleCode = DeiGlobalConstant.NONE;
+        }
+        if (Objects.isNull(sysPrjSid)) {
+            sysPrjSid = DeiGlobalConstant.DEFAULT_SID;
+        }
+        if (StringUtils.isBlank(status)) {
+            status = DeiStatus.ENABLE.getCode();
+        }
+    }
 
     @Override
     public boolean equals(Object o) {

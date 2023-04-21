@@ -7,6 +7,9 @@ import com.ioiox.dei.duc.db.service.master.tenant.TenantUserGrpR2UserMasterDbSvc
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+import java.util.List;
+
 @Service("tenantUserGrpR2UserMasterDbSvc")
 public class TenantUserGrpR2UserMasterDbSvcImpl
         extends BaseDeiMasterDbService<UserGrpR2User, TenantUserGrpR2UserMasterMapper>
@@ -14,6 +17,11 @@ public class TenantUserGrpR2UserMasterDbSvcImpl
 
     @Autowired
     private TenantUserGrpR2UserMasterMapper mapper;
+
+    @Override
+    public int save(final List<Long> userGrpSids, final Long tenantUserSid, final String operator, final Date operateTime) {
+        return dbInsert(UserGrpR2User.instances(userGrpSids, tenantUserSid, operator, operateTime));
+    }
 
     @Override
     protected TenantUserGrpR2UserMasterMapper getMapper() {

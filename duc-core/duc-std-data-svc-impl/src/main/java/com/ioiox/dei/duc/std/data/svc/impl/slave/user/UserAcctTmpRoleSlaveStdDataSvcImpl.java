@@ -9,7 +9,7 @@ import com.ioiox.dei.duc.beans.vo.std.slave.SysApiSlaveStdVO;
 import com.ioiox.dei.duc.beans.vo.std.slave.user.UserAcctTmpRoleQueryParam;
 import com.ioiox.dei.duc.beans.vo.std.slave.user.UserAcctTmpRoleSlaveStdVO;
 import com.ioiox.dei.duc.db.service.slave.user.UserAcctTmpRoleR2MenuSlaveDbSvc;
-import com.ioiox.dei.duc.db.service.slave.user.UserAcctTmpRoleR2SysApiSlaveDbSvc;
+import com.ioiox.dei.duc.db.service.slave.user.UserAcctTmpRoleR2MenuSysApiSlaveDbSvc;
 import com.ioiox.dei.duc.db.service.slave.user.UserAcctTmpRoleSlaveDbSvc;
 import com.ioiox.dei.duc.std.data.svc.impl.slave.BaseRoleSlaveStdDataSvc;
 import com.ioiox.dei.duc.std.data.svc.slave.user.UserAcctTmpRoleSlaveStdDataSvc;
@@ -36,8 +36,8 @@ public class UserAcctTmpRoleSlaveStdDataSvcImpl
     private UserAcctTmpRoleR2MenuSlaveDbSvc userAcctTmpRoleR2MenuSlaveDbSvc;
 
     @Autowired
-    @Qualifier("userAcctTmpRoleR2SysApiSlaveDbSvc")
-    private UserAcctTmpRoleR2SysApiSlaveDbSvc userAcctTmpRoleR2SysApiSlaveDbSvc;
+    @Qualifier("userAcctTmpRoleR2MenuSysApiSlaveDbSvc")
+    private UserAcctTmpRoleR2MenuSysApiSlaveDbSvc userAcctTmpRoleR2MenuSysApiSlaveDbSvc;
 
     @Override
     public List<UserAcctTmpRoleSlaveStdVO> queryByPks(final List<Long> tmpRoleIds,
@@ -69,7 +69,7 @@ public class UserAcctTmpRoleSlaveStdDataSvcImpl
 
     @Override
     protected Map<Long, List<Long>> getSysApiMappingIds(final List<Long> tmpRoleIds) {
-        return userAcctTmpRoleR2SysApiSlaveDbSvc.getGroupedMappingSids(tmpRoleIds);
+        return userAcctTmpRoleR2MenuSysApiSlaveDbSvc.getGroupedMappingSids(tmpRoleIds);
     }
 
     @Override

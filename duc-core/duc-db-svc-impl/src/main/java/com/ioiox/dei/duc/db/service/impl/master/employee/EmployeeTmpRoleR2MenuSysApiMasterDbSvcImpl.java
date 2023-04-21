@@ -1,0 +1,35 @@
+package com.ioiox.dei.duc.db.service.impl.master.employee;
+
+import com.ioiox.dei.core.orm.mybatis.service.BaseDeiMasterDbService;
+import com.ioiox.dei.duc.beans.entity.RoleR2MenuSysApi;
+import com.ioiox.dei.duc.db.mapper.master.employee.EmployeeTmpRoleR2MenuSysApiMasterMapper;
+import com.ioiox.dei.duc.db.service.master.employee.EmployeeTmpRoleR2MenuSysApiMasterDbSvc;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.Date;
+import java.util.List;
+
+@Service("employeeTmpRoleR2MenuSysApiMasterDbSvc")
+public class EmployeeTmpRoleR2MenuSysApiMasterDbSvcImpl
+        extends BaseDeiMasterDbService<RoleR2MenuSysApi, EmployeeTmpRoleR2MenuSysApiMasterMapper>
+        implements EmployeeTmpRoleR2MenuSysApiMasterDbSvc {
+
+    @Autowired
+    private EmployeeTmpRoleR2MenuSysApiMasterMapper mapper;
+
+    @Override
+    public int save(final List<Long> sysApiMappingSids, final Long tmpRoleSid, final String operator, final Date operateTime) {
+        return dbInsert(RoleR2MenuSysApi.instances(sysApiMappingSids, tmpRoleSid, operator, operateTime));
+    }
+
+    @Override
+    protected EmployeeTmpRoleR2MenuSysApiMasterMapper getMapper() {
+        return mapper;
+    }
+
+    @Override
+    protected String getDesc() {
+        return "雇员临时角色与菜单相关接口关联表";
+    }
+}

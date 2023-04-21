@@ -23,6 +23,10 @@ public abstract class RoleSlaveStdVO
      */
     private Map<Long, List<MenuSysApiMappingSlaveStdVO>> sysApiMappings;
     /**
+     * 分配的菜单相关的系统接口
+     */
+    private List<SysApiSlaveStdVO> menuSysApis;
+    /**
      * 分配的系统接口
      */
     private List<SysApiSlaveStdVO> sysApis;

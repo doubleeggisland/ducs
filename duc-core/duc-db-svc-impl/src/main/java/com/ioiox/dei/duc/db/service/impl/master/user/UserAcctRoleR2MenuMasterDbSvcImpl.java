@@ -7,10 +7,8 @@ import com.ioiox.dei.duc.db.service.master.user.UserAcctRoleR2MenuMasterDbSvc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 @Service("userAcctRoleR2MenuMasterDbSvc")
 public class UserAcctRoleR2MenuMasterDbSvcImpl

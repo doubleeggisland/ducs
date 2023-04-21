@@ -8,7 +8,6 @@ import java.util.Map;
 
 public interface EmployeeTmpRoleR2SysApiSlaveDbSvc
         extends IBaseDeiSlaveDbService<RoleR2SysApi> {
-
-    Map<Long, List<Long>> getGroupedMappingSids(final List<Long> tmpRoleIds);
-    Map<Long, List<Long>> getGroupedTmpRoleSids(final List<Long> sysApiIds);
+    Map<Long, List<Long>> getGroupedSysApiSids(final List<Long> tmpRoleSids);
+    Map<Long, List<Long>> getGroupedTmpRoleSids(final List<Long> sysApiSids);
 }

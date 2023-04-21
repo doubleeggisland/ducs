@@ -44,6 +44,15 @@ public class SysApiSlaveStdDataSvcImpl
     }
 
     @Override
+    public SysApiSlaveStdVO queryByPk(final Long sysApiId, final StdDataQueryCfg queryCfg) {
+        final List<SysApiSlaveStdVO> sysApis = queryByPks(Collections.singletonList(sysApiId), queryCfg);
+        if (DeiCollectionUtil.isEmpty(sysApis)) {
+            return null;
+        }
+        return sysApis.get(0);
+    }
+
+    @Override
     public List<SysApiSlaveStdVO> queryByPks(final List<Long> sysApiIds, final StdDataQueryCfg queryCfg) {
         if (DeiCollectionUtil.isEmpty(sysApiIds)) {
             return Collections.emptyList();

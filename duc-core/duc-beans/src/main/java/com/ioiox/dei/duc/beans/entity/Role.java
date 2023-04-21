@@ -38,6 +38,10 @@ public abstract class Role extends BaseDeiEntity {
      */
     private Long sysPrjSid;
 
+    public void setDefaultValueIfNeed() {
+
+    }
+
     @Getter
     @AllArgsConstructor
     public enum ShowColumn implements BaseDeiEnum {

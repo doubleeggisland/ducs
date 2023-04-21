@@ -52,6 +52,16 @@ public class SysPrjSlaveStdDataSvcImpl
     }
 
     @Override
+    public SysPrjSlaveStdVO queryByPk(final Long sysPrjId,
+                                      final SysPrjQueryCfg queryCfg) {
+        final List<SysPrjSlaveStdVO> sysPrjs = queryByPks(Collections.singletonList(sysPrjId), queryCfg);
+        if (DeiCollectionUtil.isEmpty(sysPrjs)) {
+            return null;
+        }
+        return sysPrjs.get(0);
+    }
+
+    @Override
     public List<SysPrjSlaveStdVO> queryByPks(final List<Long> sysPrjIds,
                                              final SysPrjQueryCfg queryCfg) {
         if (DeiCollectionUtil.isEmpty(sysPrjIds)) {

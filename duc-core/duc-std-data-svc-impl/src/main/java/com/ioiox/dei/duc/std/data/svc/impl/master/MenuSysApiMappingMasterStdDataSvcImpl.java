@@ -43,6 +43,8 @@ public class MenuSysApiMappingMasterStdDataSvcImpl
     @Qualifier("menuSysApiMappingSlaveStdDataSvc")
     private MenuSysApiMappingSlaveStdDataSvc menuSysApiMappingSlaveStdDataSvc;
 
+    private final MenuSysApiMappingUpdatableAttrsAnalyser analyser = new MenuSysApiMappingUpdatableAttrsAnalyser();
+
     @Override
     public int sync(final List<MenuSysApiMappingMasterStdVO> sysApiMappings,
                     final List<MenuSysApiMappingSlaveStdVO> existingSysApiMappings) {
@@ -58,8 +60,8 @@ public class MenuSysApiMappingMasterStdDataSvcImpl
         if (DeiCollectionUtil.isNotEmpty(diff.getUpdatableChildren())) {
             final List<ChildrenAnalyser.ChildHolder<MenuSysApiMappingMasterStdVO, MenuSysApiMappingSlaveStdVO>> updatedChildren = new LinkedList<>();
             for (final ChildrenAnalyser.ChildHolder<MenuSysApiMappingMasterStdVO, MenuSysApiMappingSlaveStdVO> childHolder : diff.getUpdatableChildren()) {
-                final int updatedRows = update(childHolder.getChild(), childHolder.getExistingChild());
-                if (updatedRows > DeiGlobalConstant.ZERO) {
+                final boolean updated = update(childHolder.getChild(), childHolder.getExistingChild());
+                if (updated) {
                     updatedChildren.add(childHolder);
                 }
             }
@@ -111,13 +113,13 @@ public class MenuSysApiMappingMasterStdDataSvcImpl
         return menuSysApiMappingMasterDbSvc.dbInsert(newEntities);
     }
 
-    public int update(final MenuSysApiMappingMasterStdVO sysApiMapping,
-                       final MenuSysApiMappingSlaveStdVO existingSysApiMapping) {
-        final MenuSysApiMappingUpdatableAttrsAnalyser analyser = new MenuSysApiMappingUpdatableAttrsAnalyser();
+    public boolean update(final MenuSysApiMappingMasterStdVO sysApiMapping,
+                          final MenuSysApiMappingSlaveStdVO existingSysApiMapping) {
         final MenuSysApiMappingUpdateCtx updateCtx = analyser.analyseUpdatedAttrs(sysApiMapping, existingSysApiMapping);
         final MenuSysApiMappingUpdatableObj updatableObj = updateCtx.getUpdatableObj();
 
-        if (updatableObj.updated()) {
+        final boolean updated = updatableObj.updated();
+        if (updated) {
             if (log.isInfoEnabled()) {
                 final Map<String, String> updateSummary = updatableObj.updateSummary();
                 log.info(String.format("update MenuSysApiMapping =====> id: %s, updateSummary: %s", existingSysApiMapping.getId(), JsonUtil.toJsonStr(updateSummary)));
@@ -129,9 +131,8 @@ public class MenuSysApiMappingMasterStdDataSvcImpl
                 throw new DeiServiceException(String.format("MenuSysApiMapping has been updated by others =====> id: %s, versionNum: %s",
                         existingSysApiMapping.getId(), existingSysApiMapping.getVersionNum()));
             }
-            return updatedRows;
         }
-        return DeiGlobalConstant.ZERO;
+        return updated;
     }
 
     @Override

@@ -9,7 +9,7 @@ import com.ioiox.dei.duc.beans.vo.std.slave.SysApiSlaveStdVO;
 import com.ioiox.dei.duc.beans.vo.std.slave.user.UserAcctRoleQueryParam;
 import com.ioiox.dei.duc.beans.vo.std.slave.user.UserAcctRoleSlaveStdVO;
 import com.ioiox.dei.duc.db.service.slave.user.UserAcctRoleR2MenuSlaveDbSvc;
-import com.ioiox.dei.duc.db.service.slave.user.UserAcctRoleR2SysApiSlaveDbSvc;
+import com.ioiox.dei.duc.db.service.slave.user.UserAcctRoleR2MenuSysApiSlaveDbSvc;
 import com.ioiox.dei.duc.db.service.slave.user.UserAcctRoleSlaveDbSvc;
 import com.ioiox.dei.duc.std.data.svc.impl.slave.BaseRoleSlaveStdDataSvc;
 import com.ioiox.dei.duc.std.data.svc.slave.user.UserAcctRoleSlaveStdDataSvc;
@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service("userAcctRoleSlaveStdDataSvc")
@@ -36,8 +37,20 @@ public class UserAcctRoleSlaveStdDataSvcImpl
     private UserAcctRoleR2MenuSlaveDbSvc userAcctRoleR2MenuSlaveDbSvc;
 
     @Autowired
-    @Qualifier("userAcctRoleR2SysApiSlaveDbSvc")
-    private UserAcctRoleR2SysApiSlaveDbSvc userAcctRoleR2SysApiSlaveDbSvc;
+    @Qualifier("userAcctRoleR2MenuSysApiSlaveDbSvc")
+    private UserAcctRoleR2MenuSysApiSlaveDbSvc userAcctRoleR2MenuSysApiSlaveDbSvc;
+
+    @Override
+    public UserAcctRoleSlaveStdVO queryByPk(final Long userId, final RoleQueryCfg queryCfg) {
+        if (Objects.isNull(userId)) {
+            return null;
+        }
+        final List<UserAcctRoleSlaveStdVO> userAcctRoles = queryByPKs(Collections.singletonList(userId), queryCfg);
+        if (DeiCollectionUtil.isEmpty(userAcctRoles)) {
+            return null;
+        }
+        return userAcctRoles.get(0);
+    }
 
     @Override
     public List<UserAcctRoleSlaveStdVO> queryByPKs(final List<Long> userIds, final RoleQueryCfg queryCfg) {
@@ -68,7 +81,7 @@ public class UserAcctRoleSlaveStdDataSvcImpl
 
     @Override
     protected Map<Long, List<Long>> getSysApiMappingIds(final List<Long> roleIds) {
-        return userAcctRoleR2SysApiSlaveDbSvc.getGroupedMappingSids(roleIds);
+        return userAcctRoleR2MenuSysApiSlaveDbSvc.getGroupedMappingSids(roleIds);
     }
 
     @Override
