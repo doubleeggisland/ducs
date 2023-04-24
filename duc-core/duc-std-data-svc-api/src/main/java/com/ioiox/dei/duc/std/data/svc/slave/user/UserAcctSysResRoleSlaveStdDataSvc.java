@@ -10,6 +10,8 @@ import java.util.List;
 public interface UserAcctSysResRoleSlaveStdDataSvc
         extends SysResRoleSlaveStdDataSvc<UserAcctSysResRoleSlaveStdVO, UserAcctSysResRoleQueryParam> {
 
+    UserAcctSysResRoleSlaveStdVO queryByPk(final Long sysResRoleId,
+                                           final SysResRoleQueryCfg queryCfg);
     List<UserAcctSysResRoleSlaveStdVO> queryByPks(final List<Long> sysResRoleIds,
                                                   final SysResRoleQueryCfg queryCfg);
 }

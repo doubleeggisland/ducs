@@ -9,5 +9,6 @@ import java.util.List;
 public interface UserSysPrjPrivilegeMasterStdDataSvc {
     int sync(final List<UserSysPrjPrivilegeMasterStdVO> sysPrjPrivileges,
              final List<UserSysPrjPrivilegeSlaveStdVO> existingSysPrjPrivileges);
+    int removeByUserIds(final List<Long> userIds);
     int remove(final UserSysPrjPrivilegeDelParam delParam);
 }

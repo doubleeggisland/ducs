@@ -16,7 +16,8 @@ import java.util.Objects;
 @Getter
 @Setter
 @NoArgsConstructor
-public abstract class TmpRoleUpdatableObj extends RoleUpdatableObj {
+public abstract class BaseTmpRoleUpdatableObj
+        extends BaseRoleUpdatableObj {
 
     private UpdatableAttr<String> unlimitedDateRangeFlag;
 

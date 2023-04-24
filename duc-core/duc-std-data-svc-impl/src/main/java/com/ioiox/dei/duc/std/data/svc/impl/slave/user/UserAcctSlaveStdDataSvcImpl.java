@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @Service("userAcctSlaveStdDataSvc")
 public class UserAcctSlaveStdDataSvcImpl
@@ -76,6 +77,20 @@ public class UserAcctSlaveStdDataSvcImpl
     @Autowired
     @Qualifier("acctUserGrpR2UserSlaveDbSvc")
     private AcctUserGrpR2UserSlaveDbSvc acctUserGrpR2UserSlaveDbSvc;
+
+    @Override
+    public UserAcctSlaveStdVO queryByPk(final Long userAcctId,
+                                        final UserQueryCfg queryCfg) {
+        if (Objects.isNull(userAcctId)) {
+            return null;
+        }
+        final List<UserAcctSlaveStdVO> userAccts =
+                queryByPks(Collections.singletonList(userAcctId), queryCfg);
+        if (DeiCollectionUtil.isEmpty(userAccts)) {
+            return null;
+        }
+        return userAccts.get(0);
+    }
 
     @Override
     public List<UserAcctSlaveStdVO> queryByPks(final List<Long> userAcctIds,

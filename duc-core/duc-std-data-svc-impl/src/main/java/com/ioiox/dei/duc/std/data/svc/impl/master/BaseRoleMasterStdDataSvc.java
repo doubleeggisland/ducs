@@ -6,8 +6,8 @@ import com.ioiox.dei.core.utils.DeiCollectionUtil;
 import com.ioiox.dei.core.utils.JsonUtil;
 import com.ioiox.dei.core.utils.RelationshipsAnalyser;
 import com.ioiox.dei.duc.beans.entity.Role;
-import com.ioiox.dei.duc.beans.model.RoleUpdatableObj;
-import com.ioiox.dei.duc.beans.model.RoleUpdateCtx;
+import com.ioiox.dei.duc.beans.model.BaseRoleUpdatableObj;
+import com.ioiox.dei.duc.beans.model.BaseRoleUpdateCtx;
 import com.ioiox.dei.duc.beans.vo.std.master.BaseRoleDelParam;
 import com.ioiox.dei.duc.beans.vo.std.master.BaseRoleMasterStdVO;
 import com.ioiox.dei.duc.beans.vo.std.slave.BaseRoleSlaveStdVO;
@@ -21,8 +21,8 @@ import java.util.stream.Collectors;
 
 public abstract class BaseRoleMasterStdDataSvc<
         T extends BaseRoleMasterStdVO,
-        O extends RoleUpdatableObj,
-        C extends RoleUpdateCtx<O>,
+        O extends BaseRoleUpdatableObj,
+        C extends BaseRoleUpdateCtx<O>,
         D extends BaseRoleDelParam,
         S extends BaseRoleSlaveStdVO,
         E extends Role>
@@ -39,7 +39,8 @@ public abstract class BaseRoleMasterStdDataSvc<
         doSave(newEntity);
         final long id = newEntity.getSid();
         syncMenus(getMenuIds(role), null, id, role.getUpdatedBy());
-        syncSysApis(getSysApiMappingIds(role), null, id, role.getUpdatedBy());
+        syncMenuSysApis(getSysApiMappingIds(role), null, id, role.getUpdatedBy());
+        syncSysApis(getSysApiIds(role), null, id, role.getUpdatedBy());
         return id;
     }
 
@@ -58,12 +59,15 @@ public abstract class BaseRoleMasterStdDataSvc<
     public boolean update(final T role, final S existingRole) {
         final int numOfMenusSync =
                 syncMenus(getMenuIds(role), getExistingMenuIds(existingRole), existingRole.getId(), role.getUpdatedBy());
+        final int numOfMenuSysApisSync =
+                syncMenuSysApis(getSysApiMappingIds(role), getExistingSysApiMappingIds(existingRole), existingRole.getId(), role.getUpdatedBy());
         final int numOfSysApisSync =
-                syncSysApis(getSysApiMappingIds(role), getExistingSysApiMappingIds(existingRole), existingRole.getId(), role.getUpdatedBy());
+                syncSysApis(getSysApiIds(role), getExistingSysApiIds(existingRole), existingRole.getId(), role.getUpdatedBy());
         final C updateCtx = getUpdateContext(role, existingRole);
         final O updatableObj = updateCtx.getUpdatableObj();
         if (updatableObj.attrsNotUpdated()) {
             if (numOfMenusSync > 0
+                    || numOfMenuSysApisSync > 0
                     || numOfSysApisSync > 0) {
                 updatableObj.updateLastModifiedTime();
             }
@@ -102,9 +106,11 @@ public abstract class BaseRoleMasterStdDataSvc<
         }
         final List<Long> roleIds = existingRoles.stream().map(S::getId).collect(Collectors.toList());
         final int numOfMenusRemoved = removeMenusFromRoles(roleIds);
+        final int numOfMenuSysApisRemoved = removeMenuSysApisFromRoles(roleIds);
         final int numOfSysApisRemoved = removeSysApisFromRoles(roleIds);
         if (log.isInfoEnabled()) {
             log.info(String.format("remove menus from role as per roleIds: %s =====> numOfMenusRemoved: %s", JsonUtil.toJsonStr(roleIds), numOfMenusRemoved));
+            log.info(String.format("remove menuSysApis from role as per roleIds: %s =====> numOfMenuSysApisRemoved: %s", JsonUtil.toJsonStr(roleIds), numOfMenuSysApisRemoved));
             log.info(String.format("remove sysApis from role as per roleIds: %s =====> numOfSysApisRemoved: %s", JsonUtil.toJsonStr(roleIds), numOfSysApisRemoved));
         }
         final int numOfRolesRemoved = doRemove(deleteParams);
@@ -138,11 +144,35 @@ public abstract class BaseRoleMasterStdDataSvc<
         return insertedRows + deletedRows;
     }
 
-    protected int syncSysApis(final List<Long> sysApiMappingIds,
-                              final List<Long> existingSysApiMappingIds,
+    protected int syncMenuSysApis(final List<Long> sysApiMappingIds,
+                                  final List<Long> existingSysApiMappingIds,
+                                  final Long roleId,
+                                  final String operator) {
+        final RelationshipsAnalyser.DiffHolder<Long> diff = RelationshipsAnalyser.analysisDiff(sysApiMappingIds, existingSysApiMappingIds);
+        final int insertedRows;
+        if (DeiCollectionUtil.isNotEmpty(diff.getNewRelationships())) {
+            insertedRows = assignMenuSysApisToRole(diff.getNewRelationships(), roleId, operator);
+        } else {
+            insertedRows = DeiGlobalConstant.ZERO;
+        }
+        final int deletedRows;
+        if (DeiCollectionUtil.isNotEmpty(diff.getRemovedRelationships())) {
+            deletedRows = removeMenuSysApisFromRole(diff.getRemovedRelationships(), roleId, operator);
+        } else {
+            deletedRows = DeiGlobalConstant.ZERO;
+        }
+        if (log.isInfoEnabled()) {
+            log.info(String.format("sync MenuSysApis =====> insertedRows: %s, deletedRows: %s",
+                    insertedRows, deletedRows));
+        }
+        return insertedRows + deletedRows;
+    }
+
+    protected int syncSysApis(final List<Long> sysApiIds,
+                              final List<Long> existingSysApiIds,
                               final Long roleId,
                               final String operator) {
-        final RelationshipsAnalyser.DiffHolder<Long> diff = RelationshipsAnalyser.analysisDiff(sysApiMappingIds, existingSysApiMappingIds);
+        final RelationshipsAnalyser.DiffHolder<Long> diff = RelationshipsAnalyser.analysisDiff(sysApiIds, existingSysApiIds);
         final int insertedRows;
         if (DeiCollectionUtil.isNotEmpty(diff.getNewRelationships())) {
             insertedRows = assignSysApisToRole(diff.getNewRelationships(), roleId, operator);
@@ -170,9 +200,13 @@ public abstract class BaseRoleMasterStdDataSvc<
 
     protected abstract List<Long> getSysApiMappingIds(final T role);
 
+    protected abstract List<Long> getSysApiIds(final T role);
+
     protected abstract List<Long> getExistingMenuIds(final S existingRole);
 
     protected abstract List<Long> getExistingSysApiMappingIds(final S existingRole);
+
+    protected abstract List<Long> getExistingSysApiIds(final S existingRole);
 
     protected abstract C getUpdateContext(final T role, final S existingRole);
 
@@ -188,9 +222,15 @@ public abstract class BaseRoleMasterStdDataSvc<
 
     protected abstract int removeMenusFromRoles(final List<Long> roleIds);
 
-    protected abstract int assignSysApisToRole(final List<Long> sysApiMappingIds, final Long roleId, final String operator);
+    protected abstract int assignMenuSysApisToRole(final List<Long> sysApiMappingIds, final Long roleId, final String operator);
 
-    protected abstract int removeSysApisFromRole(final List<Long> sysApiMappingIds, final Long roleId, final String operator);
+    protected abstract int removeMenuSysApisFromRole(final List<Long> sysApiMappingIds, final Long roleId, final String operator);
+
+    protected abstract int removeMenuSysApisFromRoles(final List<Long> roleIds);
+
+    protected abstract int assignSysApisToRole(final List<Long> sysApiIds, final Long roleId, final String operator);
+
+    protected abstract int removeSysApisFromRole(final List<Long> sysApiIds, final Long roleId, final String operator);
 
     protected abstract int removeSysApisFromRoles(final List<Long> roleIds);
 }

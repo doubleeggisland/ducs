@@ -10,6 +10,7 @@ import com.ioiox.dei.duc.beans.vo.std.slave.user.UserAcctRoleQueryParam;
 import com.ioiox.dei.duc.beans.vo.std.slave.user.UserAcctRoleSlaveStdVO;
 import com.ioiox.dei.duc.db.service.slave.user.UserAcctRoleR2MenuSlaveDbSvc;
 import com.ioiox.dei.duc.db.service.slave.user.UserAcctRoleR2MenuSysApiSlaveDbSvc;
+import com.ioiox.dei.duc.db.service.slave.user.UserAcctRoleR2SysApiSlaveDbSvc;
 import com.ioiox.dei.duc.db.service.slave.user.UserAcctRoleSlaveDbSvc;
 import com.ioiox.dei.duc.std.data.svc.impl.slave.BaseRoleSlaveStdDataSvc;
 import com.ioiox.dei.duc.std.data.svc.slave.user.UserAcctRoleSlaveStdDataSvc;
@@ -39,6 +40,10 @@ public class UserAcctRoleSlaveStdDataSvcImpl
     @Autowired
     @Qualifier("userAcctRoleR2MenuSysApiSlaveDbSvc")
     private UserAcctRoleR2MenuSysApiSlaveDbSvc userAcctRoleR2MenuSysApiSlaveDbSvc;
+
+    @Autowired
+    @Qualifier("userAcctRoleR2SysApiSlaveDbSvc")
+    private UserAcctRoleR2SysApiSlaveDbSvc userAcctRoleR2SysApiSlaveDbSvc;
 
     @Override
     public UserAcctRoleSlaveStdVO queryByPk(final Long userId, final RoleQueryCfg queryCfg) {
@@ -85,6 +90,11 @@ public class UserAcctRoleSlaveStdDataSvcImpl
     }
 
     @Override
+    protected Map<Long, List<Long>> getSysApiIds(final List<Long> roleIds) {
+        return userAcctRoleR2SysApiSlaveDbSvc.getGroupedSysApiSids(roleIds);
+    }
+
+    @Override
     protected void assembleMenus(final UserAcctRoleSlaveStdVO role,
                                  final List<MenuSlaveStdVO> menus) {
         role.setMenus(menus);
@@ -99,6 +109,11 @@ public class UserAcctRoleSlaveStdDataSvcImpl
             role.setSysApiMappings(sysApiMappings.stream()
                     .collect(Collectors.groupingBy(MenuSysApiMappingSlaveStdVO::getMenuId)));
         }
+    }
+
+    @Override
+    protected void assembleMenuSysApis(final UserAcctRoleSlaveStdVO role, final List<SysApiSlaveStdVO> menuSysApis) {
+        role.setMenuSysApis(menuSysApis);
     }
 
     @Override

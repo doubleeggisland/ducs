@@ -23,6 +23,7 @@ import org.springframework.stereotype.Service;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @Service("acctUserGrpSlaveStdDataSvc")
 public class AcctUserGrpSlaveStdDataSvcImpl
@@ -48,6 +49,19 @@ public class AcctUserGrpSlaveStdDataSvcImpl
     @Autowired
     @Qualifier("acctUserGrpR2SysResRoleSlaveDbSvc")
     private AcctUserGrpR2SysResRoleSlaveDbSvc acctUserGrpR2SysResRoleSlaveDbSvc;
+
+    public AcctUserGrpSlaveStdVO queryByPk(final Long acctUserGrpId,
+                                           final UserGrpQueryCfg queryCfg) {
+        if (Objects.isNull(acctUserGrpId)) {
+            return null;
+        }
+        final List<AcctUserGrpSlaveStdVO> userGrps =
+                queryByPks(Collections.singletonList(acctUserGrpId), queryCfg);
+        if (DeiCollectionUtil.isEmpty(userGrps)) {
+            return null;
+        }
+        return userGrps.get(0);
+    }
 
     @Override
     public List<AcctUserGrpSlaveStdVO> queryByPks(final List<Long> acctUserGrpIds,

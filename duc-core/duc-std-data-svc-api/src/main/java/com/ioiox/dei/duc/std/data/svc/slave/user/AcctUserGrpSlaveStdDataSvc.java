@@ -12,6 +12,8 @@ import java.util.List;
 public interface AcctUserGrpSlaveStdDataSvc
         extends UserGrpSlaveStdDataSvc<UserAcctRoleSlaveStdVO, UserAcctSysResRoleSlaveStdVO, AcctUserGrpSlaveStdVO, AcctUserGrpQueryParam> {
 
+    AcctUserGrpSlaveStdVO queryByPk(final Long acctUserGrpId,
+                                    final UserGrpQueryCfg queryCfg);
     List<AcctUserGrpSlaveStdVO> queryByPks(final List<Long> acctUserGrpIds,
                                            final UserGrpQueryCfg queryCfg);
 }

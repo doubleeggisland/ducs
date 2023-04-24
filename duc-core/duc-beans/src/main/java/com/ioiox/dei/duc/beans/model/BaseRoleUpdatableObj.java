@@ -14,7 +14,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @NoArgsConstructor
-public abstract class RoleUpdatableObj extends UpdatableVO {
+public abstract class BaseRoleUpdatableObj extends UpdatableVO {
 
     private UpdatableAttr<String> name;
 

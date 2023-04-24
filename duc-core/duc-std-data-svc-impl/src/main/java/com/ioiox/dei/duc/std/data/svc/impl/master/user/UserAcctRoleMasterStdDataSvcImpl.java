@@ -1,22 +1,26 @@
 package com.ioiox.dei.duc.std.data.svc.impl.master.user;
 
+import com.ioiox.dei.core.beans.BaseDeiEntity;
+import com.ioiox.dei.core.constant.DeiGlobalConstant;
 import com.ioiox.dei.core.utils.DeiCollectionUtil;
+import com.ioiox.dei.core.utils.JsonUtil;
+import com.ioiox.dei.core.vo.DefaultStdDataQueryCfg;
+import com.ioiox.dei.duc.beans.entity.Role;
 import com.ioiox.dei.duc.beans.entity.UserAcctRole;
 import com.ioiox.dei.duc.beans.model.user.UserAcctRoleUpdatableAttrsAnalyser;
 import com.ioiox.dei.duc.beans.model.user.UserAcctRoleUpdatableObj;
 import com.ioiox.dei.duc.beans.model.user.UserAcctRoleUpdateCtx;
 import com.ioiox.dei.duc.beans.vo.std.master.user.UserAcctRoleDelParam;
 import com.ioiox.dei.duc.beans.vo.std.master.user.UserAcctRoleMasterStdVO;
-import com.ioiox.dei.duc.beans.vo.std.slave.MenuSlaveStdVO;
-import com.ioiox.dei.duc.beans.vo.std.slave.MenuSysApiMappingSlaveStdVO;
+import com.ioiox.dei.duc.beans.vo.std.slave.*;
 import com.ioiox.dei.duc.beans.vo.std.slave.user.UserAcctRoleQueryParam;
 import com.ioiox.dei.duc.beans.vo.std.slave.user.UserAcctRoleSlaveStdVO;
 import com.ioiox.dei.duc.db.service.master.user.UserAcctRoleMasterDbSvc;
-import com.ioiox.dei.duc.db.service.master.user.UserAcctRoleR2MenuMasterDbSvc;
-import com.ioiox.dei.duc.db.service.master.user.UserAcctRoleR2MenuSysApiMasterDbSvc;
 import com.ioiox.dei.duc.std.data.svc.impl.master.BaseRoleMasterStdDataSvc;
 import com.ioiox.dei.duc.std.data.svc.master.user.UserAcctRoleMasterStdDataSvc;
 import com.ioiox.dei.duc.std.data.svc.slave.user.UserAcctRoleSlaveStdDataSvc;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -29,17 +33,11 @@ public class UserAcctRoleMasterStdDataSvcImpl
         extends BaseRoleMasterStdDataSvc<UserAcctRoleMasterStdVO, UserAcctRoleUpdatableObj, UserAcctRoleUpdateCtx, UserAcctRoleDelParam, UserAcctRoleSlaveStdVO, UserAcctRole>
         implements UserAcctRoleMasterStdDataSvc {
 
+    private static final Logger log = LoggerFactory.getLogger(UserAcctRoleMasterStdDataSvcImpl.class);
+
     @Autowired
     @Qualifier("userAcctRoleMasterDbSvc")
     private UserAcctRoleMasterDbSvc userAcctRoleMasterDbSvc;
-
-    @Autowired
-    @Qualifier("userAcctRoleR2MenuMasterDbSvc")
-    private UserAcctRoleR2MenuMasterDbSvc userAcctRoleR2MenuMasterDbSvc;
-
-    @Autowired
-    @Qualifier("userAcctRoleR2SysApiMasterDbSvc")
-    private UserAcctRoleR2MenuSysApiMasterDbSvc userAcctRoleR2SysApiMasterDbSvc;
 
     @Autowired
     @Qualifier("userAcctRoleSlaveStdDataSvc")
@@ -49,7 +47,26 @@ public class UserAcctRoleMasterStdDataSvcImpl
 
     @Override
     protected UserAcctRoleSlaveStdVO getExistingRole(final Long id) {
-        return userAcctRoleSlaveStdDataSvc.queryByPk(id, null);
+        return userAcctRoleSlaveStdDataSvc.queryByPk(id,
+                new RoleQueryCfg.Builder()
+                        .needMenus(DeiGlobalConstant.FLAG_YES)
+                        .menuQueryCfg(new MenuQueryCfg.Builder()
+                                .showColumns(Collections.singletonList(BaseDeiEntity.ShowColumn.ID.getCode()))
+                                .build())
+                        .needSysApiMappings(DeiGlobalConstant.FLAG_YES)
+                        .sysApiMappingQueryCfg(new MenuSysApiMappingQueryCfg.Builder()
+                                .showColumns(Collections.singletonList(BaseDeiEntity.ShowColumn.ID.getCode()))
+                                .build())
+                        .needSysApis(DeiGlobalConstant.FLAG_YES)
+                        .sysApiQueryCfg(new DefaultStdDataQueryCfg.Builder()
+                                .showColumns(Collections.singletonList(BaseDeiEntity.ShowColumn.ID.getCode()))
+                                .build())
+                        .showColumns(Arrays.asList(BaseDeiEntity.ShowColumn.ID.getCode(),
+                                Role.ShowColumn.CODE.getCode(), Role.ShowColumn.NAME.getCode(),
+                                Role.ShowColumn.TYPE.getCode(), Role.ShowColumn.STATUS.getCode(),
+                                Role.ShowColumn.MEMO.getCode(), Role.ShowColumn.SYS_PRJ_SID.getCode(),
+                                BaseDeiEntity.ShowColumn.VERSION_NUM.getCode()))
+                        .build());
     }
 
     @Override
@@ -60,7 +77,10 @@ public class UserAcctRoleMasterStdDataSvcImpl
                 .statuses(delParam.getStatuses())
                 .pks(delParam.getPks())
                 .build();
-        return userAcctRoleSlaveStdDataSvc.queryByParam(queryParam, null);
+        return userAcctRoleSlaveStdDataSvc.queryByParam(queryParam,
+                new RoleQueryCfg.Builder()
+                        .showColumns(Collections.singletonList(BaseDeiEntity.ShowColumn.ID.getCode()))
+                        .build());
     }
 
     @Override
@@ -71,6 +91,11 @@ public class UserAcctRoleMasterStdDataSvcImpl
     @Override
     protected List<Long> getSysApiMappingIds(final UserAcctRoleMasterStdVO role) {
         return role.getSysApiMappingIds();
+    }
+
+    @Override
+    protected List<Long> getSysApiIds(final UserAcctRoleMasterStdVO role) {
+        return role.getSysApiIds();
     }
 
     @Override
@@ -89,6 +114,12 @@ public class UserAcctRoleMasterStdDataSvcImpl
             sysApiMappingIds.addAll(sysApiMappingsOfMenu.stream().map(MenuSysApiMappingSlaveStdVO::getId).collect(Collectors.toList()));
         }
         return sysApiMappingIds;
+    }
+
+    @Override
+    protected List<Long> getExistingSysApiIds(final UserAcctRoleSlaveStdVO existingRole) {
+        return DeiCollectionUtil.isEmpty(existingRole.getSysApis())
+                ? Collections.emptyList() : existingRole.getSysApis().stream().map(SysApiSlaveStdVO::getId).collect(Collectors.toList());
     }
 
     @Override
@@ -113,32 +144,80 @@ public class UserAcctRoleMasterStdDataSvcImpl
 
     @Override
     protected int assignMenusToRole(final List<Long> menuIds, final Long roleId, final String operator) {
-        return userAcctRoleR2MenuMasterDbSvc.save(menuIds, roleId, operator, new Date(System.currentTimeMillis()));
+        if (log.isInfoEnabled()) {
+            log.info(String.format("assign menus to userAcctRole =====> menuIds: %s, roleId: %s",
+                    JsonUtil.toJsonStr(menuIds), roleId));
+        }
+        return userAcctRoleMasterDbSvc.assignMenusToRole(menuIds, roleId, operator, new Date(System.currentTimeMillis()));
     }
 
     @Override
     protected int removeMenusFromRole(final List<Long> menuIds, final Long roleId, final String operator) {
-        return 0;
+        if (log.isInfoEnabled()) {
+            log.info(String.format("remove menus from userAcctRole =====> menuIds: %s, roleId: %s",
+                    JsonUtil.toJsonStr(menuIds), roleId));
+        }
+        return userAcctRoleMasterDbSvc.removeMenusFromRoles(menuIds, Collections.singletonList(roleId));
     }
 
     @Override
     protected int removeMenusFromRoles(final List<Long> roleIds) {
-        return 0;
+        if (log.isInfoEnabled()) {
+            log.info(String.format("remove menus from userAcctRoles ======> roleIds: %s", JsonUtil.toJsonStr(roleIds)));
+        }
+        return userAcctRoleMasterDbSvc.removeMenusFromRoles(null, roleIds);
     }
 
     @Override
-    protected int assignSysApisToRole(final List<Long> sysApiMappingIds, final Long roleId, final String operator) {
-        return 0;
+    protected int assignMenuSysApisToRole(List<Long> sysApiMappingIds, Long roleId, String operator) {
+        if (log.isInfoEnabled()) {
+            log.info(String.format("assign menuSysApis to userAcctRole =====> sysApiMappingIds: %s, roleId: %s",
+                    JsonUtil.toJsonStr(sysApiMappingIds), roleId));
+        }
+        return userAcctRoleMasterDbSvc.assignMenuSysApisToRole(sysApiMappingIds, roleId, operator, new Date(System.currentTimeMillis()));
     }
 
     @Override
-    protected int removeSysApisFromRole(final List<Long> sysApiMappingIds, final Long roleId, final String operator) {
-        return 0;
+    protected int removeMenuSysApisFromRole(List<Long> sysApiMappingIds, Long roleId, String operator) {
+        if (log.isInfoEnabled()) {
+            log.info(String.format("remove menuSysApis from userAcctRole =====> sysApiMappingIds: %s, roleId: %s",
+                    JsonUtil.toJsonStr(sysApiMappingIds), roleId));
+        }
+        return userAcctRoleMasterDbSvc.removeMenuSysApisFromRoles(sysApiMappingIds, Collections.singletonList(roleId));
+    }
+
+    @Override
+    protected int removeMenuSysApisFromRoles(List<Long> roleIds) {
+        if (log.isInfoEnabled()) {
+            log.info(String.format("remove menuSysApis from userAcctRoles ======> roleIds: %s", JsonUtil.toJsonStr(roleIds)));
+        }
+        return userAcctRoleMasterDbSvc.removeMenuSysApisFromRoles(null, roleIds);
+    }
+
+    @Override
+    protected int assignSysApisToRole(final List<Long> sysApiIds, final Long roleId, final String operator) {
+        if (log.isInfoEnabled()) {
+            log.info(String.format("assign sysApis to userAcctRole =====> sysApiIds: %s, roleId: %s",
+                    JsonUtil.toJsonStr(sysApiIds), roleId));
+        }
+        return userAcctRoleMasterDbSvc.assignSysApisToRole(sysApiIds, roleId, operator, new Date(System.currentTimeMillis()));
+    }
+
+    @Override
+    protected int removeSysApisFromRole(final List<Long> sysApiIds, final Long roleId, final String operator) {
+        if (log.isInfoEnabled()) {
+            log.info(String.format("remove sysApis from userAcctRole =====> sysApiIds: %s, roleId: %s",
+                    JsonUtil.toJsonStr(sysApiIds), roleId));
+        }
+        return userAcctRoleMasterDbSvc.removeSysApisFromRoles(sysApiIds, Collections.singletonList(roleId));
     }
 
     @Override
     protected int removeSysApisFromRoles(final List<Long> roleIds) {
-        return 0;
+        if (log.isInfoEnabled()) {
+            log.info(String.format("remove sysApis from userAcctRoles ======> roleIds: %s", JsonUtil.toJsonStr(roleIds)));
+        }
+        return userAcctRoleMasterDbSvc.removeSysApisFromRoles(null, roleIds);
     }
 
     @Override

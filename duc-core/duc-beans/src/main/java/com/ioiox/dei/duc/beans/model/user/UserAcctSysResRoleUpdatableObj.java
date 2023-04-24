@@ -1,7 +1,7 @@
 package com.ioiox.dei.duc.beans.model.user;
 
-import com.ioiox.dei.duc.beans.model.SysResRoleUpdatableObj;
+import com.ioiox.dei.duc.beans.model.BaseRoleUpdatableObj;
 
 public class UserAcctSysResRoleUpdatableObj
-        extends SysResRoleUpdatableObj {
+        extends BaseRoleUpdatableObj {
 }

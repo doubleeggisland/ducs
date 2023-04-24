@@ -187,4 +187,27 @@ public abstract class BaseUserGrpMasterStdDataSvc<
     protected abstract void doSave(final E newEntity);
     protected abstract int doUpdate(final E example);
     protected abstract int doRemove(final Map<String, Object> deleteParams);
+
+    protected void assembleCommonAttrs(final UserGrp newEntity, final UserGrpMasterStdVO userGrp) {
+        newEntity.setCode(userGrp.getCode());
+        newEntity.setName(userGrp.getName());
+        newEntity.setMemo(userGrp.getMemo());
+        newEntity.setStatus(userGrp.getStatus());
+    }
+
+    protected void assembleUpdatableAttrs(final UserGrp example, final UserGrpUpdatableObj updatableVO) {
+        super.assembleCommonAttrs(example, updatableVO);
+        if (Objects.nonNull(updatableVO.getCode())) {
+            example.setCode(updatableVO.getCode().getNewVal());
+        }
+        if (Objects.nonNull(updatableVO.getName())) {
+            example.setName(updatableVO.getName().getNewVal());
+        }
+        if (Objects.nonNull(updatableVO.getMemo())) {
+            example.setMemo(updatableVO.getMemo().getNewVal());
+        }
+        if (Objects.nonNull(updatableVO.getStatus())) {
+            example.setStatus(updatableVO.getStatus().getNewVal());
+        }
+    }
 }

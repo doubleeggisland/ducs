@@ -7,11 +7,11 @@ import com.ioiox.dei.duc.beans.entity.Role;
 import com.ioiox.dei.duc.beans.vo.std.master.BaseRoleMasterStdVO;
 import com.ioiox.dei.duc.beans.vo.std.slave.BaseRoleSlaveStdVO;
 
-public abstract class RoleUpdatableAttrsAnalyser<
+public abstract class BaseRoleUpdatableAttrsAnalyser<
         M extends BaseRoleMasterStdVO,
         S extends BaseRoleSlaveStdVO,
-        O extends RoleUpdatableObj,
-        C extends RoleUpdateCtx<O>>
+        O extends BaseRoleUpdatableObj,
+        C extends BaseRoleUpdateCtx<O>>
         extends UpdatableObjAnalyser<M, S, O, C> {
 
     @Override

@@ -16,23 +16,29 @@ import lombok.Setter;
 public class RoleQueryCfg extends StdDataQueryCfg {
     private String needMenus;
     private String needSysApiMappings;
+    private String needSysApis;
     private MenuQueryCfg menuQueryCfg;
     private MenuSysApiMappingQueryCfg sysApiMappingQueryCfg;
+    private StdDataQueryCfg sysApiQueryCfg;
 
     private RoleQueryCfg(final Builder builder) {
         super(builder);
         needMenus = builder.needMenus;
         needSysApiMappings = builder.needSysApiMappings;
+        needSysApis = builder.needSysApis;
         menuQueryCfg = builder.menuQueryCfg;
         sysApiMappingQueryCfg = builder.sysApiMappingQueryCfg;
+        sysApiQueryCfg = builder.sysApiQueryCfg;
     }
 
     public static class Builder
             extends StdDataQueryCfgBuilder<RoleQueryCfg> {
         private String needMenus;
         private String needSysApiMappings;
+        private String needSysApis;
         private MenuQueryCfg menuQueryCfg;
         private MenuSysApiMappingQueryCfg sysApiMappingQueryCfg;
+        private StdDataQueryCfg sysApiQueryCfg;
 
         public Builder needMenus(final String needMenus) {
             this.needMenus = needMenus;
@@ -42,12 +48,20 @@ public class RoleQueryCfg extends StdDataQueryCfg {
             this.needSysApiMappings = needSysApiMappings;
             return this;
         }
+        public Builder needSysApis(final String needSysApis) {
+            this.needSysApis = needSysApis;
+            return this;
+        }
         public Builder menuQueryCfg(final MenuQueryCfg menuQueryCfg) {
             this.menuQueryCfg = menuQueryCfg;
             return this;
         }
         public Builder sysApiMappingQueryCfg(final MenuSysApiMappingQueryCfg sysApiMappingQueryCfg) {
             this.sysApiMappingQueryCfg = sysApiMappingQueryCfg;
+            return this;
+        }
+        public Builder sysApiQueryCfg(final StdDataQueryCfg sysApiQueryCfg) {
+            this.sysApiQueryCfg = sysApiQueryCfg;
             return this;
         }
 

@@ -10,6 +10,8 @@ public interface UserAcctSlaveStdDataSvc
         extends UserSlaveStdDataSvc<UserAcctRoleSlaveStdVO, UserAcctSysResRoleSlaveStdVO, UserAcctTmpRoleSlaveStdVO, UserAcctTmpSysResRoleSlaveStdVO, AcctUserGrpSlaveStdVO,
         UserAcctSlaveStdVO, UserAcctQueryParam> {
 
+    UserAcctSlaveStdVO queryByPk(final Long userAcctId,
+                                 final UserQueryCfg queryCfg);
     List<UserAcctSlaveStdVO> queryByPks(final List<Long> userAcctIds,
                                         final UserQueryCfg queryCfg);
 }

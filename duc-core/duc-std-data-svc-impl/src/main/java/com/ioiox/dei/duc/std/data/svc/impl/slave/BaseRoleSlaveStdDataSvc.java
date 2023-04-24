@@ -3,6 +3,7 @@ package com.ioiox.dei.duc.std.data.svc.impl.slave;
 import com.ioiox.dei.core.beans.BaseDeiEntity;
 import com.ioiox.dei.core.constant.DeiGlobalConstant;
 import com.ioiox.dei.core.utils.DeiCollectionUtil;
+import com.ioiox.dei.core.vo.StdDataQueryCfg;
 import com.ioiox.dei.duc.beans.entity.MenuSysApiMapping;
 import com.ioiox.dei.duc.beans.entity.Role;
 import com.ioiox.dei.duc.beans.vo.std.slave.*;
@@ -79,18 +80,30 @@ public abstract class BaseRoleSlaveStdDataSvc<
             groupedSysApiMappings = Collections.emptyMap();
         }
 
+        final Map<Long, List<SysApiSlaveStdVO>> groupedSysApis;
+        if (Objects.nonNull(queryCfg)
+                && StringUtils.equals(DeiGlobalConstant.FLAG_YES, queryCfg.getNeedSysApis())) {
+            groupedSysApis = getSysApis(roleIds, queryCfg.getSysApiQueryCfg());
+        } else {
+            groupedSysApis = Collections.emptyMap();
+        }
+
         roles.forEach(role -> {
             assembleMenus(role, groupedMenus.getOrDefault(role.getId(), Collections.emptyList()));
+
             final List<MenuSysApiMappingSlaveStdVO> sysApiMappingsOfRole =
                     groupedSysApiMappings.getOrDefault(role.getId(), Collections.emptyList());
             assembleSysApiMappings(role, sysApiMappingsOfRole);
-            final List<SysApiSlaveStdVO> sysApisOfRole = getSysApis(sysApiMappingsOfRole);
-            assembleSysApis(role, sysApisOfRole);
+
+            final List<SysApiSlaveStdVO> menuSysApisOfRole = getMenuSysApis(sysApiMappingsOfRole);
+            assembleMenuSysApis(role, menuSysApisOfRole);
+
+            assembleSysApis(role, groupedSysApis.getOrDefault(role.getId(), Collections.emptyList()));
         });
         return roles;
     }
 
-    private List<SysApiSlaveStdVO> getSysApis(final List<MenuSysApiMappingSlaveStdVO> sysApiMappingsOfRole) {
+    private List<SysApiSlaveStdVO> getMenuSysApis(final List<MenuSysApiMappingSlaveStdVO> sysApiMappingsOfRole) {
         if (DeiCollectionUtil.isEmpty(sysApiMappingsOfRole)) {
             return Collections.emptyList();
         }
@@ -116,9 +129,13 @@ public abstract class BaseRoleSlaveStdDataSvc<
 
     protected abstract Map<Long, List<Long>> getSysApiMappingIds(final List<Long> roleIds);
 
+    protected abstract Map<Long, List<Long>> getSysApiIds(final List<Long> roleIds);
+
     protected abstract void assembleMenus(final R role, final List<MenuSlaveStdVO> menus);
 
     protected abstract void assembleSysApiMappings(final R role, final List<MenuSysApiMappingSlaveStdVO> sysApiMappings);
+
+    protected abstract void assembleMenuSysApis(final R role, final List<SysApiSlaveStdVO> menuSysApis);
 
     protected abstract void assembleSysApis(final R role, final List<SysApiSlaveStdVO> sysApis);
 
@@ -156,6 +173,40 @@ public abstract class BaseRoleSlaveStdDataSvc<
             groupedMenus.put(roleId, menusOfRole);
         }
         return groupedMenus;
+    }
+
+    protected Map<Long, List<SysApiSlaveStdVO>> getSysApis(final List<Long> roleIds,
+                                                           final StdDataQueryCfg queryCfg) {
+        if (DeiCollectionUtil.isEmpty(roleIds)) {
+            return Collections.emptyMap();
+        }
+        final Map<Long, List<Long>> groupedSysApiIds = getSysApiIds(roleIds);
+        if (DeiCollectionUtil.isEmpty(groupedSysApiIds)) {
+            return Collections.emptyMap();
+        }
+        final Set<Long> sysApiIds = new LinkedHashSet<>(64);
+        for (final List<Long> sysApiIdsOfRole : groupedSysApiIds.values()) {
+            sysApiIds.addAll(sysApiIdsOfRole);
+        }
+        addShowColumnsIfNeeded(queryCfg, Collections.singletonList(BaseDeiEntity.ShowColumn.ID.getCode()));
+        final List<SysApiSlaveStdVO> sysApis = sysApiSlaveStdDataSvc.queryByPks(new ArrayList<>(sysApiIds), queryCfg);
+        if (DeiCollectionUtil.isEmpty(sysApis)) {
+            return Collections.emptyMap();
+        }
+        final Map<Long, SysApiSlaveStdVO> sysApiMap =
+                sysApis.stream().collect(Collectors.toMap(SysApiSlaveStdVO::getId, item -> item));
+        final Map<Long, List<SysApiSlaveStdVO>> groupedSysApis = new HashMap<>(roleIds.size());
+        for (final Long roleId : groupedSysApiIds.keySet()) {
+            final List<Long> sysApiIdsOfRole = groupedSysApiIds.get(roleId);
+            final List<SysApiSlaveStdVO> sysApisOfRole = new ArrayList<>(sysApiIdsOfRole.size());
+            for (final Long sysApiIdOfRole : sysApiIdsOfRole) {
+                if (sysApiMap.containsKey(sysApiIdOfRole)) {
+                    sysApisOfRole.add(sysApiMap.get(sysApiIdOfRole));
+                }
+            }
+            groupedSysApis.put(roleId, sysApisOfRole);
+        }
+        return groupedSysApis;
     }
 
     protected Map<Long, List<MenuSysApiMappingSlaveStdVO>> getSysApiMappings(final List<Long> roleIds,

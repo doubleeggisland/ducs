@@ -57,7 +57,7 @@ public abstract class BaseUserSysPrjPrivilegeMasterStdDataSvc
         }
         final int deletedRows;
         if (DeiCollectionUtil.isNotEmpty(diff.getRemovedChildren())) {
-            deletedRows = remove(diff.getRemovedChildren().stream()
+            deletedRows = removeByPks(diff.getRemovedChildren().stream()
                     .map(UserSysPrjPrivilegeSlaveStdVO::getId)
                     .collect(Collectors.toList()));
         } else {
@@ -107,7 +107,7 @@ public abstract class BaseUserSysPrjPrivilegeMasterStdDataSvc
         return doSave(newEntities);
     }
 
-    int remove(final List<Long> pks) {
+    int removeByPks(final List<Long> pks) {
         if (DeiCollectionUtil.isEmpty(pks)) {
             return DeiGlobalConstant.ZERO;
         }
@@ -116,6 +116,17 @@ public abstract class BaseUserSysPrjPrivilegeMasterStdDataSvc
         }
         final UserSysPrjPrivilegeDelParam delParam = new UserSysPrjPrivilegeDelParam.Builder()
                 .pks(pks)
+                .build();
+        return remove(delParam);
+    }
+
+    @Override
+    public int removeByUserIds(final List<Long> userIds) {
+        if (DeiCollectionUtil.isEmpty(userIds)) {
+            return DeiGlobalConstant.ZERO;
+        }
+        final UserSysPrjPrivilegeDelParam delParam = new UserSysPrjPrivilegeDelParam.Builder()
+                .userIds(userIds)
                 .build();
         return remove(delParam);
     }

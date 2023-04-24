@@ -12,12 +12,12 @@ import java.sql.Time;
 import java.util.Date;
 import java.util.Objects;
 
-public abstract class TmpRoleUpdatableAttrsAnalyser<
+public abstract class BaseTmpRoleUpdatableAttrsAnalyser<
         M extends BaseTmpRoleMasterStdVO,
         S extends BaseTmpRoleSlaveStdVO,
-        O extends TmpRoleUpdatableObj,
-        C extends TmpRoleUpdateCtx<O>>
-        extends RoleUpdatableAttrsAnalyser<M, S, O, C> {
+        O extends BaseTmpRoleUpdatableObj,
+        C extends BaseTmpRoleUpdateCtx<O>>
+        extends BaseRoleUpdatableAttrsAnalyser<M, S, O, C> {
 
     @Override
     protected void analyseUpdatedAttrs(final M tmpRole, final S existingTmpRole, final C updateCtx) {

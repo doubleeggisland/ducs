@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @Service("userAcctSysResRoleSlaveStdDataSvc")
 public class UserAcctSysResRoleSlaveStdDataSvcImpl
@@ -30,6 +31,20 @@ public class UserAcctSysResRoleSlaveStdDataSvcImpl
     @Autowired
     @Qualifier("userAcctSysResRoleR2ResSlaveDbSvc")
     private UserAcctSysResRoleR2ResSlaveDbSvc userAcctSysResRoleR2ResSlaveDbSvc;
+
+    @Override
+    public UserAcctSysResRoleSlaveStdVO queryByPk(final Long sysResRoleId,
+                                                  final SysResRoleQueryCfg queryCfg) {
+        if (Objects.isNull(sysResRoleId)) {
+            return null;
+        }
+        final List<UserAcctSysResRoleSlaveStdVO> sysResRoles =
+                queryByPks(Collections.singletonList(sysResRoleId), queryCfg);
+        if (DeiCollectionUtil.isEmpty(sysResRoles)) {
+            return null;
+        }
+        return sysResRoles.get(0);
+    }
 
     @Override
     public List<UserAcctSysResRoleSlaveStdVO> queryByPks(final List<Long> sysResRoleIds,

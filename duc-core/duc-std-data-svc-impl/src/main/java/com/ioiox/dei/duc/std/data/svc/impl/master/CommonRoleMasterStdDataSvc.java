@@ -3,8 +3,8 @@ package com.ioiox.dei.duc.std.data.svc.impl.master;
 import com.ioiox.dei.core.orm.mybatis.service.BaseDeiMasterStdDataSvc;
 import com.ioiox.dei.duc.beans.entity.Role;
 import com.ioiox.dei.duc.beans.entity.TmpRole;
-import com.ioiox.dei.duc.beans.model.RoleUpdatableObj;
-import com.ioiox.dei.duc.beans.model.TmpRoleUpdatableObj;
+import com.ioiox.dei.duc.beans.model.BaseRoleUpdatableObj;
+import com.ioiox.dei.duc.beans.model.BaseTmpRoleUpdatableObj;
 import com.ioiox.dei.duc.beans.vo.std.master.BaseRoleMasterStdVO;
 import com.ioiox.dei.duc.beans.vo.std.master.BaseTmpRoleMasterStdVO;
 
@@ -14,7 +14,7 @@ import java.util.Objects;
 
 public abstract class CommonRoleMasterStdDataSvc<
         T extends BaseRoleMasterStdVO,
-        O extends RoleUpdatableObj,
+        O extends BaseRoleUpdatableObj,
         E extends Role>
         extends BaseDeiMasterStdDataSvc<T, O, E>  {
 
@@ -45,7 +45,7 @@ public abstract class CommonRoleMasterStdDataSvc<
         }
     }
 
-    protected void assembleRoleUpdatableAttrs(final Role example, final RoleUpdatableObj updatableObj) {
+    protected void assembleRoleUpdatableAttrs(final Role example, final BaseRoleUpdatableObj updatableObj) {
         assembleCommonAttrs(example, updatableObj);
         if (Objects.nonNull(updatableObj.getName())) {
             example.setName(updatableObj.getName().getNewVal());
@@ -61,7 +61,7 @@ public abstract class CommonRoleMasterStdDataSvc<
         }
     }
 
-    protected void assembleTmpRoleUpdatableAttrs(final TmpRole example, final TmpRoleUpdatableObj updatableObj) {
+    protected void assembleTmpRoleUpdatableAttrs(final TmpRole example, final BaseTmpRoleUpdatableObj updatableObj) {
         assembleRoleUpdatableAttrs(example, updatableObj);
         if (Objects.nonNull(updatableObj.getUnlimitedDateRangeFlag())) {
             example.setUnlimitedDateRangeFlag(updatableObj.getUnlimitedDateRangeFlag().getNewVal());

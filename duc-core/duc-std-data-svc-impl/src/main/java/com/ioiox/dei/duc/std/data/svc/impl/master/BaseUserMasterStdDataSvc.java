@@ -136,7 +136,7 @@ public abstract class BaseUserMasterStdDataSvc<
         if (DeiCollectionUtil.isEmpty(deleteParams)) {
             return DeiGlobalConstant.ZERO;
         }
-        final List<S> existingUses = queryExistingUses(delParam);
+        final List<S> existingUses = queryExistingUsers(delParam);
         if (DeiCollectionUtil.isEmpty(existingUses)) {
             throw new DeiServiceException(String.format("Cannot find any users as per delParam =====> %s", JsonUtil.toJsonStr(delParam)));
         }
@@ -329,7 +329,7 @@ public abstract class BaseUserMasterStdDataSvc<
     }
 
     protected abstract S getExistingUser(final Long id);
-    protected abstract List<S> queryExistingUses(final D delParam);
+    protected abstract List<S> queryExistingUsers(final D delParam);
 
     protected abstract int syncSysPrjPrivileges(final List<UserSysPrjPrivilegeMasterStdVO> sysPrjPrivileges,
                                                 final List<UserSysPrjPrivilegeSlaveStdVO> existingSysPrjPrivileges);

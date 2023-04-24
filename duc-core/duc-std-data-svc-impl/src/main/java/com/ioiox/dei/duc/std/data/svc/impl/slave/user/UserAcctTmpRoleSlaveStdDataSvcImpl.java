@@ -10,6 +10,7 @@ import com.ioiox.dei.duc.beans.vo.std.slave.user.UserAcctTmpRoleQueryParam;
 import com.ioiox.dei.duc.beans.vo.std.slave.user.UserAcctTmpRoleSlaveStdVO;
 import com.ioiox.dei.duc.db.service.slave.user.UserAcctTmpRoleR2MenuSlaveDbSvc;
 import com.ioiox.dei.duc.db.service.slave.user.UserAcctTmpRoleR2MenuSysApiSlaveDbSvc;
+import com.ioiox.dei.duc.db.service.slave.user.UserAcctTmpRoleR2SysApiSlaveDbSvc;
 import com.ioiox.dei.duc.db.service.slave.user.UserAcctTmpRoleSlaveDbSvc;
 import com.ioiox.dei.duc.std.data.svc.impl.slave.BaseRoleSlaveStdDataSvc;
 import com.ioiox.dei.duc.std.data.svc.slave.user.UserAcctTmpRoleSlaveStdDataSvc;
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Service;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service("userAcctTmpRoleSlaveStdDataSvc")
@@ -38,6 +40,24 @@ public class UserAcctTmpRoleSlaveStdDataSvcImpl
     @Autowired
     @Qualifier("userAcctTmpRoleR2MenuSysApiSlaveDbSvc")
     private UserAcctTmpRoleR2MenuSysApiSlaveDbSvc userAcctTmpRoleR2MenuSysApiSlaveDbSvc;
+
+    @Autowired
+    @Qualifier("userAcctTmpRoleR2SysApiSlaveDbSvc")
+    private UserAcctTmpRoleR2SysApiSlaveDbSvc userAcctTmpRoleR2SysApiSlaveDbSvc;
+
+    @Override
+    public UserAcctTmpRoleSlaveStdVO queryByPk(final Long tmpRoleId,
+                                               final RoleQueryCfg queryCfg) {
+        if (Objects.isNull(tmpRoleId)) {
+            return null;
+        }
+        final List<UserAcctTmpRoleSlaveStdVO> tmpRoles =
+                queryByPks(Collections.singletonList(tmpRoleId), queryCfg);
+        if (DeiCollectionUtil.isEmpty(tmpRoles)) {
+            return null;
+        }
+        return tmpRoles.get(0);
+    }
 
     @Override
     public List<UserAcctTmpRoleSlaveStdVO> queryByPks(final List<Long> tmpRoleIds,
@@ -73,6 +93,11 @@ public class UserAcctTmpRoleSlaveStdDataSvcImpl
     }
 
     @Override
+    protected Map<Long, List<Long>> getSysApiIds(final List<Long> tmpRoleIds) {
+        return userAcctTmpRoleR2SysApiSlaveDbSvc.getGroupedSysApiSids(tmpRoleIds);
+    }
+
+    @Override
     protected void assembleMenus(final UserAcctTmpRoleSlaveStdVO tmpRole,
                                  final List<MenuSlaveStdVO> menus) {
         tmpRole.setMenus(menus);
@@ -87,6 +112,12 @@ public class UserAcctTmpRoleSlaveStdDataSvcImpl
             tmpRole.setSysApiMappings(sysApiMappings.stream()
                     .collect(Collectors.groupingBy(MenuSysApiMappingSlaveStdVO::getMenuId)));
         }
+    }
+
+    @Override
+    protected void assembleMenuSysApis(final UserAcctTmpRoleSlaveStdVO tmpRole,
+                                       final List<SysApiSlaveStdVO> menuSysApis) {
+        tmpRole.setMenuSysApis(menuSysApis);
     }
 
     @Override

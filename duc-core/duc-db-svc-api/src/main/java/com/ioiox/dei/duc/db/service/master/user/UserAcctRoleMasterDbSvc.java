@@ -13,6 +13,6 @@ public interface UserAcctRoleMasterDbSvc extends IBaseDeiMasterDbService<UserAcc
     int assignMenuSysApisToRole(final List<Long> sysApiMappingSids, final Long roleSid, final String operator, final Date operateTime);
     int removeMenuSysApisFromRoles(final List<Long> sysApiMappingSids, final List<Long> roleSids);
 
-    int assignSysApisToRole(final List<Long> sysApiMappingSids, final Long roleSid, final String operator, final Date operateTime);
-    int removeSysApisFromRoles(final List<Long> sysApiMappingSids, final List<Long> roleSids);
+    int assignSysApisToRole(final List<Long> sysApiSids, final Long roleSid, final String operator, final Date operateTime);
+    int removeSysApisFromRoles(final List<Long> sysApiSids, final List<Long> roleSids);
 }
