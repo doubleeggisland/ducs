@@ -4,7 +4,7 @@ import com.ioiox.dei.core.beans.BaseDeiEntity;
 import com.ioiox.dei.core.beans.BaseDeiEnum;
 import com.ioiox.dei.core.beans.DeiStatus;
 import com.ioiox.dei.core.constant.DeiGlobalConstant;
-import com.ioiox.dei.duc.beans.constant.RoleType;
+import com.ioiox.dei.duc.spring.core.model.DUCRoleType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,7 +27,7 @@ public abstract class Role extends BaseDeiEntity {
     private String name;
     /**
      * 角色类型
-     * @see com.ioiox.dei.duc.beans.constant.RoleType
+     * @see DUCRoleType
      */
     private String type;
     /**
@@ -46,7 +46,7 @@ public abstract class Role extends BaseDeiEntity {
 
     public void setDefaultValueIfNeed() {
         if (StringUtils.isBlank(type)) {
-            type = RoleType.CUSTOMIZED.getCode();
+            type = DUCRoleType.CUSTOMIZED.getCode();
         }
         if (StringUtils.isBlank(status)) {
             status = DeiStatus.ENABLE.getCode();

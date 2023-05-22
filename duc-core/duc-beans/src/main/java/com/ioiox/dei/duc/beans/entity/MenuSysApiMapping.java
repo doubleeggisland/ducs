@@ -2,6 +2,7 @@ package com.ioiox.dei.duc.beans.entity;
 
 import com.ioiox.dei.core.beans.BaseDeiEntity;
 import com.ioiox.dei.core.beans.BaseDeiEnum;
+import com.ioiox.dei.duc.spring.core.model.DUCSysApiInteractForm;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,11 +17,15 @@ import java.util.Objects;
 public class MenuSysApiMapping extends BaseDeiEntity {
     private Long menuSid;
     private Long sysApiSid;
+    /**
+     * 交互方式
+     * @see DUCSysApiInteractForm
+     */
     private String interactForm;
 
     public void setDefaultValueIfNeed() {
         if (StringUtils.isBlank(interactForm)) {
-            interactForm = InteractForm.OTHER.code;
+            interactForm = DUCSysApiInteractForm.OTHER.getCode();
         }
     }
 
@@ -39,18 +44,6 @@ public class MenuSysApiMapping extends BaseDeiEntity {
     @Override
     public int hashCode() {
         return Objects.hash(uniqueKey());
-    }
-
-    @Getter
-    @AllArgsConstructor
-    public enum InteractForm implements BaseDeiEnum {
-        BUTTON("btn", "按钮", "按钮"),
-        LINK("link", "链接", "链接"),
-        OTHER("other", "其他", "其他"),
-        ;
-        private final String code;
-        private final String name;
-        private final String desc;
     }
 
     @Getter

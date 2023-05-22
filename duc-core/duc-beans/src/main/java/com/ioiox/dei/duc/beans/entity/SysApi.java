@@ -4,6 +4,7 @@ import com.ioiox.dei.core.beans.BaseDeiEntity;
 import com.ioiox.dei.core.beans.BaseDeiEnum;
 import com.ioiox.dei.core.beans.DeiStatus;
 import com.ioiox.dei.core.constant.DeiGlobalConstant;
+import com.ioiox.dei.duc.spring.core.model.DUCSysApiType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,7 +30,7 @@ public class SysApi extends BaseDeiEntity {
 
     public void setDefaultValueIfNeed() {
         if (StringUtils.isBlank(type)) {
-            type = Type.PUBLIC.getCode();
+            type = DUCSysApiType.PUBLIC.getCode();
         }
         if (StringUtils.isBlank(url)) {
             url = DeiGlobalConstant.NONE;
@@ -72,18 +73,6 @@ public class SysApi extends BaseDeiEntity {
     @Override
     public int hashCode() {
         return Objects.hash(code, url, httpMethod, sysPrjSid);
-    }
-
-    @Getter
-    @AllArgsConstructor
-    public enum Type implements BaseDeiEnum {
-        AUTH_NEEDED("auth-needed", "需授权的接口"),
-        AUTH_IGNORED("auth-ignored", "忽略授权的接口 (需要access token才能访问, 不需要授权的接口)"),
-        PUBLIC("public", "公共接口 (不需要access token就可以访问的接口)"),
-        ;
-
-        private final String code;
-        private final String desc;
     }
 
     @Getter

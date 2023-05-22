@@ -2,6 +2,7 @@ package com.ioiox.dei.duc.beans.vo.std.master;
 
 import com.ioiox.dei.core.vo.MasterStdDataVO;
 import com.ioiox.dei.duc.beans.entity.MenuSysApiMapping;
+import com.ioiox.dei.duc.spring.core.model.DUCSysApiInteractForm;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,7 +22,7 @@ public class MenuSysApiMappingMasterStdVO extends MasterStdDataVO {
     private Long sysApiId;
     /**
      * 交互形式
-     * @see com.ioiox.dei.duc.beans.entity.MenuSysApiMapping.InteractForm
+     * @see DUCSysApiInteractForm
      */
     private String interactForm;
 
@@ -33,6 +34,6 @@ public class MenuSysApiMappingMasterStdVO extends MasterStdDataVO {
 
     public MenuSysApiMapping.UniqueKey uniqueKey() {
         return new MenuSysApiMapping.UniqueKey(menuId, sysApiId,
-                StringUtils.isBlank(interactForm) ? MenuSysApiMapping.InteractForm.OTHER.getCode() : interactForm);
+                StringUtils.isBlank(interactForm) ? DUCSysApiInteractForm.OTHER.getCode() : interactForm);
     }
 }

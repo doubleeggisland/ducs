@@ -4,6 +4,7 @@ import com.ioiox.dei.core.beans.BaseDeiEntity;
 import com.ioiox.dei.core.beans.BaseDeiEnum;
 import com.ioiox.dei.core.beans.DeiStatus;
 import com.ioiox.dei.core.constant.DeiGlobalConstant;
+import com.ioiox.dei.duc.spring.core.model.DUCSysResType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,7 +28,7 @@ public class SysRes extends BaseDeiEntity {
 
     public void setDefaultValueIfNeed() {
         if (StringUtils.isBlank(type)) {
-            type = Type.SHARED.getCode();
+            type = DUCSysResType.SHARED.getCode();
         }
         if (StringUtils.isBlank(status)) {
             status = DeiStatus.ENABLE.getCode();
@@ -60,16 +61,6 @@ public class SysRes extends BaseDeiEntity {
     @Override
     public int hashCode() {
         return Objects.hash(code, sysPrjSid);
-    }
-
-    @Getter
-    @AllArgsConstructor
-    public enum Type implements BaseDeiEnum {
-        UNDER_CONTROL("under-ctrl", "管控资源"),
-        SHARED("shared", "共享资源"),
-        ;
-        private final String code;
-        private final String desc;
     }
 
     @Getter

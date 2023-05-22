@@ -17,5 +17,7 @@
     <module>duc-db-svc-impl</module>
     <module>duc-std-data-svc-api</module>
     <module>duc-std-data-svc-impl</module>
+    <module>duc-spring-beans</module>
+    <module>duc-spring-boot-starter</module>
   </modules>
 </project>

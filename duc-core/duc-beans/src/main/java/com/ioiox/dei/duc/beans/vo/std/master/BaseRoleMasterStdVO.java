@@ -1,6 +1,7 @@
 package com.ioiox.dei.duc.beans.vo.std.master;
 
 import com.ioiox.dei.core.vo.MasterStdDataVO;
+import com.ioiox.dei.duc.spring.core.model.DUCRoleType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,7 +20,7 @@ public abstract class BaseRoleMasterStdVO extends MasterStdDataVO {
     private String name;
     /**
      * 角色类型
-     * @see com.ioiox.dei.duc.beans.constant.RoleType
+     * @see DUCRoleType
      */
     private String type;
     /**
