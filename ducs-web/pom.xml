@@ -55,13 +55,12 @@
 
     <dependency>
       <groupId>com.ioiox.dei</groupId>
-      <artifactId>duc-spring-boot-starter</artifactId>
+      <artifactId>duc-std-data-svc-impl</artifactId>
     </dependency>
 
     <dependency>
       <groupId>io.springfox</groupId>
       <artifactId>springfox-boot-starter</artifactId>
-      <version>3.0.0</version>
     </dependency>
   </dependencies>
 

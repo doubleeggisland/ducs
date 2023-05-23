@@ -5,7 +5,9 @@ import com.ioiox.dei.duc.beans.entity.UserSysPrjPrivilege;
 import com.ioiox.dei.duc.db.mapper.master.user.AcctUserSysPrjPrivilegeMasterMapper;
 import com.ioiox.dei.duc.db.service.master.user.AcctUserSysPrjPrivilegeMasterDbSvc;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service("acctUserSysPrjPrivilegeMasterDbSvc")
 public class AcctUserSysPrjPrivilegeMasterDbSvcImpl
         extends BaseDeiMasterDbService<UserSysPrjPrivilege, AcctUserSysPrjPrivilegeMasterMapper>
         implements AcctUserSysPrjPrivilegeMasterDbSvc {

@@ -16,21 +16,21 @@ import springfox.documentation.spring.web.plugins.Docket;
 public class SwaggerDocConfig {
 
     @Bean
-    public Docket ducCoreDocket() {
+    public Docket ducCommonDocket() {
         return new Docket(DocumentationType.OAS_30)
-                .apiInfo(ducCoreApiInfo()).enable(true)
+                .apiInfo(ducCommonApiInfo()).enable(true)
                 .select()
                 //apis： 添加swagger接口提取范围
-                .apis(RequestHandlerSelectors.basePackage("com.ioiox.dei.duc.springboot.rest.api"))
+                .apis(RequestHandlerSelectors.basePackage("com.ioiox.dei.ducs.web.rest.api"))
                 //.apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
                 .paths(PathSelectors.any())
                 .build();
     }
 
-    private ApiInfo ducCoreApiInfo() {
+    private ApiInfo ducCommonApiInfo() {
         return new ApiInfoBuilder()
-                .title("蛋蛋岛用户中心核心接口")
-                .description("蛋蛋岛用户中心核心接口")
+                .title("蛋蛋岛用户中心通用接口")
+                .description("蛋蛋岛用户中心通用接口")
                 .contact(new Contact("山成", "", "cheng.shan@hotmail.com"))
                 .version("1.0.0-SNAPSHOT")
                 .build();
