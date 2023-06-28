@@ -1,7 +1,7 @@
 package com.ioiox.dei.duc.std.data.svc.slave;
 
-import com.ioiox.dei.duc.beans.vo.std.slave.UserSysPrjPrivilegeQueryCfg;
-import com.ioiox.dei.duc.beans.vo.std.slave.UserSysPrjPrivilegeQueryParam;
+import com.ioiox.dei.duc.beans.model.slave.UserSysPrjPrivilegeQueryCfg;
+import com.ioiox.dei.duc.beans.model.slave.UserSysPrjPrivilegeQueryParam;
 import com.ioiox.dei.duc.beans.vo.std.slave.UserSysPrjPrivilegeSlaveStdVO;
 
 import java.util.List;

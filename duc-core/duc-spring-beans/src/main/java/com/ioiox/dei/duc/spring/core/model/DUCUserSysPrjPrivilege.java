@@ -18,6 +18,7 @@ public class DUCUserSysPrjPrivilege {
     private DUCSysPrj sysPrj;
     /**
      * 访问条件
+     * @see com.ioiox.dei.duc.spring.core.model.SysPrjAccessCondition
      */
     private String accessCondition;
 

@@ -5,6 +5,10 @@ import com.ioiox.dei.core.constant.DeiGlobalConstant;
 import com.ioiox.dei.core.orm.mybatis.service.BaseDeiSlaveStdDataSvc;
 import com.ioiox.dei.core.utils.DeiCollectionUtil;
 import com.ioiox.dei.duc.beans.entity.UserGrp;
+import com.ioiox.dei.duc.beans.model.slave.RoleQueryCfg;
+import com.ioiox.dei.duc.beans.model.slave.SysResRoleQueryCfg;
+import com.ioiox.dei.duc.beans.model.slave.UserGrpQueryCfg;
+import com.ioiox.dei.duc.beans.model.slave.UserGrpQueryParam;
 import com.ioiox.dei.duc.beans.vo.std.slave.*;
 import org.apache.commons.lang3.StringUtils;
 

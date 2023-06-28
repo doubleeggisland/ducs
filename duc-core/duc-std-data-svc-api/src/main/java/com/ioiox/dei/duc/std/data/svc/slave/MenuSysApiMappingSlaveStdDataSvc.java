@@ -1,7 +1,7 @@
 package com.ioiox.dei.duc.std.data.svc.slave;
 
-import com.ioiox.dei.duc.beans.vo.std.slave.MenuSysApiMappingQueryCfg;
-import com.ioiox.dei.duc.beans.vo.std.slave.MenuSysApiMappingQueryParam;
+import com.ioiox.dei.duc.beans.model.slave.MenuSysApiMappingQueryCfg;
+import com.ioiox.dei.duc.beans.model.slave.MenuSysApiMappingQueryParam;
 import com.ioiox.dei.duc.beans.vo.std.slave.MenuSysApiMappingSlaveStdVO;
 
 import java.util.List;

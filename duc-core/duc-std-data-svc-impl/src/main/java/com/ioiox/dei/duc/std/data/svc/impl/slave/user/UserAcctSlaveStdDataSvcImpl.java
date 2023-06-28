@@ -2,6 +2,8 @@ package com.ioiox.dei.duc.std.data.svc.impl.slave.user;
 
 import com.ioiox.dei.core.utils.DeiCollectionUtil;
 import com.ioiox.dei.duc.beans.entity.UserAcct;
+import com.ioiox.dei.duc.beans.model.slave.*;
+import com.ioiox.dei.duc.beans.model.slave.user.UserAcctQueryParam;
 import com.ioiox.dei.duc.beans.vo.std.slave.*;
 import com.ioiox.dei.duc.beans.vo.std.slave.user.*;
 import com.ioiox.dei.duc.db.service.slave.user.*;

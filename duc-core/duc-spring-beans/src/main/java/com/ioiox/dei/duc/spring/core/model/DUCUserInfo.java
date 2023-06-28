@@ -67,6 +67,7 @@ public class DUCUserInfo {
     private DUCUserInfo(final Builder builder) {
         userId = builder.userId;
         username = builder.username;
+        pwd = builder.pwd;
         nickName = builder.nickName;
         realName = builder.realName;
         mobile = builder.mobile;

@@ -1,7 +1,7 @@
 package com.ioiox.dei.duc.std.data.svc.slave;
 
 import com.ioiox.dei.core.vo.StdDataQueryCfg;
-import com.ioiox.dei.duc.beans.vo.std.slave.SysApiQueryParam;
+import com.ioiox.dei.duc.beans.model.slave.SysApiQueryParam;
 import com.ioiox.dei.duc.beans.vo.std.slave.SysApiSlaveStdVO;
 
 import java.util.List;

@@ -1,6 +1,6 @@
 package com.ioiox.dei.duc.std.data.svc.master;
 
-import com.ioiox.dei.duc.beans.vo.std.master.UserSysPrjPrivilegeDelParam;
+import com.ioiox.dei.duc.beans.model.master.UserSysPrjPrivilegeDelParam;
 import com.ioiox.dei.duc.beans.vo.std.master.UserSysPrjPrivilegeMasterStdVO;
 import com.ioiox.dei.duc.beans.vo.std.slave.UserSysPrjPrivilegeSlaveStdVO;
 

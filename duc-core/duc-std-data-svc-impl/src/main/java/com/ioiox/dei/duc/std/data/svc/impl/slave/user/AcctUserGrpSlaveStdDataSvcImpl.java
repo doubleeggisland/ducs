@@ -2,10 +2,10 @@ package com.ioiox.dei.duc.std.data.svc.impl.slave.user;
 
 import com.ioiox.dei.core.utils.DeiCollectionUtil;
 import com.ioiox.dei.duc.beans.entity.AcctUserGrp;
-import com.ioiox.dei.duc.beans.vo.std.slave.RoleQueryCfg;
-import com.ioiox.dei.duc.beans.vo.std.slave.SysResRoleQueryCfg;
-import com.ioiox.dei.duc.beans.vo.std.slave.UserGrpQueryCfg;
-import com.ioiox.dei.duc.beans.vo.std.slave.user.AcctUserGrpQueryParam;
+import com.ioiox.dei.duc.beans.model.slave.RoleQueryCfg;
+import com.ioiox.dei.duc.beans.model.slave.SysResRoleQueryCfg;
+import com.ioiox.dei.duc.beans.model.slave.UserGrpQueryCfg;
+import com.ioiox.dei.duc.beans.model.slave.user.AcctUserGrpQueryParam;
 import com.ioiox.dei.duc.beans.vo.std.slave.user.AcctUserGrpSlaveStdVO;
 import com.ioiox.dei.duc.beans.vo.std.slave.user.UserAcctRoleSlaveStdVO;
 import com.ioiox.dei.duc.beans.vo.std.slave.user.UserAcctSysResRoleSlaveStdVO;

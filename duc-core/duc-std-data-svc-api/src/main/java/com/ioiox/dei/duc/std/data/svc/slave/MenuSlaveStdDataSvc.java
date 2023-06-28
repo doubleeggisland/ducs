@@ -1,7 +1,7 @@
 package com.ioiox.dei.duc.std.data.svc.slave;
 
-import com.ioiox.dei.duc.beans.vo.std.slave.MenuQueryCfg;
-import com.ioiox.dei.duc.beans.vo.std.slave.MenuQueryParam;
+import com.ioiox.dei.duc.beans.model.slave.MenuQueryCfg;
+import com.ioiox.dei.duc.beans.model.slave.MenuQueryParam;
 import com.ioiox.dei.duc.beans.vo.std.slave.MenuSlaveStdVO;
 
 import java.util.List;

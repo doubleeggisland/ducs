@@ -70,6 +70,7 @@ public class DUCUserPortfolio {
         grantedMenus = builder.grantedMenus;
         grantedMenuSysApiMappings = builder.grantedMenuSysApiMappings;
         grantedMenuSysApis = builder.grantedMenuSysApis;
+        grantedSysApis = builder.grantedSysApis;
         grantedSysResources = builder.grantedSysResources;
         grantedSysPrjPrivileges = builder.grantedSysPrjPrivileges;
         grantedUserGrps = builder.grantedUserGrps;

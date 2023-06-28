@@ -1,7 +1,7 @@
 package com.ioiox.dei.duc.std.data.svc.slave.user;
 
-import com.ioiox.dei.duc.beans.vo.std.slave.SysResRoleQueryCfg;
-import com.ioiox.dei.duc.beans.vo.std.slave.user.UserAcctSysResRoleQueryParam;
+import com.ioiox.dei.duc.beans.model.slave.SysResRoleQueryCfg;
+import com.ioiox.dei.duc.beans.model.slave.user.UserAcctSysResRoleQueryParam;
 import com.ioiox.dei.duc.beans.vo.std.slave.user.UserAcctSysResRoleSlaveStdVO;
 import com.ioiox.dei.duc.std.data.svc.slave.SysResRoleSlaveStdDataSvc;
 

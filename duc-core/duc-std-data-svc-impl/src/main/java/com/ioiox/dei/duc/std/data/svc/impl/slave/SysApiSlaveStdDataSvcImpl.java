@@ -4,7 +4,7 @@ import com.ioiox.dei.core.orm.mybatis.service.BaseDeiSlaveStdDataSvc;
 import com.ioiox.dei.core.utils.DeiCollectionUtil;
 import com.ioiox.dei.core.vo.StdDataQueryCfg;
 import com.ioiox.dei.duc.beans.entity.SysApi;
-import com.ioiox.dei.duc.beans.vo.std.slave.SysApiQueryParam;
+import com.ioiox.dei.duc.beans.model.slave.SysApiQueryParam;
 import com.ioiox.dei.duc.beans.vo.std.slave.SysApiSlaveStdVO;
 import com.ioiox.dei.duc.db.service.slave.SysApiSlaveDbSvc;
 import com.ioiox.dei.duc.std.data.svc.slave.SysApiSlaveStdDataSvc;

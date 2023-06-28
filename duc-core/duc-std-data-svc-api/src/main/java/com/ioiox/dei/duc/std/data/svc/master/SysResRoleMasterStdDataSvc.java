@@ -1,6 +1,6 @@
 package com.ioiox.dei.duc.std.data.svc.master;
 
-import com.ioiox.dei.duc.beans.vo.std.master.BaseRoleDelParam;
+import com.ioiox.dei.duc.beans.model.master.BaseRoleDelParam;
 import com.ioiox.dei.duc.beans.vo.std.master.BaseRoleMasterStdVO;
 
 public interface SysResRoleMasterStdDataSvc<T extends BaseRoleMasterStdVO, D extends BaseRoleDelParam> {

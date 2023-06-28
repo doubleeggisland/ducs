@@ -2,7 +2,7 @@ package com.ioiox.dei.duc.beans.entity;
 
 import com.ioiox.dei.core.beans.BaseDeiEntity;
 import com.ioiox.dei.core.beans.BaseDeiEnum;
-import com.ioiox.dei.core.beans.DeiStatus;
+import com.ioiox.dei.duc.spring.core.model.SysPrjAccessCondition;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,20 +24,8 @@ public class UserSysPrjPrivilege extends BaseDeiEntity {
 
     public void setDefaultValueIfNeed() {
         if (StringUtils.isBlank(accessCondition)) {
-            accessCondition = AccessCondition.PERMANENT.getCode();
+            accessCondition = SysPrjAccessCondition.PERMANENT.getCode();
         }
-    }
-
-    @Getter
-    @AllArgsConstructor
-    public enum AccessCondition implements BaseDeiEnum {
-        PERMANENT("permanent", "永久", "永久访问"),
-        REJECT("reject", "拒绝", "拒绝访问"),
-        TEMPORARY("temporary", "临时", "在指定的日期和时间内访问"),
-        ;
-        private final String code;
-        private final String name;
-        private final String desc;
     }
 
     @Getter

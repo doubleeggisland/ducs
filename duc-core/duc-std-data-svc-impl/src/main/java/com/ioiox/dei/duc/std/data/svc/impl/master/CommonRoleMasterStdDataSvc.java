@@ -3,8 +3,8 @@ package com.ioiox.dei.duc.std.data.svc.impl.master;
 import com.ioiox.dei.core.orm.mybatis.service.BaseDeiMasterStdDataSvc;
 import com.ioiox.dei.duc.beans.entity.Role;
 import com.ioiox.dei.duc.beans.entity.TmpRole;
-import com.ioiox.dei.duc.beans.model.BaseRoleUpdatableObj;
-import com.ioiox.dei.duc.beans.model.BaseTmpRoleUpdatableObj;
+import com.ioiox.dei.duc.beans.model.master.BaseRoleUpdatableObj;
+import com.ioiox.dei.duc.beans.model.master.BaseTmpRoleUpdatableObj;
 import com.ioiox.dei.duc.beans.vo.std.master.BaseRoleMasterStdVO;
 import com.ioiox.dei.duc.beans.vo.std.master.BaseTmpRoleMasterStdVO;
 

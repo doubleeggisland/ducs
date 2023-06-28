@@ -1,8 +1,8 @@
 package com.ioiox.dei.duc.std.data.svc.slave;
 
 import com.ioiox.dei.duc.beans.vo.std.slave.BaseRoleSlaveStdVO;
-import com.ioiox.dei.duc.beans.vo.std.slave.RoleQueryCfg;
-import com.ioiox.dei.duc.beans.vo.std.slave.RoleQueryParam;
+import com.ioiox.dei.duc.beans.model.slave.RoleQueryCfg;
+import com.ioiox.dei.duc.beans.model.slave.RoleQueryParam;
 
 import java.util.List;
 

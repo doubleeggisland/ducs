@@ -1,7 +1,7 @@
 package com.ioiox.dei.duc.std.data.svc.slave;
 
-import com.ioiox.dei.duc.beans.vo.std.slave.SysPrjQueryCfg;
-import com.ioiox.dei.duc.beans.vo.std.slave.SysPrjQueryParam;
+import com.ioiox.dei.duc.beans.model.slave.SysPrjQueryCfg;
+import com.ioiox.dei.duc.beans.model.slave.SysPrjQueryParam;
 import com.ioiox.dei.duc.beans.vo.std.slave.SysPrjSlaveStdVO;
 
 import java.util.List;

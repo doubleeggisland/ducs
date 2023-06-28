@@ -2,9 +2,9 @@ package com.ioiox.dei.duc.std.data.svc.impl.slave.user;
 
 import com.ioiox.dei.core.utils.DeiCollectionUtil;
 import com.ioiox.dei.duc.beans.entity.UserAcctTmpSysResRole;
-import com.ioiox.dei.duc.beans.vo.std.slave.SysResRoleQueryCfg;
+import com.ioiox.dei.duc.beans.model.slave.SysResRoleQueryCfg;
 import com.ioiox.dei.duc.beans.vo.std.slave.SysResSlaveStdVO;
-import com.ioiox.dei.duc.beans.vo.std.slave.user.UserAcctTmpSysResRoleQueryParam;
+import com.ioiox.dei.duc.beans.model.slave.user.UserAcctTmpSysResRoleQueryParam;
 import com.ioiox.dei.duc.beans.vo.std.slave.user.UserAcctTmpSysResRoleSlaveStdVO;
 import com.ioiox.dei.duc.db.service.slave.user.UserAcctTmpSysResRoleR2ResSlaveDbSvc;
 import com.ioiox.dei.duc.db.service.slave.user.UserAcctTmpSysResRoleSlaveDbSvc;
