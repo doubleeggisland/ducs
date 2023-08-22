@@ -2,9 +2,9 @@ package com.ioiox.dei.duc.std.data.svc.impl.master.user;
 
 import com.ioiox.dei.core.beans.BaseDeiEntity;
 import com.ioiox.dei.core.constant.DeiGlobalConstant;
+import com.ioiox.dei.core.orm.mybatis.model.std.data.DefaultStdDataQueryCfg;
 import com.ioiox.dei.core.utils.DeiCollectionUtil;
 import com.ioiox.dei.core.utils.JsonUtil;
-import com.ioiox.dei.core.vo.DefaultStdDataQueryCfg;
 import com.ioiox.dei.duc.beans.entity.Role;
 import com.ioiox.dei.duc.beans.entity.UserAcctRole;
 import com.ioiox.dei.duc.beans.model.master.user.UserAcctRoleUpdatableAttrsAnalyser;

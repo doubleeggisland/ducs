@@ -1,10 +1,9 @@
 package com.ioiox.dei.duc.beans.entity;
 
 import com.ioiox.dei.core.beans.BaseDeiEntity;
-import com.ioiox.dei.core.beans.BaseDeiEnum;
 import com.ioiox.dei.core.beans.BaseDeiRelationshipEntity;
-
-import com.ioiox.dei.core.beans.RelationshipItem;
+import com.ioiox.dei.core.constant.BaseDeiEnum;
+import com.ioiox.dei.core.orm.mybatis.model.RelationshipItem;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

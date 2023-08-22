@@ -1,7 +1,7 @@
 package com.ioiox.dei.duc.beans.model.slave.tenant;
 
-import com.ioiox.dei.core.vo.StdDataQueryCfg;
-import com.ioiox.dei.core.vo.StdDataQueryCfgBuilder;
+import com.ioiox.dei.core.orm.mybatis.model.std.data.StdDataQueryCfg;
+import com.ioiox.dei.core.orm.mybatis.model.std.data.StdDataQueryCfgBuilder;
 import com.ioiox.dei.duc.beans.model.slave.RoleQueryCfg;
 import com.ioiox.dei.duc.beans.model.slave.SysResRoleQueryCfg;
 import com.ioiox.dei.duc.beans.model.slave.UserGrpQueryCfg;

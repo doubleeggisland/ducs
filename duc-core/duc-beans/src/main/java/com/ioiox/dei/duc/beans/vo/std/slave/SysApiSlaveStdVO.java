@@ -1,7 +1,7 @@
 package com.ioiox.dei.duc.beans.vo.std.slave;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.ioiox.dei.core.vo.SlaveStdDataVO;
+import com.ioiox.dei.core.orm.mybatis.model.std.data.SlaveStdDataVO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,7 +20,7 @@ public class SysApiSlaveStdVO extends SlaveStdDataVO {
     private String name;
     /**
      * 系统接口类型
-     * @see com.ioiox.dei.duc.beans.entity.SysApi.Type
+     * @see com.ioiox.dei.duc.spring.core.model.DUCSysApiType
      */
     private String type;
     /**

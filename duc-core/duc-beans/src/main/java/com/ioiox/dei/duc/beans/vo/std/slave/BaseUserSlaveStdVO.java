@@ -1,6 +1,6 @@
 package com.ioiox.dei.duc.beans.vo.std.slave;
 
-import com.ioiox.dei.core.vo.SlaveStdDataVO;
+import com.ioiox.dei.core.orm.mybatis.model.std.data.SlaveStdDataVO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

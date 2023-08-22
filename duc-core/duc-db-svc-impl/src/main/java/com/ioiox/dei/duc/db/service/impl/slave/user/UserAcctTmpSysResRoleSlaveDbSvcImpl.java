@@ -1,6 +1,6 @@
 package com.ioiox.dei.duc.db.service.impl.slave.user;
 
-import com.ioiox.dei.core.orm.mybatis.service.BaseDeiSlaveDbService;
+import com.ioiox.dei.core.orm.mybatis.service.db.BaseDeiSlaveDbService;
 import com.ioiox.dei.duc.beans.entity.UserAcctTmpSysResRole;
 import com.ioiox.dei.duc.db.mapper.slave.user.UserAcctTmpSysResRoleSlaveMapper;
 import com.ioiox.dei.duc.db.service.slave.user.UserAcctTmpSysResRoleSlaveDbSvc;

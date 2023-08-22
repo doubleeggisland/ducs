@@ -1,6 +1,6 @@
 package com.ioiox.dei.duc.beans.vo.std.master;
 
-import com.ioiox.dei.core.vo.MasterStdDataVO;
+import com.ioiox.dei.core.orm.mybatis.model.std.data.MasterStdDataVO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,12 +19,12 @@ public class SysResMasterStdVO extends MasterStdDataVO {
     private String name;
     /**
      * 资源类型
-     * @see com.ioiox.dei.duc.beans.entity.SysRes.Type
+     * @see com.ioiox.dei.duc.spring.core.model.DUCSysResType
      */
     private String type;
     /**
      * 资源状态
-     * @see com.ioiox.dei.core.beans.DeiStatus
+     * @see com.ioiox.dei.core.constant.DeiStatus
      */
     private String status;
     /**

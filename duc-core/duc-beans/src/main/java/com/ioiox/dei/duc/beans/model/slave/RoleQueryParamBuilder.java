@@ -1,6 +1,6 @@
 package com.ioiox.dei.duc.beans.model.slave;
 
-import com.ioiox.dei.core.vo.StdDataQueryParamBuilder;
+import com.ioiox.dei.core.orm.mybatis.model.std.data.StdDataQueryParamBuilder;
 
 import java.util.List;
 

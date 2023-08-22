@@ -1,6 +1,6 @@
 package com.ioiox.dei.duc.db.service.impl.slave.tenant;
 
-import com.ioiox.dei.core.orm.mybatis.service.BaseDeiSlaveDbService;
+import com.ioiox.dei.core.orm.mybatis.service.db.BaseDeiSlaveDbService;
 import com.ioiox.dei.duc.beans.entity.TenantUserSysResRole;
 import com.ioiox.dei.duc.db.mapper.slave.tenant.TenantUserSysResRoleSlaveMapper;
 import com.ioiox.dei.duc.db.service.slave.tenant.TenantUserSysResRoleSlaveDbSvc;

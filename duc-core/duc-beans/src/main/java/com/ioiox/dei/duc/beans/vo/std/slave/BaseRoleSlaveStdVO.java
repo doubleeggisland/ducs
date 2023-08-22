@@ -1,6 +1,6 @@
 package com.ioiox.dei.duc.beans.vo.std.slave;
 
-import com.ioiox.dei.core.vo.SlaveStdDataVO;
+import com.ioiox.dei.core.orm.mybatis.model.std.data.SlaveStdDataVO;
 import com.ioiox.dei.duc.spring.core.model.DUCRoleType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,7 +25,7 @@ public class BaseRoleSlaveStdVO extends SlaveStdDataVO {
     private String type;
     /**
      * 状态
-     * @see com.ioiox.dei.core.beans.DeiStatus
+     * @see com.ioiox.dei.core.constant.DeiStatus
      */
     private String status;
     /**

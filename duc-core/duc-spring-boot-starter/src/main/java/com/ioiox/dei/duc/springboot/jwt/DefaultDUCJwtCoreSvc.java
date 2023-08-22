@@ -1,6 +1,6 @@
 package com.ioiox.dei.duc.springboot.jwt;
 
-import com.ioiox.dei.core.beans.DeiStatus;
+import com.ioiox.dei.core.constant.DeiStatus;
 import com.ioiox.dei.core.orm.mybatis.EnumUtil;
 import com.ioiox.dei.duc.spring.core.model.DUCUserInfo;
 import com.ioiox.dei.duc.spring.core.model.DUCUserType;

@@ -1,7 +1,8 @@
 package com.ioiox.dei.duc.beans.model.master.tenant;
 
-import com.ioiox.dei.core.vo.UpdatableAttr;
-import com.ioiox.dei.core.vo.UpdatableVO;
+
+import com.ioiox.dei.core.orm.mybatis.model.std.data.UpdatableAttr;
+import com.ioiox.dei.core.orm.mybatis.model.std.data.UpdatableObj;
 import com.ioiox.dei.duc.beans.entity.Tenant;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +16,7 @@ import java.util.Objects;
 @Setter
 @NoArgsConstructor
 public class TenantUpdatableObj
-        extends UpdatableVO {
+        extends UpdatableObj {
 
     private UpdatableAttr<String> code;
 

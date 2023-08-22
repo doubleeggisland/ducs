@@ -1,6 +1,6 @@
 package com.ioiox.dei.duc.std.data.svc.impl.master;
 
-import com.ioiox.dei.core.orm.mybatis.service.BaseDeiMasterStdDataSvc;
+import com.ioiox.dei.core.orm.mybatis.service.std.data.BaseDeiMasterStdDataSvc;
 import com.ioiox.dei.duc.beans.entity.Role;
 import com.ioiox.dei.duc.beans.entity.TmpRole;
 import com.ioiox.dei.duc.beans.model.master.BaseRoleUpdatableObj;
@@ -16,7 +16,7 @@ public abstract class CommonRoleMasterStdDataSvc<
         T extends BaseRoleMasterStdVO,
         O extends BaseRoleUpdatableObj,
         E extends Role>
-        extends BaseDeiMasterStdDataSvc<T, O, E>  {
+        extends BaseDeiMasterStdDataSvc<T, O, E> {
 
     protected void assembleRoleCommonAttrs(final Role newEntity, final BaseRoleMasterStdVO masterStdVO) {
         newEntity.setCode(masterStdVO.getCode());

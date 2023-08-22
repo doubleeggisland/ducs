@@ -1,6 +1,6 @@
 package com.ioiox.dei.duc.beans.vo.std.slave;
 
-import com.ioiox.dei.core.vo.SlaveStdDataVO;
+import com.ioiox.dei.core.orm.mybatis.model.std.data.SlaveStdDataVO;
 import com.ioiox.dei.duc.beans.entity.UserSysPrjPrivilege;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,7 +21,7 @@ public class UserSysPrjPrivilegeSlaveStdVO
     private Long sysPrjId;
     /**
      * 访问条件
-     * @see com.ioiox.dei.duc.beans.entity.UserSysPrjPrivilege.AccessCondition
+     * @see com.ioiox.dei.duc.spring.core.model.SysPrjAccessCondition
      */
     private String accessCondition;
     /**

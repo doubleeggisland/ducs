@@ -1,6 +1,6 @@
 package com.ioiox.dei.duc.spring.core.model;
 
-import com.ioiox.dei.core.beans.BaseDeiEnum;
+import com.ioiox.dei.core.constant.BaseDeiEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

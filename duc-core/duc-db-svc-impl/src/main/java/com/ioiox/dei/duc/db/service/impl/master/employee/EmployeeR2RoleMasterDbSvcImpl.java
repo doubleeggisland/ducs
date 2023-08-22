@@ -1,6 +1,6 @@
 package com.ioiox.dei.duc.db.service.impl.master.employee;
 
-import com.ioiox.dei.core.orm.mybatis.service.BaseDeiMasterDbService;
+import com.ioiox.dei.core.orm.mybatis.service.db.BaseDeiMasterDbService;
 import com.ioiox.dei.duc.beans.entity.EmployeeR2Role;
 import com.ioiox.dei.duc.db.mapper.master.employee.EmployeeR2RoleMasterMapper;
 import com.ioiox.dei.duc.db.service.master.employee.EmployeeR2RoleMasterDbSvc;

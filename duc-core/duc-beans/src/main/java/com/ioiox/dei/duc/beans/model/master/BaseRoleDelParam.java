@@ -1,7 +1,7 @@
 package com.ioiox.dei.duc.beans.model.master;
 
+import com.ioiox.dei.core.orm.mybatis.model.std.data.StdDataDelParam;
 import com.ioiox.dei.core.utils.DeiCollectionUtil;
-import com.ioiox.dei.core.vo.StdDataDelParam;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

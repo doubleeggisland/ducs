@@ -31,7 +31,7 @@ public abstract class BaseDUCRole {
     private Long sysPrjId;
     /**
      * 角色状态
-     * @see com.ioiox.dei.core.beans.DeiStatus
+     * @see com.ioiox.dei.core.constant.DeiStatus
      */
     private String status;
 

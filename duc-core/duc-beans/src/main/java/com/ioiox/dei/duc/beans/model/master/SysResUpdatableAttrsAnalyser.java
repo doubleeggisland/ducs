@@ -1,8 +1,8 @@
 package com.ioiox.dei.duc.beans.model.master;
 
-import com.ioiox.dei.core.vo.UpdatableAttr;
-import com.ioiox.dei.core.vo.UpdatableObjAnalyser;
-import com.ioiox.dei.core.vo.UpdatableVO;
+import com.ioiox.dei.core.orm.mybatis.model.std.data.UpdatableAttr;
+import com.ioiox.dei.core.orm.mybatis.model.std.data.UpdatableObj;
+import com.ioiox.dei.core.orm.mybatis.model.std.data.UpdatableObjAnalyser;
 import com.ioiox.dei.duc.beans.entity.SysRes;
 import com.ioiox.dei.duc.beans.vo.std.master.SysResMasterStdVO;
 import com.ioiox.dei.duc.beans.vo.std.slave.SysResSlaveStdVO;
@@ -20,25 +20,32 @@ public class SysResUpdatableAttrsAnalyser
 
     @Override
     protected void analyseUpdatedAttrs(final SysResMasterStdVO sysRes, final SysResSlaveStdVO existingSysRes, final SysResUpdateCtx updateCtx) {
-        if (UpdatableVO.modified(existingSysRes.getCode(), sysRes.getCode())) {
+        if (UpdatableObj.modified(existingSysRes.getCode(), sysRes.getCode())) {
+            updateCtx.getUpdatableObj().addUpdatedAttrName(SysRes.ShowColumn.CODE.getCode());
             updateCtx.getUpdatableObj().setCode(new UpdatableAttr<>(SysRes.ShowColumn.CODE.getCode(), existingSysRes.getCode(), sysRes.getCode()));
         }
-        if (UpdatableVO.modified(existingSysRes.getName(), sysRes.getName())) {
+        if (UpdatableObj.modified(existingSysRes.getName(), sysRes.getName())) {
+            updateCtx.getUpdatableObj().addUpdatedAttrName(SysRes.ShowColumn.NAME.getCode());
             updateCtx.getUpdatableObj().setName(new UpdatableAttr<>(SysRes.ShowColumn.NAME.getCode(), existingSysRes.getName(), sysRes.getName()));
         }
-        if (UpdatableVO.modified(existingSysRes.getType(), sysRes.getType())) {
+        if (UpdatableObj.modified(existingSysRes.getType(), sysRes.getType())) {
+            updateCtx.getUpdatableObj().addUpdatedAttrName(SysRes.ShowColumn.TYPE.getCode());
             updateCtx.getUpdatableObj().setType(new UpdatableAttr<>(SysRes.ShowColumn.TYPE.getCode(), existingSysRes.getType(), sysRes.getType()));
         }
-        if (UpdatableVO.modified(existingSysRes.getStatus(), sysRes.getStatus())) {
+        if (UpdatableObj.modified(existingSysRes.getStatus(), sysRes.getStatus())) {
+            updateCtx.getUpdatableObj().addUpdatedAttrName(SysRes.ShowColumn.STATUS.getCode());
             updateCtx.getUpdatableObj().setStatus(new UpdatableAttr<>(SysRes.ShowColumn.STATUS.getCode(), existingSysRes.getStatus(), sysRes.getStatus()));
         }
-        if (UpdatableVO.modified(existingSysRes.getMemo(), sysRes.getMemo())) {
+        if (UpdatableObj.modified(existingSysRes.getMemo(), sysRes.getMemo())) {
+            updateCtx.getUpdatableObj().addUpdatedAttrName(SysRes.ShowColumn.MEMO.getCode());
             updateCtx.getUpdatableObj().setMemo(new UpdatableAttr<>(SysRes.ShowColumn.MEMO.getCode(), existingSysRes.getMemo(), sysRes.getMemo()));
         }
-        if (UpdatableVO.modified(existingSysRes.getSysPrjModuleName(), sysRes.getSysPrjModuleName())) {
+        if (UpdatableObj.modified(existingSysRes.getSysPrjModuleName(), sysRes.getSysPrjModuleName())) {
+            updateCtx.getUpdatableObj().addUpdatedAttrName(SysRes.ShowColumn.SYS_PRJ_MODULE_NAME.getCode());
             updateCtx.getUpdatableObj().setSysPrjModuleName(new UpdatableAttr<>(SysRes.ShowColumn.SYS_PRJ_MODULE_NAME.getCode(), existingSysRes.getSysPrjModuleName(), sysRes.getSysPrjModuleName()));
         }
-        if (UpdatableVO.modified(existingSysRes.getSysPrjModuleCode(), sysRes.getSysPrjModuleCode())) {
+        if (UpdatableObj.modified(existingSysRes.getSysPrjModuleCode(), sysRes.getSysPrjModuleCode())) {
+            updateCtx.getUpdatableObj().addUpdatedAttrName(SysRes.ShowColumn.SYS_PRJ_MODULE_CODE.getCode());
             updateCtx.getUpdatableObj().setSysPrjModuleCode(new UpdatableAttr<>(SysRes.ShowColumn.SYS_PRJ_MODULE_CODE.getCode(), existingSysRes.getSysPrjModuleCode(), sysRes.getSysPrjModuleCode()));
         }
     }

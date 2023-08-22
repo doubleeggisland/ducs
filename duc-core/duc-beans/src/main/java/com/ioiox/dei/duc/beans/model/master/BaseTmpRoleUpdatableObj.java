@@ -1,8 +1,8 @@
 package com.ioiox.dei.duc.beans.model.master;
 
-import com.ioiox.dei.core.vo.UpdatableAttr;
-import com.ioiox.dei.core.vo.UpdatableDateAttr;
-import com.ioiox.dei.core.vo.UpdatableTimeAttr;
+import com.ioiox.dei.core.orm.mybatis.model.std.data.UpdatableAttr;
+import com.ioiox.dei.core.orm.mybatis.model.std.data.UpdatableDateAttr;
+import com.ioiox.dei.core.orm.mybatis.model.std.data.UpdatableTimeAttr;
 import com.ioiox.dei.duc.beans.entity.Role;
 import com.ioiox.dei.duc.beans.entity.TmpRole;
 import lombok.Getter;

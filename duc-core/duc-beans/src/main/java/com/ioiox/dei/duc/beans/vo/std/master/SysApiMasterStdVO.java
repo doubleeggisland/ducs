@@ -1,6 +1,6 @@
 package com.ioiox.dei.duc.beans.vo.std.master;
 
-import com.ioiox.dei.core.vo.MasterStdDataVO;
+import com.ioiox.dei.core.orm.mybatis.model.std.data.MasterStdDataVO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,7 +13,7 @@ public class SysApiMasterStdVO extends MasterStdDataVO {
     private String name;
     /**
      * 系统接口类型
-     * @see com.ioiox.dei.duc.beans.entity.SysApi.Type
+     * @see com.ioiox.dei.duc.spring.core.model.DUCSysApiType
      */
     private String type;
     private String memo;

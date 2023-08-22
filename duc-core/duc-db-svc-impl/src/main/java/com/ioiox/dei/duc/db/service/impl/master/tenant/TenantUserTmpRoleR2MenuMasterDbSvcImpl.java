@@ -1,6 +1,6 @@
 package com.ioiox.dei.duc.db.service.impl.master.tenant;
 
-import com.ioiox.dei.core.orm.mybatis.service.BaseDeiMasterDbService;
+import com.ioiox.dei.core.orm.mybatis.service.db.BaseDeiMasterDbService;
 import com.ioiox.dei.duc.beans.entity.RoleR2Menu;
 import com.ioiox.dei.duc.db.mapper.master.tenant.TenantUserTmpRoleR2MenuMasterMapper;
 import com.ioiox.dei.duc.db.mapper.slave.tenant.TenantUserTmpRoleR2MenuSlaveMapper;

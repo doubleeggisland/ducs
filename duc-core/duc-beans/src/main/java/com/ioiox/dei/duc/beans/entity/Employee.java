@@ -1,6 +1,7 @@
 package com.ioiox.dei.duc.beans.entity;
 
-import com.ioiox.dei.core.beans.BaseDeiEnum;
+
+import com.ioiox.dei.core.constant.BaseDeiEnum;
 import com.ioiox.dei.core.constant.DeiGlobalConstant;
 import com.ioiox.dei.core.constant.Gender;
 import lombok.AllArgsConstructor;

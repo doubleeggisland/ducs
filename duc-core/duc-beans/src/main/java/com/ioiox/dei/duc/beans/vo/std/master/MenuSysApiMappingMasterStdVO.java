@@ -1,6 +1,6 @@
 package com.ioiox.dei.duc.beans.vo.std.master;
 
-import com.ioiox.dei.core.vo.MasterStdDataVO;
+import com.ioiox.dei.core.orm.mybatis.model.std.data.MasterStdDataVO;
 import com.ioiox.dei.duc.beans.entity.MenuSysApiMapping;
 import com.ioiox.dei.duc.spring.core.model.DUCSysApiInteractForm;
 import lombok.Getter;

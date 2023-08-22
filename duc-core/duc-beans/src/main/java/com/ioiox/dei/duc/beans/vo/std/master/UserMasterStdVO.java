@@ -1,6 +1,6 @@
 package com.ioiox.dei.duc.beans.vo.std.master;
 
-import com.ioiox.dei.core.vo.MasterStdDataVO;
+import com.ioiox.dei.core.orm.mybatis.model.std.data.MasterStdDataVO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

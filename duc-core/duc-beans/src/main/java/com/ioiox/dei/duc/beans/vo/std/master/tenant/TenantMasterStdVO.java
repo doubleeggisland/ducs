@@ -1,6 +1,6 @@
 package com.ioiox.dei.duc.beans.vo.std.master.tenant;
 
-import com.ioiox.dei.core.vo.MasterStdDataVO;
+import com.ioiox.dei.core.orm.mybatis.model.std.data.MasterStdDataVO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,7 +23,7 @@ public class TenantMasterStdVO extends MasterStdDataVO {
     private String memo;
     /**
      * 租户状态
-     * @see com.ioiox.dei.core.beans.DeiStatus
+     * @see com.ioiox.dei.core.constant.DeiStatus
      */
     private String status;
     /**

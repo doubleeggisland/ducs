@@ -1,7 +1,7 @@
 package com.ioiox.dei.duc.beans.model.slave.tenant;
 
-import com.ioiox.dei.core.vo.StdDataQueryParam;
-import com.ioiox.dei.core.vo.StdDataQueryParamBuilder;
+import com.ioiox.dei.core.orm.mybatis.model.std.data.StdDataQueryParam;
+import com.ioiox.dei.core.orm.mybatis.model.std.data.StdDataQueryParamBuilder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

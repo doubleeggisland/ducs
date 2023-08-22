@@ -1,7 +1,7 @@
 package com.ioiox.dei.duc.beans.entity;
 
 import com.ioiox.dei.core.beans.BaseDeiEntity;
-import com.ioiox.dei.core.beans.BaseDeiEnum;
+import com.ioiox.dei.core.constant.BaseDeiEnum;
 import com.ioiox.dei.duc.spring.core.model.SysPrjAccessCondition;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

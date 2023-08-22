@@ -3,7 +3,7 @@ package com.ioiox.dei.duc.std.data.svc.impl.master;
 import com.ioiox.dei.core.beans.BaseDeiEntity;
 import com.ioiox.dei.core.constant.DeiGlobalConstant;
 import com.ioiox.dei.core.exception.DeiServiceException;
-import com.ioiox.dei.core.orm.mybatis.service.BaseDeiMasterStdDataSvc;
+import com.ioiox.dei.core.orm.mybatis.service.std.data.BaseDeiMasterStdDataSvc;
 import com.ioiox.dei.core.utils.DeiCollectionUtil;
 import com.ioiox.dei.core.utils.JsonUtil;
 import com.ioiox.dei.duc.beans.entity.Menu;

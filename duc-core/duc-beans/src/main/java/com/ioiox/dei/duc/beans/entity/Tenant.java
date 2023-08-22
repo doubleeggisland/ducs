@@ -1,9 +1,9 @@
 package com.ioiox.dei.duc.beans.entity;
 
 import com.ioiox.dei.core.beans.BaseDeiEntity;
-import com.ioiox.dei.core.beans.BaseDeiEnum;
-import com.ioiox.dei.core.beans.DeiStatus;
+import com.ioiox.dei.core.constant.BaseDeiEnum;
 import com.ioiox.dei.core.constant.DeiGlobalConstant;
+import com.ioiox.dei.core.constant.DeiStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,7 +30,7 @@ public class Tenant extends BaseDeiEntity {
     private String memo;
     /**
      * 租户状态
-     * @see com.ioiox.dei.core.beans.DeiStatus
+     * @see com.ioiox.dei.core.constant.DeiStatus
      */
     private String status;
     /**

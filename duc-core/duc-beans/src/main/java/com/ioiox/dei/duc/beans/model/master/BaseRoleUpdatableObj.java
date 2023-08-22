@@ -1,7 +1,7 @@
 package com.ioiox.dei.duc.beans.model.master;
 
-import com.ioiox.dei.core.vo.UpdatableAttr;
-import com.ioiox.dei.core.vo.UpdatableVO;
+import com.ioiox.dei.core.orm.mybatis.model.std.data.UpdatableAttr;
+import com.ioiox.dei.core.orm.mybatis.model.std.data.UpdatableObj;
 import com.ioiox.dei.duc.beans.entity.Role;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,7 +14,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @NoArgsConstructor
-public abstract class BaseRoleUpdatableObj extends UpdatableVO {
+public abstract class BaseRoleUpdatableObj extends UpdatableObj {
 
     private UpdatableAttr<String> name;
 

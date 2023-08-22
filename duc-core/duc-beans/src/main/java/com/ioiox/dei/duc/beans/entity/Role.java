@@ -1,9 +1,10 @@
 package com.ioiox.dei.duc.beans.entity;
 
 import com.ioiox.dei.core.beans.BaseDeiEntity;
-import com.ioiox.dei.core.beans.BaseDeiEnum;
-import com.ioiox.dei.core.beans.DeiStatus;
+
+import com.ioiox.dei.core.constant.BaseDeiEnum;
 import com.ioiox.dei.core.constant.DeiGlobalConstant;
+import com.ioiox.dei.core.constant.DeiStatus;
 import com.ioiox.dei.duc.spring.core.model.DUCRoleType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -32,7 +33,7 @@ public abstract class Role extends BaseDeiEntity {
     private String type;
     /**
      * 状态
-     * @see com.ioiox.dei.core.beans.DeiStatus
+     * @see com.ioiox.dei.core.constant.DeiStatus
      */
     private String status;
     /**

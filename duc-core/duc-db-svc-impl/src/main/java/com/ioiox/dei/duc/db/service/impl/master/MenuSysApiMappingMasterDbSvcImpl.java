@@ -1,6 +1,6 @@
 package com.ioiox.dei.duc.db.service.impl.master;
 
-import com.ioiox.dei.core.orm.mybatis.service.BaseDeiMasterDbService;
+import com.ioiox.dei.core.orm.mybatis.service.db.BaseDeiMasterDbService;
 import com.ioiox.dei.duc.beans.entity.MenuSysApiMapping;
 import com.ioiox.dei.duc.db.mapper.master.MenuSysApiMappingMasterMapper;
 import com.ioiox.dei.duc.db.service.master.MenuSysApiMappingMasterDbSvc;

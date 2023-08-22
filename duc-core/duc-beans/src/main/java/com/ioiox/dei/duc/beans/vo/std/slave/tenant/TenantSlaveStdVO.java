@@ -1,6 +1,6 @@
 package com.ioiox.dei.duc.beans.vo.std.slave.tenant;
 
-import com.ioiox.dei.core.vo.SlaveStdDataVO;
+import com.ioiox.dei.core.orm.mybatis.model.std.data.SlaveStdDataVO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -25,7 +25,7 @@ public class TenantSlaveStdVO extends SlaveStdDataVO {
     private String memo;
     /**
      * 租户状态
-     * @see com.ioiox.dei.core.beans.DeiStatus
+     * @see com.ioiox.dei.core.constant.DeiStatus
      */
     private String status;
     /**

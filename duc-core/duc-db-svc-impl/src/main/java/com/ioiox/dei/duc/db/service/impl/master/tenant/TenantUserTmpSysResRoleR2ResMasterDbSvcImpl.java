@@ -1,6 +1,6 @@
 package com.ioiox.dei.duc.db.service.impl.master.tenant;
 
-import com.ioiox.dei.core.orm.mybatis.service.BaseDeiMasterDbService;
+import com.ioiox.dei.core.orm.mybatis.service.db.BaseDeiMasterDbService;
 import com.ioiox.dei.duc.beans.entity.SysResRoleR2Res;
 import com.ioiox.dei.duc.db.mapper.master.tenant.TenantUserTmpSysResRoleR2ResMasterMapper;
 import com.ioiox.dei.duc.db.service.master.tenant.TenantUserTmpSysResRoleR2ResMasterDbSvc;

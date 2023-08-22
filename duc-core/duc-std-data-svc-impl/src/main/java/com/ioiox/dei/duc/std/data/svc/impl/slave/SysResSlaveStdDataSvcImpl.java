@@ -1,8 +1,8 @@
 package com.ioiox.dei.duc.std.data.svc.impl.slave;
 
-import com.ioiox.dei.core.orm.mybatis.service.BaseDeiSlaveStdDataSvc;
+import com.ioiox.dei.core.orm.mybatis.model.std.data.StdDataQueryCfg;
+import com.ioiox.dei.core.orm.mybatis.service.std.data.BaseDeiSlaveStdDataSvc;
 import com.ioiox.dei.core.utils.DeiCollectionUtil;
-import com.ioiox.dei.core.vo.StdDataQueryCfg;
 import com.ioiox.dei.duc.beans.entity.SysRes;
 import com.ioiox.dei.duc.beans.model.slave.SysResQueryParam;
 import com.ioiox.dei.duc.beans.vo.std.slave.SysResSlaveStdVO;

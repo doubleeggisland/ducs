@@ -1,7 +1,7 @@
 package com.ioiox.dei.duc.beans.vo.std.slave;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.ioiox.dei.core.vo.SlaveStdDataVO;
+import com.ioiox.dei.core.orm.mybatis.model.std.data.SlaveStdDataVO;
 import com.ioiox.dei.duc.beans.entity.MenuSysApiMapping;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,7 +21,7 @@ public class MenuSysApiMappingSlaveStdVO extends SlaveStdDataVO {
     private Long sysApiId;
     /**
      * 交互的形式
-     * @see com.ioiox.dei.duc.beans.entity.MenuSysApiMapping.InteractForm
+     * @see com.ioiox.dei.duc.spring.core.model.DUCSysApiInteractForm
      */
     private String interactForm;
 

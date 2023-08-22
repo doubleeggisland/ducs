@@ -1,8 +1,8 @@
 package com.ioiox.dei.duc.db.service.impl.slave.user;
 
-import com.ioiox.dei.core.orm.mybatis.service.BaseDeiRelationshipEntitySlaveDbSvc;
+import com.ioiox.dei.core.orm.mybatis.service.db.BaseDeiRelationshipEntitySlaveDbSvc;
 import com.ioiox.dei.core.utils.DeiCollectionUtil;
-import com.ioiox.dei.core.vo.QueryConditionsHolder;
+import com.ioiox.dei.core.orm.mybatis.model.std.data.QueryConditionsHolder;
 import com.ioiox.dei.duc.beans.entity.SysResRoleR2Res;
 import com.ioiox.dei.duc.db.mapper.slave.user.UserAcctSysResRoleR2ResSlaveMapper;
 import com.ioiox.dei.duc.db.service.slave.user.UserAcctSysResRoleR2ResSlaveDbSvc;

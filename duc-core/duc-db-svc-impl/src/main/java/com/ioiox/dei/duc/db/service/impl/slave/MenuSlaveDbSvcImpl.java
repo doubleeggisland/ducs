@@ -1,6 +1,6 @@
 package com.ioiox.dei.duc.db.service.impl.slave;
 
-import com.ioiox.dei.core.orm.mybatis.service.BaseDeiSlaveDbService;
+import com.ioiox.dei.core.orm.mybatis.service.db.BaseDeiSlaveDbService;
 import com.ioiox.dei.duc.beans.entity.Menu;
 import com.ioiox.dei.duc.db.mapper.slave.MenuSlaveMapper;
 import com.ioiox.dei.duc.db.service.slave.MenuSlaveDbSvc;

@@ -1,9 +1,9 @@
 package com.ioiox.dei.duc.db.service.impl.master.user;
 
 import com.ioiox.dei.core.constant.DeiGlobalConstant;
-import com.ioiox.dei.core.orm.mybatis.service.BaseDeiMasterDbService;
+import com.ioiox.dei.core.orm.mybatis.model.std.data.DeleteConditionsHolder;
+import com.ioiox.dei.core.orm.mybatis.service.db.BaseDeiMasterDbService;
 import com.ioiox.dei.core.utils.DeiCollectionUtil;
-import com.ioiox.dei.core.vo.DeleteConditionsHolder;
 import com.ioiox.dei.duc.beans.entity.UserAcctTmpRole;
 import com.ioiox.dei.duc.db.mapper.master.user.UserAcctTmpRoleMasterMapper;
 import com.ioiox.dei.duc.db.service.master.user.*;

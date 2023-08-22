@@ -1,6 +1,6 @@
 package com.ioiox.dei.duc.beans.model.master;
 
-import com.ioiox.dei.core.vo.StdDataDelParamBuilder;
+import com.ioiox.dei.core.orm.mybatis.model.std.data.StdDataDelParamBuilder;
 
 import java.util.List;
 

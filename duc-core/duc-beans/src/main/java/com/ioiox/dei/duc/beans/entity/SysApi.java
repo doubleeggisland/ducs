@@ -1,9 +1,9 @@
 package com.ioiox.dei.duc.beans.entity;
 
 import com.ioiox.dei.core.beans.BaseDeiEntity;
-import com.ioiox.dei.core.beans.BaseDeiEnum;
-import com.ioiox.dei.core.beans.DeiStatus;
+import com.ioiox.dei.core.constant.BaseDeiEnum;
 import com.ioiox.dei.core.constant.DeiGlobalConstant;
+import com.ioiox.dei.core.constant.DeiStatus;
 import com.ioiox.dei.duc.spring.core.model.DUCSysApiType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,6 +19,9 @@ import java.util.Objects;
 public class SysApi extends BaseDeiEntity {
     private String code;
     private String name;
+    /**
+     * @see com.ioiox.dei.duc.spring.core.model.DUCSysApiType
+     */
     private String type;
     private String memo;
     private String url;
