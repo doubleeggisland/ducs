@@ -24,7 +24,7 @@ public class UserAcctTmpSysResRoleSlaveController {
     @Qualifier("userAcctTmpSysResRoleSlaveStdDataSvc")
     private UserAcctTmpSysResRoleSlaveStdDataSvc userAcctTmpSysResRoleSlaveStdDataSvc;
 
-    @PostMapping(path = "/user-acct-tmp-sys-res-roles/count", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/user-acct/tmp-sys-res-roles/count", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public DeiResponseData<Integer> countTmpSysResRoles(@RequestBody final UserAcctTmpSysResRoleQueryParam queryParam) {
         return new DeiResponseData.Builder<Integer>()
                 .code(DeiResponseData.SUCCESS)
@@ -33,7 +33,7 @@ public class UserAcctTmpSysResRoleSlaveController {
                 .build();
     }
 
-    @PostMapping(path = "/user-acct-tmp-sys-res-roles/query", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/user-acct/tmp-sys-res-roles/query", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public DeiResponseData<List<UserAcctTmpSysResRoleSlaveStdVO>> queryTmpSysResRoles(@RequestBody final UserAcctTmpSysResRoleQueryReq queryReq) {
         return new DeiResponseData.Builder<List<UserAcctTmpSysResRoleSlaveStdVO>>()
                 .code(DeiResponseData.SUCCESS)

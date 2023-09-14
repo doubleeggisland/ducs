@@ -24,7 +24,7 @@ public class AcctUserGrpSlaveController {
     @Qualifier("acctUserGrpSlaveStdDataSvc")
     private AcctUserGrpSlaveStdDataSvc acctUserGrpSlaveStdDataSvc;
 
-    @PostMapping(path = "/acct-user-grps/count", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/user-acct/user-grps/count", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public DeiResponseData<Integer> countUserGrps(@RequestBody final AcctUserGrpQueryParam queryParam) {
         return new DeiResponseData.Builder<Integer>()
                 .code(DeiResponseData.SUCCESS)
@@ -33,7 +33,7 @@ public class AcctUserGrpSlaveController {
                 .build();
     }
 
-    @PostMapping(path = "/acct-user-grps/query", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/user-acct/user-grps/query", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public DeiResponseData<List<AcctUserGrpSlaveStdVO>> queryUserGrps(@RequestBody final AcctUserGrpQueryReq queryReq) {
         return new DeiResponseData.Builder<List<AcctUserGrpSlaveStdVO>>()
                 .code(DeiResponseData.SUCCESS)
