@@ -46,11 +46,11 @@ public class UserAcctRoleSlaveStdDataSvcImpl
     private UserAcctRoleR2SysApiSlaveDbSvc userAcctRoleR2SysApiSlaveDbSvc;
 
     @Override
-    public UserAcctRoleSlaveVO queryByPk(final Long userId, final RoleQueryCfg queryCfg) {
-        if (Objects.isNull(userId)) {
+    public UserAcctRoleSlaveVO queryByPk(final Long pk, final RoleQueryCfg queryCfg) {
+        if (Objects.isNull(pk)) {
             return null;
         }
-        final List<UserAcctRoleSlaveVO> userAcctRoles = queryByPKs(Collections.singletonList(userId), queryCfg);
+        final List<UserAcctRoleSlaveVO> userAcctRoles = queryByPKs(Collections.singletonList(pk), queryCfg);
         if (DeiCollectionUtil.isEmpty(userAcctRoles)) {
             return null;
         }
@@ -58,12 +58,12 @@ public class UserAcctRoleSlaveStdDataSvcImpl
     }
 
     @Override
-    public List<UserAcctRoleSlaveVO> queryByPKs(final List<Long> userIds, final RoleQueryCfg queryCfg) {
-        if (DeiCollectionUtil.isEmpty(userIds)) {
+    public List<UserAcctRoleSlaveVO> queryByPKs(final List<Long> pks, final RoleQueryCfg queryCfg) {
+        if (DeiCollectionUtil.isEmpty(pks)) {
             return Collections.emptyList();
         }
         final UserAcctRoleQueryParam queryParam = new UserAcctRoleQueryParam.Builder()
-                .pks(userIds)
+                .pks(pks)
                 .build();
         return queryByParam(queryParam, queryCfg);
     }

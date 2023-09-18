@@ -50,6 +50,7 @@ public class AcctUserGrpSlaveStdDataSvcImpl
     @Qualifier("acctUserGrpR2SysResRoleSlaveDbSvc")
     private AcctUserGrpR2SysResRoleSlaveDbSvc acctUserGrpR2SysResRoleSlaveDbSvc;
 
+    @Override
     public AcctUserGrpSlaveVO queryByPk(final Long acctUserGrpId,
                                         final UserGrpQueryCfg queryCfg) {
         if (Objects.isNull(acctUserGrpId)) {
