@@ -46,7 +46,7 @@ public class UserAcctDelParam extends UserDelParam {
 
         @Override
         public UserAcctDelParam build() {
-            return null;
+            return new UserAcctDelParam(this);
         }
     }
 }

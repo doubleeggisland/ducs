@@ -8,11 +8,11 @@ import com.ioiox.dei.duc.std.data.svc.slave.UserSlaveStdDataSvc;
 import java.util.List;
 
 public interface UserAcctSlaveStdDataSvc
-        extends UserSlaveStdDataSvc<UserAcctRoleSlaveStdVO, UserAcctSysResRoleSlaveStdVO, UserAcctTmpRoleSlaveStdVO, UserAcctTmpSysResRoleSlaveStdVO, AcctUserGrpSlaveStdVO,
-        UserAcctSlaveStdVO, UserAcctQueryParam> {
+        extends UserSlaveStdDataSvc<UserAcctRoleSlaveVO, UserAcctSysResRoleSlaveVO, UserAcctTmpRoleSlaveVO, UserAcctTmpSysResRoleSlaveVO, AcctUserGrpSlaveVO,
+        UserAcctSlaveVO, UserAcctQueryParam> {
 
-    UserAcctSlaveStdVO queryByPk(final Long userAcctId,
-                                 final UserQueryCfg queryCfg);
-    List<UserAcctSlaveStdVO> queryByPks(final List<Long> userAcctIds,
-                                        final UserQueryCfg queryCfg);
+    UserAcctSlaveVO queryByPk(final Long userAcctId,
+                              final UserQueryCfg queryCfg);
+    List<UserAcctSlaveVO> queryByPks(final List<Long> userAcctIds,
+                                     final UserQueryCfg queryCfg);
 }

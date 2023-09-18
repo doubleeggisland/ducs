@@ -1,5 +1,7 @@
 package com.ioiox.dei.duc.beans.model.slave.tenant;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.ioiox.dei.core.orm.mybatis.model.std.data.StdDataQueryParam;
 import com.ioiox.dei.core.orm.mybatis.model.std.data.StdDataQueryParamBuilder;
 import lombok.Getter;
@@ -11,6 +13,8 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class TenantQueryParam
         extends StdDataQueryParam {
     private List<String> codes;

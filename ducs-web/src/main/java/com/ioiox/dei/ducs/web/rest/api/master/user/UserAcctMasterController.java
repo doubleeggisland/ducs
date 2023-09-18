@@ -3,7 +3,7 @@ package com.ioiox.dei.ducs.web.rest.api.master.user;
 import com.ioiox.dei.core.constant.DeiGlobalConstant;
 import com.ioiox.dei.core.vo.DeiResponseData;
 import com.ioiox.dei.duc.beans.model.master.user.UserAcctDelParam;
-import com.ioiox.dei.duc.beans.vo.std.master.user.UserAcctMasterStdVO;
+import com.ioiox.dei.duc.beans.vo.std.master.user.UserAcctMasterVO;
 import com.ioiox.dei.duc.std.data.svc.master.user.UserAcctMasterStdDataSvc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -19,7 +19,7 @@ public class UserAcctMasterController {
     private UserAcctMasterStdDataSvc userAcctMasterStdDataSvc;
 
     @PostMapping(path = "/user-accts/save", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public DeiResponseData<Long> saveUserGrp(@RequestBody final UserAcctMasterStdVO userAcct) {
+    public DeiResponseData<Long> saveUserGrp(@RequestBody final UserAcctMasterVO userAcct) {
         return new DeiResponseData.Builder<Long>()
                 .code(DeiResponseData.SUCCESS)
                 .success(DeiGlobalConstant.TRUE_STR)
@@ -29,7 +29,7 @@ public class UserAcctMasterController {
 
     @PutMapping(path = "/user-accts/{id}/update", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public DeiResponseData<String> updateUserGrp(@PathVariable("id") Long id,
-                                                 @RequestBody final UserAcctMasterStdVO userAcct) {
+                                                 @RequestBody final UserAcctMasterVO userAcct) {
         userAcct.setId(id);
         userAcctMasterStdDataSvc.update(userAcct);
         return new DeiResponseData.Builder<String>()

@@ -4,7 +4,7 @@ import com.ioiox.dei.core.constant.DeiGlobalConstant;
 import com.ioiox.dei.core.vo.DeiResponseData;
 import com.ioiox.dei.duc.beans.model.slave.MenuQueryParam;
 import com.ioiox.dei.duc.beans.model.slave.MenuQueryReq;
-import com.ioiox.dei.duc.beans.vo.std.slave.MenuSlaveStdVO;
+import com.ioiox.dei.duc.beans.vo.std.slave.MenuSlaveVO;
 import com.ioiox.dei.duc.std.data.svc.slave.MenuSlaveStdDataSvc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -34,8 +34,8 @@ public class MenuSlaveController {
     }
 
     @PostMapping(path = "/menus/query", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public DeiResponseData<List<MenuSlaveStdVO>> queryMenus(@RequestBody final MenuQueryReq queryReq) {
-        return new DeiResponseData.Builder<List<MenuSlaveStdVO>>()
+    public DeiResponseData<List<MenuSlaveVO>> queryMenus(@RequestBody final MenuQueryReq queryReq) {
+        return new DeiResponseData.Builder<List<MenuSlaveVO>>()
                 .code(DeiResponseData.SUCCESS)
                 .success(DeiGlobalConstant.TRUE_STR)
                 .data(menuSlaveStdDataSvc.queryByParam(queryReq.getQueryParam(), queryReq.getQueryCfg()))

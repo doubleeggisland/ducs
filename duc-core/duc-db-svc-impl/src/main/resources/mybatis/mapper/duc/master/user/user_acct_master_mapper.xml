@@ -113,6 +113,13 @@
         and corp_sid in
         <foreach collection="corpSids" item="corpSid" separator="," open="(" close=")">#{corpSid}</foreach>
       </if>
+      <if test="tenantSid != null">
+        and tenant_sid = #{tenantSid}
+      </if>
+      <if test="tenantSids != null and tenantSids.size > 0">
+        and tenant_sid in
+        <foreach collection="tenantSids" item="tenantSid" separator="," open="(" close=")">#{tenantSid}</foreach>
+      </if>
       <if test="status != null">
         and status = #{status}
       </if>

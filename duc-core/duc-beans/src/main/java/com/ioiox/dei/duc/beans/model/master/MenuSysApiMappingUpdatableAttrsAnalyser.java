@@ -4,14 +4,14 @@ import com.ioiox.dei.core.orm.mybatis.model.std.data.UpdatableAttr;
 import com.ioiox.dei.core.orm.mybatis.model.std.data.UpdatableObj;
 import com.ioiox.dei.core.orm.mybatis.model.std.data.UpdatableObjAnalyser;
 import com.ioiox.dei.duc.beans.entity.MenuSysApiMapping;
-import com.ioiox.dei.duc.beans.vo.std.master.MenuSysApiMappingMasterStdVO;
+import com.ioiox.dei.duc.beans.vo.std.master.MenuSysApiMappingMasterVO;
 import com.ioiox.dei.duc.beans.vo.std.slave.MenuSysApiMappingSlaveStdVO;
 
 public class MenuSysApiMappingUpdatableAttrsAnalyser
-        extends UpdatableObjAnalyser<MenuSysApiMappingMasterStdVO, MenuSysApiMappingSlaveStdVO, MenuSysApiMappingUpdatableObj, MenuSysApiMappingUpdateCtx> {
+        extends UpdatableObjAnalyser<MenuSysApiMappingMasterVO, MenuSysApiMappingSlaveStdVO, MenuSysApiMappingUpdatableObj, MenuSysApiMappingUpdateCtx> {
 
     @Override
-    public MenuSysApiMappingUpdateCtx analyseUpdatedAttrs(final MenuSysApiMappingMasterStdVO apiMapping,
+    public MenuSysApiMappingUpdateCtx analyseUpdatedAttrs(final MenuSysApiMappingMasterVO apiMapping,
                                                           final MenuSysApiMappingSlaveStdVO existingApiMapping) {
         final MenuSysApiMappingUpdateCtx updateCtx = new MenuSysApiMappingUpdateCtx();
         updateCtx.setUpdatableObj(new MenuSysApiMappingUpdatableObj());
@@ -20,7 +20,7 @@ public class MenuSysApiMappingUpdatableAttrsAnalyser
     }
 
     @Override
-    protected void analyseUpdatedAttrs(final MenuSysApiMappingMasterStdVO apiMapping,
+    protected void analyseUpdatedAttrs(final MenuSysApiMappingMasterVO apiMapping,
                                        final MenuSysApiMappingSlaveStdVO existingApiMapping,
                                        final MenuSysApiMappingUpdateCtx updateCtx) {
         if (UpdatableObj.modified(existingApiMapping.getInteractForm(), apiMapping.getInteractForm())) {

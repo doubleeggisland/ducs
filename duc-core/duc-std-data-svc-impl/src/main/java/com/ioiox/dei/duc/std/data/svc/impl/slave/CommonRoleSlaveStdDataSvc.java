@@ -3,17 +3,17 @@ package com.ioiox.dei.duc.std.data.svc.impl.slave;
 import com.ioiox.dei.core.orm.mybatis.service.std.data.BaseDeiSlaveStdDataSvc;
 import com.ioiox.dei.duc.beans.entity.Role;
 import com.ioiox.dei.duc.beans.entity.TmpRole;
-import com.ioiox.dei.duc.beans.vo.std.slave.BaseRoleSlaveStdVO;
-import com.ioiox.dei.duc.beans.vo.std.slave.BaseTmpRoleSlaveStdVO;
+import com.ioiox.dei.duc.beans.vo.std.slave.BaseRoleSlaveVO;
+import com.ioiox.dei.duc.beans.vo.std.slave.BaseTmpRoleSlaveVO;
 
 import java.util.Objects;
 
 public abstract class CommonRoleSlaveStdDataSvc<
-        R extends BaseRoleSlaveStdVO,
+        R extends BaseRoleSlaveVO,
         E extends Role>
         extends BaseDeiSlaveStdDataSvc<R, E> {
 
-    protected void assembleRoleAttrs(final BaseRoleSlaveStdVO stdVO, final Role entity) {
+    protected void assembleRoleAttrs(final BaseRoleSlaveVO stdVO, final Role entity) {
         assembleCommonAttrs(stdVO, entity);
         stdVO.setCode(entity.getCode());
         stdVO.setName(entity.getName());
@@ -23,7 +23,7 @@ public abstract class CommonRoleSlaveStdDataSvc<
         stdVO.setSysPrjId(entity.getSysPrjSid());
     }
 
-    protected void assembleTmpRoleAttrs(final BaseTmpRoleSlaveStdVO stdVO, final TmpRole entity) {
+    protected void assembleTmpRoleAttrs(final BaseTmpRoleSlaveVO stdVO, final TmpRole entity) {
         assembleRoleAttrs(stdVO, entity);
         stdVO.setUnlimitedDateRangeFlag(entity.getUnlimitedDateRangeFlag());
         if (Objects.nonNull(entity.getEffectiveStartDate())) {

@@ -5,7 +5,7 @@ import com.ioiox.dei.core.orm.mybatis.service.std.data.BaseDeiSlaveStdDataSvc;
 import com.ioiox.dei.core.utils.DeiCollectionUtil;
 import com.ioiox.dei.duc.beans.entity.SysRes;
 import com.ioiox.dei.duc.beans.model.slave.SysResQueryParam;
-import com.ioiox.dei.duc.beans.vo.std.slave.SysResSlaveStdVO;
+import com.ioiox.dei.duc.beans.vo.std.slave.SysResSlaveVO;
 import com.ioiox.dei.duc.db.service.slave.SysResSlaveDbSvc;
 import com.ioiox.dei.duc.std.data.svc.slave.SysResSlaveStdDataSvc;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 @Service("sysResSlaveStdDataSvc")
 public class SysResSlaveStdDataSvcImpl
-        extends BaseDeiSlaveStdDataSvc<SysResSlaveStdVO, SysRes>
+        extends BaseDeiSlaveStdDataSvc<SysResSlaveVO, SysRes>
         implements SysResSlaveStdDataSvc {
 
     @Autowired
@@ -32,8 +32,8 @@ public class SysResSlaveStdDataSvcImpl
     }
 
     @Override
-    public List<SysResSlaveStdVO> queryBySysPrjIds(final List<Long> sysPrjIds,
-                                                   final StdDataQueryCfg queryCfg) {
+    public List<SysResSlaveVO> queryBySysPrjIds(final List<Long> sysPrjIds,
+                                                final StdDataQueryCfg queryCfg) {
         if (DeiCollectionUtil.isEmpty(sysPrjIds)) {
             return Collections.emptyList();
         }
@@ -44,9 +44,9 @@ public class SysResSlaveStdDataSvcImpl
     }
 
     @Override
-    public SysResSlaveStdVO queryByPk(final Long sysResId,
-                                      final StdDataQueryCfg queryCfg) {
-        final List<SysResSlaveStdVO> sysResources = queryByPks(Collections.singletonList(sysResId), queryCfg);
+    public SysResSlaveVO queryByPk(final Long sysResId,
+                                   final StdDataQueryCfg queryCfg) {
+        final List<SysResSlaveVO> sysResources = queryByPks(Collections.singletonList(sysResId), queryCfg);
         if (DeiCollectionUtil.isEmpty(sysResources)) {
             return null;
         }
@@ -54,8 +54,8 @@ public class SysResSlaveStdDataSvcImpl
     }
 
     @Override
-    public List<SysResSlaveStdVO> queryByPks(final List<Long> sysResIds,
-                                             final StdDataQueryCfg queryCfg) {
+    public List<SysResSlaveVO> queryByPks(final List<Long> sysResIds,
+                                          final StdDataQueryCfg queryCfg) {
         if (DeiCollectionUtil.isEmpty(sysResIds)) {
             return Collections.emptyList();
         }
@@ -66,8 +66,8 @@ public class SysResSlaveStdDataSvcImpl
     }
 
     @Override
-    public List<SysResSlaveStdVO> queryByParam(final SysResQueryParam queryParam,
-                                               final StdDataQueryCfg queryCfg) {
+    public List<SysResSlaveVO> queryByParam(final SysResQueryParam queryParam,
+                                            final StdDataQueryCfg queryCfg) {
         final Map<String, Object> queryParams =
                 Objects.isNull(queryParam) ? new HashMap<>() : queryParam.queryParams();
         final List<String> showColumns =
@@ -81,8 +81,8 @@ public class SysResSlaveStdDataSvcImpl
     }
 
     @Override
-    public SysResSlaveStdVO transferToStdDataVO(final SysRes entity) {
-        final SysResSlaveStdVO stdVO = new SysResSlaveStdVO();
+    public SysResSlaveVO transferToStdDataVO(final SysRes entity) {
+        final SysResSlaveVO stdVO = new SysResSlaveVO();
         assembleCommonAttrs(stdVO, entity);
         stdVO.setCode(entity.getCode());
         stdVO.setName(entity.getName());

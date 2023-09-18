@@ -3,9 +3,9 @@ package com.ioiox.dei.duc.std.data.svc.impl.slave.user;
 import com.ioiox.dei.core.utils.DeiCollectionUtil;
 import com.ioiox.dei.duc.beans.entity.UserAcctTmpSysResRole;
 import com.ioiox.dei.duc.beans.model.slave.SysResRoleQueryCfg;
-import com.ioiox.dei.duc.beans.vo.std.slave.SysResSlaveStdVO;
+import com.ioiox.dei.duc.beans.vo.std.slave.SysResSlaveVO;
 import com.ioiox.dei.duc.beans.model.slave.user.UserAcctTmpSysResRoleQueryParam;
-import com.ioiox.dei.duc.beans.vo.std.slave.user.UserAcctTmpSysResRoleSlaveStdVO;
+import com.ioiox.dei.duc.beans.vo.std.slave.user.UserAcctTmpSysResRoleSlaveVO;
 import com.ioiox.dei.duc.db.service.slave.user.UserAcctTmpSysResRoleR2ResSlaveDbSvc;
 import com.ioiox.dei.duc.db.service.slave.user.UserAcctTmpSysResRoleSlaveDbSvc;
 import com.ioiox.dei.duc.std.data.svc.impl.slave.BaseSysResRoleSlaveStdDataSvc;
@@ -21,7 +21,7 @@ import java.util.Objects;
 
 @Service("userAcctTmpSysResRoleSlaveStdDataSvc")
 public class UserAcctTmpSysResRoleSlaveStdDataSvcImpl
-        extends BaseSysResRoleSlaveStdDataSvc<UserAcctTmpSysResRoleSlaveStdVO, UserAcctTmpSysResRole, UserAcctTmpSysResRoleQueryParam>
+        extends BaseSysResRoleSlaveStdDataSvc<UserAcctTmpSysResRoleSlaveVO, UserAcctTmpSysResRole, UserAcctTmpSysResRoleQueryParam>
         implements UserAcctTmpSysResRoleSlaveStdDataSvc {
 
     @Autowired
@@ -33,12 +33,12 @@ public class UserAcctTmpSysResRoleSlaveStdDataSvcImpl
     private UserAcctTmpSysResRoleR2ResSlaveDbSvc userAcctTmpSysResRoleR2ResSlaveDbSvc;
 
     @Override
-    public UserAcctTmpSysResRoleSlaveStdVO queryByPk(final Long tmpSysResRoleId,
-                                                     final SysResRoleQueryCfg queryCfg) {
+    public UserAcctTmpSysResRoleSlaveVO queryByPk(final Long tmpSysResRoleId,
+                                                  final SysResRoleQueryCfg queryCfg) {
         if (Objects.isNull(tmpSysResRoleId)) {
             return null;
         }
-        final List<UserAcctTmpSysResRoleSlaveStdVO> tmpSysResRoles =
+        final List<UserAcctTmpSysResRoleSlaveVO> tmpSysResRoles =
                 queryByPks(Collections.singletonList(tmpSysResRoleId), queryCfg);
         if (DeiCollectionUtil.isEmpty(tmpSysResRoles)) {
             return null;
@@ -47,8 +47,8 @@ public class UserAcctTmpSysResRoleSlaveStdDataSvcImpl
     }
 
     @Override
-    public List<UserAcctTmpSysResRoleSlaveStdVO> queryByPks(final List<Long> tmpSysResRoleIds,
-                                                            final SysResRoleQueryCfg queryCfg) {
+    public List<UserAcctTmpSysResRoleSlaveVO> queryByPks(final List<Long> tmpSysResRoleIds,
+                                                         final SysResRoleQueryCfg queryCfg) {
         if (DeiCollectionUtil.isEmpty(tmpSysResRoleIds)) {
             return Collections.emptyList();
         }
@@ -69,8 +69,8 @@ public class UserAcctTmpSysResRoleSlaveStdDataSvcImpl
     }
 
     @Override
-    protected void assembleSysResources(final UserAcctTmpSysResRoleSlaveStdVO sysResRole,
-                                        final List<SysResSlaveStdVO> sysResources) {
+    protected void assembleSysResources(final UserAcctTmpSysResRoleSlaveVO sysResRole,
+                                        final List<SysResSlaveVO> sysResources) {
         sysResRole.setSysResources(sysResources);
     }
 
@@ -80,8 +80,8 @@ public class UserAcctTmpSysResRoleSlaveStdDataSvcImpl
     }
 
     @Override
-    public UserAcctTmpSysResRoleSlaveStdVO transferToStdDataVO(UserAcctTmpSysResRole entity) {
-        final UserAcctTmpSysResRoleSlaveStdVO stdVO = new UserAcctTmpSysResRoleSlaveStdVO();
+    public UserAcctTmpSysResRoleSlaveVO transferToStdDataVO(UserAcctTmpSysResRole entity) {
+        final UserAcctTmpSysResRoleSlaveVO stdVO = new UserAcctTmpSysResRoleSlaveVO();
         assembleTmpRoleAttrs(stdVO, entity);
         stdVO.setTenantId(entity.getTenantSid());
         stdVO.setCorpId(entity.getCorpSid());

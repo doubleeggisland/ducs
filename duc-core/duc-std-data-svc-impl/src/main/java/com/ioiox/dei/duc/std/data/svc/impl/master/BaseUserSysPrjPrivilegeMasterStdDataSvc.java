@@ -11,8 +11,8 @@ import com.ioiox.dei.duc.beans.model.master.UserSysPrjPrivilegeUpdatableAttrsAna
 import com.ioiox.dei.duc.beans.model.master.UserSysPrjPrivilegeUpdatableObj;
 import com.ioiox.dei.duc.beans.model.master.UserSysPrjPrivilegeUpdateCtx;
 import com.ioiox.dei.duc.beans.model.master.UserSysPrjPrivilegeDelParam;
-import com.ioiox.dei.duc.beans.vo.std.master.UserSysPrjPrivilegeMasterStdVO;
-import com.ioiox.dei.duc.beans.vo.std.slave.UserSysPrjPrivilegeSlaveStdVO;
+import com.ioiox.dei.duc.beans.vo.std.master.UserSysPrjPrivilegeMasterVO;
+import com.ioiox.dei.duc.beans.vo.std.slave.UserSysPrjPrivilegeSlaveVO;
 import com.ioiox.dei.duc.std.data.svc.master.UserSysPrjPrivilegeMasterStdDataSvc;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +24,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public abstract class BaseUserSysPrjPrivilegeMasterStdDataSvc
-        extends BaseDeiMasterStdDataSvc<UserSysPrjPrivilegeMasterStdVO, UserSysPrjPrivilegeUpdatableObj, UserSysPrjPrivilege>
+        extends BaseDeiMasterStdDataSvc<UserSysPrjPrivilegeMasterVO, UserSysPrjPrivilegeUpdatableObj, UserSysPrjPrivilege>
         implements UserSysPrjPrivilegeMasterStdDataSvc {
 
     private static final Logger log = LoggerFactory.getLogger(BaseUserSysPrjPrivilegeMasterStdDataSvc.class);
@@ -32,9 +32,9 @@ public abstract class BaseUserSysPrjPrivilegeMasterStdDataSvc
     private final UserSysPrjPrivilegeUpdatableAttrsAnalyser analyser = new UserSysPrjPrivilegeUpdatableAttrsAnalyser();
 
     @Override
-    public int sync(final List<UserSysPrjPrivilegeMasterStdVO> sysPrjPrivileges,
-                    final List<UserSysPrjPrivilegeSlaveStdVO> existingSysPrjPrivileges) {
-        final ChildrenAnalyser.DiffHolder<UserSysPrjPrivilegeMasterStdVO, UserSysPrjPrivilegeSlaveStdVO> diff =
+    public int sync(final List<UserSysPrjPrivilegeMasterVO> sysPrjPrivileges,
+                    final List<UserSysPrjPrivilegeSlaveVO> existingSysPrjPrivileges) {
+        final ChildrenAnalyser.DiffHolder<UserSysPrjPrivilegeMasterVO, UserSysPrjPrivilegeSlaveVO> diff =
                 ChildrenAnalyser.analysisDiff(sysPrjPrivileges, existingSysPrjPrivileges);
         final int insertedRows;
         if (DeiCollectionUtil.isNotEmpty(diff.getNewChildren())) {
@@ -44,8 +44,8 @@ public abstract class BaseUserSysPrjPrivilegeMasterStdDataSvc
         }
         final int totalUpdatedRows;
         if (DeiCollectionUtil.isNotEmpty(diff.getUpdatableChildren())) {
-            final List<ChildrenAnalyser.ChildHolder<UserSysPrjPrivilegeMasterStdVO, UserSysPrjPrivilegeSlaveStdVO>> updatedChildren = new LinkedList<>();
-            for (final ChildrenAnalyser.ChildHolder<UserSysPrjPrivilegeMasterStdVO, UserSysPrjPrivilegeSlaveStdVO> childHolder : diff.getUpdatableChildren()) {
+            final List<ChildrenAnalyser.ChildHolder<UserSysPrjPrivilegeMasterVO, UserSysPrjPrivilegeSlaveVO>> updatedChildren = new LinkedList<>();
+            for (final ChildrenAnalyser.ChildHolder<UserSysPrjPrivilegeMasterVO, UserSysPrjPrivilegeSlaveVO> childHolder : diff.getUpdatableChildren()) {
                 final boolean updated = update(childHolder.getChild(), childHolder.getExistingChild());
                 if (updated) {
                     updatedChildren.add(childHolder);
@@ -58,7 +58,7 @@ public abstract class BaseUserSysPrjPrivilegeMasterStdDataSvc
         final int deletedRows;
         if (DeiCollectionUtil.isNotEmpty(diff.getRemovedChildren())) {
             deletedRows = removeByPks(diff.getRemovedChildren().stream()
-                    .map(UserSysPrjPrivilegeSlaveStdVO::getId)
+                    .map(UserSysPrjPrivilegeSlaveVO::getId)
                     .collect(Collectors.toList()));
         } else {
             deletedRows = DeiGlobalConstant.ZERO;
@@ -71,8 +71,8 @@ public abstract class BaseUserSysPrjPrivilegeMasterStdDataSvc
         return insertedRows + totalUpdatedRows + deletedRows;
     }
 
-    boolean update(final UserSysPrjPrivilegeMasterStdVO sysPrjPrivilege,
-                   final UserSysPrjPrivilegeSlaveStdVO existingSysPrjPrivilege) {
+    boolean update(final UserSysPrjPrivilegeMasterVO sysPrjPrivilege,
+                   final UserSysPrjPrivilegeSlaveVO existingSysPrjPrivilege) {
         final UserSysPrjPrivilegeUpdateCtx updateCtx = analyser.analyseUpdatedAttrs(sysPrjPrivilege, existingSysPrjPrivilege);
         final UserSysPrjPrivilegeUpdatableObj updatableObj = updateCtx.getUpdatableObj();
 
@@ -93,7 +93,7 @@ public abstract class BaseUserSysPrjPrivilegeMasterStdDataSvc
         return updated;
     }
 
-    int save(final List<UserSysPrjPrivilegeMasterStdVO> sysPrjPrivileges) {
+    int save(final List<UserSysPrjPrivilegeMasterVO> sysPrjPrivileges) {
         if (log.isInfoEnabled()) {
             log.info(String.format("save UserSysPrjPrivileges =====> %s", JsonUtil.toJsonStr(sysPrjPrivileges)));
         }
@@ -146,7 +146,7 @@ public abstract class BaseUserSysPrjPrivilegeMasterStdDataSvc
     protected abstract int doRemove(final Map<String, Object> deleteParams);
 
     @Override
-    public UserSysPrjPrivilege toNewEntity(final UserSysPrjPrivilegeMasterStdVO sysPrjPrivilege) {
+    public UserSysPrjPrivilege toNewEntity(final UserSysPrjPrivilegeMasterVO sysPrjPrivilege) {
         final UserSysPrjPrivilege newEntity = new UserSysPrjPrivilege();
         assembleCommonAttrsOnInsert(newEntity, sysPrjPrivilege);
         newEntity.setUserSid(sysPrjPrivilege.getUserId());

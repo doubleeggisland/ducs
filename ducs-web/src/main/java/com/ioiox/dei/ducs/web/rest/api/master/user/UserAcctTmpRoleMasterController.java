@@ -3,7 +3,7 @@ package com.ioiox.dei.ducs.web.rest.api.master.user;
 import com.ioiox.dei.core.constant.DeiGlobalConstant;
 import com.ioiox.dei.core.vo.DeiResponseData;
 import com.ioiox.dei.duc.beans.model.master.user.UserAcctRoleDelParam;
-import com.ioiox.dei.duc.beans.vo.std.master.user.UserAcctTmpRoleMasterStdVO;
+import com.ioiox.dei.duc.beans.vo.std.master.user.UserAcctTmpRoleMasterVO;
 import com.ioiox.dei.duc.std.data.svc.master.user.UserAcctTmpRoleMasterStdDataSvc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -19,7 +19,7 @@ public class UserAcctTmpRoleMasterController {
     private UserAcctTmpRoleMasterStdDataSvc userAcctTmpRoleMasterStdDataSvc;
 
     @PostMapping(path = "/user-acct/tmp-roles/save", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public DeiResponseData<Long> saveTmpRole(@RequestBody final UserAcctTmpRoleMasterStdVO tmpRole) {
+    public DeiResponseData<Long> saveTmpRole(@RequestBody final UserAcctTmpRoleMasterVO tmpRole) {
         return new DeiResponseData.Builder<Long>()
                 .code(DeiResponseData.SUCCESS)
                 .success(DeiGlobalConstant.TRUE_STR)
@@ -29,7 +29,7 @@ public class UserAcctTmpRoleMasterController {
 
     @PutMapping(path = "/user-acct/tmp-roles/{id}/update", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public DeiResponseData<String> updateTmpRole(@PathVariable("id") Long id,
-                                                 @RequestBody final UserAcctTmpRoleMasterStdVO tmpRole) {
+                                                 @RequestBody final UserAcctTmpRoleMasterVO tmpRole) {
         tmpRole.setId(id);
         userAcctTmpRoleMasterStdDataSvc.update(tmpRole);
         return new DeiResponseData.Builder<String>()

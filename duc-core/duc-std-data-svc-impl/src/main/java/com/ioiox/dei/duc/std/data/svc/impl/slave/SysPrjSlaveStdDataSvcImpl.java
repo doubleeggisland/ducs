@@ -102,21 +102,21 @@ public class SysPrjSlaveStdDataSvcImpl
             sysPrjs.add(transferToStdDataVO(entity));
         });
 
-        final Map<Long, List<MenuSlaveStdVO>> groupMenus;
+        final Map<Long, List<MenuSlaveVO>> groupMenus;
         if (Objects.nonNull(queryCfg)
                 && StringUtils.equals(DeiGlobalConstant.FLAG_YES, queryCfg.getNeedMenus())) {
             groupMenus = getMenus(sysPrjIds, queryCfg.getMenuQueryCfg());
         } else {
             groupMenus = Collections.emptyMap();
         }
-        final Map<Long, List<SysApiSlaveStdVO>> groupedSysApis;
+        final Map<Long, List<SysApiSlaveVO>> groupedSysApis;
         if (Objects.nonNull(queryCfg)
                 && StringUtils.equals(DeiGlobalConstant.FLAG_YES, queryCfg.getNeedSysApis())) {
             groupedSysApis = getSysApis(sysPrjIds, queryCfg.getSysApiQueryCfg());
         } else {
             groupedSysApis = Collections.emptyMap();
         }
-        final Map<Long, List<SysResSlaveStdVO>> groupedSysResources;
+        final Map<Long, List<SysResSlaveVO>> groupedSysResources;
         if (Objects.nonNull(queryCfg)
                 && StringUtils.equals(DeiGlobalConstant.FLAG_YES, queryCfg.getNeedSysResources())) {
             groupedSysResources = getSysResources(sysPrjIds, queryCfg.getSysResQueryCfg());
@@ -131,40 +131,40 @@ public class SysPrjSlaveStdDataSvcImpl
         return sysPrjs;
     }
 
-    protected Map<Long, List<MenuSlaveStdVO>> getMenus(final List<Long> sysPrjIds,
-                                                       final MenuQueryCfg queryCfg) {
+    protected Map<Long, List<MenuSlaveVO>> getMenus(final List<Long> sysPrjIds,
+                                                    final MenuQueryCfg queryCfg) {
         addShowColumnsIfNeeded(queryCfg, Collections.singletonList(Menu.ShowColumn.SYS_PRJ_SID.getCode()));
-        final List<MenuSlaveStdVO> menus =
+        final List<MenuSlaveVO> menus =
                 menuSlaveStdDataSvc.queryBySysPrjIds(sysPrjIds, queryCfg);
         if (DeiCollectionUtil.isEmpty(menus)) {
             return Collections.emptyMap();
         }
         return menus.stream()
-                .collect(Collectors.groupingBy(MenuSlaveStdVO::getSysPrjId));
+                .collect(Collectors.groupingBy(MenuSlaveVO::getSysPrjId));
     }
 
-    protected Map<Long, List<SysApiSlaveStdVO>> getSysApis(final List<Long> sysPrjIds,
-                                                           final StdDataQueryCfg queryCfg) {
+    protected Map<Long, List<SysApiSlaveVO>> getSysApis(final List<Long> sysPrjIds,
+                                                        final StdDataQueryCfg queryCfg) {
         addShowColumnsIfNeeded(queryCfg, Collections.singletonList(SysApi.ShowColumn.SYS_PRJ_SID.getCode()));
-        final List<SysApiSlaveStdVO> sysApis =
+        final List<SysApiSlaveVO> sysApis =
                 sysApiSlaveStdDataSvc.queryBySysPrjIds(sysPrjIds, queryCfg);
         if (DeiCollectionUtil.isEmpty(sysApis)) {
             return Collections.emptyMap();
         }
         return sysApis.stream()
-                .collect(Collectors.groupingBy(SysApiSlaveStdVO::getSysPrjId));
+                .collect(Collectors.groupingBy(SysApiSlaveVO::getSysPrjId));
     }
 
-    protected Map<Long, List<SysResSlaveStdVO>> getSysResources(final List<Long> sysPrjIds,
-                                                                final StdDataQueryCfg queryCfg) {
+    protected Map<Long, List<SysResSlaveVO>> getSysResources(final List<Long> sysPrjIds,
+                                                             final StdDataQueryCfg queryCfg) {
         addShowColumnsIfNeeded(queryCfg, Collections.singletonList(SysRes.ShowColumn.SYS_PRJ_SID.getCode()));
-        final List<SysResSlaveStdVO> sysResources =
+        final List<SysResSlaveVO> sysResources =
                 sysResSlaveStdDataSvc.queryBySysPrjIds(sysPrjIds, queryCfg);
         if (DeiCollectionUtil.isEmpty(sysResources)) {
             return Collections.emptyMap();
         }
         return sysResources.stream()
-                .collect(Collectors.groupingBy(SysResSlaveStdVO::getSysPrjId));
+                .collect(Collectors.groupingBy(SysResSlaveVO::getSysPrjId));
     }
 
     @Override

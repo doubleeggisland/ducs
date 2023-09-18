@@ -4,7 +4,7 @@ import com.ioiox.dei.core.constant.DeiGlobalConstant;
 import com.ioiox.dei.core.vo.DeiResponseData;
 import com.ioiox.dei.duc.beans.model.slave.user.AcctUserGrpQueryParam;
 import com.ioiox.dei.duc.beans.model.slave.user.AcctUserGrpQueryReq;
-import com.ioiox.dei.duc.beans.vo.std.slave.user.AcctUserGrpSlaveStdVO;
+import com.ioiox.dei.duc.beans.vo.std.slave.user.AcctUserGrpSlaveVO;
 import com.ioiox.dei.duc.std.data.svc.slave.user.AcctUserGrpSlaveStdDataSvc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -34,8 +34,8 @@ public class AcctUserGrpSlaveController {
     }
 
     @PostMapping(path = "/user-acct/user-grps/query", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public DeiResponseData<List<AcctUserGrpSlaveStdVO>> queryUserGrps(@RequestBody final AcctUserGrpQueryReq queryReq) {
-        return new DeiResponseData.Builder<List<AcctUserGrpSlaveStdVO>>()
+    public DeiResponseData<List<AcctUserGrpSlaveVO>> queryUserGrps(@RequestBody final AcctUserGrpQueryReq queryReq) {
+        return new DeiResponseData.Builder<List<AcctUserGrpSlaveVO>>()
                 .code(DeiResponseData.SUCCESS)
                 .success(DeiGlobalConstant.TRUE_STR)
                 .data(acctUserGrpSlaveStdDataSvc.queryByParam(queryReq.getQueryParam(), queryReq.getQueryCfg()))

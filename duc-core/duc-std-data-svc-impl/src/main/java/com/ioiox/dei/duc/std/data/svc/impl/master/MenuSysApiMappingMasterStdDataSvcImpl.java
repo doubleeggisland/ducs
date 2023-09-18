@@ -11,7 +11,7 @@ import com.ioiox.dei.duc.beans.model.master.MenuSysApiMappingUpdatableAttrsAnaly
 import com.ioiox.dei.duc.beans.model.master.MenuSysApiMappingUpdatableObj;
 import com.ioiox.dei.duc.beans.model.master.MenuSysApiMappingUpdateCtx;
 import com.ioiox.dei.duc.beans.model.master.MenuSysApiMappingDelParam;
-import com.ioiox.dei.duc.beans.vo.std.master.MenuSysApiMappingMasterStdVO;
+import com.ioiox.dei.duc.beans.vo.std.master.MenuSysApiMappingMasterVO;
 import com.ioiox.dei.duc.beans.vo.std.slave.MenuSysApiMappingSlaveStdVO;
 import com.ioiox.dei.duc.db.service.master.MenuSysApiMappingMasterDbSvc;
 import com.ioiox.dei.duc.std.data.svc.master.MenuSysApiMappingMasterStdDataSvc;
@@ -30,7 +30,7 @@ import java.util.stream.Collectors;
 
 @Service("menuSysApiMappingMasterStdDataSvc")
 public class MenuSysApiMappingMasterStdDataSvcImpl
-        extends BaseDeiMasterStdDataSvc<MenuSysApiMappingMasterStdVO, MenuSysApiMappingUpdatableObj, MenuSysApiMapping>
+        extends BaseDeiMasterStdDataSvc<MenuSysApiMappingMasterVO, MenuSysApiMappingUpdatableObj, MenuSysApiMapping>
         implements MenuSysApiMappingMasterStdDataSvc {
 
     private static final Logger log = LoggerFactory.getLogger(MenuSysApiMappingMasterStdDataSvcImpl.class);
@@ -46,9 +46,9 @@ public class MenuSysApiMappingMasterStdDataSvcImpl
     private final MenuSysApiMappingUpdatableAttrsAnalyser analyser = new MenuSysApiMappingUpdatableAttrsAnalyser();
 
     @Override
-    public int sync(final List<MenuSysApiMappingMasterStdVO> sysApiMappings,
+    public int sync(final List<MenuSysApiMappingMasterVO> sysApiMappings,
                     final List<MenuSysApiMappingSlaveStdVO> existingSysApiMappings) {
-        final ChildrenAnalyser.DiffHolder<MenuSysApiMappingMasterStdVO, MenuSysApiMappingSlaveStdVO> diff =
+        final ChildrenAnalyser.DiffHolder<MenuSysApiMappingMasterVO, MenuSysApiMappingSlaveStdVO> diff =
                 ChildrenAnalyser.analysisDiff(sysApiMappings, existingSysApiMappings);
         final int insertedRows;
         if (DeiCollectionUtil.isNotEmpty(diff.getNewChildren())) {
@@ -58,8 +58,8 @@ public class MenuSysApiMappingMasterStdDataSvcImpl
         }
         final int totalUpdatedRows;
         if (DeiCollectionUtil.isNotEmpty(diff.getUpdatableChildren())) {
-            final List<ChildrenAnalyser.ChildHolder<MenuSysApiMappingMasterStdVO, MenuSysApiMappingSlaveStdVO>> updatedChildren = new LinkedList<>();
-            for (final ChildrenAnalyser.ChildHolder<MenuSysApiMappingMasterStdVO, MenuSysApiMappingSlaveStdVO> childHolder : diff.getUpdatableChildren()) {
+            final List<ChildrenAnalyser.ChildHolder<MenuSysApiMappingMasterVO, MenuSysApiMappingSlaveStdVO>> updatedChildren = new LinkedList<>();
+            for (final ChildrenAnalyser.ChildHolder<MenuSysApiMappingMasterVO, MenuSysApiMappingSlaveStdVO> childHolder : diff.getUpdatableChildren()) {
                 final boolean updated = update(childHolder.getChild(), childHolder.getExistingChild());
                 if (updated) {
                     updatedChildren.add(childHolder);
@@ -86,7 +86,7 @@ public class MenuSysApiMappingMasterStdDataSvcImpl
     }
 
     @Override
-    public Long save(final MenuSysApiMappingMasterStdVO sysApiMapping) {
+    public Long save(final MenuSysApiMappingMasterVO sysApiMapping) {
         if (Objects.isNull(sysApiMapping)) {
             return DeiGlobalConstant.DEFAULT_SID;
         }
@@ -99,7 +99,7 @@ public class MenuSysApiMappingMasterStdDataSvcImpl
         return newEntity.getSid();
     }
 
-    public int save(final List<MenuSysApiMappingMasterStdVO> sysApiMappings) {
+    public int save(final List<MenuSysApiMappingMasterVO> sysApiMappings) {
         if (log.isInfoEnabled()) {
             log.info(String.format("save MenuSysApiMappings =====> %s", JsonUtil.toJsonStr(sysApiMappings)));
         }
@@ -113,7 +113,7 @@ public class MenuSysApiMappingMasterStdDataSvcImpl
         return menuSysApiMappingMasterDbSvc.dbInsert(newEntities);
     }
 
-    public boolean update(final MenuSysApiMappingMasterStdVO sysApiMapping,
+    public boolean update(final MenuSysApiMappingMasterVO sysApiMapping,
                           final MenuSysApiMappingSlaveStdVO existingSysApiMapping) {
         final MenuSysApiMappingUpdateCtx updateCtx = analyser.analyseUpdatedAttrs(sysApiMapping, existingSysApiMapping);
         final MenuSysApiMappingUpdatableObj updatableObj = updateCtx.getUpdatableObj();
@@ -159,7 +159,7 @@ public class MenuSysApiMappingMasterStdDataSvcImpl
     }
 
     @Override
-    public MenuSysApiMapping toNewEntity(final MenuSysApiMappingMasterStdVO masterStdVO) {
+    public MenuSysApiMapping toNewEntity(final MenuSysApiMappingMasterVO masterStdVO) {
         final MenuSysApiMapping newEntity = new MenuSysApiMapping();
         assembleCommonAttrsOnInsert(newEntity, masterStdVO);
         newEntity.setMenuSid(masterStdVO.getMenuId());

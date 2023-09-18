@@ -9,7 +9,7 @@ import com.ioiox.dei.duc.beans.entity.MenuSysApiMapping;
 import com.ioiox.dei.duc.beans.model.slave.MenuSysApiMappingQueryCfg;
 import com.ioiox.dei.duc.beans.model.slave.MenuSysApiMappingQueryParam;
 import com.ioiox.dei.duc.beans.vo.std.slave.MenuSysApiMappingSlaveStdVO;
-import com.ioiox.dei.duc.beans.vo.std.slave.SysApiSlaveStdVO;
+import com.ioiox.dei.duc.beans.vo.std.slave.SysApiSlaveVO;
 import com.ioiox.dei.duc.db.service.slave.MenuSysApiMappingSlaveDbSvc;
 import com.ioiox.dei.duc.std.data.svc.slave.MenuSysApiMappingSlaveStdDataSvc;
 import com.ioiox.dei.duc.std.data.svc.slave.SysApiSlaveStdDataSvc;
@@ -85,7 +85,7 @@ public class MenuSysApiMappingSlaveStdDataSvcImpl
 
         if (Objects.nonNull(queryCfg)) {
             if (StringUtils.equals(DeiGlobalConstant.FLAG_YES, queryCfg.getNeedSysApi())) {
-                final Map<Long, SysApiSlaveStdVO> sysApis = getSysApis(new ArrayList<>(sysApiIds), queryCfg.getSysApiQueryCfg());
+                final Map<Long, SysApiSlaveVO> sysApis = getSysApis(new ArrayList<>(sysApiIds), queryCfg.getSysApiQueryCfg());
                 sysApiMappings.forEach(sysApiMapping -> {
                     if (sysApis.containsKey(sysApiMapping.getSysApiId())) {
                         sysApiMapping.setSysApi(sysApis.get(sysApiMapping.getSysApiId()));
@@ -96,15 +96,15 @@ public class MenuSysApiMappingSlaveStdDataSvcImpl
         return sysApiMappings;
     }
 
-    private Map<Long, SysApiSlaveStdVO> getSysApis(final List<Long> sysApiIds,
-                                                   final StdDataQueryCfg queryCfg) {
+    private Map<Long, SysApiSlaveVO> getSysApis(final List<Long> sysApiIds,
+                                                final StdDataQueryCfg queryCfg) {
         addShowColumnsIfNeeded(queryCfg, Collections.singletonList(BaseDeiEntity.ShowColumn.ID.getCode()));
-        final List<SysApiSlaveStdVO> sysApis = sysApiSlaveStdDataSvc.queryByPks(sysApiIds, queryCfg);
+        final List<SysApiSlaveVO> sysApis = sysApiSlaveStdDataSvc.queryByPks(sysApiIds, queryCfg);
         if (DeiCollectionUtil.isEmpty(sysApiIds)) {
             return Collections.emptyMap();
         }
         return sysApis.stream()
-                .collect(Collectors.toMap(SysApiSlaveStdVO::getId, sysApi -> sysApi));
+                .collect(Collectors.toMap(SysApiSlaveVO::getId, sysApi -> sysApi));
     }
 
     @Override

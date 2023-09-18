@@ -29,5 +29,5 @@ public class MenuMasterStdVO extends MasterStdDataVO {
     /**
      * 与菜单相关的系统API信息
      */
-    private List<MenuSysApiMappingMasterStdVO> sysApiMappings;
+    private List<MenuSysApiMappingMasterVO> sysApiMappings;
 }

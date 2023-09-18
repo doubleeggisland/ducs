@@ -12,8 +12,8 @@ import com.ioiox.dei.duc.beans.model.master.SysResUpdatableAttrsAnalyser;
 import com.ioiox.dei.duc.beans.model.master.SysResUpdatableObj;
 import com.ioiox.dei.duc.beans.model.master.SysResUpdateCtx;
 import com.ioiox.dei.duc.beans.model.master.SysResDelParam;
-import com.ioiox.dei.duc.beans.vo.std.master.SysResMasterStdVO;
-import com.ioiox.dei.duc.beans.vo.std.slave.SysResSlaveStdVO;
+import com.ioiox.dei.duc.beans.vo.std.master.SysResMasterVO;
+import com.ioiox.dei.duc.beans.vo.std.slave.SysResSlaveVO;
 import com.ioiox.dei.duc.db.service.master.SysResMasterDbSvc;
 import com.ioiox.dei.duc.std.data.svc.master.SysResMasterStdDataSvc;
 import com.ioiox.dei.duc.std.data.svc.slave.SysResSlaveStdDataSvc;
@@ -29,7 +29,7 @@ import java.util.Objects;
 
 @Service("sysResMasterStdDataSvc")
 public class SysResMasterStdDataSvcImpl
-        extends BaseDeiMasterStdDataSvc<SysResMasterStdVO, SysResUpdatableObj, SysRes>
+        extends BaseDeiMasterStdDataSvc<SysResMasterVO, SysResUpdatableObj, SysRes>
         implements SysResMasterStdDataSvc {
 
     private static final Logger log = LoggerFactory.getLogger(SysResMasterStdDataSvcImpl.class);
@@ -45,7 +45,7 @@ public class SysResMasterStdDataSvcImpl
     private final SysResUpdatableAttrsAnalyser analyser = new SysResUpdatableAttrsAnalyser();
 
     @Override
-    public Long save(final SysResMasterStdVO sysRes) {
+    public Long save(final SysResMasterVO sysRes) {
         if (Objects.isNull(sysRes)) {
             return DeiGlobalConstant.DEFAULT_SID;
         }
@@ -55,7 +55,7 @@ public class SysResMasterStdDataSvcImpl
         return newEntity.getSid();
     }
 
-    private SysResSlaveStdVO getExistingSysRes(final Long id) {
+    private SysResSlaveVO getExistingSysRes(final Long id) {
         return sysResSlaveStdDataSvc.queryByPk(id,
                 new DefaultStdDataQueryCfg.Builder()
                         .showColumns(Arrays.asList(BaseDeiEntity.ShowColumn.ID.getCode(),
@@ -67,20 +67,20 @@ public class SysResMasterStdDataSvcImpl
     }
 
     @Override
-    public boolean update(final SysResMasterStdVO sysRes) {
+    public boolean update(final SysResMasterVO sysRes) {
         if (Objects.isNull(sysRes)
                 || Objects.isNull(sysRes.getId())) {
             throw new DeiServiceException("Please choose a sysRes to update");
         }
-        final SysResSlaveStdVO existingSysRes = getExistingSysRes(sysRes.getId());
+        final SysResSlaveVO existingSysRes = getExistingSysRes(sysRes.getId());
         if (Objects.isNull(existingSysRes)) {
             throw new DeiServiceException(String.format("SysRes doesn't exist =====> id: %s", sysRes.getId()));
         }
         return update(sysRes, existingSysRes);
     }
 
-    private boolean update(final SysResMasterStdVO sysRes,
-                           final SysResSlaveStdVO existingSysRes) {
+    private boolean update(final SysResMasterVO sysRes,
+                           final SysResSlaveVO existingSysRes) {
         final SysResUpdateCtx updateCtx = analyser.analyseUpdatedAttrs(sysRes, existingSysRes);
         final SysResUpdatableObj updatableObj = updateCtx.getUpdatableObj();
         final boolean updated = updatableObj.updated();
@@ -111,7 +111,7 @@ public class SysResMasterStdDataSvcImpl
     }
 
     @Override
-    public SysRes toNewEntity(final SysResMasterStdVO sysRes) {
+    public SysRes toNewEntity(final SysResMasterVO sysRes) {
         final SysRes newEntity = new SysRes();
         assembleCommonAttrsOnInsert(newEntity, sysRes);
         newEntity.setCode(sysRes.getCode());

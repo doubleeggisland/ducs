@@ -6,9 +6,9 @@ import com.ioiox.dei.duc.beans.model.slave.RoleQueryCfg;
 import com.ioiox.dei.duc.beans.model.slave.SysResRoleQueryCfg;
 import com.ioiox.dei.duc.beans.model.slave.UserGrpQueryCfg;
 import com.ioiox.dei.duc.beans.model.slave.user.AcctUserGrpQueryParam;
-import com.ioiox.dei.duc.beans.vo.std.slave.user.AcctUserGrpSlaveStdVO;
-import com.ioiox.dei.duc.beans.vo.std.slave.user.UserAcctRoleSlaveStdVO;
-import com.ioiox.dei.duc.beans.vo.std.slave.user.UserAcctSysResRoleSlaveStdVO;
+import com.ioiox.dei.duc.beans.vo.std.slave.user.AcctUserGrpSlaveVO;
+import com.ioiox.dei.duc.beans.vo.std.slave.user.UserAcctRoleSlaveVO;
+import com.ioiox.dei.duc.beans.vo.std.slave.user.UserAcctSysResRoleSlaveVO;
 import com.ioiox.dei.duc.db.service.slave.user.AcctUserGrpR2RoleSlaveDbSvc;
 import com.ioiox.dei.duc.db.service.slave.user.AcctUserGrpR2SysResRoleSlaveDbSvc;
 import com.ioiox.dei.duc.db.service.slave.user.AcctUserGrpSlaveDbSvc;
@@ -27,7 +27,7 @@ import java.util.Objects;
 
 @Service("acctUserGrpSlaveStdDataSvc")
 public class AcctUserGrpSlaveStdDataSvcImpl
-        extends BaseUserGrpSlaveStdDataSvc<UserAcctRoleSlaveStdVO, UserAcctSysResRoleSlaveStdVO, AcctUserGrpSlaveStdVO, AcctUserGrp, AcctUserGrpQueryParam>
+        extends BaseUserGrpSlaveStdDataSvc<UserAcctRoleSlaveVO, UserAcctSysResRoleSlaveVO, AcctUserGrpSlaveVO, AcctUserGrp, AcctUserGrpQueryParam>
         implements AcctUserGrpSlaveStdDataSvc {
 
     @Autowired
@@ -50,12 +50,12 @@ public class AcctUserGrpSlaveStdDataSvcImpl
     @Qualifier("acctUserGrpR2SysResRoleSlaveDbSvc")
     private AcctUserGrpR2SysResRoleSlaveDbSvc acctUserGrpR2SysResRoleSlaveDbSvc;
 
-    public AcctUserGrpSlaveStdVO queryByPk(final Long acctUserGrpId,
-                                           final UserGrpQueryCfg queryCfg) {
+    public AcctUserGrpSlaveVO queryByPk(final Long acctUserGrpId,
+                                        final UserGrpQueryCfg queryCfg) {
         if (Objects.isNull(acctUserGrpId)) {
             return null;
         }
-        final List<AcctUserGrpSlaveStdVO> userGrps =
+        final List<AcctUserGrpSlaveVO> userGrps =
                 queryByPks(Collections.singletonList(acctUserGrpId), queryCfg);
         if (DeiCollectionUtil.isEmpty(userGrps)) {
             return null;
@@ -64,8 +64,8 @@ public class AcctUserGrpSlaveStdDataSvcImpl
     }
 
     @Override
-    public List<AcctUserGrpSlaveStdVO> queryByPks(final List<Long> acctUserGrpIds,
-                                                  final UserGrpQueryCfg queryCfg) {
+    public List<AcctUserGrpSlaveVO> queryByPks(final List<Long> acctUserGrpIds,
+                                               final UserGrpQueryCfg queryCfg) {
         if (DeiCollectionUtil.isEmpty(acctUserGrpIds)) {
             return Collections.emptyList();
         }
@@ -91,7 +91,7 @@ public class AcctUserGrpSlaveStdDataSvcImpl
     }
 
     @Override
-    protected List<UserAcctRoleSlaveStdVO> queryRolesByPks(final List<Long> roleIds, final RoleQueryCfg queryCfg) {
+    protected List<UserAcctRoleSlaveVO> queryRolesByPks(final List<Long> roleIds, final RoleQueryCfg queryCfg) {
         return userAcctRoleSlaveStdDataSvc.queryByPKs(roleIds, queryCfg);
     }
 
@@ -101,13 +101,13 @@ public class AcctUserGrpSlaveStdDataSvcImpl
     }
 
     @Override
-    protected List<UserAcctSysResRoleSlaveStdVO> querySysResRolesByPks(final List<Long> sysResRoleIds, final SysResRoleQueryCfg queryCfg) {
+    protected List<UserAcctSysResRoleSlaveVO> querySysResRolesByPks(final List<Long> sysResRoleIds, final SysResRoleQueryCfg queryCfg) {
         return userAcctSysResRoleSlaveStdDataSvc.queryByPks(sysResRoleIds, queryCfg);
     }
 
     @Override
-    public AcctUserGrpSlaveStdVO transferToStdDataVO(AcctUserGrp entity) {
-        final AcctUserGrpSlaveStdVO stdVO = new AcctUserGrpSlaveStdVO();
+    public AcctUserGrpSlaveVO transferToStdDataVO(AcctUserGrp entity) {
+        final AcctUserGrpSlaveVO stdVO = new AcctUserGrpSlaveVO();
         assembleCommonAttrs(stdVO, entity);
         stdVO.setTenantId(entity.getTenantSid());
         stdVO.setCorpId(entity.getCorpSid());

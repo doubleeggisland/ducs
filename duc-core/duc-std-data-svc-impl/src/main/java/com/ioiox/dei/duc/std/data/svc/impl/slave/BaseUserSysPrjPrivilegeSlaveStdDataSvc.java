@@ -19,7 +19,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public abstract class BaseUserSysPrjPrivilegeSlaveStdDataSvc
-        extends BaseDeiSlaveStdDataSvc<UserSysPrjPrivilegeSlaveStdVO, UserSysPrjPrivilege>
+        extends BaseDeiSlaveStdDataSvc<UserSysPrjPrivilegeSlaveVO, UserSysPrjPrivilege>
         implements UserSysPrjPrivilegeSlaveStdDataSvc {
 
     @Autowired
@@ -34,8 +34,8 @@ public abstract class BaseUserSysPrjPrivilegeSlaveStdDataSvc
     }
 
     @Override
-    public List<UserSysPrjPrivilegeSlaveStdVO> queryByUserIds(final List<Long> userIds,
-                                                              final UserSysPrjPrivilegeQueryCfg queryCfg) {
+    public List<UserSysPrjPrivilegeSlaveVO> queryByUserIds(final List<Long> userIds,
+                                                           final UserSysPrjPrivilegeQueryCfg queryCfg) {
         if (DeiCollectionUtil.isEmpty(userIds)) {
             return Collections.emptyList();
         }
@@ -46,8 +46,8 @@ public abstract class BaseUserSysPrjPrivilegeSlaveStdDataSvc
     }
 
     @Override
-    public List<UserSysPrjPrivilegeSlaveStdVO> queryByParam(final UserSysPrjPrivilegeQueryParam queryParam,
-                                                            final UserSysPrjPrivilegeQueryCfg queryCfg) {
+    public List<UserSysPrjPrivilegeSlaveVO> queryByParam(final UserSysPrjPrivilegeQueryParam queryParam,
+                                                         final UserSysPrjPrivilegeQueryCfg queryCfg) {
         final Map<String, Object> queryParams =
                 Objects.isNull(queryParam) ? new HashMap<>() : queryParam.queryParams();
 
@@ -62,7 +62,7 @@ public abstract class BaseUserSysPrjPrivilegeSlaveStdDataSvc
             return Collections.emptyList();
         }
         final List<Long> sysPrjIds = new ArrayList<>(entities.size());
-        final List<UserSysPrjPrivilegeSlaveStdVO> sysPrjPrivileges = new ArrayList<>(entities.size());
+        final List<UserSysPrjPrivilegeSlaveVO> sysPrjPrivileges = new ArrayList<>(entities.size());
         entities.forEach(entity -> {
             sysPrjIds.add(entity.getSysPrjSid());
             sysPrjPrivileges.add(transferToStdDataVO(entity));
@@ -101,8 +101,8 @@ public abstract class BaseUserSysPrjPrivilegeSlaveStdDataSvc
     }
 
     @Override
-    public UserSysPrjPrivilegeSlaveStdVO transferToStdDataVO(final UserSysPrjPrivilege entity) {
-        final UserSysPrjPrivilegeSlaveStdVO stdVO = new UserSysPrjPrivilegeSlaveStdVO();
+    public UserSysPrjPrivilegeSlaveVO transferToStdDataVO(final UserSysPrjPrivilege entity) {
+        final UserSysPrjPrivilegeSlaveVO stdVO = new UserSysPrjPrivilegeSlaveVO();
         assembleCommonAttrs(stdVO, entity);
         stdVO.setUserId(entity.getUserSid());
         stdVO.setSysPrjId(entity.getSysPrjSid());

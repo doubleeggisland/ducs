@@ -9,12 +9,12 @@ import com.ioiox.dei.duc.beans.model.master.user.AcctUserGrpUpdatableAttrsAnalys
 import com.ioiox.dei.duc.beans.model.master.user.AcctUserGrpUpdatableObj;
 import com.ioiox.dei.duc.beans.model.master.user.AcctUserGrpUpdateCtx;
 import com.ioiox.dei.duc.beans.model.master.user.AcctUserGrpDelParam;
-import com.ioiox.dei.duc.beans.vo.std.master.user.AcctUserGrpMasterStdVO;
+import com.ioiox.dei.duc.beans.vo.std.master.user.AcctUserGrpMasterVO;
 import com.ioiox.dei.duc.beans.model.slave.RoleQueryCfg;
 import com.ioiox.dei.duc.beans.model.slave.SysResRoleQueryCfg;
 import com.ioiox.dei.duc.beans.model.slave.UserGrpQueryCfg;
 import com.ioiox.dei.duc.beans.model.slave.user.AcctUserGrpQueryParam;
-import com.ioiox.dei.duc.beans.vo.std.slave.user.AcctUserGrpSlaveStdVO;
+import com.ioiox.dei.duc.beans.vo.std.slave.user.AcctUserGrpSlaveVO;
 import com.ioiox.dei.duc.db.service.master.user.AcctUserGrpMasterDbSvc;
 import com.ioiox.dei.duc.std.data.svc.impl.master.BaseUserGrpMasterStdDataSvc;
 import com.ioiox.dei.duc.std.data.svc.master.user.AcctUserGrpMasterStdDataSvc;
@@ -29,7 +29,7 @@ import java.util.*;
 
 @Service("acctUserGrpMasterStdDataSvc")
 public class AcctUserGrpMasterStdDataSvcImpl
-        extends BaseUserGrpMasterStdDataSvc<AcctUserGrpMasterStdVO, AcctUserGrpUpdatableObj, AcctUserGrpUpdateCtx, AcctUserGrpDelParam, AcctUserGrpSlaveStdVO, AcctUserGrp>
+        extends BaseUserGrpMasterStdDataSvc<AcctUserGrpMasterVO, AcctUserGrpUpdatableObj, AcctUserGrpUpdateCtx, AcctUserGrpDelParam, AcctUserGrpSlaveVO, AcctUserGrp>
         implements AcctUserGrpMasterStdDataSvc {
 
     private static final Logger log = LoggerFactory.getLogger(AcctUserGrpMasterStdDataSvcImpl.class);
@@ -45,7 +45,7 @@ public class AcctUserGrpMasterStdDataSvcImpl
     private final AcctUserGrpUpdatableAttrsAnalyser analyser = new AcctUserGrpUpdatableAttrsAnalyser();
 
     @Override
-    protected AcctUserGrpSlaveStdVO getExistingUserGrp(final Long id) {
+    protected AcctUserGrpSlaveVO getExistingUserGrp(final Long id) {
         return acctUserGrpSlaveStdDataSvc.queryByPk(id,
                 new UserGrpQueryCfg.Builder()
                         .needRoles(DeiGlobalConstant.FLAG_YES)
@@ -64,7 +64,7 @@ public class AcctUserGrpMasterStdDataSvcImpl
     }
 
     @Override
-    protected List<AcctUserGrpSlaveStdVO> queryExistingUserGrps(final AcctUserGrpDelParam delParam) {
+    protected List<AcctUserGrpSlaveVO> queryExistingUserGrps(final AcctUserGrpDelParam delParam) {
         final AcctUserGrpQueryParam queryParam = new AcctUserGrpQueryParam.Builder()
                 .corpIds(delParam.getCorpIds())
                 .statuses(delParam.getStatuses())
@@ -129,8 +129,8 @@ public class AcctUserGrpMasterStdDataSvcImpl
     }
 
     @Override
-    protected AcctUserGrpUpdateCtx getUpdateContext(final AcctUserGrpMasterStdVO userGrp,
-                                                    final AcctUserGrpSlaveStdVO existingUserGrp) {
+    protected AcctUserGrpUpdateCtx getUpdateContext(final AcctUserGrpMasterVO userGrp,
+                                                    final AcctUserGrpSlaveVO existingUserGrp) {
         return analyser.analyseUpdatedAttrs(userGrp, existingUserGrp);
     }
 
@@ -150,7 +150,7 @@ public class AcctUserGrpMasterStdDataSvcImpl
     }
 
     @Override
-    public AcctUserGrp toNewEntity(final AcctUserGrpMasterStdVO userGrp) {
+    public AcctUserGrp toNewEntity(final AcctUserGrpMasterVO userGrp) {
         final AcctUserGrp newEntity = new AcctUserGrp();
         assembleCommonAttrsOnInsert(newEntity, userGrp);
         assembleCommonAttrs(newEntity, userGrp);

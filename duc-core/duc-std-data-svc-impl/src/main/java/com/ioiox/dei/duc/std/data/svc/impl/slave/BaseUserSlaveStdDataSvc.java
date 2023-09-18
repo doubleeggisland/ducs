@@ -14,12 +14,12 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public abstract class BaseUserSlaveStdDataSvc<
-        R extends RoleSlaveStdVO,
-        RR extends SysResRoleSlaveStdVO,
-        TR extends TmpRoleSlaveStdVO,
-        TRR extends TmpSysResRoleSlaveStdVO,
-        UG extends UserGrpSlaveStdVO<R, RR>,
-        T extends UserSlaveStdVO<R, RR, TR, TRR, UG>,
+        R extends RoleSlaveVO,
+        RR extends SysResRoleSlaveVO,
+        TR extends TmpRoleSlaveVO,
+        TRR extends TmpSysResRoleSlaveVO,
+        UG extends UserGrpSlaveVO<R, RR>,
+        T extends UserSlaveVO<R, RR, TR, TRR, UG>,
         E extends BaseUser,
         QP extends UserQueryParam>
         extends BaseDeiSlaveStdDataSvc<T, E> {
@@ -97,7 +97,7 @@ public abstract class BaseUserSlaveStdDataSvc<
             groupedUserGrps = Collections.emptyMap();
         }
 
-        final Map<Long, List<UserSysPrjPrivilegeSlaveStdVO>> groupedSysPrjPrivileges;
+        final Map<Long, List<UserSysPrjPrivilegeSlaveVO>> groupedSysPrjPrivileges;
         if (Objects.nonNull(queryCfg)
                 && StringUtils.equals(DeiGlobalConstant.FLAG_YES, queryCfg.getNeedSysPrjPrivileges())) {
             groupedSysPrjPrivileges = getSysPrjPrivileges(userIds, queryCfg.getSysPrjPrivilegeQueryCfg());
@@ -305,24 +305,24 @@ public abstract class BaseUserSlaveStdDataSvc<
         return groupedUserGrps;
     }
 
-    protected abstract List<UserSysPrjPrivilegeSlaveStdVO> querySysPrjPrivilegesByUserIds(final List<Long> userIds,
-                                                                                          final UserSysPrjPrivilegeQueryCfg queryCfg);
+    protected abstract List<UserSysPrjPrivilegeSlaveVO> querySysPrjPrivilegesByUserIds(final List<Long> userIds,
+                                                                                       final UserSysPrjPrivilegeQueryCfg queryCfg);
 
-    protected Map<Long, List<UserSysPrjPrivilegeSlaveStdVO>> getSysPrjPrivileges(final List<Long> userIds,
-                                                                                 final UserSysPrjPrivilegeQueryCfg queryCfg) {
+    protected Map<Long, List<UserSysPrjPrivilegeSlaveVO>> getSysPrjPrivileges(final List<Long> userIds,
+                                                                              final UserSysPrjPrivilegeQueryCfg queryCfg) {
         if (DeiCollectionUtil.isEmpty(userIds)) {
             return Collections.emptyMap();
         }
         addShowColumnsIfNeeded(queryCfg, Collections.singletonList(UserSysPrjPrivilege.ShowColumn.USER_SID.getCode()));
-        final List<UserSysPrjPrivilegeSlaveStdVO> sysPrjPrivileges = querySysPrjPrivilegesByUserIds(userIds, queryCfg);
+        final List<UserSysPrjPrivilegeSlaveVO> sysPrjPrivileges = querySysPrjPrivilegesByUserIds(userIds, queryCfg);
         if (DeiCollectionUtil.isEmpty(sysPrjPrivileges)) {
             return Collections.emptyMap();
         }
         return sysPrjPrivileges.stream()
-                .collect(Collectors.groupingBy(UserSysPrjPrivilegeSlaveStdVO::getUserId));
+                .collect(Collectors.groupingBy(UserSysPrjPrivilegeSlaveVO::getUserId));
     }
 
-    protected void assembleCommonAttrs(final BaseUserSlaveStdVO stdVO, final BaseUser entity) {
+    protected void assembleCommonAttrs(final BaseUserSlaveVO stdVO, final BaseUser entity) {
         super.assembleCommonAttrs(stdVO, entity);
         stdVO.setUsername(entity.getUsername());
         stdVO.setNickName(entity.getNickName());

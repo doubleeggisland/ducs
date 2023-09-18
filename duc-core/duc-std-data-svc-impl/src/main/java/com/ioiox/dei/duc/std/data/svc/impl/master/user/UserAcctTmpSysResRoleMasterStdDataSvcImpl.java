@@ -12,11 +12,11 @@ import com.ioiox.dei.duc.beans.model.master.user.UserAcctTmpSysResRoleUpdatableA
 import com.ioiox.dei.duc.beans.model.master.user.UserAcctTmpSysResRoleUpdatableObj;
 import com.ioiox.dei.duc.beans.model.master.user.UserAcctTmpSysResRoleUpdateCtx;
 import com.ioiox.dei.duc.beans.model.master.user.UserAcctSysResRoleDelParam;
-import com.ioiox.dei.duc.beans.vo.std.master.user.UserAcctTmpSysResRoleMasterStdVO;
+import com.ioiox.dei.duc.beans.vo.std.master.user.UserAcctTmpSysResRoleMasterVO;
 import com.ioiox.dei.duc.beans.model.slave.SysResRoleQueryCfg;
-import com.ioiox.dei.duc.beans.vo.std.slave.SysResSlaveStdVO;
+import com.ioiox.dei.duc.beans.vo.std.slave.SysResSlaveVO;
 import com.ioiox.dei.duc.beans.model.slave.user.UserAcctTmpSysResRoleQueryParam;
-import com.ioiox.dei.duc.beans.vo.std.slave.user.UserAcctTmpSysResRoleSlaveStdVO;
+import com.ioiox.dei.duc.beans.vo.std.slave.user.UserAcctTmpSysResRoleSlaveVO;
 import com.ioiox.dei.duc.db.service.master.user.UserAcctTmpSysResRoleMasterDbSvc;
 import com.ioiox.dei.duc.std.data.svc.impl.master.BaseSysResRoleMasterStdDataSvc;
 import com.ioiox.dei.duc.std.data.svc.master.user.UserAcctTmpSysResRoleMasterStdDataSvc;
@@ -32,7 +32,7 @@ import java.util.stream.Collectors;
 
 @Service("userAcctTmpSysResRoleMasterStdDataSvc")
 public class UserAcctTmpSysResRoleMasterStdDataSvcImpl
-        extends BaseSysResRoleMasterStdDataSvc<UserAcctTmpSysResRoleMasterStdVO, UserAcctTmpSysResRoleUpdatableObj, UserAcctTmpSysResRoleUpdateCtx, UserAcctSysResRoleDelParam, UserAcctTmpSysResRoleSlaveStdVO, UserAcctTmpSysResRole>
+        extends BaseSysResRoleMasterStdDataSvc<UserAcctTmpSysResRoleMasterVO, UserAcctTmpSysResRoleUpdatableObj, UserAcctTmpSysResRoleUpdateCtx, UserAcctSysResRoleDelParam, UserAcctTmpSysResRoleSlaveVO, UserAcctTmpSysResRole>
         implements UserAcctTmpSysResRoleMasterStdDataSvc {
 
     private static final Logger log = LoggerFactory.getLogger(UserAcctTmpSysResRoleMasterStdDataSvcImpl.class);
@@ -48,7 +48,7 @@ public class UserAcctTmpSysResRoleMasterStdDataSvcImpl
     private final UserAcctTmpSysResRoleUpdatableAttrsAnalyser analyser = new UserAcctTmpSysResRoleUpdatableAttrsAnalyser();
 
     @Override
-    protected UserAcctTmpSysResRoleSlaveStdVO getExistingSysResRole(final Long id) {
+    protected UserAcctTmpSysResRoleSlaveVO getExistingSysResRole(final Long id) {
         return userAcctTmpSysResRoleSlaveStdDataSvc.queryByPk(id,
                 new SysResRoleQueryCfg.Builder()
                         .needSysResources(DeiGlobalConstant.FLAG_YES)
@@ -67,7 +67,7 @@ public class UserAcctTmpSysResRoleMasterStdDataSvcImpl
     }
 
     @Override
-    protected List<UserAcctTmpSysResRoleSlaveStdVO> queryExistingSysResRoles(final UserAcctSysResRoleDelParam delParam) {
+    protected List<UserAcctTmpSysResRoleSlaveVO> queryExistingSysResRoles(final UserAcctSysResRoleDelParam delParam) {
         final UserAcctTmpSysResRoleQueryParam queryParam = new UserAcctTmpSysResRoleQueryParam.Builder()
                 .corpIds(delParam.getCorpIds())
                 .sysPrjIds(delParam.getSysPrjIds())
@@ -81,19 +81,19 @@ public class UserAcctTmpSysResRoleMasterStdDataSvcImpl
     }
 
     @Override
-    protected List<Long> getSysResIds(final UserAcctTmpSysResRoleMasterStdVO tmpSysResRole) {
+    protected List<Long> getSysResIds(final UserAcctTmpSysResRoleMasterVO tmpSysResRole) {
         return tmpSysResRole.getSysResIds();
     }
 
     @Override
-    protected List<Long> getExistingSysResIds(final UserAcctTmpSysResRoleSlaveStdVO existingTmpSysResRole) {
+    protected List<Long> getExistingSysResIds(final UserAcctTmpSysResRoleSlaveVO existingTmpSysResRole) {
         return DeiCollectionUtil.isEmpty(existingTmpSysResRole.getSysResources())
-                ? Collections.emptyList() : existingTmpSysResRole.getSysResources().stream().map(SysResSlaveStdVO::getId).collect(Collectors.toList());
+                ? Collections.emptyList() : existingTmpSysResRole.getSysResources().stream().map(SysResSlaveVO::getId).collect(Collectors.toList());
     }
 
     @Override
-    protected UserAcctTmpSysResRoleUpdateCtx getUpdateContext(final UserAcctTmpSysResRoleMasterStdVO tmpSysResRole,
-                                                              final UserAcctTmpSysResRoleSlaveStdVO existingTmpSysResRole) {
+    protected UserAcctTmpSysResRoleUpdateCtx getUpdateContext(final UserAcctTmpSysResRoleMasterVO tmpSysResRole,
+                                                              final UserAcctTmpSysResRoleSlaveVO existingTmpSysResRole) {
         return analyser.analyseUpdatedAttrs(tmpSysResRole, existingTmpSysResRole);
     }
 
@@ -139,7 +139,7 @@ public class UserAcctTmpSysResRoleMasterStdDataSvcImpl
     }
 
     @Override
-    public UserAcctTmpSysResRole toNewEntity(final UserAcctTmpSysResRoleMasterStdVO tmpSysResRole) {
+    public UserAcctTmpSysResRole toNewEntity(final UserAcctTmpSysResRoleMasterVO tmpSysResRole) {
         final UserAcctTmpSysResRole newEntity = new UserAcctTmpSysResRole();
         assembleCommonAttrsOnInsert(newEntity, tmpSysResRole);
         assembleTmpRoleCommonAttrs(newEntity, tmpSysResRole);

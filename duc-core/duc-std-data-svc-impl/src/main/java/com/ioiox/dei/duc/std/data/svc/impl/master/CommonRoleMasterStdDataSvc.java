@@ -5,20 +5,20 @@ import com.ioiox.dei.duc.beans.entity.Role;
 import com.ioiox.dei.duc.beans.entity.TmpRole;
 import com.ioiox.dei.duc.beans.model.master.BaseRoleUpdatableObj;
 import com.ioiox.dei.duc.beans.model.master.BaseTmpRoleUpdatableObj;
-import com.ioiox.dei.duc.beans.vo.std.master.BaseRoleMasterStdVO;
-import com.ioiox.dei.duc.beans.vo.std.master.BaseTmpRoleMasterStdVO;
+import com.ioiox.dei.duc.beans.vo.std.master.BaseRoleMasterVO;
+import com.ioiox.dei.duc.beans.vo.std.master.BaseTmpRoleMasterVO;
 
 import java.sql.Time;
 import java.util.Date;
 import java.util.Objects;
 
 public abstract class CommonRoleMasterStdDataSvc<
-        T extends BaseRoleMasterStdVO,
+        T extends BaseRoleMasterVO,
         O extends BaseRoleUpdatableObj,
         E extends Role>
         extends BaseDeiMasterStdDataSvc<T, O, E> {
 
-    protected void assembleRoleCommonAttrs(final Role newEntity, final BaseRoleMasterStdVO masterStdVO) {
+    protected void assembleRoleCommonAttrs(final Role newEntity, final BaseRoleMasterVO masterStdVO) {
         newEntity.setCode(masterStdVO.getCode());
         newEntity.setName(masterStdVO.getName());
         newEntity.setType(masterStdVO.getType());
@@ -27,7 +27,7 @@ public abstract class CommonRoleMasterStdDataSvc<
         newEntity.setSysPrjSid(masterStdVO.getSysPrjId());
     }
 
-    protected void assembleTmpRoleCommonAttrs(final TmpRole newEntity, final BaseTmpRoleMasterStdVO masterStdVO) {
+    protected void assembleTmpRoleCommonAttrs(final TmpRole newEntity, final BaseTmpRoleMasterVO masterStdVO) {
         assembleRoleCommonAttrs(newEntity, masterStdVO);
         newEntity.setUnlimitedDateRangeFlag(masterStdVO.getUnlimitedDateRangeFlag());
         if (Objects.nonNull(masterStdVO.getEffectiveStartDate())) {

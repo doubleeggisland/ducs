@@ -4,12 +4,12 @@ import com.ioiox.dei.core.orm.mybatis.model.std.data.UpdatableAttr;
 import com.ioiox.dei.core.orm.mybatis.model.std.data.UpdatableObj;
 import com.ioiox.dei.core.orm.mybatis.model.std.data.UpdatableObjAnalyser;
 import com.ioiox.dei.duc.beans.entity.UserGrp;
-import com.ioiox.dei.duc.beans.vo.std.master.BaseUserGrpMasterStdVO;
-import com.ioiox.dei.duc.beans.vo.std.slave.BaseUserGrpSlaveStdVO;
+import com.ioiox.dei.duc.beans.vo.std.master.BaseUserGrpMasterVO;
+import com.ioiox.dei.duc.beans.vo.std.slave.BaseUserGrpSlaveVO;
 
 public abstract class UserGrpUpdatableAttrsAnalyser<
-        M extends BaseUserGrpMasterStdVO,
-        S extends BaseUserGrpSlaveStdVO,
+        M extends BaseUserGrpMasterVO,
+        S extends BaseUserGrpSlaveVO,
         O extends UserGrpUpdatableObj,
         C extends UserGrpUpdateCtx<O>>
         extends UpdatableObjAnalyser<M, S, O, C> {

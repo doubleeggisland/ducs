@@ -32,15 +32,15 @@ public class SysPrjSlaveStdVO extends SlaveStdDataVO {
     /**
      * 系统的菜单
      */
-    private List<MenuSlaveStdVO> menus;
+    private List<MenuSlaveVO> menus;
 
     /**
      * 系统的接口
      */
-    private List<SysApiSlaveStdVO> sysApis;
+    private List<SysApiSlaveVO> sysApis;
 
     /**
      * 系统的资源
      */
-    private List<SysResSlaveStdVO> sysResources;
+    private List<SysResSlaveVO> sysResources;
 }

@@ -4,12 +4,12 @@ import com.ioiox.dei.core.orm.mybatis.model.std.data.UpdatableAttr;
 import com.ioiox.dei.core.orm.mybatis.model.std.data.UpdatableObj;
 import com.ioiox.dei.core.orm.mybatis.model.std.data.UpdatableObjAnalyser;
 import com.ioiox.dei.duc.beans.entity.Role;
-import com.ioiox.dei.duc.beans.vo.std.master.BaseRoleMasterStdVO;
-import com.ioiox.dei.duc.beans.vo.std.slave.BaseRoleSlaveStdVO;
+import com.ioiox.dei.duc.beans.vo.std.master.BaseRoleMasterVO;
+import com.ioiox.dei.duc.beans.vo.std.slave.BaseRoleSlaveVO;
 
 public abstract class BaseRoleUpdatableAttrsAnalyser<
-        M extends BaseRoleMasterStdVO,
-        S extends BaseRoleSlaveStdVO,
+        M extends BaseRoleMasterVO,
+        S extends BaseRoleSlaveVO,
         O extends BaseRoleUpdatableObj,
         C extends BaseRoleUpdateCtx<O>>
         extends UpdatableObjAnalyser<M, S, O, C> {

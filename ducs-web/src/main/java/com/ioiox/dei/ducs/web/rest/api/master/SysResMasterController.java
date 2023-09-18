@@ -3,7 +3,7 @@ package com.ioiox.dei.ducs.web.rest.api.master;
 import com.ioiox.dei.core.constant.DeiGlobalConstant;
 import com.ioiox.dei.core.vo.DeiResponseData;
 import com.ioiox.dei.duc.beans.model.master.SysResDelParam;
-import com.ioiox.dei.duc.beans.vo.std.master.SysResMasterStdVO;
+import com.ioiox.dei.duc.beans.vo.std.master.SysResMasterVO;
 import com.ioiox.dei.duc.std.data.svc.master.SysResMasterStdDataSvc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -19,7 +19,7 @@ public class SysResMasterController {
     private SysResMasterStdDataSvc sysResMasterStdDataSvc;
 
     @PostMapping(path = "/sys-resources/save", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public DeiResponseData<Long> saveSysApi(@RequestBody final SysResMasterStdVO sysRes) {
+    public DeiResponseData<Long> saveSysApi(@RequestBody final SysResMasterVO sysRes) {
         return new DeiResponseData.Builder<Long>()
                 .code(DeiResponseData.SUCCESS)
                 .success(DeiGlobalConstant.TRUE_STR)
@@ -29,7 +29,7 @@ public class SysResMasterController {
 
     @PutMapping(path = "/sys-resources/{id}/update", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public DeiResponseData<String> updateSysApi(@PathVariable("id") Long id,
-                                                @RequestBody final SysResMasterStdVO sysRes) {
+                                                @RequestBody final SysResMasterVO sysRes) {
         sysRes.setId(id);
         sysResMasterStdDataSvc.update(sysRes);
         return new DeiResponseData.Builder<String>()

@@ -4,7 +4,7 @@ import com.ioiox.dei.core.constant.DeiGlobalConstant;
 import com.ioiox.dei.core.vo.DeiResponseData;
 import com.ioiox.dei.duc.beans.model.slave.user.UserAcctSysResRoleQueryParam;
 import com.ioiox.dei.duc.beans.model.slave.user.UserAcctSysResRoleQueryReq;
-import com.ioiox.dei.duc.beans.vo.std.slave.user.UserAcctSysResRoleSlaveStdVO;
+import com.ioiox.dei.duc.beans.vo.std.slave.user.UserAcctSysResRoleSlaveVO;
 import com.ioiox.dei.duc.std.data.svc.slave.user.UserAcctSysResRoleSlaveStdDataSvc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -34,8 +34,8 @@ public class UserAcctSysResRoleSlaveController {
     }
 
     @PostMapping(path = "/user-acct/sys-res-roles/query", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public DeiResponseData<List<UserAcctSysResRoleSlaveStdVO>> querySysResRoles(@RequestBody final UserAcctSysResRoleQueryReq queryReq) {
-        return new DeiResponseData.Builder<List<UserAcctSysResRoleSlaveStdVO>>()
+    public DeiResponseData<List<UserAcctSysResRoleSlaveVO>> querySysResRoles(@RequestBody final UserAcctSysResRoleQueryReq queryReq) {
+        return new DeiResponseData.Builder<List<UserAcctSysResRoleSlaveVO>>()
                 .code(DeiResponseData.SUCCESS)
                 .success(DeiGlobalConstant.TRUE_STR)
                 .data(userAcctSysResRoleSlaveStdDataSvc.queryByParam(queryReq.getQueryParam(), queryReq.getQueryCfg()))

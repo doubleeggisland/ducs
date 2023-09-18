@@ -10,12 +10,12 @@ import com.ioiox.dei.duc.beans.model.master.user.UserAcctUpdatableAttrsAnalyser;
 import com.ioiox.dei.duc.beans.model.master.user.UserAcctUpdatableObj;
 import com.ioiox.dei.duc.beans.model.master.user.UserAcctUpdateCtx;
 import com.ioiox.dei.duc.beans.model.slave.*;
-import com.ioiox.dei.duc.beans.vo.std.master.UserSysPrjPrivilegeMasterStdVO;
+import com.ioiox.dei.duc.beans.vo.std.master.UserSysPrjPrivilegeMasterVO;
 import com.ioiox.dei.duc.beans.model.master.user.UserAcctDelParam;
-import com.ioiox.dei.duc.beans.vo.std.master.user.UserAcctMasterStdVO;
+import com.ioiox.dei.duc.beans.vo.std.master.user.UserAcctMasterVO;
 import com.ioiox.dei.duc.beans.vo.std.slave.*;
 import com.ioiox.dei.duc.beans.model.slave.user.UserAcctQueryParam;
-import com.ioiox.dei.duc.beans.vo.std.slave.user.UserAcctSlaveStdVO;
+import com.ioiox.dei.duc.beans.vo.std.slave.user.UserAcctSlaveVO;
 import com.ioiox.dei.duc.db.service.master.user.UserAcctMasterDbSvc;
 import com.ioiox.dei.duc.std.data.svc.impl.master.BaseUserMasterStdDataSvc;
 import com.ioiox.dei.duc.std.data.svc.master.UserSysPrjPrivilegeMasterStdDataSvc;
@@ -31,7 +31,7 @@ import java.util.*;
 
 @Service("userAcctMasterStdDataSvc")
 public class UserAcctMasterStdDataSvcImpl
-        extends BaseUserMasterStdDataSvc<UserAcctMasterStdVO, UserAcctUpdatableObj, UserAcctUpdateCtx, UserAcctDelParam, UserAcctSlaveStdVO, UserAcct>
+        extends BaseUserMasterStdDataSvc<UserAcctMasterVO, UserAcctUpdatableObj, UserAcctUpdateCtx, UserAcctDelParam, UserAcctSlaveVO, UserAcct>
         implements UserAcctMasterStdDataSvc {
 
     private static final Logger log = LoggerFactory.getLogger(UserAcctMasterStdDataSvcImpl.class);
@@ -51,7 +51,7 @@ public class UserAcctMasterStdDataSvcImpl
     private final UserAcctUpdatableAttrsAnalyser analyser = new UserAcctUpdatableAttrsAnalyser();
 
     @Override
-    protected UserAcctSlaveStdVO getExistingUser(final Long id) {
+    protected UserAcctSlaveVO getExistingUser(final Long id) {
         return userAcctSlaveStdDataSvc.queryByPk(id,
                 new UserQueryCfg.Builder()
                         .needUserGrps(DeiGlobalConstant.FLAG_YES)
@@ -89,7 +89,7 @@ public class UserAcctMasterStdDataSvcImpl
     }
 
     @Override
-    protected List<UserAcctSlaveStdVO> queryExistingUsers(final UserAcctDelParam delParam) {
+    protected List<UserAcctSlaveVO> queryExistingUsers(final UserAcctDelParam delParam) {
         final UserAcctQueryParam queryParam = new UserAcctQueryParam.Builder()
                 .corpIds(delParam.getCorpIds())
                 .statuses(delParam.getStatuses())
@@ -102,8 +102,8 @@ public class UserAcctMasterStdDataSvcImpl
     }
 
     @Override
-    protected int syncSysPrjPrivileges(final List<UserSysPrjPrivilegeMasterStdVO> sysPrjPrivileges,
-                                       final List<UserSysPrjPrivilegeSlaveStdVO> existingSysPrjPrivileges) {
+    protected int syncSysPrjPrivileges(final List<UserSysPrjPrivilegeMasterVO> sysPrjPrivileges,
+                                       final List<UserSysPrjPrivilegeSlaveVO> existingSysPrjPrivileges) {
         return acctUserSysPrjPrivilegeMasterStdDataSvc.sync(sysPrjPrivileges, existingSysPrjPrivileges);
     }
 
@@ -249,7 +249,7 @@ public class UserAcctMasterStdDataSvcImpl
     }
 
     @Override
-    protected UserAcctUpdateCtx getUpdateContext(final UserAcctMasterStdVO userAcct, final UserAcctSlaveStdVO existingUserAcct) {
+    protected UserAcctUpdateCtx getUpdateContext(final UserAcctMasterVO userAcct, final UserAcctSlaveVO existingUserAcct) {
         return analyser.analyseUpdatedAttrs(userAcct, existingUserAcct);
     }
 
@@ -269,7 +269,7 @@ public class UserAcctMasterStdDataSvcImpl
     }
 
     @Override
-    public UserAcct toNewEntity(final UserAcctMasterStdVO userAcct) {
+    public UserAcct toNewEntity(final UserAcctMasterVO userAcct) {
         final UserAcct newEntity = new UserAcct();
         assembleCommonAttrsOnInsert(newEntity, userAcct);
         assembleCommonAttrs(newEntity, userAcct);

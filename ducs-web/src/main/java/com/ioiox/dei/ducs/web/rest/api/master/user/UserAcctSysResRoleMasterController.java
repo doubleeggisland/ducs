@@ -3,7 +3,7 @@ package com.ioiox.dei.ducs.web.rest.api.master.user;
 import com.ioiox.dei.core.constant.DeiGlobalConstant;
 import com.ioiox.dei.core.vo.DeiResponseData;
 import com.ioiox.dei.duc.beans.model.master.user.UserAcctSysResRoleDelParam;
-import com.ioiox.dei.duc.beans.vo.std.master.user.UserAcctSysResRoleMasterStdVO;
+import com.ioiox.dei.duc.beans.vo.std.master.user.UserAcctSysResRoleMasterVO;
 import com.ioiox.dei.duc.std.data.svc.master.user.UserAcctSysResRoleMasterStdDataSvc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -19,7 +19,7 @@ public class UserAcctSysResRoleMasterController {
     private UserAcctSysResRoleMasterStdDataSvc userAcctSysResRoleMasterStdDataSvc;
 
     @PostMapping(path = "/user-acct/sys-res-roles/save", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public DeiResponseData<Long> saveSysResRole(@RequestBody final UserAcctSysResRoleMasterStdVO sysResRole) {
+    public DeiResponseData<Long> saveSysResRole(@RequestBody final UserAcctSysResRoleMasterVO sysResRole) {
         return new DeiResponseData.Builder<Long>()
                 .code(DeiResponseData.SUCCESS)
                 .success(DeiGlobalConstant.TRUE_STR)
@@ -29,7 +29,7 @@ public class UserAcctSysResRoleMasterController {
 
     @PutMapping(path = "/user-acct/sys-res-roles/{id}/update", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public DeiResponseData<String> updateSysResRole(@PathVariable("id") Long id,
-                                                    @RequestBody final UserAcctSysResRoleMasterStdVO sysResRole) {
+                                                    @RequestBody final UserAcctSysResRoleMasterVO sysResRole) {
         sysResRole.setId(id);
         userAcctSysResRoleMasterStdDataSvc.update(sysResRole);
         return new DeiResponseData.Builder<String>()

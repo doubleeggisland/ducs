@@ -2,12 +2,12 @@ package com.ioiox.dei.duc.std.data.svc.impl.slave.user;
 
 import com.ioiox.dei.core.utils.DeiCollectionUtil;
 import com.ioiox.dei.duc.beans.entity.UserAcctTmpRole;
-import com.ioiox.dei.duc.beans.vo.std.slave.MenuSlaveStdVO;
+import com.ioiox.dei.duc.beans.vo.std.slave.MenuSlaveVO;
 import com.ioiox.dei.duc.beans.vo.std.slave.MenuSysApiMappingSlaveStdVO;
 import com.ioiox.dei.duc.beans.model.slave.RoleQueryCfg;
-import com.ioiox.dei.duc.beans.vo.std.slave.SysApiSlaveStdVO;
+import com.ioiox.dei.duc.beans.vo.std.slave.SysApiSlaveVO;
 import com.ioiox.dei.duc.beans.model.slave.user.UserAcctTmpRoleQueryParam;
-import com.ioiox.dei.duc.beans.vo.std.slave.user.UserAcctTmpRoleSlaveStdVO;
+import com.ioiox.dei.duc.beans.vo.std.slave.user.UserAcctTmpRoleSlaveVO;
 import com.ioiox.dei.duc.db.service.slave.user.UserAcctTmpRoleR2MenuSlaveDbSvc;
 import com.ioiox.dei.duc.db.service.slave.user.UserAcctTmpRoleR2MenuSysApiSlaveDbSvc;
 import com.ioiox.dei.duc.db.service.slave.user.UserAcctTmpRoleR2SysApiSlaveDbSvc;
@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 
 @Service("userAcctTmpRoleSlaveStdDataSvc")
 public class UserAcctTmpRoleSlaveStdDataSvcImpl
-        extends BaseRoleSlaveStdDataSvc<UserAcctTmpRoleSlaveStdVO, UserAcctTmpRole, UserAcctTmpRoleQueryParam>
+        extends BaseRoleSlaveStdDataSvc<UserAcctTmpRoleSlaveVO, UserAcctTmpRole, UserAcctTmpRoleQueryParam>
         implements UserAcctTmpRoleSlaveStdDataSvc {
 
     @Autowired
@@ -46,12 +46,12 @@ public class UserAcctTmpRoleSlaveStdDataSvcImpl
     private UserAcctTmpRoleR2SysApiSlaveDbSvc userAcctTmpRoleR2SysApiSlaveDbSvc;
 
     @Override
-    public UserAcctTmpRoleSlaveStdVO queryByPk(final Long tmpRoleId,
-                                               final RoleQueryCfg queryCfg) {
+    public UserAcctTmpRoleSlaveVO queryByPk(final Long tmpRoleId,
+                                            final RoleQueryCfg queryCfg) {
         if (Objects.isNull(tmpRoleId)) {
             return null;
         }
-        final List<UserAcctTmpRoleSlaveStdVO> tmpRoles =
+        final List<UserAcctTmpRoleSlaveVO> tmpRoles =
                 queryByPks(Collections.singletonList(tmpRoleId), queryCfg);
         if (DeiCollectionUtil.isEmpty(tmpRoles)) {
             return null;
@@ -60,8 +60,8 @@ public class UserAcctTmpRoleSlaveStdDataSvcImpl
     }
 
     @Override
-    public List<UserAcctTmpRoleSlaveStdVO> queryByPks(final List<Long> tmpRoleIds,
-                                                      final RoleQueryCfg queryCfg) {
+    public List<UserAcctTmpRoleSlaveVO> queryByPks(final List<Long> tmpRoleIds,
+                                                   final RoleQueryCfg queryCfg) {
         if (DeiCollectionUtil.isEmpty(tmpRoleIds)) {
             return Collections.emptyList();
         }
@@ -98,13 +98,13 @@ public class UserAcctTmpRoleSlaveStdDataSvcImpl
     }
 
     @Override
-    protected void assembleMenus(final UserAcctTmpRoleSlaveStdVO tmpRole,
-                                 final List<MenuSlaveStdVO> menus) {
+    protected void assembleMenus(final UserAcctTmpRoleSlaveVO tmpRole,
+                                 final List<MenuSlaveVO> menus) {
         tmpRole.setMenus(menus);
     }
 
     @Override
-    protected void assembleSysApiMappings(final UserAcctTmpRoleSlaveStdVO tmpRole,
+    protected void assembleSysApiMappings(final UserAcctTmpRoleSlaveVO tmpRole,
                                           final List<MenuSysApiMappingSlaveStdVO> sysApiMappings) {
         if (DeiCollectionUtil.isEmpty(sysApiMappings)) {
             tmpRole.setSysApiMappings(Collections.emptyMap());
@@ -115,20 +115,20 @@ public class UserAcctTmpRoleSlaveStdDataSvcImpl
     }
 
     @Override
-    protected void assembleMenuSysApis(final UserAcctTmpRoleSlaveStdVO tmpRole,
-                                       final List<SysApiSlaveStdVO> menuSysApis) {
+    protected void assembleMenuSysApis(final UserAcctTmpRoleSlaveVO tmpRole,
+                                       final List<SysApiSlaveVO> menuSysApis) {
         tmpRole.setMenuSysApis(menuSysApis);
     }
 
     @Override
-    protected void assembleSysApis(final UserAcctTmpRoleSlaveStdVO tmpRole,
-                                   final List<SysApiSlaveStdVO> sysApis) {
+    protected void assembleSysApis(final UserAcctTmpRoleSlaveVO tmpRole,
+                                   final List<SysApiSlaveVO> sysApis) {
         tmpRole.setSysApis(sysApis);
     }
 
     @Override
-    public UserAcctTmpRoleSlaveStdVO transferToStdDataVO(final UserAcctTmpRole entity) {
-        final UserAcctTmpRoleSlaveStdVO stdVO = new UserAcctTmpRoleSlaveStdVO();
+    public UserAcctTmpRoleSlaveVO transferToStdDataVO(final UserAcctTmpRole entity) {
+        final UserAcctTmpRoleSlaveVO stdVO = new UserAcctTmpRoleSlaveVO();
         assembleTmpRoleAttrs(stdVO, entity);
         stdVO.setTenantId(entity.getTenantSid());
         stdVO.setCorpId(entity.getCorpSid());

@@ -29,12 +29,12 @@ public class MenuSysApiMappingSlaveStdVO extends SlaveStdDataVO {
      * 关联的菜单
      */
     @JsonIgnore
-    private MenuSlaveStdVO menu;
+    private MenuSlaveVO menu;
 
     /**
      * 关联的系统接口
      */
-    private SysApiSlaveStdVO sysApi;
+    private SysApiSlaveVO sysApi;
 
     @Override
     public String uniqueKeyDigest() {

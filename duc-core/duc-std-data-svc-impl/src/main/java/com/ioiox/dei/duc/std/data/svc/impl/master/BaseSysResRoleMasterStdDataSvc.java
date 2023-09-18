@@ -9,8 +9,8 @@ import com.ioiox.dei.duc.beans.entity.Role;
 import com.ioiox.dei.duc.beans.model.master.BaseRoleUpdatableObj;
 import com.ioiox.dei.duc.beans.model.master.BaseRoleUpdateCtx;
 import com.ioiox.dei.duc.beans.model.master.BaseRoleDelParam;
-import com.ioiox.dei.duc.beans.vo.std.master.BaseRoleMasterStdVO;
-import com.ioiox.dei.duc.beans.vo.std.slave.BaseRoleSlaveStdVO;
+import com.ioiox.dei.duc.beans.vo.std.master.BaseRoleMasterVO;
+import com.ioiox.dei.duc.beans.vo.std.slave.BaseRoleSlaveVO;
 import com.ioiox.dei.duc.std.data.svc.master.SysResRoleMasterStdDataSvc;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,11 +21,11 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public abstract class BaseSysResRoleMasterStdDataSvc<
-        T extends BaseRoleMasterStdVO,
+        T extends BaseRoleMasterVO,
         O extends BaseRoleUpdatableObj,
         C extends BaseRoleUpdateCtx<O>,
         D extends BaseRoleDelParam,
-        S extends BaseRoleSlaveStdVO,
+        S extends BaseRoleSlaveVO,
         E extends Role>
         extends CommonRoleMasterStdDataSvc<T, O, E>
         implements SysResRoleMasterStdDataSvc<T, D> {

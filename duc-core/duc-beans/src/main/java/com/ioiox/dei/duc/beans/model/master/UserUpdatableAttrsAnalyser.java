@@ -4,12 +4,12 @@ import com.ioiox.dei.core.orm.mybatis.model.std.data.UpdatableAttr;
 import com.ioiox.dei.core.orm.mybatis.model.std.data.UpdatableObj;
 import com.ioiox.dei.core.orm.mybatis.model.std.data.UpdatableObjAnalyser;
 import com.ioiox.dei.duc.beans.entity.BaseUser;
-import com.ioiox.dei.duc.beans.vo.std.master.UserMasterStdVO;
-import com.ioiox.dei.duc.beans.vo.std.slave.BaseUserSlaveStdVO;
+import com.ioiox.dei.duc.beans.vo.std.master.UserMasterVO;
+import com.ioiox.dei.duc.beans.vo.std.slave.BaseUserSlaveVO;
 
 public abstract class UserUpdatableAttrsAnalyser<
-        M extends UserMasterStdVO,
-        S extends BaseUserSlaveStdVO,
+        M extends UserMasterVO,
+        S extends BaseUserSlaveVO,
         O extends UserUpdatableObj,
         C extends UserUpdateCtx<O>>
         extends UpdatableObjAnalyser<M, S, O, C> {

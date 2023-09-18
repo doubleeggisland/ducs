@@ -5,10 +5,10 @@ import com.ioiox.dei.core.constant.DeiGlobalConstant;
 import com.ioiox.dei.core.orm.mybatis.model.std.data.StdDataQueryCfg;
 import com.ioiox.dei.core.utils.DeiCollectionUtil;
 import com.ioiox.dei.duc.beans.entity.Role;
-import com.ioiox.dei.duc.beans.vo.std.slave.BaseRoleSlaveStdVO;
+import com.ioiox.dei.duc.beans.vo.std.slave.BaseRoleSlaveVO;
 import com.ioiox.dei.duc.beans.model.slave.RoleQueryParam;
 import com.ioiox.dei.duc.beans.model.slave.SysResRoleQueryCfg;
-import com.ioiox.dei.duc.beans.vo.std.slave.SysResSlaveStdVO;
+import com.ioiox.dei.duc.beans.vo.std.slave.SysResSlaveVO;
 import com.ioiox.dei.duc.std.data.svc.slave.SysResSlaveStdDataSvc;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public abstract class BaseSysResRoleSlaveStdDataSvc<
-        R extends BaseRoleSlaveStdVO,
+        R extends BaseRoleSlaveVO,
         E extends Role,
         QP extends RoleQueryParam>
         extends CommonRoleSlaveStdDataSvc<R, E> {
@@ -56,7 +56,7 @@ public abstract class BaseSysResRoleSlaveStdDataSvc<
             sysResRoles.add(transferToStdDataVO(entity));
         });
 
-        final Map<Long, List<SysResSlaveStdVO>> groupedSysResources;
+        final Map<Long, List<SysResSlaveVO>> groupedSysResources;
         if (Objects.nonNull(queryCfg)
                 && StringUtils.equals(DeiGlobalConstant.FLAG_YES, queryCfg.getNeedSysResources())) {
             groupedSysResources = getSysResources(sysResRoleIds, queryCfg.getSysResQueryCfg());
@@ -73,12 +73,12 @@ public abstract class BaseSysResRoleSlaveStdDataSvc<
 
     protected abstract List<E> findByParams(final Map<String, Object> queryParams, final List<String> showColumns);
 
-    protected abstract void assembleSysResources(final R sysResRole, final List<SysResSlaveStdVO> sysResources);
+    protected abstract void assembleSysResources(final R sysResRole, final List<SysResSlaveVO> sysResources);
 
     protected abstract Map<Long, List<Long>> getSysResIds(final List<Long> sysResRoleIds);
 
-    protected Map<Long, List<SysResSlaveStdVO>> getSysResources(final List<Long> sysResRoleIds,
-                                                                final StdDataQueryCfg queryCfg) {
+    protected Map<Long, List<SysResSlaveVO>> getSysResources(final List<Long> sysResRoleIds,
+                                                             final StdDataQueryCfg queryCfg) {
         if (DeiCollectionUtil.isEmpty(sysResRoleIds)) {
             return Collections.emptyMap();
         }
@@ -91,18 +91,18 @@ public abstract class BaseSysResRoleSlaveStdDataSvc<
             sysResIds.addAll(sysResIdsOfRole);
         }
         addShowColumnsIfNeeded(queryCfg, Collections.singletonList(BaseDeiEntity.ShowColumn.ID.getCode()));
-        final List<SysResSlaveStdVO> sysResources =
+        final List<SysResSlaveVO> sysResources =
                 sysResSlaveStdDataSvc.queryByPks(new ArrayList<>(sysResIds), queryCfg);
         if (DeiCollectionUtil.isEmpty(sysResources)) {
             return Collections.emptyMap();
         }
-        final Map<Long, SysResSlaveStdVO> sysResMap =
-                sysResources.stream().collect(Collectors.toMap(SysResSlaveStdVO::getId, sysRes -> sysRes));
+        final Map<Long, SysResSlaveVO> sysResMap =
+                sysResources.stream().collect(Collectors.toMap(SysResSlaveVO::getId, sysRes -> sysRes));
 
-        final Map<Long, List<SysResSlaveStdVO>> groupedSysResources = new HashMap<>(sysResRoleIds.size());
+        final Map<Long, List<SysResSlaveVO>> groupedSysResources = new HashMap<>(sysResRoleIds.size());
         for (final Long roleId : groupedSysResIds.keySet()) {
             final List<Long> sysResIdsOfRole = groupedSysResIds.get(roleId);
-            final List<SysResSlaveStdVO> sysResourcesOfRole = new ArrayList<>(sysResIdsOfRole.size());
+            final List<SysResSlaveVO> sysResourcesOfRole = new ArrayList<>(sysResIdsOfRole.size());
             for (final Long sysResIdOfRole : sysResIdsOfRole) {
                 if (sysResMap.containsKey(sysResIdOfRole)) {
                     sysResourcesOfRole.add(sysResMap.get(sysResIdOfRole));

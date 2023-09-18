@@ -4,21 +4,24 @@ import com.ioiox.dei.core.orm.mybatis.model.std.data.UpdatableAttr;
 import com.ioiox.dei.core.orm.mybatis.model.std.data.UpdatableObj;
 import com.ioiox.dei.core.orm.mybatis.model.std.data.UpdatableObjAnalyser;
 import com.ioiox.dei.duc.beans.entity.Tenant;
-import com.ioiox.dei.duc.beans.vo.std.master.tenant.TenantMasterStdVO;
-import com.ioiox.dei.duc.beans.vo.std.slave.tenant.TenantSlaveStdVO;
+import com.ioiox.dei.duc.beans.vo.std.master.tenant.TenantMasterVO;
+import com.ioiox.dei.duc.beans.vo.std.slave.tenant.TenantSlaveVO;
 
 public class TenantUpdatableAttrsAnalyser
-        extends UpdatableObjAnalyser<TenantMasterStdVO, TenantSlaveStdVO, TenantUpdatableObj, TenantUpdateCtx> {
+        extends UpdatableObjAnalyser<TenantMasterVO, TenantSlaveVO, TenantUpdatableObj, TenantUpdateCtx> {
 
     @Override
-    public TenantUpdateCtx analyseUpdatedAttrs(final TenantMasterStdVO tenant,
-                                               final TenantSlaveStdVO existingTenant) {
-        return null;
+    public TenantUpdateCtx analyseUpdatedAttrs(final TenantMasterVO tenant,
+                                               final TenantSlaveVO existingTenant) {
+        final TenantUpdateCtx updateCtx = new TenantUpdateCtx();
+        updateCtx.setUpdatableObj(new TenantUpdatableObj());
+        analyseUpdatedAttrs(tenant, existingTenant, updateCtx);
+        return updateCtx;
     }
 
     @Override
-    protected void analyseUpdatedAttrs(final TenantMasterStdVO tenant,
-                                       final TenantSlaveStdVO existingTenant,
+    protected void analyseUpdatedAttrs(final TenantMasterVO tenant,
+                                       final TenantSlaveVO existingTenant,
                                        final TenantUpdateCtx updateCtx) {
         if (UpdatableObj.modified(existingTenant.getCode(), tenant.getCode())) {
             updateCtx.getUpdatableObj().addUpdatedAttrName(Tenant.ShowColumn.CODE.getCode());

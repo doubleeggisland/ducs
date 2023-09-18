@@ -16,9 +16,9 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public abstract class BaseUserGrpSlaveStdDataSvc<
-        R extends RoleSlaveStdVO,
-        RR extends SysResRoleSlaveStdVO,
-        S extends UserGrpSlaveStdVO<R, RR>,
+        R extends RoleSlaveVO,
+        RR extends SysResRoleSlaveVO,
+        S extends UserGrpSlaveVO<R, RR>,
         E extends UserGrp,
         QP extends UserGrpQueryParam>
         extends BaseDeiSlaveStdDataSvc<S, E> {
@@ -156,7 +156,7 @@ public abstract class BaseUserGrpSlaveStdDataSvc<
         return groupedSysResRoles;
     }
 
-    protected void assembleCommonAttrs(final BaseUserGrpSlaveStdVO stdVO, final UserGrp entity) {
+    protected void assembleCommonAttrs(final BaseUserGrpSlaveVO stdVO, final UserGrp entity) {
         super.assembleCommonAttrs(stdVO, entity);
         stdVO.setCode(entity.getCode());
         stdVO.setName(entity.getName());

@@ -4,7 +4,7 @@ import com.ioiox.dei.core.constant.DeiGlobalConstant;
 import com.ioiox.dei.core.vo.DeiResponseData;
 import com.ioiox.dei.duc.beans.model.slave.user.UserAcctQueryParam;
 import com.ioiox.dei.duc.beans.model.slave.user.UserAcctQueryReq;
-import com.ioiox.dei.duc.beans.vo.std.slave.user.UserAcctSlaveStdVO;
+import com.ioiox.dei.duc.beans.vo.std.slave.user.UserAcctSlaveVO;
 import com.ioiox.dei.duc.std.data.svc.slave.user.UserAcctSlaveStdDataSvc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -34,8 +34,8 @@ public class UserAcctSlaveController {
     }
 
     @PostMapping(path = "/user-accts/query", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public DeiResponseData<List<UserAcctSlaveStdVO>> queryUserAccts(@RequestBody final UserAcctQueryReq queryReq) {
-        return new DeiResponseData.Builder<List<UserAcctSlaveStdVO>>()
+    public DeiResponseData<List<UserAcctSlaveVO>> queryUserAccts(@RequestBody final UserAcctQueryReq queryReq) {
+        return new DeiResponseData.Builder<List<UserAcctSlaveVO>>()
                 .code(DeiResponseData.SUCCESS)
                 .success(DeiGlobalConstant.TRUE_STR)
                 .data(userAcctSlaveStdDataSvc.queryByParam(queryReq.getQueryParam(), queryReq.getQueryCfg()))

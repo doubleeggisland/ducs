@@ -10,8 +10,8 @@ import com.ioiox.dei.duc.beans.entity.BaseUser;
 import com.ioiox.dei.duc.beans.model.master.UserUpdatableObj;
 import com.ioiox.dei.duc.beans.model.master.UserUpdateCtx;
 import com.ioiox.dei.duc.beans.model.master.UserDelParam;
-import com.ioiox.dei.duc.beans.vo.std.master.UserMasterStdVO;
-import com.ioiox.dei.duc.beans.vo.std.master.UserSysPrjPrivilegeMasterStdVO;
+import com.ioiox.dei.duc.beans.vo.std.master.UserMasterVO;
+import com.ioiox.dei.duc.beans.vo.std.master.UserSysPrjPrivilegeMasterVO;
 import com.ioiox.dei.duc.beans.vo.std.slave.*;
 import com.ioiox.dei.duc.std.data.svc.master.UserMasterStdDataSvc;
 import org.apache.commons.lang3.StringUtils;
@@ -25,16 +25,16 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public abstract class BaseUserMasterStdDataSvc<
-        T extends UserMasterStdVO,
+        T extends UserMasterVO,
         O extends UserUpdatableObj,
         C extends UserUpdateCtx<O>,
         D extends UserDelParam,
-        S extends UserSlaveStdVO<
-                ? extends RoleSlaveStdVO,
-                ? extends SysResRoleSlaveStdVO,
-                ? extends TmpRoleSlaveStdVO,
-                ? extends TmpSysResRoleSlaveStdVO,
-                ? extends UserGrpSlaveStdVO<? extends RoleSlaveStdVO, ? extends SysResRoleSlaveStdVO>>,
+        S extends UserSlaveVO<
+                        ? extends RoleSlaveVO,
+                        ? extends SysResRoleSlaveVO,
+                        ? extends TmpRoleSlaveVO,
+                        ? extends TmpSysResRoleSlaveVO,
+                        ? extends UserGrpSlaveVO<? extends RoleSlaveVO, ? extends SysResRoleSlaveVO>>,
         E extends BaseUser>
         extends BaseDeiMasterStdDataSvc<T, O, E>
         implements UserMasterStdDataSvc<T, D> {
@@ -76,23 +76,23 @@ public abstract class BaseUserMasterStdDataSvc<
         final int numOfSysPrjPrivilegesSync = syncSysPrjPrivileges(user.getSysPrjPrivileges(), existingUser.getSysPrjPrivileges(), existingUser.getId(), user.getUpdatedBy());
 
         final List<Long> existingUserGrpIds = DeiCollectionUtil.isEmpty(existingUser.getUserGrps())
-                ? Collections.emptyList() : existingUser.getUserGrps().stream().map(UserGrpSlaveStdVO::getId).collect(Collectors.toList());
+                ? Collections.emptyList() : existingUser.getUserGrps().stream().map(UserGrpSlaveVO::getId).collect(Collectors.toList());
         final int numOfUserGrpsSync = syncUserGrps(user.getUserGrpIds(), existingUserGrpIds, existingUser.getId(), user.getUpdatedBy());
 
         final List<Long> existingRoleIds = DeiCollectionUtil.isEmpty(existingUser.getRoles())
-                ? Collections.emptyList() : existingUser.getRoles().stream().map(RoleSlaveStdVO::getId).collect(Collectors.toList());
+                ? Collections.emptyList() : existingUser.getRoles().stream().map(RoleSlaveVO::getId).collect(Collectors.toList());
         final int numOfRolesSync = syncRoles(user.getRoleIds(), existingRoleIds, existingUser.getId(), user.getUpdatedBy());
 
         final List<Long> existingSysResRoleIds = DeiCollectionUtil.isEmpty(existingUser.getSysResRoles())
-                ? Collections.emptyList() : existingUser.getSysResRoles().stream().map(SysResRoleSlaveStdVO::getId).collect(Collectors.toList());
+                ? Collections.emptyList() : existingUser.getSysResRoles().stream().map(SysResRoleSlaveVO::getId).collect(Collectors.toList());
         final int numOfSysResRolesSync = syncSysResRoles(user.getSysResRoleIds(), existingSysResRoleIds, existingUser.getId(), user.getUpdatedBy());
 
         final List<Long> existingTmpRoleIds = DeiCollectionUtil.isEmpty(existingUser.getTmpRoles())
-                ? Collections.emptyList() : existingUser.getTmpRoles().stream().map(TmpRoleSlaveStdVO::getId).collect(Collectors.toList());
+                ? Collections.emptyList() : existingUser.getTmpRoles().stream().map(TmpRoleSlaveVO::getId).collect(Collectors.toList());
         final int numOfTmpRolesSync = syncTmpRoles(user.getTmpRoleIds(), existingTmpRoleIds, existingUser.getId(), user.getUpdatedBy());
 
         final List<Long> existingTmpSysResRoleIds = DeiCollectionUtil.isEmpty(existingUser.getTmpSysResRoles())
-                ? Collections.emptyList() : existingUser.getTmpSysResRoles().stream().map(TmpSysResRoleSlaveStdVO::getId).collect(Collectors.toList());
+                ? Collections.emptyList() : existingUser.getTmpSysResRoles().stream().map(TmpSysResRoleSlaveVO::getId).collect(Collectors.toList());
         final int numOfTmpSysResRolesSync = syncTmpSysResRoles(user.getTmpSysResRoleIds(), existingTmpSysResRoleIds, existingUser.getId(), user.getUpdatedBy());
 
         final C updateCtx = getUpdateContext(user, existingUser);
@@ -165,8 +165,8 @@ public abstract class BaseUserMasterStdDataSvc<
         return numOfUsersRemoved;
     }
 
-    int syncSysPrjPrivileges(final List<UserSysPrjPrivilegeMasterStdVO> sysPrjPrivileges,
-                             final List<UserSysPrjPrivilegeSlaveStdVO> existingSysPrjPrivileges,
+    int syncSysPrjPrivileges(final List<UserSysPrjPrivilegeMasterVO> sysPrjPrivileges,
+                             final List<UserSysPrjPrivilegeSlaveVO> existingSysPrjPrivileges,
                              final Long userId,
                              final String operator) {
         if (DeiCollectionUtil.isNotEmpty(sysPrjPrivileges)) {
@@ -293,7 +293,7 @@ public abstract class BaseUserMasterStdDataSvc<
         return insertedRows + deletedRows;
     }
 
-    protected void assembleCommonAttrs(final BaseUser newEntity, final UserMasterStdVO user) {
+    protected void assembleCommonAttrs(final BaseUser newEntity, final UserMasterVO user) {
         newEntity.setUsername(user.getUsername());
         newEntity.setNickName(user.getNickName());
         newEntity.setMobile(user.getMobile());
@@ -331,8 +331,8 @@ public abstract class BaseUserMasterStdDataSvc<
     protected abstract S getExistingUser(final Long id);
     protected abstract List<S> queryExistingUsers(final D delParam);
 
-    protected abstract int syncSysPrjPrivileges(final List<UserSysPrjPrivilegeMasterStdVO> sysPrjPrivileges,
-                                                final List<UserSysPrjPrivilegeSlaveStdVO> existingSysPrjPrivileges);
+    protected abstract int syncSysPrjPrivileges(final List<UserSysPrjPrivilegeMasterVO> sysPrjPrivileges,
+                                                final List<UserSysPrjPrivilegeSlaveVO> existingSysPrjPrivileges);
     protected abstract int removeSysPrjPrivileges(final List<Long> userIds);
 
     protected abstract int assignUserGrpsToUser(final List<Long> userGrpIds, final Long userId, final String operator);

@@ -22,12 +22,12 @@ import java.util.Objects;
 @Service("userAcctSlaveStdDataSvc")
 public class UserAcctSlaveStdDataSvcImpl
         extends BaseUserSlaveStdDataSvc<
-        UserAcctRoleSlaveStdVO,
-        UserAcctSysResRoleSlaveStdVO,
-        UserAcctTmpRoleSlaveStdVO,
-        UserAcctTmpSysResRoleSlaveStdVO,
-        AcctUserGrpSlaveStdVO,
-        UserAcctSlaveStdVO,
+        UserAcctRoleSlaveVO,
+        UserAcctSysResRoleSlaveVO,
+        UserAcctTmpRoleSlaveVO,
+        UserAcctTmpSysResRoleSlaveVO,
+        AcctUserGrpSlaveVO,
+        UserAcctSlaveVO,
         UserAcct,
         UserAcctQueryParam>
         implements UserAcctSlaveStdDataSvc {
@@ -81,12 +81,12 @@ public class UserAcctSlaveStdDataSvcImpl
     private AcctUserGrpR2UserSlaveDbSvc acctUserGrpR2UserSlaveDbSvc;
 
     @Override
-    public UserAcctSlaveStdVO queryByPk(final Long userAcctId,
-                                        final UserQueryCfg queryCfg) {
+    public UserAcctSlaveVO queryByPk(final Long userAcctId,
+                                     final UserQueryCfg queryCfg) {
         if (Objects.isNull(userAcctId)) {
             return null;
         }
-        final List<UserAcctSlaveStdVO> userAccts =
+        final List<UserAcctSlaveVO> userAccts =
                 queryByPks(Collections.singletonList(userAcctId), queryCfg);
         if (DeiCollectionUtil.isEmpty(userAccts)) {
             return null;
@@ -95,8 +95,8 @@ public class UserAcctSlaveStdDataSvcImpl
     }
 
     @Override
-    public List<UserAcctSlaveStdVO> queryByPks(final List<Long> userAcctIds,
-                                               final UserQueryCfg queryCfg) {
+    public List<UserAcctSlaveVO> queryByPks(final List<Long> userAcctIds,
+                                            final UserQueryCfg queryCfg) {
         if (DeiCollectionUtil.isEmpty(userAcctIds)) {
             return Collections.emptyList();
         }
@@ -123,8 +123,8 @@ public class UserAcctSlaveStdDataSvcImpl
     }
 
     @Override
-    protected List<UserAcctRoleSlaveStdVO> queryRolesByPks(final List<Long> roleIds,
-                                                           final RoleQueryCfg queryCfg) {
+    protected List<UserAcctRoleSlaveVO> queryRolesByPks(final List<Long> roleIds,
+                                                        final RoleQueryCfg queryCfg) {
         return userAcctRoleSlaveStdDataSvc.queryByPKs(roleIds, queryCfg);
     }
 
@@ -134,8 +134,8 @@ public class UserAcctSlaveStdDataSvcImpl
     }
 
     @Override
-    protected List<UserAcctSysResRoleSlaveStdVO> querySysResRolesByPks(final List<Long> sysResRoleIds,
-                                                                       final SysResRoleQueryCfg queryCfg) {
+    protected List<UserAcctSysResRoleSlaveVO> querySysResRolesByPks(final List<Long> sysResRoleIds,
+                                                                    final SysResRoleQueryCfg queryCfg) {
         return userAcctSysResRoleSlaveStdDataSvc.queryByPks(sysResRoleIds, queryCfg);
     }
 
@@ -145,8 +145,8 @@ public class UserAcctSlaveStdDataSvcImpl
     }
 
     @Override
-    protected List<UserAcctTmpRoleSlaveStdVO> queryTmpRolesByPks(final List<Long> tmpRoleIds,
-                                                                 final RoleQueryCfg queryCfg) {
+    protected List<UserAcctTmpRoleSlaveVO> queryTmpRolesByPks(final List<Long> tmpRoleIds,
+                                                              final RoleQueryCfg queryCfg) {
         return userAcctTmpRoleSlaveStdDataSvc.queryByPks(tmpRoleIds, queryCfg);
     }
 
@@ -156,8 +156,8 @@ public class UserAcctSlaveStdDataSvcImpl
     }
 
     @Override
-    protected List<UserAcctTmpSysResRoleSlaveStdVO> queryTmpSysResRolesByPks(final List<Long> tmpSysResRoleIds,
-                                                                             final SysResRoleQueryCfg queryCfg) {
+    protected List<UserAcctTmpSysResRoleSlaveVO> queryTmpSysResRolesByPks(final List<Long> tmpSysResRoleIds,
+                                                                          final SysResRoleQueryCfg queryCfg) {
         return userAcctTmpSysResRoleSlaveStdDataSvc.queryByPks(tmpSysResRoleIds, queryCfg);
     }
 
@@ -167,20 +167,20 @@ public class UserAcctSlaveStdDataSvcImpl
     }
 
     @Override
-    protected List<AcctUserGrpSlaveStdVO> queryUserGrpsByPks(final List<Long> acctUserGrpIds,
-                                                             final UserGrpQueryCfg queryCfg) {
+    protected List<AcctUserGrpSlaveVO> queryUserGrpsByPks(final List<Long> acctUserGrpIds,
+                                                          final UserGrpQueryCfg queryCfg) {
         return acctUserGrpSlaveStdDataSvc.queryByPks(acctUserGrpIds, queryCfg);
     }
 
     @Override
-    protected List<UserSysPrjPrivilegeSlaveStdVO> querySysPrjPrivilegesByUserIds(final List<Long> userAcctIds,
-                                                                                 final UserSysPrjPrivilegeQueryCfg queryCfg) {
+    protected List<UserSysPrjPrivilegeSlaveVO> querySysPrjPrivilegesByUserIds(final List<Long> userAcctIds,
+                                                                              final UserSysPrjPrivilegeQueryCfg queryCfg) {
         return acctUserSysPrjPrivilegeSlaveStdDataSvc.queryByUserIds(userAcctIds, queryCfg);
     }
 
     @Override
-    public UserAcctSlaveStdVO transferToStdDataVO(final UserAcct entity) {
-        final UserAcctSlaveStdVO stdVO = new UserAcctSlaveStdVO();
+    public UserAcctSlaveVO transferToStdDataVO(final UserAcct entity) {
+        final UserAcctSlaveVO stdVO = new UserAcctSlaveVO();
         assembleCommonAttrs(stdVO, entity);
         stdVO.setTenantId(entity.getTenantSid());
         stdVO.setCorpId(entity.getCorpSid());

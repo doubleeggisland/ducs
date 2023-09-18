@@ -14,10 +14,12 @@ import java.util.Map;
 @NoArgsConstructor
 public class BaseUserRoleDelParam extends BaseRoleDelParam {
     private List<Long> corpIds;
+    private List<Long> tenantIds;
 
     public BaseUserRoleDelParam(final BaseUserRoleDelParamBuilder<? extends BaseUserRoleDelParam> builder) {
         super(builder);
         corpIds = builder.corpIds();
+        tenantIds = builder.tenantIds();
     }
 
     public Map<String, Object> deleteParams() {
@@ -27,6 +29,13 @@ public class BaseUserRoleDelParam extends BaseRoleDelParam {
                 deleteParams.put("corpSids", corpIds);
             } else {
                 deleteParams.put("corpSid", corpIds.get(0));
+            }
+        }
+        if (DeiCollectionUtil.isNotEmpty(tenantIds)) {
+            if (tenantIds.size() > 1) {
+                deleteParams.put("tenantSids", tenantIds);
+            } else {
+                deleteParams.put("tenantSid", tenantIds.get(0));
             }
         }
         return deleteParams;

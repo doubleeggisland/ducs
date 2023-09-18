@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 
 @Service("menuSlaveStdDataSvc")
 public class MenuSlaveStdDataSvcImpl
-        extends BaseDeiSlaveStdDataSvc<MenuSlaveStdVO, Menu>
+        extends BaseDeiSlaveStdDataSvc<MenuSlaveVO, Menu>
         implements MenuSlaveStdDataSvc {
 
     @Autowired
@@ -42,8 +42,8 @@ public class MenuSlaveStdDataSvcImpl
     }
 
     @Override
-    public List<MenuSlaveStdVO> queryBySysPrjIds(final List<Long> sysPrjIds,
-                                                 final MenuQueryCfg queryCfg) {
+    public List<MenuSlaveVO> queryBySysPrjIds(final List<Long> sysPrjIds,
+                                              final MenuQueryCfg queryCfg) {
         if (DeiCollectionUtil.isEmpty(sysPrjIds)) {
             return Collections.emptyList();
         }
@@ -54,12 +54,12 @@ public class MenuSlaveStdDataSvcImpl
     }
 
     @Override
-    public MenuSlaveStdVO getByPk(final Long menuId,
-                                  final MenuQueryCfg queryCfg) {
+    public MenuSlaveVO getByPk(final Long menuId,
+                               final MenuQueryCfg queryCfg) {
         if (Objects.isNull(menuId)) {
             return null;
         }
-        final List<MenuSlaveStdVO> menus =
+        final List<MenuSlaveVO> menus =
                 queryByPks(Collections.singletonList(menuId), queryCfg);
         if (DeiCollectionUtil.isEmpty(menus)) {
             return null;
@@ -68,8 +68,8 @@ public class MenuSlaveStdDataSvcImpl
     }
 
     @Override
-    public List<MenuSlaveStdVO> queryByPks(final List<Long> menuIds,
-                                           final MenuQueryCfg queryCfg) {
+    public List<MenuSlaveVO> queryByPks(final List<Long> menuIds,
+                                        final MenuQueryCfg queryCfg) {
         if (DeiCollectionUtil.isEmpty(menuIds)) {
             return Collections.emptyList();
         }
@@ -80,8 +80,8 @@ public class MenuSlaveStdDataSvcImpl
     }
 
     @Override
-    public List<MenuSlaveStdVO> queryByParam(final MenuQueryParam queryParam,
-                                             final MenuQueryCfg queryCfg) {
+    public List<MenuSlaveVO> queryByParam(final MenuQueryParam queryParam,
+                                          final MenuQueryCfg queryCfg) {
         final Map<String, Object> queryParams =
                 Objects.isNull(queryParam) ? new HashMap<>() : queryParam.queryParams();
 
@@ -96,7 +96,7 @@ public class MenuSlaveStdDataSvcImpl
             return Collections.emptyList();
         }
 
-        final List<MenuSlaveStdVO> menus = new ArrayList<>(entities.size());
+        final List<MenuSlaveVO> menus = new ArrayList<>(entities.size());
         final List<Long> menuIds = new ArrayList<>(entities.size());
         entities.forEach(entity -> {
             menuIds.add(entity.getSid());
@@ -128,8 +128,8 @@ public class MenuSlaveStdDataSvcImpl
     }
 
     @Override
-    public MenuSlaveStdVO transferToStdDataVO(final Menu entity) {
-        final MenuSlaveStdVO stdVO = new MenuSlaveStdVO();
+    public MenuSlaveVO transferToStdDataVO(final Menu entity) {
+        final MenuSlaveVO stdVO = new MenuSlaveVO();
         assembleCommonAttrs(stdVO, entity);
         stdVO.setCode(entity.getCode());
         stdVO.setName(entity.getName());

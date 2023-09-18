@@ -12,8 +12,8 @@ import com.ioiox.dei.duc.beans.model.master.SysApiUpdatableAttrsAnalyser;
 import com.ioiox.dei.duc.beans.model.master.SysApiUpdatableObj;
 import com.ioiox.dei.duc.beans.model.master.SysApiUpdateCtx;
 import com.ioiox.dei.duc.beans.model.master.SysApiDelParam;
-import com.ioiox.dei.duc.beans.vo.std.master.SysApiMasterStdVO;
-import com.ioiox.dei.duc.beans.vo.std.slave.SysApiSlaveStdVO;
+import com.ioiox.dei.duc.beans.vo.std.master.SysApiMasterVO;
+import com.ioiox.dei.duc.beans.vo.std.slave.SysApiSlaveVO;
 import com.ioiox.dei.duc.db.service.master.SysApiMasterDbSvc;
 import com.ioiox.dei.duc.std.data.svc.master.SysApiMasterStdDataSvc;
 import com.ioiox.dei.duc.std.data.svc.slave.SysApiSlaveStdDataSvc;
@@ -29,7 +29,7 @@ import java.util.Objects;
 
 @Service("sysApiMasterStdDataSvc")
 public class SysApiMasterStdDataSvcImpl
-        extends BaseDeiMasterStdDataSvc<SysApiMasterStdVO, SysApiUpdatableObj, SysApi>
+        extends BaseDeiMasterStdDataSvc<SysApiMasterVO, SysApiUpdatableObj, SysApi>
         implements SysApiMasterStdDataSvc {
 
     private static final Logger log = LoggerFactory.getLogger(SysApiMasterStdDataSvcImpl.class);
@@ -45,7 +45,7 @@ public class SysApiMasterStdDataSvcImpl
     private final SysApiUpdatableAttrsAnalyser analyser = new SysApiUpdatableAttrsAnalyser();
 
     @Override
-    public Long save(final SysApiMasterStdVO sysApi) {
+    public Long save(final SysApiMasterVO sysApi) {
         if (Objects.isNull(sysApi)) {
             return DeiGlobalConstant.DEFAULT_SID;
         }
@@ -55,7 +55,7 @@ public class SysApiMasterStdDataSvcImpl
         return newEntity.getSid();
     }
 
-    private SysApiSlaveStdVO getExistingSysApi(final Long id) {
+    private SysApiSlaveVO getExistingSysApi(final Long id) {
         return sysApiSlaveStdDataSvc.queryByPk(id,
                 new DefaultStdDataQueryCfg.Builder()
                         .showColumns(Arrays.asList(BaseDeiEntity.ShowColumn.ID.getCode(),
@@ -68,20 +68,20 @@ public class SysApiMasterStdDataSvcImpl
     }
 
     @Override
-    public boolean update(final SysApiMasterStdVO sysApi) {
+    public boolean update(final SysApiMasterVO sysApi) {
         if (Objects.isNull(sysApi)
                 || Objects.isNull(sysApi.getId())) {
             throw new DeiServiceException("Please choose a sysApi to update");
         }
-        final SysApiSlaveStdVO existingSysApi = getExistingSysApi(sysApi.getId());
+        final SysApiSlaveVO existingSysApi = getExistingSysApi(sysApi.getId());
         if (Objects.isNull(existingSysApi)) {
             throw new DeiServiceException(String.format("SysApi doesn't exist =====> id: %s", sysApi.getId()));
         }
         return update(sysApi, existingSysApi);
     }
 
-    private boolean update(final SysApiMasterStdVO sysApi,
-                           final SysApiSlaveStdVO existingSysApi) {
+    private boolean update(final SysApiMasterVO sysApi,
+                           final SysApiSlaveVO existingSysApi) {
         final SysApiUpdateCtx updateCtx = analyser.analyseUpdatedAttrs(sysApi, existingSysApi);
         final SysApiUpdatableObj updatableObj = updateCtx.getUpdatableObj();
         final boolean updated = updatableObj.updated();
@@ -112,7 +112,7 @@ public class SysApiMasterStdDataSvcImpl
     }
 
     @Override
-    public SysApi toNewEntity(final SysApiMasterStdVO sysApi) {
+    public SysApi toNewEntity(final SysApiMasterVO sysApi) {
         final SysApi newEntity = new SysApi();
         assembleCommonAttrsOnInsert(newEntity, sysApi);
         newEntity.setCode(sysApi.getCode());

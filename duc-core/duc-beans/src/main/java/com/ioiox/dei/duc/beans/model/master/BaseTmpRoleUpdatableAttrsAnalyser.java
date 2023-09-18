@@ -5,16 +5,16 @@ import com.ioiox.dei.core.orm.mybatis.model.std.data.UpdatableDateAttr;
 import com.ioiox.dei.core.orm.mybatis.model.std.data.UpdatableObj;
 import com.ioiox.dei.core.orm.mybatis.model.std.data.UpdatableTimeAttr;
 import com.ioiox.dei.duc.beans.entity.TmpRole;
-import com.ioiox.dei.duc.beans.vo.std.master.BaseTmpRoleMasterStdVO;
-import com.ioiox.dei.duc.beans.vo.std.slave.BaseTmpRoleSlaveStdVO;
+import com.ioiox.dei.duc.beans.vo.std.master.BaseTmpRoleMasterVO;
+import com.ioiox.dei.duc.beans.vo.std.slave.BaseTmpRoleSlaveVO;
 
 import java.sql.Time;
 import java.util.Date;
 import java.util.Objects;
 
 public abstract class BaseTmpRoleUpdatableAttrsAnalyser<
-        M extends BaseTmpRoleMasterStdVO,
-        S extends BaseTmpRoleSlaveStdVO,
+        M extends BaseTmpRoleMasterVO,
+        S extends BaseTmpRoleSlaveVO,
         O extends BaseTmpRoleUpdatableObj,
         C extends BaseTmpRoleUpdateCtx<O>>
         extends BaseRoleUpdatableAttrsAnalyser<M, S, O, C> {

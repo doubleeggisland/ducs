@@ -16,10 +16,12 @@ import java.util.Map;
 public class AcctUserGrpDelParam
         extends UserGrpDelParam {
     private List<Long> corpIds;
+    private List<Long> tenantIds;
 
     private AcctUserGrpDelParam(final Builder builder) {
         super(builder);
         corpIds = builder.corpIds;
+        tenantIds = builder.tenantIds;
     }
 
     @Override
@@ -32,15 +34,27 @@ public class AcctUserGrpDelParam
                 deleteParams.put("corpSid", corpIds.get(0));
             }
         }
+        if (DeiCollectionUtil.isNotEmpty(tenantIds)) {
+            if (tenantIds.size() > 1) {
+                deleteParams.put("tenantSids", tenantIds);
+            } else {
+                deleteParams.put("tenantSid", tenantIds.get(0));
+            }
+        }
         return deleteParams;
     }
 
     public static class Builder
             extends UserGrpDelParamBuilder<AcctUserGrpDelParam> {
         private List<Long> corpIds;
+        private List<Long> tenantIds;
 
         public Builder corpIds(final List<Long> corpIds) {
             this.corpIds = corpIds;
+            return this;
+        }
+        public Builder tenantIds(final List<Long> tenantIds) {
+            this.tenantIds = tenantIds;
             return this;
         }
 

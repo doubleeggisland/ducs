@@ -15,10 +15,10 @@ import com.ioiox.dei.duc.beans.model.slave.MenuQueryCfg;
 import com.ioiox.dei.duc.beans.model.slave.MenuSysApiMappingQueryCfg;
 import com.ioiox.dei.duc.beans.model.slave.RoleQueryCfg;
 import com.ioiox.dei.duc.beans.model.master.user.UserAcctRoleDelParam;
-import com.ioiox.dei.duc.beans.vo.std.master.user.UserAcctTmpRoleMasterStdVO;
+import com.ioiox.dei.duc.beans.vo.std.master.user.UserAcctTmpRoleMasterVO;
 import com.ioiox.dei.duc.beans.vo.std.slave.*;
 import com.ioiox.dei.duc.beans.model.slave.user.UserAcctTmpRoleQueryParam;
-import com.ioiox.dei.duc.beans.vo.std.slave.user.UserAcctTmpRoleSlaveStdVO;
+import com.ioiox.dei.duc.beans.vo.std.slave.user.UserAcctTmpRoleSlaveVO;
 import com.ioiox.dei.duc.db.service.master.user.UserAcctTmpRoleMasterDbSvc;
 import com.ioiox.dei.duc.std.data.svc.impl.master.BaseRoleMasterStdDataSvc;
 import com.ioiox.dei.duc.std.data.svc.master.user.UserAcctTmpRoleMasterStdDataSvc;
@@ -34,7 +34,7 @@ import java.util.stream.Collectors;
 
 @Service("userAcctTmpRoleMasterStdDataSvc")
 public class UserAcctTmpRoleMasterStdDataSvcImpl
-        extends BaseRoleMasterStdDataSvc<UserAcctTmpRoleMasterStdVO, UserAcctTmpRoleUpdatableObj, UserAcctTmpRoleUpdateCtx, UserAcctRoleDelParam, UserAcctTmpRoleSlaveStdVO, UserAcctTmpRole>
+        extends BaseRoleMasterStdDataSvc<UserAcctTmpRoleMasterVO, UserAcctTmpRoleUpdatableObj, UserAcctTmpRoleUpdateCtx, UserAcctRoleDelParam, UserAcctTmpRoleSlaveVO, UserAcctTmpRole>
         implements UserAcctTmpRoleMasterStdDataSvc {
 
     private static final Logger log = LoggerFactory.getLogger(UserAcctTmpRoleMasterStdDataSvcImpl.class);
@@ -50,7 +50,7 @@ public class UserAcctTmpRoleMasterStdDataSvcImpl
     private final UserAcctTmpRoleUpdatableAttrsAnalyser analyser = new UserAcctTmpRoleUpdatableAttrsAnalyser();
 
     @Override
-    protected UserAcctTmpRoleSlaveStdVO getExistingRole(final Long id) {
+    protected UserAcctTmpRoleSlaveVO getExistingRole(final Long id) {
         return userAcctTmpRoleSlaveStdDataSvc.queryByPk(id,
                 new RoleQueryCfg.Builder()
                         .needMenus(DeiGlobalConstant.FLAG_YES)
@@ -77,7 +77,7 @@ public class UserAcctTmpRoleMasterStdDataSvcImpl
     }
 
     @Override
-    protected List<UserAcctTmpRoleSlaveStdVO> queryExistingRoles(final UserAcctRoleDelParam delParam) {
+    protected List<UserAcctTmpRoleSlaveVO> queryExistingRoles(final UserAcctRoleDelParam delParam) {
         final UserAcctTmpRoleQueryParam queryParam = new UserAcctTmpRoleQueryParam.Builder()
                 .corpIds(delParam.getCorpIds())
                 .sysPrjIds(delParam.getSysPrjIds())
@@ -91,28 +91,28 @@ public class UserAcctTmpRoleMasterStdDataSvcImpl
     }
 
     @Override
-    protected List<Long> getMenuIds(final UserAcctTmpRoleMasterStdVO tmpRole) {
+    protected List<Long> getMenuIds(final UserAcctTmpRoleMasterVO tmpRole) {
         return tmpRole.getMenuIds();
     }
 
     @Override
-    protected List<Long> getSysApiMappingIds(final UserAcctTmpRoleMasterStdVO tmpRole) {
+    protected List<Long> getSysApiMappingIds(final UserAcctTmpRoleMasterVO tmpRole) {
         return tmpRole.getSysApiMappingIds();
     }
 
     @Override
-    protected List<Long> getSysApiIds(final UserAcctTmpRoleMasterStdVO tmpRole) {
+    protected List<Long> getSysApiIds(final UserAcctTmpRoleMasterVO tmpRole) {
         return tmpRole.getSysApiIds();
     }
 
     @Override
-    protected List<Long> getExistingMenuIds(final UserAcctTmpRoleSlaveStdVO existingTmpRole) {
+    protected List<Long> getExistingMenuIds(final UserAcctTmpRoleSlaveVO existingTmpRole) {
         return DeiCollectionUtil.isEmpty(existingTmpRole.getMenus())
-                ? Collections.emptyList() : existingTmpRole.getMenus().stream().map(MenuSlaveStdVO::getId).collect(Collectors.toList());
+                ? Collections.emptyList() : existingTmpRole.getMenus().stream().map(MenuSlaveVO::getId).collect(Collectors.toList());
     }
 
     @Override
-    protected List<Long> getExistingSysApiMappingIds(final UserAcctTmpRoleSlaveStdVO existingTmpRole) {
+    protected List<Long> getExistingSysApiMappingIds(final UserAcctTmpRoleSlaveVO existingTmpRole) {
         if (DeiCollectionUtil.isEmpty(existingTmpRole.getSysApiMappings())) {
             return Collections.emptyList();
         }
@@ -124,13 +124,13 @@ public class UserAcctTmpRoleMasterStdDataSvcImpl
     }
 
     @Override
-    protected List<Long> getExistingSysApiIds(final UserAcctTmpRoleSlaveStdVO existingTmpRole) {
+    protected List<Long> getExistingSysApiIds(final UserAcctTmpRoleSlaveVO existingTmpRole) {
         return DeiCollectionUtil.isEmpty(existingTmpRole.getSysApis())
-                ? Collections.emptyList() : existingTmpRole.getSysApis().stream().map(SysApiSlaveStdVO::getId).collect(Collectors.toList());
+                ? Collections.emptyList() : existingTmpRole.getSysApis().stream().map(SysApiSlaveVO::getId).collect(Collectors.toList());
     }
 
     @Override
-    protected UserAcctTmpRoleUpdateCtx getUpdateContext(final UserAcctTmpRoleMasterStdVO tmpRole, final UserAcctTmpRoleSlaveStdVO existingTmpRole) {
+    protected UserAcctTmpRoleUpdateCtx getUpdateContext(final UserAcctTmpRoleMasterVO tmpRole, final UserAcctTmpRoleSlaveVO existingTmpRole) {
         return analyser.analyseUpdatedAttrs(tmpRole, existingTmpRole);
     }
 
@@ -228,7 +228,7 @@ public class UserAcctTmpRoleMasterStdDataSvcImpl
     }
 
     @Override
-    public UserAcctTmpRole toNewEntity(final UserAcctTmpRoleMasterStdVO tmpRole) {
+    public UserAcctTmpRole toNewEntity(final UserAcctTmpRoleMasterVO tmpRole) {
         final UserAcctTmpRole newEntity = new UserAcctTmpRole();
         assembleCommonAttrsOnInsert(newEntity, tmpRole);
         assembleTmpRoleCommonAttrs(newEntity, tmpRole);

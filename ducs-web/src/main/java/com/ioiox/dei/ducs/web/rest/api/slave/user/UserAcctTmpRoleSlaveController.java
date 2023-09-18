@@ -4,7 +4,7 @@ import com.ioiox.dei.core.constant.DeiGlobalConstant;
 import com.ioiox.dei.core.vo.DeiResponseData;
 import com.ioiox.dei.duc.beans.model.slave.user.UserAcctTmpRoleQueryParam;
 import com.ioiox.dei.duc.beans.model.slave.user.UserAcctTmpRoleQueryReq;
-import com.ioiox.dei.duc.beans.vo.std.slave.user.UserAcctTmpRoleSlaveStdVO;
+import com.ioiox.dei.duc.beans.vo.std.slave.user.UserAcctTmpRoleSlaveVO;
 import com.ioiox.dei.duc.std.data.svc.slave.user.UserAcctTmpRoleSlaveStdDataSvc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -34,8 +34,8 @@ public class UserAcctTmpRoleSlaveController {
     }
 
     @PostMapping(path = "/user-acct/tmp-roles/query", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public DeiResponseData<List<UserAcctTmpRoleSlaveStdVO>> queryTmpRoles(@RequestBody final UserAcctTmpRoleQueryReq queryReq) {
-        return new DeiResponseData.Builder<List<UserAcctTmpRoleSlaveStdVO>>()
+    public DeiResponseData<List<UserAcctTmpRoleSlaveVO>> queryTmpRoles(@RequestBody final UserAcctTmpRoleQueryReq queryReq) {
+        return new DeiResponseData.Builder<List<UserAcctTmpRoleSlaveVO>>()
                 .code(DeiResponseData.SUCCESS)
                 .success(DeiGlobalConstant.TRUE_STR)
                 .data(userAcctTmpRoleSlaveStdDataSvc.queryByParam(queryReq.getQueryParam(), queryReq.getQueryCfg()))

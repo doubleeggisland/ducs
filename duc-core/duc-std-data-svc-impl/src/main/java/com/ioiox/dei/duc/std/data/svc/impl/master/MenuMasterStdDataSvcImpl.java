@@ -17,7 +17,7 @@ import com.ioiox.dei.duc.beans.model.slave.MenuSysApiMappingQueryCfg;
 import com.ioiox.dei.duc.beans.model.master.MenuDelParam;
 import com.ioiox.dei.duc.beans.vo.std.master.MenuMasterStdVO;
 import com.ioiox.dei.duc.beans.model.master.MenuSysApiMappingDelParam;
-import com.ioiox.dei.duc.beans.vo.std.master.MenuSysApiMappingMasterStdVO;
+import com.ioiox.dei.duc.beans.vo.std.master.MenuSysApiMappingMasterVO;
 import com.ioiox.dei.duc.beans.vo.std.slave.*;
 import com.ioiox.dei.duc.db.service.master.MenuMasterDbSvc;
 import com.ioiox.dei.duc.std.data.svc.master.MenuMasterStdDataSvc;
@@ -68,7 +68,7 @@ public class MenuMasterStdDataSvcImpl
         return menuId;
     }
 
-    private MenuSlaveStdVO getExistingMenu(final Long id) {
+    private MenuSlaveVO getExistingMenu(final Long id) {
         return menuSlaveStdDataSvc.getByPk(id,
                 new MenuQueryCfg.Builder()
                         .needSysApiMappings(DeiGlobalConstant.FLAG_YES)
@@ -92,7 +92,7 @@ public class MenuMasterStdDataSvcImpl
         if (Objects.isNull(menu) || Objects.isNull(menu.getId())) {
             throw new DeiServiceException("Please choose a menu to update!");
         }
-        final MenuSlaveStdVO existingMenu = getExistingMenu(menu.getId());
+        final MenuSlaveVO existingMenu = getExistingMenu(menu.getId());
         if (Objects.isNull(existingMenu)) {
             throw new DeiServiceException(String.format("Menu doesn't exist =====> id: %s", menu.getId()));
         }
@@ -100,7 +100,7 @@ public class MenuMasterStdDataSvcImpl
     }
 
     public boolean update(final MenuMasterStdVO menu,
-                          final MenuSlaveStdVO existingMenu) {
+                          final MenuSlaveVO existingMenu) {
         final int syncRows =
                 syncSysApiMappings(menu.getSysApiMappings(), existingMenu.getSysApiMappings(), existingMenu.getId(), menu.getUpdatedBy());
 
@@ -134,7 +134,7 @@ public class MenuMasterStdDataSvcImpl
         return updated;
     }
 
-    private int syncSysApiMappings(final List<MenuSysApiMappingMasterStdVO> sysApiMappings,
+    private int syncSysApiMappings(final List<MenuSysApiMappingMasterVO> sysApiMappings,
                                    final List<MenuSysApiMappingSlaveStdVO> existingSysApiMappings,
                                    final Long menuId,
                                    final String operator) {
@@ -161,17 +161,17 @@ public class MenuMasterStdDataSvcImpl
             return DeiGlobalConstant.ZERO;
         }
 
-        final List<MenuSlaveStdVO> existingMenus = queryExistingMenus(delParam);
+        final List<MenuSlaveVO> existingMenus = queryExistingMenus(delParam);
         if (DeiCollectionUtil.isEmpty(existingMenus)) {
             throw new DeiServiceException(String.format("Cannot find any menus as per delParam =====> %s", JsonUtil.toJsonStr(delParam)));
         }
         menuSysApiMappingMasterStdDataSvc.remove(new MenuSysApiMappingDelParam.Builder()
-                .menuIds(existingMenus.stream().map(MenuSlaveStdVO::getId).collect(Collectors.toList()))
+                .menuIds(existingMenus.stream().map(MenuSlaveVO::getId).collect(Collectors.toList()))
                 .build());
         return menuMasterDbSvc.deleteByParams(deleteParams);
     }
 
-    private List<MenuSlaveStdVO> queryExistingMenus(final MenuDelParam delParam) {
+    private List<MenuSlaveVO> queryExistingMenus(final MenuDelParam delParam) {
         final MenuQueryParam queryParam = new MenuQueryParam.Builder()
                 .pids(delParam.getPids())
                 .sysPrjIds(delParam.getSysPrjIds())

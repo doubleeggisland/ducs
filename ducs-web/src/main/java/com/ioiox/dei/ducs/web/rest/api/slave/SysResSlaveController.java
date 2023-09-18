@@ -4,7 +4,7 @@ import com.ioiox.dei.core.constant.DeiGlobalConstant;
 import com.ioiox.dei.core.vo.DeiResponseData;
 import com.ioiox.dei.duc.beans.model.slave.SysResQueryParam;
 import com.ioiox.dei.duc.beans.model.slave.SysResQueryReq;
-import com.ioiox.dei.duc.beans.vo.std.slave.SysResSlaveStdVO;
+import com.ioiox.dei.duc.beans.vo.std.slave.SysResSlaveVO;
 import com.ioiox.dei.duc.std.data.svc.slave.SysResSlaveStdDataSvc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -34,8 +34,8 @@ public class SysResSlaveController {
     }
 
     @PostMapping(path = "/sys-resources/query", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public DeiResponseData<List<SysResSlaveStdVO>> querySysResources(@RequestBody final SysResQueryReq queryReq) {
-        return new DeiResponseData.Builder<List<SysResSlaveStdVO>>()
+    public DeiResponseData<List<SysResSlaveVO>> querySysResources(@RequestBody final SysResQueryReq queryReq) {
+        return new DeiResponseData.Builder<List<SysResSlaveVO>>()
                 .code(DeiResponseData.SUCCESS)
                 .success(DeiGlobalConstant.TRUE_STR)
                 .data(sysResSlaveStdDataSvc.queryByParam(queryReq.getQueryParam(), queryReq.getQueryCfg()))

@@ -4,14 +4,14 @@ import com.ioiox.dei.core.orm.mybatis.model.std.data.UpdatableAttr;
 import com.ioiox.dei.core.orm.mybatis.model.std.data.UpdatableObj;
 import com.ioiox.dei.core.orm.mybatis.model.std.data.UpdatableObjAnalyser;
 import com.ioiox.dei.duc.beans.entity.SysApi;
-import com.ioiox.dei.duc.beans.vo.std.master.SysApiMasterStdVO;
-import com.ioiox.dei.duc.beans.vo.std.slave.SysApiSlaveStdVO;
+import com.ioiox.dei.duc.beans.vo.std.master.SysApiMasterVO;
+import com.ioiox.dei.duc.beans.vo.std.slave.SysApiSlaveVO;
 
 public class SysApiUpdatableAttrsAnalyser
-        extends UpdatableObjAnalyser<SysApiMasterStdVO, SysApiSlaveStdVO, SysApiUpdatableObj, SysApiUpdateCtx> {
+        extends UpdatableObjAnalyser<SysApiMasterVO, SysApiSlaveVO, SysApiUpdatableObj, SysApiUpdateCtx> {
 
     @Override
-    public SysApiUpdateCtx analyseUpdatedAttrs(final SysApiMasterStdVO sysApi, final SysApiSlaveStdVO existingSysApi) {
+    public SysApiUpdateCtx analyseUpdatedAttrs(final SysApiMasterVO sysApi, final SysApiSlaveVO existingSysApi) {
         final SysApiUpdateCtx updateCtx = new SysApiUpdateCtx();
         updateCtx.setUpdatableObj(new SysApiUpdatableObj());
         analyseUpdatedAttrs(sysApi, existingSysApi, updateCtx);
@@ -19,7 +19,7 @@ public class SysApiUpdatableAttrsAnalyser
     }
 
     @Override
-    protected void analyseUpdatedAttrs(final SysApiMasterStdVO sysApi, final SysApiSlaveStdVO existingSysApi, final SysApiUpdateCtx updateCtx) {
+    protected void analyseUpdatedAttrs(final SysApiMasterVO sysApi, final SysApiSlaveVO existingSysApi, final SysApiUpdateCtx updateCtx) {
         if (UpdatableObj.modified(existingSysApi.getCode(), sysApi.getCode())) {
             updateCtx.getUpdatableObj().addUpdatedAttrName(SysApi.ShowColumn.CODE.getCode());
             updateCtx.getUpdatableObj().setCode(new UpdatableAttr<>(SysApi.ShowColumn.CODE.getCode(), existingSysApi.getCode(), sysApi.getCode()));

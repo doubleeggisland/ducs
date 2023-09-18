@@ -11,7 +11,7 @@ import com.ioiox.dei.duc.beans.model.master.SysPrjUpdatableAttrsAnalyser;
 import com.ioiox.dei.duc.beans.model.master.SysPrjUpdatableObj;
 import com.ioiox.dei.duc.beans.model.master.SysPrjUpdateCtx;
 import com.ioiox.dei.duc.beans.model.master.SysPrjDelParam;
-import com.ioiox.dei.duc.beans.vo.std.master.SysPrjMasterStdVO;
+import com.ioiox.dei.duc.beans.vo.std.master.SysPrjMasterVO;
 import com.ioiox.dei.duc.beans.model.slave.SysPrjQueryCfg;
 import com.ioiox.dei.duc.beans.vo.std.slave.SysPrjSlaveStdVO;
 import com.ioiox.dei.duc.db.service.master.SysPrjMasterDbSvc;
@@ -29,7 +29,7 @@ import java.util.Objects;
 
 @Service("sysPrjMasterStdDataSvc")
 public class SysPrjMasterStdDataSvcImpl
-        extends BaseDeiMasterStdDataSvc<SysPrjMasterStdVO, SysPrjUpdatableObj, SysPrj>
+        extends BaseDeiMasterStdDataSvc<SysPrjMasterVO, SysPrjUpdatableObj, SysPrj>
         implements SysPrjMasterStdDataSvc {
 
     private static final Logger log = LoggerFactory.getLogger(SysPrjMasterStdDataSvcImpl.class);
@@ -45,7 +45,7 @@ public class SysPrjMasterStdDataSvcImpl
     private final SysPrjUpdatableAttrsAnalyser analyser = new SysPrjUpdatableAttrsAnalyser();
 
     @Override
-    public Long save(final SysPrjMasterStdVO sysPrj) {
+    public Long save(final SysPrjMasterVO sysPrj) {
         if (Objects.isNull(sysPrj)) {
             return DeiGlobalConstant.DEFAULT_SID;
         }
@@ -66,7 +66,7 @@ public class SysPrjMasterStdDataSvcImpl
     }
 
     @Override
-    public boolean update(final SysPrjMasterStdVO sysPrj) {
+    public boolean update(final SysPrjMasterVO sysPrj) {
         if (Objects.isNull(sysPrj)
                 || Objects.isNull(sysPrj.getId())) {
             throw new DeiServiceException("Please choose a sysPrj to update");
@@ -78,7 +78,7 @@ public class SysPrjMasterStdDataSvcImpl
         return update(sysPrj, existingSysPrj);
     }
 
-    private boolean update(final SysPrjMasterStdVO sysPrj,
+    private boolean update(final SysPrjMasterVO sysPrj,
                            final SysPrjSlaveStdVO existingSysPrj) {
         final SysPrjUpdateCtx updateCtx = analyser.analyseUpdatedAttrs(sysPrj, existingSysPrj);
         final SysPrjUpdatableObj updatableObj = updateCtx.getUpdatableObj();
@@ -110,7 +110,7 @@ public class SysPrjMasterStdDataSvcImpl
     }
 
     @Override
-    public SysPrj toNewEntity(final SysPrjMasterStdVO sysPrj) {
+    public SysPrj toNewEntity(final SysPrjMasterVO sysPrj) {
         final SysPrj newEntity = new SysPrj();
         assembleCommonAttrsOnInsert(newEntity, sysPrj);
         newEntity.setCode(sysPrj.getCode());
