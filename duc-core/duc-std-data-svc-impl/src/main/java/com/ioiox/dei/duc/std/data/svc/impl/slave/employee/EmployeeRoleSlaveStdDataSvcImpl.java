@@ -50,11 +50,11 @@ public class EmployeeRoleSlaveStdDataSvcImpl
         if (Objects.isNull(pk)) {
             return null;
         }
-        final List<EmployeeRoleSlaveVO> userAcctRoles = queryByPKs(Collections.singletonList(pk), queryCfg);
-        if (DeiCollectionUtil.isEmpty(userAcctRoles)) {
+        final List<EmployeeRoleSlaveVO> employeeRoles = queryByPKs(Collections.singletonList(pk), queryCfg);
+        if (DeiCollectionUtil.isEmpty(employeeRoles)) {
             return null;
         }
-        return userAcctRoles.get(0);
+        return employeeRoles.get(0);
     }
 
     @Override
