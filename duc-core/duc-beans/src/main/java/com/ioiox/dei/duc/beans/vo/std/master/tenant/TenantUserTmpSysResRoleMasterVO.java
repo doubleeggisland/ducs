@@ -1,6 +1,6 @@
 package com.ioiox.dei.duc.beans.vo.std.master.tenant;
 
-import com.ioiox.dei.duc.beans.vo.std.master.TmpSysResRoleMasterVO;
+import com.ioiox.dei.duc.beans.vo.std.master.BaseSysResRoleMasterVO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class TenantUserTmpSysResRoleMasterVO
-        extends TmpSysResRoleMasterVO {
+        extends BaseSysResRoleMasterVO {
     /**
      * 所属租户ID
      */

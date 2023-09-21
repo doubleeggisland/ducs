@@ -10,14 +10,14 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public abstract class SysResRoleSlaveVO extends BaseRoleSlaveVO {
+public abstract class BaseSysResRoleSlaveVO extends SimpleRoleSlaveVO {
+    /**
+     * 分配的系统资源
+     */
+    private List<SysResSlaveVO> sysResources;
     /**
      * 所属项目
      */
     @JsonIgnore
     private SysPrjSlaveStdVO sysPrj;
-    /**
-     * 分配的系统资源
-     */
-    private List<SysResSlaveVO> sysResources;
 }

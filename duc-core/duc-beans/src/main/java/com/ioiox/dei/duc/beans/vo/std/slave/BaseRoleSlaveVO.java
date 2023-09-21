@@ -1,39 +1,38 @@
 package com.ioiox.dei.duc.beans.vo.std.slave;
 
-import com.ioiox.dei.core.orm.mybatis.model.std.data.SlaveStdDataVO;
-import com.ioiox.dei.duc.spring.core.model.DUCRoleType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+import java.util.Map;
+
 @Getter
 @Setter
 @NoArgsConstructor
-public class BaseRoleSlaveVO extends SlaveStdDataVO {
+public abstract class BaseRoleSlaveVO
+        extends SimpleRoleSlaveVO {
     /**
-     * 角色编号
+     * 分配的菜单
      */
-    private String code;
+    private List<MenuSlaveVO> menus;
     /**
-     * 角色名称
+     * 菜单与系统接口映射信息
+     * key: menuId(菜单ID)
      */
-    private String name;
+    private Map<Long, List<MenuSysApiMappingSlaveStdVO>> sysApiMappings;
     /**
-     * 角色类型
-     * @see DUCRoleType
+     * 分配的菜单相关的系统接口
      */
-    private String type;
+    private List<SysApiSlaveVO> menuSysApis;
     /**
-     * 状态
-     * @see com.ioiox.dei.core.constant.DeiStatus
+     * 分配的系统接口
      */
-    private String status;
+    private List<SysApiSlaveVO> sysApis;
     /**
-     * 备注
+     * 所属项目
      */
-    private String memo;
-    /**
-     * 所属项目ID
-     */
-    private Long sysPrjId;
+    @JsonIgnore
+    private SysPrjSlaveStdVO sysPrj;
 }

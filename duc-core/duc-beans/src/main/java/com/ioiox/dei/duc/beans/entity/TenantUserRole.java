@@ -12,7 +12,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @NoArgsConstructor
-public class TenantUserRole extends Role {
+public class TenantUserRole extends BaseRole {
     /**
      * 属所租户ID
      */

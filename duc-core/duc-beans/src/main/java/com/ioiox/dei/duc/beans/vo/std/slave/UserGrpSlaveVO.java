@@ -9,7 +9,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public abstract class UserGrpSlaveVO<R extends RoleSlaveVO, RR extends SysResRoleSlaveVO>
+public abstract class UserGrpSlaveVO<R extends BaseRoleSlaveVO, RR extends BaseSysResRoleSlaveVO>
         extends BaseUserGrpSlaveVO {
     /**
      * 给用户组分配的角色

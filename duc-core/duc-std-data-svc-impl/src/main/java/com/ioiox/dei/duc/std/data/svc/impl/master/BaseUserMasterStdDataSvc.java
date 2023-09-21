@@ -30,11 +30,11 @@ public abstract class BaseUserMasterStdDataSvc<
         C extends UserUpdateCtx<O>,
         D extends UserDelParam,
         S extends UserSlaveVO<
-                        ? extends RoleSlaveVO,
-                        ? extends SysResRoleSlaveVO,
-                        ? extends TmpRoleSlaveVO,
-                        ? extends TmpSysResRoleSlaveVO,
-                        ? extends UserGrpSlaveVO<? extends RoleSlaveVO, ? extends SysResRoleSlaveVO>>,
+                        ? extends BaseRoleSlaveVO,
+                        ? extends BaseSysResRoleSlaveVO,
+                        ? extends BaseRoleSlaveVO,
+                        ? extends BaseSysResRoleSlaveVO,
+                        ? extends UserGrpSlaveVO<? extends BaseRoleSlaveVO, ? extends BaseSysResRoleSlaveVO>>,
         E extends BaseUser>
         extends BaseDeiMasterStdDataSvc<T, O, E>
         implements UserMasterStdDataSvc<T, D> {
@@ -80,19 +80,19 @@ public abstract class BaseUserMasterStdDataSvc<
         final int numOfUserGrpsSync = syncUserGrps(user.getUserGrpIds(), existingUserGrpIds, existingUser.getId(), user.getUpdatedBy());
 
         final List<Long> existingRoleIds = DeiCollectionUtil.isEmpty(existingUser.getRoles())
-                ? Collections.emptyList() : existingUser.getRoles().stream().map(RoleSlaveVO::getId).collect(Collectors.toList());
+                ? Collections.emptyList() : existingUser.getRoles().stream().map(BaseRoleSlaveVO::getId).collect(Collectors.toList());
         final int numOfRolesSync = syncRoles(user.getRoleIds(), existingRoleIds, existingUser.getId(), user.getUpdatedBy());
 
         final List<Long> existingSysResRoleIds = DeiCollectionUtil.isEmpty(existingUser.getSysResRoles())
-                ? Collections.emptyList() : existingUser.getSysResRoles().stream().map(SysResRoleSlaveVO::getId).collect(Collectors.toList());
+                ? Collections.emptyList() : existingUser.getSysResRoles().stream().map(BaseSysResRoleSlaveVO::getId).collect(Collectors.toList());
         final int numOfSysResRolesSync = syncSysResRoles(user.getSysResRoleIds(), existingSysResRoleIds, existingUser.getId(), user.getUpdatedBy());
 
         final List<Long> existingTmpRoleIds = DeiCollectionUtil.isEmpty(existingUser.getTmpRoles())
-                ? Collections.emptyList() : existingUser.getTmpRoles().stream().map(TmpRoleSlaveVO::getId).collect(Collectors.toList());
+                ? Collections.emptyList() : existingUser.getTmpRoles().stream().map(BaseRoleSlaveVO::getId).collect(Collectors.toList());
         final int numOfTmpRolesSync = syncTmpRoles(user.getTmpRoleIds(), existingTmpRoleIds, existingUser.getId(), user.getUpdatedBy());
 
         final List<Long> existingTmpSysResRoleIds = DeiCollectionUtil.isEmpty(existingUser.getTmpSysResRoles())
-                ? Collections.emptyList() : existingUser.getTmpSysResRoles().stream().map(TmpSysResRoleSlaveVO::getId).collect(Collectors.toList());
+                ? Collections.emptyList() : existingUser.getTmpSysResRoles().stream().map(BaseSysResRoleSlaveVO::getId).collect(Collectors.toList());
         final int numOfTmpSysResRolesSync = syncTmpSysResRoles(user.getTmpSysResRoleIds(), existingTmpSysResRoleIds, existingUser.getId(), user.getUpdatedBy());
 
         final C updateCtx = getUpdateContext(user, existingUser);
@@ -303,8 +303,8 @@ public abstract class BaseUserMasterStdDataSvc<
         newEntity.setAvatarUrl(user.getAvatarUrl());
     }
 
-    protected void assembleUpdatableAttrs(final BaseUser example, final UserUpdatableObj updatableVO) {
-        super.assembleCommonAttrs(example, updatableVO);
+    protected void assembleCommonUpdatableAttrs(final BaseUser example, final UserUpdatableObj updatableVO) {
+        super.assembleCommonUpdatableAttrs(example, updatableVO);
         if (Objects.nonNull(updatableVO.getUsername())) {
             example.setUsername(updatableVO.getUsername().getNewVal());
         }

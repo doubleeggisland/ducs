@@ -1,7 +1,7 @@
 package com.ioiox.dei.duc.beans.model.master.user;
 
-import com.ioiox.dei.duc.beans.model.master.BaseRoleUpdateCtx;
+import com.ioiox.dei.duc.beans.model.master.SimpleRoleUpdateCtx;
 
 public class UserAcctSysResRoleUpdateCtx
-        extends BaseRoleUpdateCtx<UserAcctSysResRoleUpdatableObj> {
+        extends SimpleRoleUpdateCtx<UserAcctSysResRoleUpdatableObj> {
 }

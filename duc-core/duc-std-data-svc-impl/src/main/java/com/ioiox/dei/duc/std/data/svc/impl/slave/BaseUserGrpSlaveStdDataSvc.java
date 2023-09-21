@@ -16,8 +16,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public abstract class BaseUserGrpSlaveStdDataSvc<
-        R extends RoleSlaveVO,
-        RR extends SysResRoleSlaveVO,
+        R extends BaseRoleSlaveVO,
+        RR extends BaseSysResRoleSlaveVO,
         S extends UserGrpSlaveVO<R, RR>,
         E extends UserGrp,
         QP extends UserGrpQueryParam>

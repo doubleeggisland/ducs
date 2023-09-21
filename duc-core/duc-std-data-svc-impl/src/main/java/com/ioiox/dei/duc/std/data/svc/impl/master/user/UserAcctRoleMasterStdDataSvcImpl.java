@@ -3,20 +3,18 @@ package com.ioiox.dei.duc.std.data.svc.impl.master.user;
 import com.ioiox.dei.core.beans.BaseDeiEntity;
 import com.ioiox.dei.core.constant.DeiGlobalConstant;
 import com.ioiox.dei.core.orm.mybatis.model.std.data.DefaultStdDataQueryCfg;
-import com.ioiox.dei.core.utils.DeiCollectionUtil;
 import com.ioiox.dei.core.utils.JsonUtil;
-import com.ioiox.dei.duc.beans.entity.Role;
+import com.ioiox.dei.duc.beans.entity.SimpleRole;
 import com.ioiox.dei.duc.beans.entity.UserAcctRole;
+import com.ioiox.dei.duc.beans.model.master.user.UserAcctRoleDelParam;
 import com.ioiox.dei.duc.beans.model.master.user.UserAcctRoleUpdatableAttrsAnalyser;
 import com.ioiox.dei.duc.beans.model.master.user.UserAcctRoleUpdatableObj;
 import com.ioiox.dei.duc.beans.model.master.user.UserAcctRoleUpdateCtx;
 import com.ioiox.dei.duc.beans.model.slave.MenuQueryCfg;
 import com.ioiox.dei.duc.beans.model.slave.MenuSysApiMappingQueryCfg;
 import com.ioiox.dei.duc.beans.model.slave.RoleQueryCfg;
-import com.ioiox.dei.duc.beans.model.master.user.UserAcctRoleDelParam;
-import com.ioiox.dei.duc.beans.vo.std.master.user.UserAcctRoleMasterVO;
-import com.ioiox.dei.duc.beans.vo.std.slave.*;
 import com.ioiox.dei.duc.beans.model.slave.user.UserAcctRoleQueryParam;
+import com.ioiox.dei.duc.beans.vo.std.master.user.UserAcctRoleMasterVO;
 import com.ioiox.dei.duc.beans.vo.std.slave.user.UserAcctRoleSlaveVO;
 import com.ioiox.dei.duc.db.service.master.user.UserAcctRoleMasterDbSvc;
 import com.ioiox.dei.duc.std.data.svc.impl.master.BaseRoleMasterStdDataSvc;
@@ -29,7 +27,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service("userAcctRoleMasterStdDataSvc")
 public class UserAcctRoleMasterStdDataSvcImpl
@@ -65,9 +62,9 @@ public class UserAcctRoleMasterStdDataSvcImpl
                                 .showColumns(Collections.singletonList(BaseDeiEntity.ShowColumn.ID.getCode()))
                                 .build())
                         .showColumns(Arrays.asList(BaseDeiEntity.ShowColumn.ID.getCode(),
-                                Role.ShowColumn.CODE.getCode(), Role.ShowColumn.NAME.getCode(),
-                                Role.ShowColumn.TYPE.getCode(), Role.ShowColumn.STATUS.getCode(),
-                                Role.ShowColumn.MEMO.getCode(), Role.ShowColumn.SYS_PRJ_SID.getCode(),
+                                SimpleRole.ShowColumn.CODE.getCode(), SimpleRole.ShowColumn.NAME.getCode(),
+                                SimpleRole.ShowColumn.TYPE.getCode(), SimpleRole.ShowColumn.STATUS.getCode(),
+                                SimpleRole.ShowColumn.MEMO.getCode(), SimpleRole.ShowColumn.SYS_PRJ_SID.getCode(),
                                 BaseDeiEntity.ShowColumn.VERSION_NUM.getCode()))
                         .build());
     }
@@ -84,45 +81,6 @@ public class UserAcctRoleMasterStdDataSvcImpl
                 new RoleQueryCfg.Builder()
                         .showColumns(Collections.singletonList(BaseDeiEntity.ShowColumn.ID.getCode()))
                         .build());
-    }
-
-    @Override
-    protected List<Long> getMenuIds(final UserAcctRoleMasterVO role) {
-        return role.getMenuIds();
-    }
-
-    @Override
-    protected List<Long> getSysApiMappingIds(final UserAcctRoleMasterVO role) {
-        return role.getSysApiMappingIds();
-    }
-
-    @Override
-    protected List<Long> getSysApiIds(final UserAcctRoleMasterVO role) {
-        return role.getSysApiIds();
-    }
-
-    @Override
-    protected List<Long> getExistingMenuIds(final UserAcctRoleSlaveVO existingRole) {
-        return DeiCollectionUtil.isEmpty(existingRole.getMenus())
-                ? Collections.emptyList() : existingRole.getMenus().stream().map(MenuSlaveVO::getId).collect(Collectors.toList());
-    }
-
-    @Override
-    protected List<Long> getExistingSysApiMappingIds(final UserAcctRoleSlaveVO existingRole) {
-        if (DeiCollectionUtil.isEmpty(existingRole.getSysApiMappings())) {
-            return Collections.emptyList();
-        }
-        final List<Long> sysApiMappingIds = new LinkedList<>();
-        for (final List<MenuSysApiMappingSlaveStdVO> sysApiMappingsOfMenu : existingRole.getSysApiMappings().values()) {
-            sysApiMappingIds.addAll(sysApiMappingsOfMenu.stream().map(MenuSysApiMappingSlaveStdVO::getId).collect(Collectors.toList()));
-        }
-        return sysApiMappingIds;
-    }
-
-    @Override
-    protected List<Long> getExistingSysApiIds(final UserAcctRoleSlaveVO existingRole) {
-        return DeiCollectionUtil.isEmpty(existingRole.getSysApis())
-                ? Collections.emptyList() : existingRole.getSysApis().stream().map(SysApiSlaveVO::getId).collect(Collectors.toList());
     }
 
     @Override
@@ -227,7 +185,7 @@ public class UserAcctRoleMasterStdDataSvcImpl
     public UserAcctRole toNewEntity(final UserAcctRoleMasterVO userAcctRole) {
         final UserAcctRole newEntity = new UserAcctRole();
         assembleCommonAttrsOnInsert(newEntity, userAcctRole);
-        assembleRoleCommonAttrs(newEntity, userAcctRole);
+        assembleSimpleRoleAttrs(newEntity, userAcctRole);
         newEntity.setTenantSid(userAcctRole.getTenantId());
         newEntity.setCorpSid(userAcctRole.getTenantId());
         return newEntity;

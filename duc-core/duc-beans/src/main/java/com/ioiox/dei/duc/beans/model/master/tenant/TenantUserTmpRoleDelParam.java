@@ -1,14 +1,14 @@
 package com.ioiox.dei.duc.beans.model.master.tenant;
 
 public class TenantUserTmpRoleDelParam
-        extends BaseTenantUserRoleDelParam {
+        extends SimpleTenantUserRoleDelParam {
 
     private TenantUserTmpRoleDelParam(final Builder builder) {
         super(builder);
     }
 
     public static class Builder
-            extends BaseTenantUserRoleDelParamBuilder<TenantUserTmpRoleDelParam> {
+            extends SimpleTenantUserRoleDelParamBuilder<TenantUserTmpRoleDelParam> {
 
         @Override
         public TenantUserTmpRoleDelParam build() {

@@ -9,7 +9,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public abstract class SysResRoleMasterVO extends BaseRoleMasterVO {
+public abstract class BaseSysResRoleMasterVO extends SimpleRoleMasterVO {
     /**
      * 分配的系统资源权限
      */

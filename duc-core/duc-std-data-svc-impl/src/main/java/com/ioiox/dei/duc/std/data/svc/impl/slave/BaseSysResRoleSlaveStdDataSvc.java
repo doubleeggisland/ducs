@@ -4,10 +4,10 @@ import com.ioiox.dei.core.beans.BaseDeiEntity;
 import com.ioiox.dei.core.constant.DeiGlobalConstant;
 import com.ioiox.dei.core.orm.mybatis.model.std.data.StdDataQueryCfg;
 import com.ioiox.dei.core.utils.DeiCollectionUtil;
-import com.ioiox.dei.duc.beans.entity.Role;
-import com.ioiox.dei.duc.beans.vo.std.slave.BaseRoleSlaveVO;
-import com.ioiox.dei.duc.beans.model.slave.RoleQueryParam;
+import com.ioiox.dei.duc.beans.entity.BaseSysResRole;
+import com.ioiox.dei.duc.beans.model.slave.SimpleRoleQueryParam;
 import com.ioiox.dei.duc.beans.model.slave.SysResRoleQueryCfg;
+import com.ioiox.dei.duc.beans.vo.std.slave.BaseSysResRoleSlaveVO;
 import com.ioiox.dei.duc.beans.vo.std.slave.SysResSlaveVO;
 import com.ioiox.dei.duc.std.data.svc.slave.SysResSlaveStdDataSvc;
 import org.apache.commons.lang3.StringUtils;
@@ -18,10 +18,10 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public abstract class BaseSysResRoleSlaveStdDataSvc<
-        R extends BaseRoleSlaveVO,
-        E extends Role,
-        QP extends RoleQueryParam>
-        extends CommonRoleSlaveStdDataSvc<R, E> {
+        R extends BaseSysResRoleSlaveVO,
+        E extends BaseSysResRole,
+        QP extends SimpleRoleQueryParam>
+        extends SimpleRoleSlaveStdDataSvc<R, E> {
 
     @Autowired
     @Qualifier("sysResSlaveStdDataSvc")
@@ -65,15 +65,13 @@ public abstract class BaseSysResRoleSlaveStdDataSvc<
         }
 
         sysResRoles.forEach(sysResRole ->
-                assembleSysResources(sysResRole, groupedSysResources.getOrDefault(sysResRole.getId(), Collections.emptyList())));
+                        sysResRole.setSysResources(groupedSysResources.getOrDefault(sysResRole.getId(), Collections.emptyList())));
         return sysResRoles;
     }
 
     protected abstract int countByParams(final Map<String, Object> queryParams);
 
     protected abstract List<E> findByParams(final Map<String, Object> queryParams, final List<String> showColumns);
-
-    protected abstract void assembleSysResources(final R sysResRole, final List<SysResSlaveVO> sysResources);
 
     protected abstract Map<Long, List<Long>> getSysResIds(final List<Long> sysResRoleIds);
 

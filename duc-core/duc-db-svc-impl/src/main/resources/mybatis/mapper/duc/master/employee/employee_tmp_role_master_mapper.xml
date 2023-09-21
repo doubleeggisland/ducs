@@ -10,7 +10,7 @@
     created_by, created_time, updated_time, version_num)
     values
     (#{code}, #{name}, #{type}, #{memo}, #{status},  #{sysPrjSid},
-    #{unlimitedDateRangeFlag}, #{effectiveStartDate}, #{effectiveEndDate}, #{unlimitedTimeRangeFlag}, #{effectiveStartTime}, #{effectiveEndTime},
+    #{unlimitedDateRange}, #{effectiveStartDate}, #{effectiveEndDate}, #{unlimitedTimeRange}, #{effectiveStartTime}, #{effectiveEndTime},
     #{createdBy}, #{createdTime}, #{updatedTime}, #{versionNum})
   </insert>
 
@@ -22,7 +22,7 @@
     values
     <foreach collection="list" index="index" item="item" separator=",">
       (#{item.code}, #{item.name}, #{item.type}, #{item.memo}, #{item.status},  #{item.sysPrjSid},
-      #{item.unlimitedDateRangeFlag}, #{item.effectiveStartDate}, #{item.effectiveEndDate}, #{item.unlimitedTimeRangeFlag}, #{item.effectiveStartTime}, #{item.effectiveEndTime},
+      #{item.unlimitedDateRange}, #{item.effectiveStartDate}, #{item.effectiveEndDate}, #{item.unlimitedTimeRange}, #{item.effectiveStartTime}, #{item.effectiveEndTime},
       #{item.createdBy}, #{item.createdTime}, #{item.updatedTime}, #{item.versionNum})
     </foreach>
   </insert>
@@ -49,8 +49,8 @@
       <if test="sysPrjSid != null">
         sys_prj_sid = #{sysPrjSid},
       </if>
-      <if test="unlimitedDateRangeFlag != null">
-        unlimited_date_range = #{unlimitedDateRangeFlag},
+      <if test="unlimitedDateRange != null">
+        unlimited_date_range = #{unlimitedDateRange},
       </if>
       <if test="effectiveStartDate != null">
         effective_start_date = #{effectiveStartDate},
@@ -58,8 +58,8 @@
       <if test="effectiveEndDate != null">
         effective_end_date = #{effectiveEndDate},
       </if>
-      <if test="unlimitedTimeRangeFlag != null">
-        unlimited_time_range = #{unlimitedTimeRangeFlag},
+      <if test="unlimitedTimeRange != null">
+        unlimited_time_range = #{unlimitedTimeRange},
       </if>
       <if test="effectiveStartTime != null">
         effective_start_time = #{effectiveStartTime},

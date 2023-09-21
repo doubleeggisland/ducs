@@ -1,6 +1,6 @@
 package com.ioiox.dei.duc.beans.vo.std.master.employee;
 
-import com.ioiox.dei.duc.beans.vo.std.master.TmpSysResRoleMasterVO;
+import com.ioiox.dei.duc.beans.vo.std.master.BaseSysResRoleMasterVO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,5 +9,5 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class EmployeeTmpSysResRoleMasterVO
-        extends TmpSysResRoleMasterVO {
+        extends BaseSysResRoleMasterVO {
 }

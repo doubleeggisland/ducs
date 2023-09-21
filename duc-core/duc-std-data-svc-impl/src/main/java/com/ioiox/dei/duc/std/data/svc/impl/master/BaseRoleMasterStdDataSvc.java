@@ -5,28 +5,29 @@ import com.ioiox.dei.core.exception.DeiServiceException;
 import com.ioiox.dei.core.utils.DeiCollectionUtil;
 import com.ioiox.dei.core.utils.JsonUtil;
 import com.ioiox.dei.core.utils.RelationshipsAnalyser;
-import com.ioiox.dei.duc.beans.entity.Role;
-import com.ioiox.dei.duc.beans.model.master.BaseRoleUpdatableObj;
-import com.ioiox.dei.duc.beans.model.master.BaseRoleUpdateCtx;
-import com.ioiox.dei.duc.beans.model.master.BaseRoleDelParam;
+import com.ioiox.dei.duc.beans.entity.BaseRole;
+import com.ioiox.dei.duc.beans.model.master.SimpleRoleDelParam;
+import com.ioiox.dei.duc.beans.model.master.SimpleRoleUpdatableObj;
+import com.ioiox.dei.duc.beans.model.master.SimpleRoleUpdateCtx;
 import com.ioiox.dei.duc.beans.vo.std.master.BaseRoleMasterVO;
 import com.ioiox.dei.duc.beans.vo.std.slave.BaseRoleSlaveVO;
+import com.ioiox.dei.duc.beans.vo.std.slave.MenuSlaveVO;
+import com.ioiox.dei.duc.beans.vo.std.slave.MenuSysApiMappingSlaveStdVO;
+import com.ioiox.dei.duc.beans.vo.std.slave.SysApiSlaveVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public abstract class BaseRoleMasterStdDataSvc<
         T extends BaseRoleMasterVO,
-        O extends BaseRoleUpdatableObj,
-        C extends BaseRoleUpdateCtx<O>,
-        D extends BaseRoleDelParam,
+        O extends SimpleRoleUpdatableObj,
+        C extends SimpleRoleUpdateCtx<O>,
+        D extends SimpleRoleDelParam,
         S extends BaseRoleSlaveVO,
-        E extends Role>
-        extends CommonRoleMasterStdDataSvc<T, O, E> {
+        E extends BaseRole>
+        extends SimpleRoleMasterStdDataSvc<T, O, E> {
 
     private static final Logger log = LoggerFactory.getLogger(BaseRoleMasterStdDataSvc.class);
 
@@ -38,9 +39,9 @@ public abstract class BaseRoleMasterStdDataSvc<
         newEntity.setDefaultValueIfNeed();
         doSave(newEntity);
         final long id = newEntity.getSid();
-        syncMenus(getMenuIds(role), null, id, role.getUpdatedBy());
-        syncMenuSysApis(getSysApiMappingIds(role), null, id, role.getUpdatedBy());
-        syncSysApis(getSysApiIds(role), null, id, role.getUpdatedBy());
+        syncMenus(role.getMenuIds(), null, id, role.getUpdatedBy());
+        syncMenuSysApis(role.getSysApiMappingIds(), null, id, role.getUpdatedBy());
+        syncSysApis(role.getSysApiIds(), null, id, role.getUpdatedBy());
         return id;
     }
 
@@ -58,11 +59,23 @@ public abstract class BaseRoleMasterStdDataSvc<
 
     public boolean update(final T role, final S existingRole) {
         final int numOfMenusSync =
-                syncMenus(getMenuIds(role), getExistingMenuIds(existingRole), existingRole.getId(), role.getUpdatedBy());
+                syncMenus(
+                        role.getMenuIds(),
+                        DeiCollectionUtil.isEmpty(existingRole.getMenus())
+                                ? Collections.emptyList() : existingRole.getMenus().stream().map(MenuSlaveVO::getId).collect(Collectors.toList()),
+                        existingRole.getId(),
+                        role.getUpdatedBy()
+                );
         final int numOfMenuSysApisSync =
-                syncMenuSysApis(getSysApiMappingIds(role), getExistingSysApiMappingIds(existingRole), existingRole.getId(), role.getUpdatedBy());
+                syncMenuSysApis(role.getSysApiMappingIds(), getExistingSysApiMappingIds(existingRole), existingRole.getId(), role.getUpdatedBy());
         final int numOfSysApisSync =
-                syncSysApis(getSysApiIds(role), getExistingSysApiIds(existingRole), existingRole.getId(), role.getUpdatedBy());
+                syncSysApis(
+                        role.getSysApiIds(),
+                        DeiCollectionUtil.isEmpty(existingRole.getSysApis())
+                                ? Collections.emptyList() : existingRole.getSysApis().stream().map(SysApiSlaveVO::getId).collect(Collectors.toList()),
+                        existingRole.getId(),
+                        role.getUpdatedBy()
+                );
         final C updateCtx = getUpdateContext(role, existingRole);
         final O updatableObj = updateCtx.getUpdatableObj();
         if (updatableObj.attrsNotUpdated()) {
@@ -92,6 +105,17 @@ public abstract class BaseRoleMasterStdDataSvc<
             }
         }
         return updated;
+    }
+
+    List<Long> getExistingSysApiMappingIds(final S existingRole) {
+        if (DeiCollectionUtil.isEmpty(existingRole.getSysApiMappings())) {
+            return Collections.emptyList();
+        }
+        final List<Long> sysApiMappingIds = new LinkedList<>();
+        for (final List<MenuSysApiMappingSlaveStdVO> sysApiMappingsOfMenu : existingRole.getSysApiMappings().values()) {
+            sysApiMappingIds.addAll(sysApiMappingsOfMenu.stream().map(MenuSysApiMappingSlaveStdVO::getId).collect(Collectors.toList()));
+        }
+        return sysApiMappingIds;
     }
 
     public int remove(final D delParam) {
@@ -195,18 +219,6 @@ public abstract class BaseRoleMasterStdDataSvc<
     protected abstract S getExistingRole(final Long id);
 
     protected abstract List<S> queryExistingRoles(final D delParam);
-
-    protected abstract List<Long> getMenuIds(final T role);
-
-    protected abstract List<Long> getSysApiMappingIds(final T role);
-
-    protected abstract List<Long> getSysApiIds(final T role);
-
-    protected abstract List<Long> getExistingMenuIds(final S existingRole);
-
-    protected abstract List<Long> getExistingSysApiMappingIds(final S existingRole);
-
-    protected abstract List<Long> getExistingSysApiIds(final S existingRole);
 
     protected abstract C getUpdateContext(final T role, final S existingRole);
 

@@ -16,7 +16,7 @@ import java.util.Objects;
 @Setter
 @NoArgsConstructor
 public class UserAcctSysResRole
-        extends SysResRole {
+        extends BaseSysResRole {
 
     /**
      * 所属租户ID

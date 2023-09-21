@@ -4,21 +4,21 @@ import com.ioiox.dei.core.orm.mybatis.model.std.data.StdDataQueryParamBuilder;
 
 import java.util.List;
 
-public abstract class RoleQueryParamBuilder<T extends RoleQueryParam>
+public abstract class SimpleRoleQueryParamBuilder<T extends SimpleRoleQueryParam>
         extends StdDataQueryParamBuilder<T> {
     private List<String> codes;
     private List<Long> sysPrjIds;
     private List<String> statuses;
 
-    public RoleQueryParamBuilder<T> codes(final List<String> codes) {
+    public SimpleRoleQueryParamBuilder<T> codes(final List<String> codes) {
         this.codes = codes;
         return this;
     }
-    public RoleQueryParamBuilder<T> sysPrjIds(final List<Long> sysPrjIds) {
+    public SimpleRoleQueryParamBuilder<T> sysPrjIds(final List<Long> sysPrjIds) {
         this.sysPrjIds = sysPrjIds;
         return this;
     }
-    public RoleQueryParamBuilder<T> statuses(final List<String> statuses) {
+    public SimpleRoleQueryParamBuilder<T> statuses(final List<String> statuses) {
         this.statuses = statuses;
         return this;
     }

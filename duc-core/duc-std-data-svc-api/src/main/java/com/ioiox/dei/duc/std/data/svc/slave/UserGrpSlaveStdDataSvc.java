@@ -7,8 +7,8 @@ import com.ioiox.dei.duc.beans.vo.std.slave.*;
 import java.util.List;
 
 public interface UserGrpSlaveStdDataSvc<
-        R extends RoleSlaveVO,
-        RR extends SysResRoleSlaveVO,
+        R extends BaseRoleSlaveVO,
+        RR extends BaseSysResRoleSlaveVO,
         S extends UserGrpSlaveVO<R, RR>,
         QP extends UserGrpQueryParam> {
 

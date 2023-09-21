@@ -4,13 +4,16 @@ import com.ioiox.dei.core.beans.BaseDeiEntity;
 import com.ioiox.dei.core.constant.DeiGlobalConstant;
 import com.ioiox.dei.core.orm.mybatis.model.std.data.StdDataQueryCfg;
 import com.ioiox.dei.core.utils.DeiCollectionUtil;
+import com.ioiox.dei.duc.beans.entity.BaseRole;
 import com.ioiox.dei.duc.beans.entity.MenuSysApiMapping;
-import com.ioiox.dei.duc.beans.entity.Role;
 import com.ioiox.dei.duc.beans.model.slave.MenuQueryCfg;
 import com.ioiox.dei.duc.beans.model.slave.MenuSysApiMappingQueryCfg;
 import com.ioiox.dei.duc.beans.model.slave.RoleQueryCfg;
-import com.ioiox.dei.duc.beans.model.slave.RoleQueryParam;
-import com.ioiox.dei.duc.beans.vo.std.slave.*;
+import com.ioiox.dei.duc.beans.model.slave.SimpleRoleQueryParam;
+import com.ioiox.dei.duc.beans.vo.std.slave.BaseRoleSlaveVO;
+import com.ioiox.dei.duc.beans.vo.std.slave.MenuSlaveVO;
+import com.ioiox.dei.duc.beans.vo.std.slave.MenuSysApiMappingSlaveStdVO;
+import com.ioiox.dei.duc.beans.vo.std.slave.SysApiSlaveVO;
 import com.ioiox.dei.duc.std.data.svc.slave.MenuSlaveStdDataSvc;
 import com.ioiox.dei.duc.std.data.svc.slave.MenuSysApiMappingSlaveStdDataSvc;
 import com.ioiox.dei.duc.std.data.svc.slave.SysApiSlaveStdDataSvc;
@@ -23,9 +26,9 @@ import java.util.stream.Collectors;
 
 public abstract class BaseRoleSlaveStdDataSvc<
         R extends BaseRoleSlaveVO,
-        E extends Role,
-        QP extends RoleQueryParam>
-        extends CommonRoleSlaveStdDataSvc<R, E> {
+        E extends BaseRole,
+        QP extends SimpleRoleQueryParam>
+        extends SimpleRoleSlaveStdDataSvc<R, E> {
 
     @Autowired
     @Qualifier("menuSlaveStdDataSvc")
@@ -94,16 +97,22 @@ public abstract class BaseRoleSlaveStdDataSvc<
         }
 
         roles.forEach(role -> {
-            assembleMenus(role, groupedMenus.getOrDefault(role.getId(), Collections.emptyList()));
+            role.setMenus(groupedMenus.getOrDefault(role.getId(), Collections.emptyList()));
 
             final List<MenuSysApiMappingSlaveStdVO> sysApiMappingsOfRole =
                     groupedSysApiMappings.getOrDefault(role.getId(), Collections.emptyList());
-            assembleSysApiMappings(role, sysApiMappingsOfRole);
-
+            if (DeiCollectionUtil.isEmpty(sysApiMappingsOfRole)) {
+                role.setSysApiMappings(Collections.emptyMap());
+            } else {
+                role.setSysApiMappings(
+                        sysApiMappingsOfRole.stream()
+                                .collect(Collectors.groupingBy(MenuSysApiMappingSlaveStdVO::getMenuId))
+                );
+            }
             final List<SysApiSlaveVO> menuSysApisOfRole = getMenuSysApis(sysApiMappingsOfRole);
-            assembleMenuSysApis(role, menuSysApisOfRole);
+            role.setMenuSysApis(menuSysApisOfRole);
 
-            assembleSysApis(role, groupedSysApis.getOrDefault(role.getId(), Collections.emptyList()));
+            role.setSysApis(groupedSysApis.getOrDefault(role.getId(), Collections.emptyList()));
         });
         return roles;
     }
@@ -135,14 +144,6 @@ public abstract class BaseRoleSlaveStdDataSvc<
     protected abstract Map<Long, List<Long>> getSysApiMappingIds(final List<Long> roleIds);
 
     protected abstract Map<Long, List<Long>> getSysApiIds(final List<Long> roleIds);
-
-    protected abstract void assembleMenus(final R role, final List<MenuSlaveVO> menus);
-
-    protected abstract void assembleSysApiMappings(final R role, final List<MenuSysApiMappingSlaveStdVO> sysApiMappings);
-
-    protected abstract void assembleMenuSysApis(final R role, final List<SysApiSlaveVO> menuSysApis);
-
-    protected abstract void assembleSysApis(final R role, final List<SysApiSlaveVO> sysApis);
 
     protected Map<Long, List<MenuSlaveVO>> getMenus(final List<Long> roleIds,
                                                     final MenuQueryCfg queryCfg) {

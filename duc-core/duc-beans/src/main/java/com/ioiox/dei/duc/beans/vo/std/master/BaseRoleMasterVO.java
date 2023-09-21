@@ -1,39 +1,25 @@
 package com.ioiox.dei.duc.beans.vo.std.master;
 
-import com.ioiox.dei.core.orm.mybatis.model.std.data.MasterStdDataVO;
-import com.ioiox.dei.duc.spring.core.model.DUCRoleType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
-public abstract class BaseRoleMasterVO extends MasterStdDataVO {
+public abstract class BaseRoleMasterVO extends SimpleRoleMasterVO {
     /**
-     * 角色编号
+     * 分配的菜单权限
      */
-    private String code;
+    private List<Long> menuIds;
     /**
-     * 角色名称
+     * 分配的菜单相关的系统接口权限(菜单与系统接口映射ID)
      */
-    private String name;
+    private List<Long> sysApiMappingIds;
     /**
-     * 角色类型
-     * @see DUCRoleType
+     * 分配的系统接口权限
      */
-    private String type;
-    /**
-     * 状态
-     * @see com.ioiox.dei.core.constant.DeiStatus
-     */
-    private String status;
-    /**
-     * 备注
-     */
-    private String memo;
-    /**
-     * 所属项目ID
-     */
-    private Long sysPrjId;
+    private List<Long> sysApiIds;
 }

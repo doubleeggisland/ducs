@@ -123,7 +123,7 @@ public class SysPrjMasterStdDataSvcImpl
     @Override
     public SysPrj toUpdatableObj(final SysPrjUpdatableObj updatableVO) {
         final SysPrj example = new SysPrj();
-        assembleCommonAttrs(example, updatableVO);
+        assembleCommonUpdatableAttrs(example, updatableVO);
         if (Objects.nonNull(updatableVO.getCode())) {
             example.setCode(updatableVO.getCode().getNewVal());
         }

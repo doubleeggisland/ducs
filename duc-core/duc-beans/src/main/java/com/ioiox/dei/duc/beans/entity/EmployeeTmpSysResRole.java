@@ -11,7 +11,7 @@ import java.util.Objects;
 @Setter
 @NoArgsConstructor
 public class EmployeeTmpSysResRole
-        extends TmpSysResRole {
+        extends BaseSysResRole {
 
     @Override
     public boolean equals(Object o) {

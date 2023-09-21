@@ -1,7 +1,7 @@
 package com.ioiox.dei.duc.beans.vo.std.slave.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.ioiox.dei.duc.beans.vo.std.slave.TmpSysResRoleSlaveVO;
+import com.ioiox.dei.duc.beans.vo.std.slave.BaseSysResRoleSlaveVO;
 import com.ioiox.dei.duc.beans.vo.std.slave.tenant.TenantSlaveVO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class UserAcctTmpSysResRoleSlaveVO
-        extends TmpSysResRoleSlaveVO {
+        extends BaseSysResRoleSlaveVO {
     /**
      * 所属租户ID
      */

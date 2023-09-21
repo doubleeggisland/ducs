@@ -1,14 +1,14 @@
 package com.ioiox.dei.duc.beans.model.slave.user;
 
 public class UserAcctTmpSysResRoleQueryParam
-        extends BaseUserRoleQueryParam {
+        extends SimpleUserRoleQueryParam {
 
     private UserAcctTmpSysResRoleQueryParam(final Builder builder) {
         super(builder);
     }
 
     public static class Builder
-            extends BaseUserRoleQueryParamBuilder<UserAcctTmpSysResRoleQueryParam> {
+            extends SimpleUserRoleQueryParamBuilder<UserAcctTmpSysResRoleQueryParam> {
 
         @Override
         public UserAcctTmpSysResRoleQueryParam build() {

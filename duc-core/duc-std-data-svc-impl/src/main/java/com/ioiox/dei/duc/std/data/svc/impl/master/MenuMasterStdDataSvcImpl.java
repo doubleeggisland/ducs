@@ -217,8 +217,7 @@ public class MenuMasterStdDataSvcImpl
     @Override
     public Menu toUpdatableObj(final MenuUpdatableObj updatableVO) {
         final Menu example = new Menu();
-        assembleCommonAttrs(example, updatableVO);
-
+        assembleCommonUpdatableAttrs(example, updatableVO);
         if (Objects.nonNull(updatableVO.getCode())) {
             example.setCode(updatableVO.getCode().getNewVal());
         }

@@ -4,7 +4,6 @@ import com.ioiox.dei.core.utils.DeiCollectionUtil;
 import com.ioiox.dei.duc.beans.entity.EmployeeTmpSysResRole;
 import com.ioiox.dei.duc.beans.model.slave.SysResRoleQueryCfg;
 import com.ioiox.dei.duc.beans.model.slave.employee.EmployeeTmpSysResRoleQueryParam;
-import com.ioiox.dei.duc.beans.vo.std.slave.SysResSlaveVO;
 import com.ioiox.dei.duc.beans.vo.std.slave.employee.EmployeeTmpSysResRoleSlaveVO;
 import com.ioiox.dei.duc.db.service.slave.employee.EmployeeTmpSysResRoleR2ResSlaveDbSvc;
 import com.ioiox.dei.duc.db.service.slave.employee.EmployeeTmpSysResRoleSlaveDbSvc;
@@ -69,11 +68,6 @@ public class EmployeeTmpSysResRoleSlaveStdDataSvcImpl
     }
 
     @Override
-    protected void assembleSysResources(final EmployeeTmpSysResRoleSlaveVO sysResRole, final List<SysResSlaveVO> sysResources) {
-        sysResRole.setSysResources(sysResources);
-    }
-
-    @Override
     protected Map<Long, List<Long>> getSysResIds(final List<Long> tmpSysResRoleIds) {
         return employeeTmpSysResRoleR2ResSlaveDbSvc.getGroupedSysResIds(tmpSysResRoleIds);
     }
@@ -81,7 +75,7 @@ public class EmployeeTmpSysResRoleSlaveStdDataSvcImpl
     @Override
     public EmployeeTmpSysResRoleSlaveVO transferToStdDataVO(final EmployeeTmpSysResRole entity) {
         final EmployeeTmpSysResRoleSlaveVO tmpSysResRole = new EmployeeTmpSysResRoleSlaveVO();
-        assembleTmpRoleAttrs(tmpSysResRole, entity);
+        assembleSimpleTmpRoleAttrs(tmpSysResRole, entity);
         return tmpSysResRole;
     }
 }

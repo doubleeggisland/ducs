@@ -1,7 +1,7 @@
-package com.ioiox.dei.duc.beans.model.master.user;
+package com.ioiox.dei.duc.beans.model.master.tenant;
 
 import com.ioiox.dei.core.utils.DeiCollectionUtil;
-import com.ioiox.dei.duc.beans.model.master.BaseRoleDelParam;
+import com.ioiox.dei.duc.beans.model.master.SimpleRoleDelParam;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,25 +12,16 @@ import java.util.Map;
 @Getter
 @Setter
 @NoArgsConstructor
-public class BaseUserRoleDelParam extends BaseRoleDelParam {
-    private List<Long> corpIds;
+public abstract class SimpleTenantUserRoleDelParam extends SimpleRoleDelParam {
     private List<Long> tenantIds;
 
-    public BaseUserRoleDelParam(final BaseUserRoleDelParamBuilder<? extends BaseUserRoleDelParam> builder) {
+    public SimpleTenantUserRoleDelParam(final SimpleTenantUserRoleDelParamBuilder<? extends SimpleTenantUserRoleDelParam> builder) {
         super(builder);
-        corpIds = builder.corpIds();
         tenantIds = builder.tenantIds();
     }
 
     public Map<String, Object> deleteParams() {
         final Map<String, Object> deleteParams = super.deleteParams();
-        if (DeiCollectionUtil.isNotEmpty(corpIds)) {
-            if (corpIds.size() > 1) {
-                deleteParams.put("corpSids", corpIds);
-            } else {
-                deleteParams.put("corpSid", corpIds.get(0));
-            }
-        }
         if (DeiCollectionUtil.isNotEmpty(tenantIds)) {
             if (tenantIds.size() > 1) {
                 deleteParams.put("tenantSids", tenantIds);

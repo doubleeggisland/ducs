@@ -158,7 +158,7 @@ public abstract class BaseUserSysPrjPrivilegeMasterStdDataSvc
     @Override
     public UserSysPrjPrivilege toUpdatableObj(final UserSysPrjPrivilegeUpdatableObj updatableVO) {
         final UserSysPrjPrivilege example = new UserSysPrjPrivilege();
-        assembleCommonAttrs(example, updatableVO);
+        assembleCommonUpdatableAttrs(example, updatableVO);
         if (Objects.nonNull(updatableVO.getAccessCondition())) {
             example.setAccessCondition(updatableVO.getAccessCondition().getNewVal());
         }

@@ -10,10 +10,10 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 public abstract class UserSlaveVO<
-        R extends RoleSlaveVO,
-        RR extends SysResRoleSlaveVO,
-        TR extends TmpRoleSlaveVO,
-        TRR extends TmpSysResRoleSlaveVO,
+        R extends BaseRoleSlaveVO,
+        RR extends BaseSysResRoleSlaveVO,
+        TR extends BaseRoleSlaveVO,
+        TRR extends BaseSysResRoleSlaveVO,
         UG extends UserGrpSlaveVO<R, RR>>
         extends BaseUserSlaveVO {
     /**

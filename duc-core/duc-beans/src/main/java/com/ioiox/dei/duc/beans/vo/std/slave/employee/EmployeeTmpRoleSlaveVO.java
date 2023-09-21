@@ -1,6 +1,6 @@
 package com.ioiox.dei.duc.beans.vo.std.slave.employee;
 
-import com.ioiox.dei.duc.beans.vo.std.slave.TmpRoleSlaveVO;
+import com.ioiox.dei.duc.beans.vo.std.slave.BaseRoleSlaveVO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,5 +9,5 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class EmployeeTmpRoleSlaveVO
-        extends TmpRoleSlaveVO {
+        extends BaseRoleSlaveVO {
 }

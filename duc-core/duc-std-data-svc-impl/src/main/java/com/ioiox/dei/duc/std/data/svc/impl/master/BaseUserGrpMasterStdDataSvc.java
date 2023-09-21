@@ -11,8 +11,8 @@ import com.ioiox.dei.duc.beans.model.master.UserGrpUpdatableObj;
 import com.ioiox.dei.duc.beans.model.master.UserGrpUpdateCtx;
 import com.ioiox.dei.duc.beans.model.master.UserGrpDelParam;
 import com.ioiox.dei.duc.beans.vo.std.master.UserGrpMasterVO;
-import com.ioiox.dei.duc.beans.vo.std.slave.RoleSlaveVO;
-import com.ioiox.dei.duc.beans.vo.std.slave.SysResRoleSlaveVO;
+import com.ioiox.dei.duc.beans.vo.std.slave.BaseRoleSlaveVO;
+import com.ioiox.dei.duc.beans.vo.std.slave.BaseSysResRoleSlaveVO;
 import com.ioiox.dei.duc.beans.vo.std.slave.UserGrpSlaveVO;
 import com.ioiox.dei.duc.std.data.svc.master.UserGrpMasterStdDataSvc;
 import org.slf4j.Logger;
@@ -29,7 +29,7 @@ public abstract class BaseUserGrpMasterStdDataSvc<
         O extends UserGrpUpdatableObj,
         C extends UserGrpUpdateCtx<O>,
         D extends UserGrpDelParam,
-        S extends UserGrpSlaveVO<? extends RoleSlaveVO, ? extends SysResRoleSlaveVO>,
+        S extends UserGrpSlaveVO<? extends BaseRoleSlaveVO, ? extends BaseSysResRoleSlaveVO>,
         E extends UserGrp>
         extends BaseDeiMasterStdDataSvc<T, O, E>
         implements UserGrpMasterStdDataSvc<T, D> {
@@ -67,11 +67,11 @@ public abstract class BaseUserGrpMasterStdDataSvc<
                    final S existingUserGrp) {
         final int numOfRolesSync =
                 syncRoles(userGrp.getRoleIds(),
-                        DeiCollectionUtil.isEmpty(existingUserGrp.getRoles()) ? Collections.emptyList() : existingUserGrp.getRoles().stream().map(RoleSlaveVO::getId).collect(Collectors.toList()),
+                        DeiCollectionUtil.isEmpty(existingUserGrp.getRoles()) ? Collections.emptyList() : existingUserGrp.getRoles().stream().map(BaseRoleSlaveVO::getId).collect(Collectors.toList()),
                         existingUserGrp.getId(), userGrp.getUpdatedBy());
         final int numOfSysResRolesSync =
                 syncSysResRoles(userGrp.getSysResRoleIds(),
-                        DeiCollectionUtil.isEmpty(existingUserGrp.getSysResRoles()) ? Collections.emptyList() : existingUserGrp.getSysResRoles().stream().map(SysResRoleSlaveVO::getId).collect(Collectors.toList()),
+                        DeiCollectionUtil.isEmpty(existingUserGrp.getSysResRoles()) ? Collections.emptyList() : existingUserGrp.getSysResRoles().stream().map(BaseSysResRoleSlaveVO::getId).collect(Collectors.toList()),
                         existingUserGrp.getId(), userGrp.getUpdatedBy());
         final C updateCtx = getUpdateContext(userGrp, existingUserGrp);
         final O updatableObj = updateCtx.getUpdatableObj();
@@ -195,8 +195,8 @@ public abstract class BaseUserGrpMasterStdDataSvc<
         newEntity.setStatus(userGrp.getStatus());
     }
 
-    protected void assembleUpdatableAttrs(final UserGrp example, final UserGrpUpdatableObj updatableVO) {
-        super.assembleCommonAttrs(example, updatableVO);
+    protected void assembleCommonUpdatableAttrs(final UserGrp example, final UserGrpUpdatableObj updatableVO) {
+        super.assembleCommonUpdatableAttrs(example, updatableVO);
         if (Objects.nonNull(updatableVO.getCode())) {
             example.setCode(updatableVO.getCode().getNewVal());
         }

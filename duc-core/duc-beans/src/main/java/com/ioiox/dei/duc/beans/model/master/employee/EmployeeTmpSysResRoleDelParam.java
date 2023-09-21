@@ -1,17 +1,17 @@
 package com.ioiox.dei.duc.beans.model.master.employee;
 
-import com.ioiox.dei.duc.beans.model.master.BaseRoleDelParam;
-import com.ioiox.dei.duc.beans.model.master.BaseRoleDelParamBuilder;
+import com.ioiox.dei.duc.beans.model.master.SimpleRoleDelParam;
+import com.ioiox.dei.duc.beans.model.master.SimpleRoleDelParamBuilder;
 
 public class EmployeeTmpSysResRoleDelParam
-        extends BaseRoleDelParam {
+        extends SimpleRoleDelParam {
 
     private EmployeeTmpSysResRoleDelParam(final Builder builder) {
         super(builder);
     }
 
     public static class Builder
-            extends BaseRoleDelParamBuilder<EmployeeTmpSysResRoleDelParam> {
+            extends SimpleRoleDelParamBuilder<EmployeeTmpSysResRoleDelParam> {
 
         @Override
         public EmployeeTmpSysResRoleDelParam build() {

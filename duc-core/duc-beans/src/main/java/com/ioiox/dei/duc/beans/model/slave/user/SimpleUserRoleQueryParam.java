@@ -1,9 +1,9 @@
-package com.ioiox.dei.duc.beans.model.slave.tenant;
+package com.ioiox.dei.duc.beans.model.slave.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.ioiox.dei.core.utils.DeiCollectionUtil;
-import com.ioiox.dei.duc.beans.model.slave.RoleQueryParam;
+import com.ioiox.dei.duc.beans.model.slave.SimpleRoleQueryParam;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,17 +16,27 @@ import java.util.Map;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public abstract class BaseTenantUserRoleQueryParam extends RoleQueryParam {
+public abstract class SimpleUserRoleQueryParam
+        extends SimpleRoleQueryParam {
+    private List<Long> corpIds;
     private List<Long> tenantIds;
 
-    public BaseTenantUserRoleQueryParam(final BaseTenantUserRoleQueryParamBuilder<? extends BaseTenantUserRoleQueryParam> builder) {
+    public SimpleUserRoleQueryParam(final SimpleUserRoleQueryParamBuilder<? extends SimpleUserRoleQueryParam> builder) {
         super(builder);
+        corpIds = builder.corpIds();
         tenantIds = builder.tenantIds();
     }
 
     @Override
     public Map<String, Object> queryParams() {
         final Map<String, Object> queryParams = super.queryParams();
+        if (DeiCollectionUtil.isNotEmpty(this.corpIds)) {
+            if (this.corpIds.size() > 1) {
+                queryParams.put("corpSids", this.corpIds);
+            } else {
+                queryParams.put("corpSid", this.corpIds.get(0));
+            }
+        }
         if (DeiCollectionUtil.isNotEmpty(this.tenantIds)) {
             if (this.tenantIds.size() > 1) {
                 queryParams.put("tenantSids", this.tenantIds);

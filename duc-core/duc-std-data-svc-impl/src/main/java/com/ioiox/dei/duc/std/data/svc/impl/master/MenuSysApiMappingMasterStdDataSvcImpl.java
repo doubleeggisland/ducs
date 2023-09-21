@@ -171,6 +171,7 @@ public class MenuSysApiMappingMasterStdDataSvcImpl
     @Override
     public MenuSysApiMapping toUpdatableObj(final MenuSysApiMappingUpdatableObj updatableVO) {
         final MenuSysApiMapping example = new MenuSysApiMapping();
+        assembleCommonUpdatableAttrs(example, updatableVO);
         if (Objects.nonNull(updatableVO.getInteractForm())) {
             example.setInteractForm(updatableVO.getInteractForm().getNewVal());
         }

@@ -13,7 +13,7 @@ import java.util.Objects;
 @Setter
 @NoArgsConstructor
 public class EmployeeSysResRole
-        extends SysResRole {
+        extends BaseSysResRole {
 
     @Override
     public boolean equals(Object o) {

@@ -95,36 +95,9 @@ public class UserAcctRoleSlaveStdDataSvcImpl
     }
 
     @Override
-    protected void assembleMenus(final UserAcctRoleSlaveVO role,
-                                 final List<MenuSlaveVO> menus) {
-        role.setMenus(menus);
-    }
-
-    @Override
-    protected void assembleSysApiMappings(final UserAcctRoleSlaveVO role,
-                                          final List<MenuSysApiMappingSlaveStdVO> sysApiMappings) {
-        if (DeiCollectionUtil.isEmpty(sysApiMappings)) {
-            role.setSysApiMappings(Collections.emptyMap());
-        } else {
-            role.setSysApiMappings(sysApiMappings.stream()
-                    .collect(Collectors.groupingBy(MenuSysApiMappingSlaveStdVO::getMenuId)));
-        }
-    }
-
-    @Override
-    protected void assembleMenuSysApis(final UserAcctRoleSlaveVO role, final List<SysApiSlaveVO> menuSysApis) {
-        role.setMenuSysApis(menuSysApis);
-    }
-
-    @Override
-    protected void assembleSysApis(final UserAcctRoleSlaveVO role, final List<SysApiSlaveVO> sysApis) {
-        role.setSysApis(sysApis);
-    }
-
-    @Override
     public UserAcctRoleSlaveVO transferToStdDataVO(final UserAcctRole entity) {
         final UserAcctRoleSlaveVO stdVO = new UserAcctRoleSlaveVO();
-        assembleRoleAttrs(stdVO, entity);
+        assembleSimpleRoleAttrs(stdVO, entity);
         stdVO.setTenantId(entity.getTenantSid());
         stdVO.setCorpId(entity.getCorpSid());
         return stdVO;

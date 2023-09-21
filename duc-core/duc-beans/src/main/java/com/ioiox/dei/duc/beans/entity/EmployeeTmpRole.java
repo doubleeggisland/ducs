@@ -2,7 +2,7 @@ package com.ioiox.dei.duc.beans.entity;
 
 import java.util.Objects;
 
-public class EmployeeTmpRole extends TmpRole {
+public class EmployeeTmpRole extends BaseRole {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -1,7 +1,7 @@
 package com.ioiox.dei.duc.beans.model.master.user;
 
-import com.ioiox.dei.duc.beans.model.master.BaseTmpRoleUpdatableObj;
+import com.ioiox.dei.duc.beans.model.master.SimpleRoleUpdatableObj;
 
 public class UserAcctTmpRoleUpdatableObj
-        extends BaseTmpRoleUpdatableObj {
+        extends SimpleRoleUpdatableObj {
 }

@@ -7,6 +7,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public abstract class TmpSysResRole extends TmpRole {
+public abstract class BaseRole extends SimpleRole {
 
 }

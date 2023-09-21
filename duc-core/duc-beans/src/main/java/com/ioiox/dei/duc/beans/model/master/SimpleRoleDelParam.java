@@ -12,11 +12,11 @@ import java.util.Map;
 @Getter
 @Setter
 @NoArgsConstructor
-public class BaseRoleDelParam extends StdDataDelParam {
+public abstract class SimpleRoleDelParam extends StdDataDelParam {
     private List<Long> sysPrjIds;
     private List<String> statuses;
 
-    public BaseRoleDelParam(final BaseRoleDelParamBuilder<? extends BaseRoleDelParam> builder) {
+    public SimpleRoleDelParam(final SimpleRoleDelParamBuilder<? extends SimpleRoleDelParam> builder) {
         super(builder);
         sysPrjIds = builder.sysPrjIds();
         statuses = builder.statuses();

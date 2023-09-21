@@ -7,10 +7,10 @@ import com.ioiox.dei.duc.beans.vo.std.slave.*;
 import java.util.List;
 
 public interface UserSlaveStdDataSvc<
-        R extends RoleSlaveVO,
-        RR extends SysResRoleSlaveVO,
-        TR extends TmpRoleSlaveVO,
-        TRR extends TmpSysResRoleSlaveVO,
+        R extends BaseRoleSlaveVO,
+        RR extends BaseSysResRoleSlaveVO,
+        TR extends BaseRoleSlaveVO,
+        TRR extends BaseSysResRoleSlaveVO,
         UG extends UserGrpSlaveVO<R, RR>,
         T extends UserSlaveVO<R, RR, TR, TRR, UG>,
         QP extends UserQueryParam> {

@@ -3,21 +3,18 @@ package com.ioiox.dei.duc.std.data.svc.impl.master.user;
 import com.ioiox.dei.core.beans.BaseDeiEntity;
 import com.ioiox.dei.core.constant.DeiGlobalConstant;
 import com.ioiox.dei.core.orm.mybatis.model.std.data.DefaultStdDataQueryCfg;
-import com.ioiox.dei.core.utils.DeiCollectionUtil;
 import com.ioiox.dei.core.utils.JsonUtil;
-import com.ioiox.dei.duc.beans.entity.Role;
-import com.ioiox.dei.duc.beans.entity.TmpRole;
+import com.ioiox.dei.duc.beans.entity.SimpleRole;
 import com.ioiox.dei.duc.beans.entity.UserAcctTmpRole;
+import com.ioiox.dei.duc.beans.model.master.user.UserAcctRoleDelParam;
 import com.ioiox.dei.duc.beans.model.master.user.UserAcctTmpRoleUpdatableAttrsAnalyser;
 import com.ioiox.dei.duc.beans.model.master.user.UserAcctTmpRoleUpdatableObj;
 import com.ioiox.dei.duc.beans.model.master.user.UserAcctTmpRoleUpdateCtx;
 import com.ioiox.dei.duc.beans.model.slave.MenuQueryCfg;
 import com.ioiox.dei.duc.beans.model.slave.MenuSysApiMappingQueryCfg;
 import com.ioiox.dei.duc.beans.model.slave.RoleQueryCfg;
-import com.ioiox.dei.duc.beans.model.master.user.UserAcctRoleDelParam;
-import com.ioiox.dei.duc.beans.vo.std.master.user.UserAcctTmpRoleMasterVO;
-import com.ioiox.dei.duc.beans.vo.std.slave.*;
 import com.ioiox.dei.duc.beans.model.slave.user.UserAcctTmpRoleQueryParam;
+import com.ioiox.dei.duc.beans.vo.std.master.user.UserAcctTmpRoleMasterVO;
 import com.ioiox.dei.duc.beans.vo.std.slave.user.UserAcctTmpRoleSlaveVO;
 import com.ioiox.dei.duc.db.service.master.user.UserAcctTmpRoleMasterDbSvc;
 import com.ioiox.dei.duc.std.data.svc.impl.master.BaseRoleMasterStdDataSvc;
@@ -30,7 +27,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service("userAcctTmpRoleMasterStdDataSvc")
 public class UserAcctTmpRoleMasterStdDataSvcImpl
@@ -66,12 +62,12 @@ public class UserAcctTmpRoleMasterStdDataSvcImpl
                                 .showColumns(Collections.singletonList(BaseDeiEntity.ShowColumn.ID.getCode()))
                                 .build())
                         .showColumns(Arrays.asList(BaseDeiEntity.ShowColumn.ID.getCode(),
-                                Role.ShowColumn.CODE.getCode(), Role.ShowColumn.NAME.getCode(),
-                                Role.ShowColumn.TYPE.getCode(), Role.ShowColumn.STATUS.getCode(),
-                                Role.ShowColumn.MEMO.getCode(), Role.ShowColumn.SYS_PRJ_SID.getCode(),
-                                TmpRole.ShowColumn.UNLIMITED_DATE_RANGE.getCode(), TmpRole.ShowColumn.EFFECTIVE_START_DATE.getCode(),
-                                TmpRole.ShowColumn.EFFECTIVE_END_DATE.getCode(), TmpRole.ShowColumn.UNLIMITED_TIME_RANGE.getCode(),
-                                TmpRole.ShowColumn.EFFECTIVE_START_TIME.getCode(), TmpRole.ShowColumn.EFFECTIVE_END_TIME.getCode(),
+                                SimpleRole.ShowColumn.CODE.getCode(), SimpleRole.ShowColumn.NAME.getCode(),
+                                SimpleRole.ShowColumn.TYPE.getCode(), SimpleRole.ShowColumn.STATUS.getCode(),
+                                SimpleRole.ShowColumn.MEMO.getCode(), SimpleRole.ShowColumn.SYS_PRJ_SID.getCode(),
+                                SimpleRole.ShowColumn.UNLIMITED_DATE_RANGE.getCode(), SimpleRole.ShowColumn.EFFECTIVE_START_DATE.getCode(),
+                                SimpleRole.ShowColumn.EFFECTIVE_END_DATE.getCode(), SimpleRole.ShowColumn.UNLIMITED_TIME_RANGE.getCode(),
+                                SimpleRole.ShowColumn.EFFECTIVE_START_TIME.getCode(), SimpleRole.ShowColumn.EFFECTIVE_END_TIME.getCode(),
                                 BaseDeiEntity.ShowColumn.VERSION_NUM.getCode()))
                         .build());
     }
@@ -88,45 +84,6 @@ public class UserAcctTmpRoleMasterStdDataSvcImpl
                 new RoleQueryCfg.Builder()
                         .showColumns(Collections.singletonList(BaseDeiEntity.ShowColumn.ID.getCode()))
                         .build());
-    }
-
-    @Override
-    protected List<Long> getMenuIds(final UserAcctTmpRoleMasterVO tmpRole) {
-        return tmpRole.getMenuIds();
-    }
-
-    @Override
-    protected List<Long> getSysApiMappingIds(final UserAcctTmpRoleMasterVO tmpRole) {
-        return tmpRole.getSysApiMappingIds();
-    }
-
-    @Override
-    protected List<Long> getSysApiIds(final UserAcctTmpRoleMasterVO tmpRole) {
-        return tmpRole.getSysApiIds();
-    }
-
-    @Override
-    protected List<Long> getExistingMenuIds(final UserAcctTmpRoleSlaveVO existingTmpRole) {
-        return DeiCollectionUtil.isEmpty(existingTmpRole.getMenus())
-                ? Collections.emptyList() : existingTmpRole.getMenus().stream().map(MenuSlaveVO::getId).collect(Collectors.toList());
-    }
-
-    @Override
-    protected List<Long> getExistingSysApiMappingIds(final UserAcctTmpRoleSlaveVO existingTmpRole) {
-        if (DeiCollectionUtil.isEmpty(existingTmpRole.getSysApiMappings())) {
-            return Collections.emptyList();
-        }
-        final List<Long> sysApiMappingIds = new LinkedList<>();
-        for (final List<MenuSysApiMappingSlaveStdVO> sysApiMappingsOfMenu : existingTmpRole.getSysApiMappings().values()) {
-            sysApiMappingIds.addAll(sysApiMappingsOfMenu.stream().map(MenuSysApiMappingSlaveStdVO::getId).collect(Collectors.toList()));
-        }
-        return sysApiMappingIds;
-    }
-
-    @Override
-    protected List<Long> getExistingSysApiIds(final UserAcctTmpRoleSlaveVO existingTmpRole) {
-        return DeiCollectionUtil.isEmpty(existingTmpRole.getSysApis())
-                ? Collections.emptyList() : existingTmpRole.getSysApis().stream().map(SysApiSlaveVO::getId).collect(Collectors.toList());
     }
 
     @Override
@@ -231,7 +188,7 @@ public class UserAcctTmpRoleMasterStdDataSvcImpl
     public UserAcctTmpRole toNewEntity(final UserAcctTmpRoleMasterVO tmpRole) {
         final UserAcctTmpRole newEntity = new UserAcctTmpRole();
         assembleCommonAttrsOnInsert(newEntity, tmpRole);
-        assembleTmpRoleCommonAttrs(newEntity, tmpRole);
+        assembleSimpleTmpRoleAttrs(newEntity, tmpRole);
         newEntity.setTenantSid(tmpRole.getTenantId());
         newEntity.setCorpSid(tmpRole.getTenantId());
         return newEntity;

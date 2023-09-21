@@ -9,7 +9,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @NoArgsConstructor
-public class EmployeeRole extends Role {
+public class EmployeeRole extends BaseRole {
 
     @Override
     public boolean equals(Object o) {

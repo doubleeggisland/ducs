@@ -1,6 +1,6 @@
 package com.ioiox.dei.duc.beans.model.master.employee;
 
-import com.ioiox.dei.duc.beans.model.master.BaseTmpRoleUpdatableObj;
+import com.ioiox.dei.duc.beans.model.master.SimpleRoleUpdatableObj;
 
-public class EmployeeTmpSysResRoleUpdatableObj extends BaseTmpRoleUpdatableObj {
+public class EmployeeTmpSysResRoleUpdatableObj extends SimpleRoleUpdatableObj {
 }

@@ -281,7 +281,7 @@ public class UserAcctMasterStdDataSvcImpl
     @Override
     public UserAcct toUpdatableObj(final UserAcctUpdatableObj updatableVO) {
         final UserAcct example = new UserAcct();
-        assembleUpdatableAttrs(example, updatableVO);
+        assembleCommonUpdatableAttrs(example, updatableVO);
         return example;
     }
 }

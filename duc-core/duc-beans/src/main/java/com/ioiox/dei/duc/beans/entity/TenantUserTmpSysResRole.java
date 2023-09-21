@@ -13,7 +13,7 @@ import java.util.Objects;
 @Setter
 @NoArgsConstructor
 public class TenantUserTmpSysResRole
-        extends TmpSysResRole {
+        extends BaseSysResRole {
     /**
      * 属所租户ID
      */

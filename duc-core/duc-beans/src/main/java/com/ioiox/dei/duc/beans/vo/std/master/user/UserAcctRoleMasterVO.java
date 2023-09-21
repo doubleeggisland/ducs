@@ -1,6 +1,6 @@
 package com.ioiox.dei.duc.beans.vo.std.master.user;
 
-import com.ioiox.dei.duc.beans.vo.std.master.RoleMasterVO;
+import com.ioiox.dei.duc.beans.vo.std.master.BaseRoleMasterVO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class UserAcctRoleMasterVO extends RoleMasterVO {
+public class UserAcctRoleMasterVO extends BaseRoleMasterVO {
     /**
      * 所属租户ID
      */

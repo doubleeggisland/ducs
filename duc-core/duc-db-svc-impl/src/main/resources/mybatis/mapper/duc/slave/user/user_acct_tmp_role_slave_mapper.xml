@@ -13,10 +13,10 @@
     <result property="corpSid" column="corp_sid"/>
     <result property="sysPrjSid" column="sys_prj_sid"/>
 
-    <result property="unlimitedDateRangeFlag" column="unlimited_date_range"/>
+    <result property="unlimitedDateRange" column="unlimited_date_range"/>
     <result property="effectiveStartDate" column="effective_start_date"/>
     <result property="effectiveEndDate" column="effective_end_date"/>
-    <result property="unlimitedTimeRangeFlag" column="unlimited_time_range"/>
+    <result property="unlimitedTimeRange" column="unlimited_time_range"/>
     <result property="effectiveStartTime" column="effective_start_time"/>
     <result property="effectiveEndTime" column="effective_end_time"/>
 
@@ -125,7 +125,7 @@
       <if test="sysPrjSidShow != null">
         a.sys_prj_sid,
       </if>
-      <if test="unlimitedDateRangeFlagShow != null">
+      <if test="unlimitedDateRangeShow != null">
         a.unlimited_date_range,
       </if>
       <if test="effectiveStartDateShow != null">
@@ -134,7 +134,7 @@
       <if test="effectiveEndDateShow != null">
         a.effective_end_date,
       </if>
-      <if test="unlimitedTimeRangeFlagShow != null">
+      <if test="unlimitedTimeRangeShow != null">
         a.unlimited_time_range,
       </if>
       <if test="effectiveStartTimeShow != null">

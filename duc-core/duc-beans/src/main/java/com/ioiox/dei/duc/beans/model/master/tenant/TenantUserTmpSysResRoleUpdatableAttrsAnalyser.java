@@ -1,11 +1,11 @@
 package com.ioiox.dei.duc.beans.model.master.tenant;
 
-import com.ioiox.dei.duc.beans.model.master.BaseTmpRoleUpdatableAttrsAnalyser;
+import com.ioiox.dei.duc.beans.model.master.SimpleRoleUpdatableAttrsAnalyser;
 import com.ioiox.dei.duc.beans.vo.std.master.tenant.TenantUserTmpSysResRoleMasterVO;
 import com.ioiox.dei.duc.beans.vo.std.slave.tenant.TenantUserTmpSysResRoleSlaveVO;
 
 public class TenantUserTmpSysResRoleUpdatableAttrsAnalyser
-        extends BaseTmpRoleUpdatableAttrsAnalyser<TenantUserTmpSysResRoleMasterVO, TenantUserTmpSysResRoleSlaveVO, TenantUserTmpSysResRoleUpdatableObj, TenantUserTmpSysResRoleUpdateCtx> {
+        extends SimpleRoleUpdatableAttrsAnalyser<TenantUserTmpSysResRoleMasterVO, TenantUserTmpSysResRoleSlaveVO, TenantUserTmpSysResRoleUpdatableObj, TenantUserTmpSysResRoleUpdateCtx> {
 
     @Override
     public TenantUserTmpSysResRoleUpdateCtx analyseUpdatedAttrs(final TenantUserTmpSysResRoleMasterVO tmpSysResRole,

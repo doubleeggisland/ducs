@@ -131,7 +131,7 @@ public class SysApiMasterStdDataSvcImpl
     @Override
     public SysApi toUpdatableObj(final SysApiUpdatableObj updatableVO) {
         final SysApi example = new SysApi();
-        assembleCommonAttrs(example, updatableVO);
+        assembleCommonUpdatableAttrs(example, updatableVO);
         if (Objects.nonNull(updatableVO.getCode())) {
             example.setCode(updatableVO.getCode().getNewVal());
         }

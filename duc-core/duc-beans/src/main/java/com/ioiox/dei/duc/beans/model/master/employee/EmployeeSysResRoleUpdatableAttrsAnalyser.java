@@ -1,11 +1,11 @@
 package com.ioiox.dei.duc.beans.model.master.employee;
 
-import com.ioiox.dei.duc.beans.model.master.BaseRoleUpdatableAttrsAnalyser;
+import com.ioiox.dei.duc.beans.model.master.SimpleRoleUpdatableAttrsAnalyser;
 import com.ioiox.dei.duc.beans.vo.std.master.employee.EmployeeSysResRoleMasterVO;
 import com.ioiox.dei.duc.beans.vo.std.slave.employee.EmployeeSysResRoleSlaveVO;
 
 public class EmployeeSysResRoleUpdatableAttrsAnalyser
-        extends BaseRoleUpdatableAttrsAnalyser<EmployeeSysResRoleMasterVO, EmployeeSysResRoleSlaveVO, EmployeeSysResRoleUpdatableObj, EmployeeSysResRoleUpdateCtx> {
+        extends SimpleRoleUpdatableAttrsAnalyser<EmployeeSysResRoleMasterVO, EmployeeSysResRoleSlaveVO, EmployeeSysResRoleUpdatableObj, EmployeeSysResRoleUpdateCtx> {
 
     @Override
     public EmployeeSysResRoleUpdateCtx analyseUpdatedAttrs(final EmployeeSysResRoleMasterVO sysResRole,

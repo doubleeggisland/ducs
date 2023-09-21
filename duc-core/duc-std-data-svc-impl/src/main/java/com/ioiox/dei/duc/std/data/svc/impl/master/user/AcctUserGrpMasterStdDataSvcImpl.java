@@ -162,7 +162,7 @@ public class AcctUserGrpMasterStdDataSvcImpl
     @Override
     public AcctUserGrp toUpdatableObj(final AcctUserGrpUpdatableObj updatableVO) {
         final AcctUserGrp example = new AcctUserGrp();
-        assembleUpdatableAttrs(example, updatableVO);
+        assembleCommonUpdatableAttrs(example, updatableVO);
         return example;
     }
 }

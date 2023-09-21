@@ -14,10 +14,10 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public abstract class BaseUserSlaveStdDataSvc<
-        R extends RoleSlaveVO,
-        RR extends SysResRoleSlaveVO,
-        TR extends TmpRoleSlaveVO,
-        TRR extends TmpSysResRoleSlaveVO,
+        R extends BaseRoleSlaveVO,
+        RR extends BaseSysResRoleSlaveVO,
+        TR extends BaseRoleSlaveVO,
+        TRR extends BaseSysResRoleSlaveVO,
         UG extends UserGrpSlaveVO<R, RR>,
         T extends UserSlaveVO<R, RR, TR, TRR, UG>,
         E extends BaseUser,

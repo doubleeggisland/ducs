@@ -128,7 +128,7 @@ public class SysResMasterStdDataSvcImpl
     @Override
     public SysRes toUpdatableObj(final SysResUpdatableObj updatableVO) {
         final SysRes example = new SysRes();
-        assembleCommonAttrs(example, updatableVO);
+        assembleCommonUpdatableAttrs(example, updatableVO);
         if (Objects.nonNull(updatableVO.getCode())) {
             example.setCode(updatableVO.getCode().getNewVal());
         }

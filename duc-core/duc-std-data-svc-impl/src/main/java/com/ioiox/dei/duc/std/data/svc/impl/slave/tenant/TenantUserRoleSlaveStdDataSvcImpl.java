@@ -4,9 +4,6 @@ import com.ioiox.dei.core.utils.DeiCollectionUtil;
 import com.ioiox.dei.duc.beans.entity.TenantUserRole;
 import com.ioiox.dei.duc.beans.model.slave.RoleQueryCfg;
 import com.ioiox.dei.duc.beans.model.slave.tenant.TenantUserRoleQueryParam;
-import com.ioiox.dei.duc.beans.vo.std.slave.MenuSlaveVO;
-import com.ioiox.dei.duc.beans.vo.std.slave.MenuSysApiMappingSlaveStdVO;
-import com.ioiox.dei.duc.beans.vo.std.slave.SysApiSlaveVO;
 import com.ioiox.dei.duc.beans.vo.std.slave.tenant.TenantUserRoleSlaveVO;
 import com.ioiox.dei.duc.db.service.slave.tenant.TenantUserRoleR2MenuSlaveDbSvc;
 import com.ioiox.dei.duc.db.service.slave.tenant.TenantUserRoleR2MenuSysApiSlaveDbSvc;
@@ -22,7 +19,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 @Service("tenantUserRoleSlaveStdDataSvc")
 public class TenantUserRoleSlaveStdDataSvcImpl
@@ -106,34 +102,9 @@ public class TenantUserRoleSlaveStdDataSvcImpl
     }
 
     @Override
-    protected void assembleMenus(final TenantUserRoleSlaveVO role, final List<MenuSlaveVO> menus) {
-        role.setMenus(menus);
-    }
-
-    @Override
-    protected void assembleSysApiMappings(final TenantUserRoleSlaveVO role, final List<MenuSysApiMappingSlaveStdVO> sysApiMappings) {
-        if (DeiCollectionUtil.isEmpty(sysApiMappings)) {
-            role.setSysApiMappings(Collections.emptyMap());
-        } else {
-            role.setSysApiMappings(sysApiMappings.stream()
-                    .collect(Collectors.groupingBy(MenuSysApiMappingSlaveStdVO::getMenuId)));
-        }
-    }
-
-    @Override
-    protected void assembleMenuSysApis(final TenantUserRoleSlaveVO role, final List<SysApiSlaveVO> menuSysApis) {
-        role.setMenuSysApis(menuSysApis);
-    }
-
-    @Override
-    protected void assembleSysApis(final TenantUserRoleSlaveVO role, final List<SysApiSlaveVO> sysApis) {
-        role.setSysApis(sysApis);
-    }
-
-    @Override
     public TenantUserRoleSlaveVO transferToStdDataVO(final TenantUserRole entity) {
         final TenantUserRoleSlaveVO role = new TenantUserRoleSlaveVO();
-        assembleRoleAttrs(role, entity);
+        assembleSimpleRoleAttrs(role, entity);
         role.setTenantId(entity.getTenantSid());
         return role;
     }

@@ -3,19 +3,16 @@ package com.ioiox.dei.duc.std.data.svc.impl.master.user;
 import com.ioiox.dei.core.beans.BaseDeiEntity;
 import com.ioiox.dei.core.constant.DeiGlobalConstant;
 import com.ioiox.dei.core.orm.mybatis.model.std.data.DefaultStdDataQueryCfg;
-import com.ioiox.dei.core.utils.DeiCollectionUtil;
 import com.ioiox.dei.core.utils.JsonUtil;
-import com.ioiox.dei.duc.beans.entity.Role;
-import com.ioiox.dei.duc.beans.entity.TmpRole;
+import com.ioiox.dei.duc.beans.entity.SimpleRole;
 import com.ioiox.dei.duc.beans.entity.UserAcctTmpSysResRole;
+import com.ioiox.dei.duc.beans.model.master.user.UserAcctSysResRoleDelParam;
 import com.ioiox.dei.duc.beans.model.master.user.UserAcctTmpSysResRoleUpdatableAttrsAnalyser;
 import com.ioiox.dei.duc.beans.model.master.user.UserAcctTmpSysResRoleUpdatableObj;
 import com.ioiox.dei.duc.beans.model.master.user.UserAcctTmpSysResRoleUpdateCtx;
-import com.ioiox.dei.duc.beans.model.master.user.UserAcctSysResRoleDelParam;
-import com.ioiox.dei.duc.beans.vo.std.master.user.UserAcctTmpSysResRoleMasterVO;
 import com.ioiox.dei.duc.beans.model.slave.SysResRoleQueryCfg;
-import com.ioiox.dei.duc.beans.vo.std.slave.SysResSlaveVO;
 import com.ioiox.dei.duc.beans.model.slave.user.UserAcctTmpSysResRoleQueryParam;
+import com.ioiox.dei.duc.beans.vo.std.master.user.UserAcctTmpSysResRoleMasterVO;
 import com.ioiox.dei.duc.beans.vo.std.slave.user.UserAcctTmpSysResRoleSlaveVO;
 import com.ioiox.dei.duc.db.service.master.user.UserAcctTmpSysResRoleMasterDbSvc;
 import com.ioiox.dei.duc.std.data.svc.impl.master.BaseSysResRoleMasterStdDataSvc;
@@ -28,7 +25,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service("userAcctTmpSysResRoleMasterStdDataSvc")
 public class UserAcctTmpSysResRoleMasterStdDataSvcImpl
@@ -56,12 +52,12 @@ public class UserAcctTmpSysResRoleMasterStdDataSvcImpl
                                 .showColumns(Collections.singletonList(BaseDeiEntity.ShowColumn.ID.getCode()))
                                 .build())
                         .showColumns(Arrays.asList(BaseDeiEntity.ShowColumn.ID.getCode(),
-                                Role.ShowColumn.CODE.getCode(), Role.ShowColumn.NAME.getCode(),
-                                Role.ShowColumn.TYPE.getCode(), Role.ShowColumn.STATUS.getCode(),
-                                Role.ShowColumn.MEMO.getCode(), Role.ShowColumn.SYS_PRJ_SID.getCode(),
-                                TmpRole.ShowColumn.UNLIMITED_DATE_RANGE.getCode(), TmpRole.ShowColumn.EFFECTIVE_START_DATE.getCode(),
-                                TmpRole.ShowColumn.EFFECTIVE_END_DATE.getCode(), TmpRole.ShowColumn.UNLIMITED_TIME_RANGE.getCode(),
-                                TmpRole.ShowColumn.EFFECTIVE_START_TIME.getCode(), TmpRole.ShowColumn.EFFECTIVE_END_TIME.getCode(),
+                                SimpleRole.ShowColumn.CODE.getCode(), SimpleRole.ShowColumn.NAME.getCode(),
+                                SimpleRole.ShowColumn.TYPE.getCode(), SimpleRole.ShowColumn.STATUS.getCode(),
+                                SimpleRole.ShowColumn.MEMO.getCode(), SimpleRole.ShowColumn.SYS_PRJ_SID.getCode(),
+                                SimpleRole.ShowColumn.UNLIMITED_DATE_RANGE.getCode(), SimpleRole.ShowColumn.EFFECTIVE_START_DATE.getCode(),
+                                SimpleRole.ShowColumn.EFFECTIVE_END_DATE.getCode(), SimpleRole.ShowColumn.UNLIMITED_TIME_RANGE.getCode(),
+                                SimpleRole.ShowColumn.EFFECTIVE_START_TIME.getCode(), SimpleRole.ShowColumn.EFFECTIVE_END_TIME.getCode(),
                                 BaseDeiEntity.ShowColumn.VERSION_NUM.getCode()))
                         .build());
     }
@@ -78,17 +74,6 @@ public class UserAcctTmpSysResRoleMasterStdDataSvcImpl
                 new SysResRoleQueryCfg.Builder()
                         .showColumns(Collections.singletonList(BaseDeiEntity.ShowColumn.ID.getCode()))
                         .build());
-    }
-
-    @Override
-    protected List<Long> getSysResIds(final UserAcctTmpSysResRoleMasterVO tmpSysResRole) {
-        return tmpSysResRole.getSysResIds();
-    }
-
-    @Override
-    protected List<Long> getExistingSysResIds(final UserAcctTmpSysResRoleSlaveVO existingTmpSysResRole) {
-        return DeiCollectionUtil.isEmpty(existingTmpSysResRole.getSysResources())
-                ? Collections.emptyList() : existingTmpSysResRole.getSysResources().stream().map(SysResSlaveVO::getId).collect(Collectors.toList());
     }
 
     @Override
@@ -142,7 +127,7 @@ public class UserAcctTmpSysResRoleMasterStdDataSvcImpl
     public UserAcctTmpSysResRole toNewEntity(final UserAcctTmpSysResRoleMasterVO tmpSysResRole) {
         final UserAcctTmpSysResRole newEntity = new UserAcctTmpSysResRole();
         assembleCommonAttrsOnInsert(newEntity, tmpSysResRole);
-        assembleTmpRoleCommonAttrs(newEntity, tmpSysResRole);
+        assembleSimpleTmpRoleAttrs(newEntity, tmpSysResRole);
         newEntity.setTenantSid(tmpSysResRole.getTenantId());
         newEntity.setCorpSid(tmpSysResRole.getTenantId());
         return newEntity;

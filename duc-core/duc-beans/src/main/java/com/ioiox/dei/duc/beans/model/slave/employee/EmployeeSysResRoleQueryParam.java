@@ -1,16 +1,16 @@
 package com.ioiox.dei.duc.beans.model.slave.employee;
 
-import com.ioiox.dei.duc.beans.model.slave.RoleQueryParam;
-import com.ioiox.dei.duc.beans.model.slave.RoleQueryParamBuilder;
+import com.ioiox.dei.duc.beans.model.slave.SimpleRoleQueryParam;
+import com.ioiox.dei.duc.beans.model.slave.SimpleRoleQueryParamBuilder;
 
-public class EmployeeSysResRoleQueryParam extends RoleQueryParam {
+public class EmployeeSysResRoleQueryParam extends SimpleRoleQueryParam {
 
     private EmployeeSysResRoleQueryParam(final Builder builder) {
         super(builder);
     }
 
     public static class Builder
-            extends RoleQueryParamBuilder<EmployeeSysResRoleQueryParam> {
+            extends SimpleRoleQueryParamBuilder<EmployeeSysResRoleQueryParam> {
 
         @Override
         public EmployeeSysResRoleQueryParam build() {

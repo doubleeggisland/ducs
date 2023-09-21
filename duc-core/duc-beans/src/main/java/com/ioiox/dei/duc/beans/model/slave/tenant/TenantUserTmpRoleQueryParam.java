@@ -1,14 +1,14 @@
 package com.ioiox.dei.duc.beans.model.slave.tenant;
 
 public class TenantUserTmpRoleQueryParam
-        extends BaseTenantUserRoleQueryParam {
+        extends SimpleTenantUserRoleQueryParam {
 
     private TenantUserTmpRoleQueryParam(final Builder builder) {
         super(builder);
     }
 
     public static class Builder
-            extends BaseTenantUserRoleQueryParamBuilder<TenantUserTmpRoleQueryParam> {
+            extends SimpleTenantUserRoleQueryParamBuilder<TenantUserTmpRoleQueryParam> {
 
         @Override
         public TenantUserTmpRoleQueryParam build() {

@@ -4,9 +4,6 @@ import com.ioiox.dei.core.utils.DeiCollectionUtil;
 import com.ioiox.dei.duc.beans.entity.EmployeeTmpRole;
 import com.ioiox.dei.duc.beans.model.slave.RoleQueryCfg;
 import com.ioiox.dei.duc.beans.model.slave.employee.EmployeeTmpRoleQueryParam;
-import com.ioiox.dei.duc.beans.vo.std.slave.MenuSlaveVO;
-import com.ioiox.dei.duc.beans.vo.std.slave.MenuSysApiMappingSlaveStdVO;
-import com.ioiox.dei.duc.beans.vo.std.slave.SysApiSlaveVO;
 import com.ioiox.dei.duc.beans.vo.std.slave.employee.EmployeeTmpRoleSlaveVO;
 import com.ioiox.dei.duc.db.service.slave.employee.EmployeeTmpRoleR2MenuSlaveDbSvc;
 import com.ioiox.dei.duc.db.service.slave.employee.EmployeeTmpRoleR2MenuSysApiSlaveDbSvc;
@@ -22,7 +19,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 @Service("employeeTmpRoleSlaveStdDataSvc")
 public class EmployeeTmpRoleSlaveStdDataSvcImpl
@@ -97,34 +93,9 @@ public class EmployeeTmpRoleSlaveStdDataSvcImpl
     }
 
     @Override
-    protected void assembleMenus(final EmployeeTmpRoleSlaveVO tmpRole, final List<MenuSlaveVO> menus) {
-        tmpRole.setMenus(menus);
-    }
-
-    @Override
-    protected void assembleSysApiMappings(final EmployeeTmpRoleSlaveVO tmpRole, final List<MenuSysApiMappingSlaveStdVO> sysApiMappings) {
-        if (DeiCollectionUtil.isEmpty(sysApiMappings)) {
-            tmpRole.setSysApiMappings(Collections.emptyMap());
-        } else {
-            tmpRole.setSysApiMappings(sysApiMappings.stream()
-                    .collect(Collectors.groupingBy(MenuSysApiMappingSlaveStdVO::getMenuId)));
-        }
-    }
-
-    @Override
-    protected void assembleMenuSysApis(final EmployeeTmpRoleSlaveVO tmpRole, final List<SysApiSlaveVO> menuSysApis) {
-        tmpRole.setMenuSysApis(menuSysApis);
-    }
-
-    @Override
-    protected void assembleSysApis(final EmployeeTmpRoleSlaveVO tmpRole, final List<SysApiSlaveVO> sysApis) {
-        tmpRole.setSysApis(sysApis);
-    }
-
-    @Override
     public EmployeeTmpRoleSlaveVO transferToStdDataVO(final EmployeeTmpRole entity) {
         final EmployeeTmpRoleSlaveVO tmpRole = new EmployeeTmpRoleSlaveVO();
-        assembleTmpRoleAttrs(tmpRole, entity);
+        assembleSimpleTmpRoleAttrs(tmpRole, entity);
         return tmpRole;
     }
 }

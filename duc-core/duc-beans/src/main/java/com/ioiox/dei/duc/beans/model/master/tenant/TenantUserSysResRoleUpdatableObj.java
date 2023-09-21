@@ -1,7 +1,7 @@
 package com.ioiox.dei.duc.beans.model.master.tenant;
 
-import com.ioiox.dei.duc.beans.model.master.BaseRoleUpdatableObj;
+import com.ioiox.dei.duc.beans.model.master.SimpleRoleUpdatableObj;
 
 public class TenantUserSysResRoleUpdatableObj
-        extends BaseRoleUpdatableObj {
+        extends SimpleRoleUpdatableObj {
 }

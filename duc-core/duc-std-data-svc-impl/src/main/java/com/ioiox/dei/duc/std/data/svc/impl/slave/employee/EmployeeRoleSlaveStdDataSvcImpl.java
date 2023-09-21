@@ -4,9 +4,6 @@ import com.ioiox.dei.core.utils.DeiCollectionUtil;
 import com.ioiox.dei.duc.beans.entity.EmployeeRole;
 import com.ioiox.dei.duc.beans.model.slave.RoleQueryCfg;
 import com.ioiox.dei.duc.beans.model.slave.employee.EmployeeRoleQueryParam;
-import com.ioiox.dei.duc.beans.vo.std.slave.MenuSlaveVO;
-import com.ioiox.dei.duc.beans.vo.std.slave.MenuSysApiMappingSlaveStdVO;
-import com.ioiox.dei.duc.beans.vo.std.slave.SysApiSlaveVO;
 import com.ioiox.dei.duc.beans.vo.std.slave.employee.EmployeeRoleSlaveVO;
 import com.ioiox.dei.duc.db.service.slave.employee.EmployeeRoleR2MenuSlaveDbSvc;
 import com.ioiox.dei.duc.db.service.slave.employee.EmployeeRoleR2MenuSysApiSlaveDbSvc;
@@ -22,7 +19,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 @Service("employeeRoleSlaveStdDataSvc")
 public class EmployeeRoleSlaveStdDataSvcImpl
@@ -94,34 +90,9 @@ public class EmployeeRoleSlaveStdDataSvcImpl
     }
 
     @Override
-    protected void assembleMenus(final EmployeeRoleSlaveVO role, final List<MenuSlaveVO> menus) {
-        role.setMenus(menus);
-    }
-
-    @Override
-    protected void assembleSysApiMappings(final EmployeeRoleSlaveVO role, final List<MenuSysApiMappingSlaveStdVO> sysApiMappings) {
-        if (DeiCollectionUtil.isEmpty(sysApiMappings)) {
-            role.setSysApiMappings(Collections.emptyMap());
-        } else {
-            role.setSysApiMappings(sysApiMappings.stream()
-                    .collect(Collectors.groupingBy(MenuSysApiMappingSlaveStdVO::getMenuId)));
-        }
-    }
-
-    @Override
-    protected void assembleMenuSysApis(final EmployeeRoleSlaveVO role, final List<SysApiSlaveVO> menuSysApis) {
-        role.setMenuSysApis(menuSysApis);
-    }
-
-    @Override
-    protected void assembleSysApis(final EmployeeRoleSlaveVO role, final List<SysApiSlaveVO> sysApis) {
-        role.setSysApis(sysApis);
-    }
-
-    @Override
     public EmployeeRoleSlaveVO transferToStdDataVO(final EmployeeRole entity) {
         final EmployeeRoleSlaveVO role = new EmployeeRoleSlaveVO();
-        assembleRoleAttrs(role, entity);
+        assembleSimpleRoleAttrs(role, entity);
         return role;
     }
 }

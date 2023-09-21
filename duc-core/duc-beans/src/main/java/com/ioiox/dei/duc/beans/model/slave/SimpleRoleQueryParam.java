@@ -16,13 +16,13 @@ import java.util.Map;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public abstract class RoleQueryParam
+public abstract class SimpleRoleQueryParam
         extends StdDataQueryParam {
     private List<String> codes;
     private List<Long> sysPrjIds;
     private List<String> statuses;
 
-    public RoleQueryParam(final RoleQueryParamBuilder<? extends RoleQueryParam> builder) {
+    public SimpleRoleQueryParam(final SimpleRoleQueryParamBuilder<? extends SimpleRoleQueryParam> builder) {
         super(builder);
         codes = builder.codes();
         sysPrjIds = builder.sysPrjIds();

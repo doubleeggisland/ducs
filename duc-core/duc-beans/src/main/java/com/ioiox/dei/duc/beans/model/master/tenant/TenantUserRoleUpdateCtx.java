@@ -1,4 +1,7 @@
 package com.ioiox.dei.duc.beans.model.master.tenant;
 
-public class TenantUserRoleUpdateCtx {
+import com.ioiox.dei.duc.beans.model.master.SimpleRoleUpdateCtx;
+
+public class TenantUserRoleUpdateCtx
+        extends SimpleRoleUpdateCtx<TenantUserRoleUpdatableObj> {
 }

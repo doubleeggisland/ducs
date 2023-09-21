@@ -5,29 +5,31 @@ import com.ioiox.dei.core.exception.DeiServiceException;
 import com.ioiox.dei.core.utils.DeiCollectionUtil;
 import com.ioiox.dei.core.utils.JsonUtil;
 import com.ioiox.dei.core.utils.RelationshipsAnalyser;
-import com.ioiox.dei.duc.beans.entity.Role;
-import com.ioiox.dei.duc.beans.model.master.BaseRoleUpdatableObj;
-import com.ioiox.dei.duc.beans.model.master.BaseRoleUpdateCtx;
-import com.ioiox.dei.duc.beans.model.master.BaseRoleDelParam;
-import com.ioiox.dei.duc.beans.vo.std.master.BaseRoleMasterVO;
-import com.ioiox.dei.duc.beans.vo.std.slave.BaseRoleSlaveVO;
+import com.ioiox.dei.duc.beans.entity.BaseSysResRole;
+import com.ioiox.dei.duc.beans.model.master.SimpleRoleDelParam;
+import com.ioiox.dei.duc.beans.model.master.SimpleRoleUpdatableObj;
+import com.ioiox.dei.duc.beans.model.master.SimpleRoleUpdateCtx;
+import com.ioiox.dei.duc.beans.vo.std.master.BaseSysResRoleMasterVO;
+import com.ioiox.dei.duc.beans.vo.std.slave.BaseSysResRoleSlaveVO;
+import com.ioiox.dei.duc.beans.vo.std.slave.SysResSlaveVO;
 import com.ioiox.dei.duc.std.data.svc.master.SysResRoleMasterStdDataSvc;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
 public abstract class BaseSysResRoleMasterStdDataSvc<
-        T extends BaseRoleMasterVO,
-        O extends BaseRoleUpdatableObj,
-        C extends BaseRoleUpdateCtx<O>,
-        D extends BaseRoleDelParam,
-        S extends BaseRoleSlaveVO,
-        E extends Role>
-        extends CommonRoleMasterStdDataSvc<T, O, E>
+        T extends BaseSysResRoleMasterVO,
+        O extends SimpleRoleUpdatableObj,
+        C extends SimpleRoleUpdateCtx<O>,
+        D extends SimpleRoleDelParam,
+        S extends BaseSysResRoleSlaveVO,
+        E extends BaseSysResRole>
+        extends SimpleRoleMasterStdDataSvc<T, O, E>
         implements SysResRoleMasterStdDataSvc<T, D> {
 
     private static final Logger log = LoggerFactory.getLogger(BaseSysResRoleMasterStdDataSvc.class);
@@ -41,7 +43,7 @@ public abstract class BaseSysResRoleMasterStdDataSvc<
         newEntity.setDefaultValueIfNeed();
         doSave(newEntity);
         final long id = newEntity.getSid();
-        syncSysResources(getSysResIds(sysResRole), null, id, sysResRole.getUpdatedBy());
+        syncSysResources(sysResRole.getSysResIds(), null, id, sysResRole.getUpdatedBy());
         return id;
     }
 
@@ -61,7 +63,12 @@ public abstract class BaseSysResRoleMasterStdDataSvc<
     boolean update(final T sysResRole,
                    final S existingSysResRole) {
         final int numOfSysResourcesSync =
-                syncSysResources(getSysResIds(sysResRole), getExistingSysResIds(existingSysResRole), existingSysResRole.getId(), sysResRole.getUpdatedBy());
+                syncSysResources(
+                        sysResRole.getSysResIds(),
+                        DeiCollectionUtil.isEmpty(existingSysResRole.getSysResources())
+                                ? Collections.emptyList() : existingSysResRole.getSysResources().stream().map(SysResSlaveVO::getId).collect(Collectors.toList()),
+                        existingSysResRole.getId(),
+                        sysResRole.getUpdatedBy());
         final C updateCtx = getUpdateContext(sysResRole, existingSysResRole);
         final O updatableObj = updateCtx.getUpdatableObj();
         if (updatableObj.attrsNotUpdated()) {
@@ -141,10 +148,6 @@ public abstract class BaseSysResRoleMasterStdDataSvc<
     protected abstract S getExistingSysResRole(final Long id);
 
     protected abstract List<S> queryExistingSysResRoles(final D delParam);
-
-    protected abstract List<Long> getSysResIds(final T sysResRole);
-
-    protected abstract List<Long> getExistingSysResIds(final S existingSysResRole);
 
     protected abstract C getUpdateContext(final T sysResRole, final S existingSysResRole);
 
