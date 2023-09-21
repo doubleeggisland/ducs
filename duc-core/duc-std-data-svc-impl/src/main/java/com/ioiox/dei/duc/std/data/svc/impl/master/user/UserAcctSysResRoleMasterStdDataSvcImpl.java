@@ -62,6 +62,7 @@ public class UserAcctSysResRoleMasterStdDataSvcImpl
     @Override
     protected List<UserAcctSysResRoleSlaveVO> queryExistingSysResRoles(final UserAcctSysResRoleDelParam delParam) {
         final UserAcctSysResRoleQueryParam queryParam = new UserAcctSysResRoleQueryParam.Builder()
+                .tenantIds(delParam.getTenantIds())
                 .corpIds(delParam.getCorpIds())
                 .sysPrjIds(delParam.getSysPrjIds())
                 .statuses(delParam.getStatuses())
@@ -126,7 +127,7 @@ public class UserAcctSysResRoleMasterStdDataSvcImpl
         assembleCommonAttrsOnInsert(newEntity, sysResRole);
         assembleSimpleRoleAttrs(newEntity, sysResRole);
         newEntity.setTenantSid(sysResRole.getTenantId());
-        newEntity.setCorpSid(sysResRole.getTenantId());
+        newEntity.setCorpSid(sysResRole.getCorpId());
         return newEntity;
     }
 
