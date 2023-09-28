@@ -66,6 +66,7 @@ public class AcctUserGrpMasterStdDataSvcImpl
     @Override
     protected List<AcctUserGrpSlaveVO> queryExistingUserGrps(final AcctUserGrpDelParam delParam) {
         final AcctUserGrpQueryParam queryParam = new AcctUserGrpQueryParam.Builder()
+                .tenantIds(delParam.getTenantIds())
                 .corpIds(delParam.getCorpIds())
                 .statuses(delParam.getStatuses())
                 .pks(delParam.getPks())

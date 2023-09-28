@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @Service("tenantUserSlaveStdDataSvc")
 public class TenantUserSlaveStdDataSvcImpl
@@ -79,6 +80,32 @@ public class TenantUserSlaveStdDataSvcImpl
         }
         final TenantUserQueryParam queryParam = new TenantUserQueryParam.Builder()
                 .tenantIds(tenantIds)
+                .build();
+        return queryByParam(queryParam, queryCfg);
+    }
+
+    @Override
+    public TenantUserSlaveVO queryByPk(final Long tenantUserId,
+                                       final UserQueryCfg queryCfg) {
+        if (Objects.isNull(tenantUserId)) {
+            return null;
+        }
+        final List<TenantUserSlaveVO> tenantUsers =
+                queryByPks(Collections.singletonList(tenantUserId), queryCfg);
+        if (DeiCollectionUtil.isEmpty(tenantUsers)) {
+            return null;
+        }
+        return tenantUsers.get(0);
+    }
+
+    @Override
+    public List<TenantUserSlaveVO> queryByPks(final List<Long> tenantUserIds,
+                                              final UserQueryCfg queryCfg) {
+        if (DeiCollectionUtil.isEmpty(tenantUserIds)) {
+            return Collections.emptyList();
+        }
+        final TenantUserQueryParam queryParam = new TenantUserQueryParam.Builder()
+                .pks(tenantUserIds)
                 .build();
         return queryByParam(queryParam, queryCfg);
     }

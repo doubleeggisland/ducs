@@ -1,10 +1,8 @@
 package com.ioiox.dei.duc.std.data.svc.impl.slave.employee;
 
+import com.ioiox.dei.core.utils.DeiCollectionUtil;
 import com.ioiox.dei.duc.beans.entity.Employee;
-import com.ioiox.dei.duc.beans.model.slave.RoleQueryCfg;
-import com.ioiox.dei.duc.beans.model.slave.SysResRoleQueryCfg;
-import com.ioiox.dei.duc.beans.model.slave.UserGrpQueryCfg;
-import com.ioiox.dei.duc.beans.model.slave.UserSysPrjPrivilegeQueryCfg;
+import com.ioiox.dei.duc.beans.model.slave.*;
 import com.ioiox.dei.duc.beans.model.slave.employee.EmployeeQueryParam;
 import com.ioiox.dei.duc.beans.vo.std.slave.UserSysPrjPrivilegeSlaveVO;
 import com.ioiox.dei.duc.beans.vo.std.slave.employee.*;
@@ -16,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -72,6 +71,32 @@ public class EmployeeSlaveStdDataSvcImpl
     @Autowired
     @Qualifier("employeeSysPrjPrivilegeSlaveStdDataSvc")
     private UserSysPrjPrivilegeSlaveStdDataSvc employeeSysPrjPrivilegeSlaveStdDataSvc;
+
+    @Override
+    public EmployeeSlaveVO queryByPk(final Long pk,
+                                     final UserQueryCfg queryCfg) {
+        if (Objects.isNull(pk)) {
+            return null;
+        }
+        final List<EmployeeSlaveVO> employees =
+                queryByPks(Collections.singletonList(pk), queryCfg);
+        if (DeiCollectionUtil.isEmpty(employees)) {
+            return null;
+        }
+        return employees.get(0);
+    }
+
+    @Override
+    public List<EmployeeSlaveVO> queryByPks(final List<Long> pks,
+                                            final UserQueryCfg queryCfg) {
+        if (DeiCollectionUtil.isEmpty(pks)) {
+            return Collections.emptyList();
+        }
+        final EmployeeQueryParam queryParam = new EmployeeQueryParam.Builder()
+                .pks(pks)
+                .build();
+        return queryByParam(queryParam, queryCfg);
+    }
 
     @Override
     protected int countByParams(final Map<String, Object> queryParams) {
@@ -148,5 +173,15 @@ public class EmployeeSlaveStdDataSvcImpl
         }
         employee.setGender(entity.getGender());
         return employee;
+    }
+
+    @Override
+    public int countByParam(com.ioiox.dei.duc.beans.model.slave.employee.EmployeeQueryParam queryParam) {
+        return 0;
+    }
+
+    @Override
+    public List<EmployeeSlaveVO> queryByParam(com.ioiox.dei.duc.beans.model.slave.employee.EmployeeQueryParam queryParam, UserQueryCfg queryCfg) {
+        return null;
     }
 }

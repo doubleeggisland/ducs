@@ -29,7 +29,7 @@ public class UserAcctRoleMasterController {
 
     @PutMapping(path = "/user-acct/roles/{id}/update", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public DeiResponseData<String> updateRole(@PathVariable("id") Long id,
-                                                 @RequestBody final UserAcctRoleMasterVO role) {
+                                              @RequestBody final UserAcctRoleMasterVO role) {
         role.setId(id);
         userAcctRoleMasterStdDataSvc.update(role);
         return new DeiResponseData.Builder<String>()

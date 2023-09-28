@@ -19,7 +19,7 @@ public class UserAcctMasterController {
     private UserAcctMasterStdDataSvc userAcctMasterStdDataSvc;
 
     @PostMapping(path = "/user-accts/save", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public DeiResponseData<Long> saveUserGrp(@RequestBody final UserAcctMasterVO userAcct) {
+    public DeiResponseData<Long> saveUserAcct(@RequestBody final UserAcctMasterVO userAcct) {
         return new DeiResponseData.Builder<Long>()
                 .code(DeiResponseData.SUCCESS)
                 .success(DeiGlobalConstant.TRUE_STR)
@@ -28,8 +28,8 @@ public class UserAcctMasterController {
     }
 
     @PutMapping(path = "/user-accts/{id}/update", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public DeiResponseData<String> updateUserGrp(@PathVariable("id") Long id,
-                                                 @RequestBody final UserAcctMasterVO userAcct) {
+    public DeiResponseData<String> updateUserAcct(@PathVariable("id") Long id,
+                                                  @RequestBody final UserAcctMasterVO userAcct) {
         userAcct.setId(id);
         userAcctMasterStdDataSvc.update(userAcct);
         return new DeiResponseData.Builder<String>()
@@ -40,7 +40,7 @@ public class UserAcctMasterController {
     }
 
     @PostMapping(path = "/user-accts/remove", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public DeiResponseData<Integer> removeUserGrps(@RequestBody final UserAcctDelParam delParam) {
+    public DeiResponseData<Integer> removeUserAccts(@RequestBody final UserAcctDelParam delParam) {
         return new DeiResponseData.Builder<Integer>()
                 .code(DeiResponseData.SUCCESS)
                 .success(DeiGlobalConstant.TRUE_STR)

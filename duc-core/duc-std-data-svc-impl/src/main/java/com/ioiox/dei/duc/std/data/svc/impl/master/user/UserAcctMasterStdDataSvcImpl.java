@@ -91,6 +91,7 @@ public class UserAcctMasterStdDataSvcImpl
     @Override
     protected List<UserAcctSlaveVO> queryExistingUsers(final UserAcctDelParam delParam) {
         final UserAcctQueryParam queryParam = new UserAcctQueryParam.Builder()
+                .tenantIds(delParam.getTenantIds())
                 .corpIds(delParam.getCorpIds())
                 .statuses(delParam.getStatuses())
                 .pks(delParam.getPks())

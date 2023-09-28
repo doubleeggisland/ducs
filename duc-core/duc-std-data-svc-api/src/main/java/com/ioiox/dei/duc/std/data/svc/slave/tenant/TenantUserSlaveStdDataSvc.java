@@ -12,4 +12,10 @@ public interface TenantUserSlaveStdDataSvc
 
     List<TenantUserSlaveVO> queryByTenantIds(final List<Long> tenantIds,
                                              final UserQueryCfg queryCfg);
+
+    TenantUserSlaveVO queryByPk(final Long tenantUserId,
+                                final UserQueryCfg queryCfg);
+
+    List<TenantUserSlaveVO> queryByPks(final List<Long> tenantUserIds,
+                                       final UserQueryCfg queryCfg);
 }
