@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public abstract class BaseDUCRole {
+public abstract class DUCSimpleRole {
     /**
      * 角色ID
      */
@@ -34,13 +34,18 @@ public abstract class BaseDUCRole {
      * @see com.ioiox.dei.core.constant.DeiStatus
      */
     private String status;
+    /**
+     * 基于日期范围和时间范围的授权规则
+     */
+    private DUCDatetimeRangeBasedAuthRule authRule;
 
-    public BaseDUCRole(final BaseDUCRoleBuilder<? extends BaseDUCRole> builder) {
+    public DUCSimpleRole(final DUCSimpleRoleBuilder<? extends DUCSimpleRole> builder) {
         id = builder.id();
         code = builder.code();
         name = builder.name();
         type = builder.type();
         sysPrjId = builder.sysPrjId();
         status = builder.status();
+        authRule = builder.authRule();
     }
 }

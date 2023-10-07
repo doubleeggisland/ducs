@@ -11,7 +11,7 @@ import java.util.Map;
 @Setter
 @NoArgsConstructor
 public class DUCRole
-        extends BaseDUCRole {
+        extends DUCSimpleRole {
     /**
      * 分配的菜单
      */

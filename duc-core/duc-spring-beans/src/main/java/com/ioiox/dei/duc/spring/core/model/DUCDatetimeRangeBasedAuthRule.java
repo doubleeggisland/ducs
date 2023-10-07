@@ -7,15 +7,33 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class DUCTimeBasedAccessCondition {
+public class DUCDatetimeRangeBasedAuthRule {
+    /**
+     * 不限制日期范围 (Y: 是, N: 否)
+     */
     private String unlimitedDateRange;
+    /**
+     * 生效开始日期
+     */
     private Long effectiveStartDate;
+    /**
+     * 生效结束日期
+     */
     private Long effectiveEndDate;
+    /**
+     * 不限制时间范围 (Y: 是, N: 否)
+     */
     private String unlimitedTimeRange;
+    /**
+     * 生效开始时间
+     */
     private Long effectiveStartTime;
+    /**
+     * 生效结束日期
+     */
     private Long effectiveEndTime;
 
-    private DUCTimeBasedAccessCondition(final Builder builder) {
+    private DUCDatetimeRangeBasedAuthRule(final Builder builder) {
         unlimitedDateRange = builder.unlimitedDateRange;
         effectiveStartDate = builder.effectiveStartDate;
         effectiveEndDate = builder.effectiveEndDate;
@@ -32,7 +50,7 @@ public class DUCTimeBasedAccessCondition {
         private Long effectiveStartTime;
         private Long effectiveEndTime;
 
-        public Builder unlimitedDateRange(final String unlimitedDateRange) {
+        public Builder unlimitedDateRangeFlag(final String unlimitedDateRange) {
             this.unlimitedDateRange = unlimitedDateRange;
             return this;
         }
@@ -57,8 +75,8 @@ public class DUCTimeBasedAccessCondition {
             return this;
         }
 
-        public DUCTimeBasedAccessCondition build() {
-            return new DUCTimeBasedAccessCondition(this);
+        public DUCDatetimeRangeBasedAuthRule build() {
+            return new DUCDatetimeRangeBasedAuthRule(this);
         }
     }
 }

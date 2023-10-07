@@ -61,9 +61,9 @@ public class DUCMenu {
      */
     private Long sysPrjId;
     /**
-     * 访问条件
+     * 基于日期范围和时间范围的授权规则
      */
-    private DUCTimeBasedAccessCondition accessCondition;
+    private DUCDatetimeRangeBasedAuthRule authRule;
     /**
      * 子菜单
      */
@@ -90,7 +90,7 @@ public class DUCMenu {
         isCache = builder.isCache;
         icon = builder.icon;
         sysPrjId = builder.sysPrjId;
-        accessCondition = builder.accessCondition;
+        authRule = builder.authRule;
         subMenus = builder.subMenus;
     }
 
@@ -144,7 +144,7 @@ public class DUCMenu {
         private String isCache;
         private String icon;
         private Long sysPrjId;
-        private DUCTimeBasedAccessCondition accessCondition;
+        private DUCDatetimeRangeBasedAuthRule authRule;
         private List<DUCMenu> subMenus;
 
         public Builder id(final Long id) {
@@ -195,8 +195,8 @@ public class DUCMenu {
             this.sysPrjId = sysPrjId;
             return this;
         }
-        public Builder accessCondition(final DUCTimeBasedAccessCondition accessCondition) {
-            this.accessCondition = accessCondition;
+        public Builder authRule(final DUCDatetimeRangeBasedAuthRule authRule) {
+            this.authRule = authRule;
             return this;
         }
         public Builder subMenus(final List<DUCMenu> subMenus) {

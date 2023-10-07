@@ -52,9 +52,9 @@ public class DUCSysApi {
      */
     private String status;
     /**
-     * 访问条件
+     * 基于日期范围和时间范围的授权规则
      */
-    private DUCTimeBasedAccessCondition accessCondition;
+    private DUCDatetimeRangeBasedAuthRule authRule;
 
     private DUCSysApi(final Builder builder) {
         id = builder.id;
@@ -67,7 +67,7 @@ public class DUCSysApi {
         sysPrjModuleCode = builder.sysPrjModuleCode;
         sysPrjId = builder.sysPrjId;
         status = builder.status;
-        accessCondition = builder.accessCondition;
+        authRule = builder.authRule;
     }
 
     public UniqueKey uniqueKey() {
@@ -124,7 +124,7 @@ public class DUCSysApi {
         private String sysPrjModuleCode;
         private Long sysPrjId;
         private String status;
-        private DUCTimeBasedAccessCondition accessCondition;
+        private DUCDatetimeRangeBasedAuthRule authRule;
 
         public Builder id(final Long id) {
             this.id = id;
@@ -166,8 +166,8 @@ public class DUCSysApi {
             this.status = status;
             return this;
         }
-        public Builder accessCondition(final DUCTimeBasedAccessCondition accessCondition) {
-            this.accessCondition = accessCondition;
+        public Builder authRule(final DUCDatetimeRangeBasedAuthRule authRule) {
+            this.authRule = authRule;
             return this;
         }
 

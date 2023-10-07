@@ -35,7 +35,7 @@ public class DUCUserPortfolio {
     /**
      * 分配的系统资源访问权限
      */
-    private Map<DUCSysRes.UniqueKey, DUCSysRes> grantedSysResources;
+    private Map<DUCSysRes.UniqueKey, DUCSysRes> grantedSysResMap;
     /**
      * 分配的系统权限信息
      */
@@ -51,7 +51,7 @@ public class DUCUserPortfolio {
     /**
      * 分配的临时角色
      */
-    private List<DUCTmpRole> grantedTmpRoles;
+    private List<DUCRole> grantedTmpRoles;
     /**
      * 分配的系统资源角色
      */
@@ -59,7 +59,7 @@ public class DUCUserPortfolio {
     /**
      * 分配的临时系统资源角色
      */
-    private List<DUCTmpSysResRole> grantedTmpSysResRoles;
+    private List<DUCSysResRole> grantedTmpSysResRoles;
 
     public String toString() {
         return JsonUtil.toJsonStr(this);
@@ -71,7 +71,7 @@ public class DUCUserPortfolio {
         grantedMenuSysApiMappings = builder.grantedMenuSysApiMappings;
         grantedMenuSysApis = builder.grantedMenuSysApis;
         grantedSysApis = builder.grantedSysApis;
-        grantedSysResources = builder.grantedSysResources;
+        grantedSysResMap = builder.grantedSysResources;
         grantedSysPrjPrivileges = builder.grantedSysPrjPrivileges;
         grantedUserGrps = builder.grantedUserGrps;
         grantedRoles = builder.grantedRoles;
@@ -90,9 +90,9 @@ public class DUCUserPortfolio {
         private Map<DUCSysPrj.UniqueKey, DUCUserSysPrjPrivilege> grantedSysPrjPrivileges;
         private List<DUCUserGrp> grantedUserGrps;
         private List<DUCRole> grantedRoles;
-        private List<DUCTmpRole> grantedTmpRoles;
+        private List<DUCRole> grantedTmpRoles;
         private List<DUCSysResRole> grantedSysResRoles;
-        private List<DUCTmpSysResRole> grantedTmpSysResRoles;
+        private List<DUCSysResRole> grantedTmpSysResRoles;
 
         public Builder userInfo(final DUCUserInfo userInfo) {
             this.userInfo = userInfo;
@@ -130,7 +130,7 @@ public class DUCUserPortfolio {
             this.grantedRoles = grantedRoles;
             return this;
         }
-        public Builder grantedTmpRoles(final List<DUCTmpRole> grantedTmpRoles) {
+        public Builder grantedTmpRoles(final List<DUCRole> grantedTmpRoles) {
             this.grantedTmpRoles = grantedTmpRoles;
             return this;
         }
@@ -138,7 +138,7 @@ public class DUCUserPortfolio {
             this.grantedSysResRoles = grantedSysResRoles;
             return this;
         }
-        public Builder grantedTmpSysResRoles(final List<DUCTmpSysResRole> grantedTmpSysResRoles) {
+        public Builder grantedTmpSysResRoles(final List<DUCSysResRole> grantedTmpSysResRoles) {
             this.grantedTmpSysResRoles = grantedTmpSysResRoles;
             return this;
         }
