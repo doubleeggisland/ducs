@@ -19,7 +19,7 @@ public class SysResMasterController {
     private SysResMasterStdDataSvc sysResMasterStdDataSvc;
 
     @PostMapping(path = "/sys-resources/save", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public DeiResponseData<Long> saveSysApi(@RequestBody final SysResMasterVO sysRes) {
+    public DeiResponseData<Long> saveSysResource(@RequestBody final SysResMasterVO sysRes) {
         return new DeiResponseData.Builder<Long>()
                 .code(DeiResponseData.SUCCESS)
                 .success(DeiGlobalConstant.TRUE_STR)
@@ -28,8 +28,8 @@ public class SysResMasterController {
     }
 
     @PutMapping(path = "/sys-resources/{id}/update", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public DeiResponseData<String> updateSysApi(@PathVariable("id") Long id,
-                                                @RequestBody final SysResMasterVO sysRes) {
+    public DeiResponseData<String> updateSysResource(@PathVariable("id") Long id,
+                                                     @RequestBody final SysResMasterVO sysRes) {
         sysRes.setId(id);
         sysResMasterStdDataSvc.update(sysRes);
         return new DeiResponseData.Builder<String>()
@@ -40,7 +40,7 @@ public class SysResMasterController {
     }
 
     @PostMapping(path = "/sys-resources/remove", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public DeiResponseData<Integer> removeSysApis(@RequestBody final SysResDelParam delParam) {
+    public DeiResponseData<Integer> removeSysResources(@RequestBody final SysResDelParam delParam) {
         return new DeiResponseData.Builder<Integer>()
                 .code(DeiResponseData.SUCCESS)
                 .success(DeiGlobalConstant.TRUE_STR)

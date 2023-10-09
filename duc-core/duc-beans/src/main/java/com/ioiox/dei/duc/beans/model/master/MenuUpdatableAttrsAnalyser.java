@@ -4,14 +4,14 @@ import com.ioiox.dei.core.orm.mybatis.model.std.data.UpdatableAttr;
 import com.ioiox.dei.core.orm.mybatis.model.std.data.UpdatableObj;
 import com.ioiox.dei.core.orm.mybatis.model.std.data.UpdatableObjAnalyser;
 import com.ioiox.dei.duc.beans.entity.Menu;
-import com.ioiox.dei.duc.beans.vo.std.master.MenuMasterStdVO;
+import com.ioiox.dei.duc.beans.vo.std.master.MenuMasterVO;
 import com.ioiox.dei.duc.beans.vo.std.slave.MenuSlaveVO;
 
 public class MenuUpdatableAttrsAnalyser
-        extends UpdatableObjAnalyser<MenuMasterStdVO, MenuSlaveVO, MenuUpdatableObj, MenuUpdateCtx> {
+        extends UpdatableObjAnalyser<MenuMasterVO, MenuSlaveVO, MenuUpdatableObj, MenuUpdateCtx> {
 
     @Override
-    public MenuUpdateCtx analyseUpdatedAttrs(final MenuMasterStdVO menu, final MenuSlaveVO existingMenu) {
+    public MenuUpdateCtx analyseUpdatedAttrs(final MenuMasterVO menu, final MenuSlaveVO existingMenu) {
         final MenuUpdateCtx updateCtx = new MenuUpdateCtx();
         updateCtx.setUpdatableObj(new MenuUpdatableObj());
         analyseUpdatedAttrs(menu, existingMenu, updateCtx);
@@ -19,7 +19,7 @@ public class MenuUpdatableAttrsAnalyser
     }
 
     @Override
-    protected void analyseUpdatedAttrs(final MenuMasterStdVO menu, final MenuSlaveVO existingMenu, final MenuUpdateCtx updateCtx) {
+    protected void analyseUpdatedAttrs(final MenuMasterVO menu, final MenuSlaveVO existingMenu, final MenuUpdateCtx updateCtx) {
         if (UpdatableObj.modified(existingMenu.getCode(), menu.getCode())) {
             updateCtx.getUpdatableObj().addUpdatedAttrName(Menu.ShowColumn.CODE.getCode());
             updateCtx.getUpdatableObj().setName(new UpdatableAttr<>(Menu.ShowColumn.CODE.getCode(), existingMenu.getCode(), menu.getCode()));

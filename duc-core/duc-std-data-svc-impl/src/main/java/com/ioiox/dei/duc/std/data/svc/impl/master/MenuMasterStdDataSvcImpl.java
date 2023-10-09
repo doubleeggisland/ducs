@@ -15,7 +15,7 @@ import com.ioiox.dei.duc.beans.model.slave.MenuQueryCfg;
 import com.ioiox.dei.duc.beans.model.slave.MenuQueryParam;
 import com.ioiox.dei.duc.beans.model.slave.MenuSysApiMappingQueryCfg;
 import com.ioiox.dei.duc.beans.model.master.MenuDelParam;
-import com.ioiox.dei.duc.beans.vo.std.master.MenuMasterStdVO;
+import com.ioiox.dei.duc.beans.vo.std.master.MenuMasterVO;
 import com.ioiox.dei.duc.beans.model.master.MenuSysApiMappingDelParam;
 import com.ioiox.dei.duc.beans.vo.std.master.MenuSysApiMappingMasterVO;
 import com.ioiox.dei.duc.beans.vo.std.slave.*;
@@ -35,7 +35,7 @@ import java.util.stream.Collectors;
 
 @Service("menuMasterStdDataSvc")
 public class MenuMasterStdDataSvcImpl
-        extends BaseDeiMasterStdDataSvc<MenuMasterStdVO, MenuUpdatableObj, Menu>
+        extends BaseDeiMasterStdDataSvc<MenuMasterVO, MenuUpdatableObj, Menu>
         implements MenuMasterStdDataSvc {
 
     private static final Logger log = LoggerFactory.getLogger(MenuMasterStdDataSvcImpl.class);
@@ -55,7 +55,7 @@ public class MenuMasterStdDataSvcImpl
     private final MenuUpdatableAttrsAnalyser analyser = new MenuUpdatableAttrsAnalyser();
 
     @Override
-    public Long save(final MenuMasterStdVO menu) {
+    public Long save(final MenuMasterVO menu) {
         if (Objects.isNull(menu)) {
             return DeiGlobalConstant.DEFAULT_SID;
         }
@@ -88,7 +88,7 @@ public class MenuMasterStdDataSvcImpl
     }
 
     @Override
-    public boolean update(final MenuMasterStdVO menu) {
+    public boolean update(final MenuMasterVO menu) {
         if (Objects.isNull(menu) || Objects.isNull(menu.getId())) {
             throw new DeiServiceException("Please choose a menu to update!");
         }
@@ -99,7 +99,7 @@ public class MenuMasterStdDataSvcImpl
         return update(menu, existingMenu);
     }
 
-    public boolean update(final MenuMasterStdVO menu,
+    public boolean update(final MenuMasterVO menu,
                           final MenuSlaveVO existingMenu) {
         final int syncRows =
                 syncSysApiMappings(menu.getSysApiMappings(), existingMenu.getSysApiMappings(), existingMenu.getId(), menu.getUpdatedBy());
@@ -196,7 +196,7 @@ public class MenuMasterStdDataSvcImpl
     }
 
     @Override
-    public Menu toNewEntity(final MenuMasterStdVO masterStdVO) {
+    public Menu toNewEntity(final MenuMasterVO masterStdVO) {
         final Menu newEntity = new Menu();
         assembleCommonAttrsOnInsert(newEntity, masterStdVO);
         newEntity.setCode(masterStdVO.getCode());

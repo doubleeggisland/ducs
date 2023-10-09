@@ -10,7 +10,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class MenuMasterStdVO extends MasterStdDataVO {
+public class MenuMasterVO extends MasterStdDataVO {
     private String code;
     private String name;
     private Long pid;
