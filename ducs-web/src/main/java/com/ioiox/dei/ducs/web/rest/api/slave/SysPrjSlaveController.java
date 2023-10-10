@@ -4,7 +4,7 @@ import com.ioiox.dei.core.constant.DeiGlobalConstant;
 import com.ioiox.dei.core.vo.DeiResponseData;
 import com.ioiox.dei.duc.beans.model.slave.SysPrjQueryParam;
 import com.ioiox.dei.duc.beans.model.slave.SysPrjQueryReq;
-import com.ioiox.dei.duc.beans.vo.std.slave.SysPrjSlaveStdVO;
+import com.ioiox.dei.duc.beans.vo.std.slave.SysPrjSlaveVO;
 import com.ioiox.dei.duc.std.data.svc.slave.SysPrjSlaveStdDataSvc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -34,8 +34,8 @@ public class SysPrjSlaveController {
     }
 
     @PostMapping(path = "/sys-prjs/query", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public DeiResponseData<List<SysPrjSlaveStdVO>> querySysPrjs(@RequestBody final SysPrjQueryReq queryReq) {
-        return new DeiResponseData.Builder<List<SysPrjSlaveStdVO>>()
+    public DeiResponseData<List<SysPrjSlaveVO>> querySysPrjs(@RequestBody final SysPrjQueryReq queryReq) {
+        return new DeiResponseData.Builder<List<SysPrjSlaveVO>>()
                 .code(DeiResponseData.SUCCESS)
                 .success(DeiGlobalConstant.TRUE_STR)
                 .data(sysPrjSlaveStdDataSvc.queryByParam(queryReq.getQueryParam(), queryReq.getQueryCfg()))

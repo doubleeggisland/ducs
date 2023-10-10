@@ -13,7 +13,7 @@ import com.ioiox.dei.duc.beans.model.master.SysPrjUpdateCtx;
 import com.ioiox.dei.duc.beans.model.master.SysPrjDelParam;
 import com.ioiox.dei.duc.beans.vo.std.master.SysPrjMasterVO;
 import com.ioiox.dei.duc.beans.model.slave.SysPrjQueryCfg;
-import com.ioiox.dei.duc.beans.vo.std.slave.SysPrjSlaveStdVO;
+import com.ioiox.dei.duc.beans.vo.std.slave.SysPrjSlaveVO;
 import com.ioiox.dei.duc.db.service.master.SysPrjMasterDbSvc;
 import com.ioiox.dei.duc.std.data.svc.master.SysPrjMasterStdDataSvc;
 import com.ioiox.dei.duc.std.data.svc.slave.SysPrjSlaveStdDataSvc;
@@ -55,7 +55,7 @@ public class SysPrjMasterStdDataSvcImpl
         return newEntity.getSid();
     }
 
-    private SysPrjSlaveStdVO getExistingSysPrj(final Long id) {
+    private SysPrjSlaveVO getExistingSysPrj(final Long id) {
         return sysPrjSlaveStdDataSvc.queryByPk(id,
                 new SysPrjQueryCfg.Builder()
                         .showColumns(Arrays.asList(BaseDeiEntity.ShowColumn.ID.getCode(),
@@ -71,7 +71,7 @@ public class SysPrjMasterStdDataSvcImpl
                 || Objects.isNull(sysPrj.getId())) {
             throw new DeiServiceException("Please choose a sysPrj to update");
         }
-        final SysPrjSlaveStdVO existingSysPrj = getExistingSysPrj(sysPrj.getId());
+        final SysPrjSlaveVO existingSysPrj = getExistingSysPrj(sysPrj.getId());
         if (Objects.isNull(existingSysPrj)) {
             throw new DeiServiceException(String.format("SysPrj doesn't exist =====> id: %s", sysPrj.getId()));
         }
@@ -79,7 +79,7 @@ public class SysPrjMasterStdDataSvcImpl
     }
 
     private boolean update(final SysPrjMasterVO sysPrj,
-                           final SysPrjSlaveStdVO existingSysPrj) {
+                           final SysPrjSlaveVO existingSysPrj) {
         final SysPrjUpdateCtx updateCtx = analyser.analyseUpdatedAttrs(sysPrj, existingSysPrj);
         final SysPrjUpdatableObj updatableObj = updateCtx.getUpdatableObj();
         final boolean updated = updatableObj.updated();

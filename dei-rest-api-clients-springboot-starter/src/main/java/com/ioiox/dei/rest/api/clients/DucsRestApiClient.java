@@ -1,5 +1,6 @@
 package com.ioiox.dei.rest.api.clients;
 
+import com.ioiox.dei.core.orm.mybatis.model.std.data.StdDataQueryCfg;
 import com.ioiox.dei.duc.beans.model.master.MenuDelParam;
 import com.ioiox.dei.duc.beans.model.master.SysApiDelParam;
 import com.ioiox.dei.duc.beans.model.master.SysPrjDelParam;
@@ -10,6 +11,10 @@ import com.ioiox.dei.duc.beans.model.master.user.AcctUserGrpDelParam;
 import com.ioiox.dei.duc.beans.model.master.user.UserAcctDelParam;
 import com.ioiox.dei.duc.beans.model.master.user.UserAcctRoleDelParam;
 import com.ioiox.dei.duc.beans.model.master.user.UserAcctSysResRoleDelParam;
+import com.ioiox.dei.duc.beans.model.slave.*;
+import com.ioiox.dei.duc.beans.model.slave.employee.*;
+import com.ioiox.dei.duc.beans.model.slave.tenant.*;
+import com.ioiox.dei.duc.beans.model.slave.user.*;
 import com.ioiox.dei.duc.beans.vo.std.master.MenuMasterVO;
 import com.ioiox.dei.duc.beans.vo.std.master.SysApiMasterVO;
 import com.ioiox.dei.duc.beans.vo.std.master.SysPrjMasterVO;
@@ -17,6 +22,15 @@ import com.ioiox.dei.duc.beans.vo.std.master.SysResMasterVO;
 import com.ioiox.dei.duc.beans.vo.std.master.employee.*;
 import com.ioiox.dei.duc.beans.vo.std.master.tenant.*;
 import com.ioiox.dei.duc.beans.vo.std.master.user.*;
+import com.ioiox.dei.duc.beans.vo.std.slave.MenuSlaveVO;
+import com.ioiox.dei.duc.beans.vo.std.slave.SysApiSlaveVO;
+import com.ioiox.dei.duc.beans.vo.std.slave.SysPrjSlaveVO;
+import com.ioiox.dei.duc.beans.vo.std.slave.SysResSlaveVO;
+import com.ioiox.dei.duc.beans.vo.std.slave.employee.*;
+import com.ioiox.dei.duc.beans.vo.std.slave.tenant.*;
+import com.ioiox.dei.duc.beans.vo.std.slave.user.*;
+
+import java.util.List;
 
 public interface DucsRestApiClient {
 
@@ -157,4 +171,96 @@ public interface DucsRestApiClient {
     void updateEmployeeTmpSysResRole(final Long id, final EmployeeTmpSysResRoleMasterVO tmpSysResRole);
 
     Integer removeEmployeeTmpSysResRoles(final EmployeeTmpSysResRoleDelParam delParam);
+
+    Integer countMenus(final MenuQueryParam queryParam);
+
+    List<MenuSlaveVO> queryMenus(final MenuQueryParam queryParam, final MenuQueryCfg queryCfg);
+
+    Integer countSysApis(final SysApiQueryParam queryParam);
+
+    List<SysApiSlaveVO> querySysApis(final SysApiQueryParam queryParam, final StdDataQueryCfg queryCfg);
+
+    Integer countSysPrjs(final SysPrjQueryParam queryParam);
+
+    List<SysPrjSlaveVO> querySysPrjs(final SysPrjQueryParam queryParam, final SysPrjQueryCfg queryCfg);
+
+    Integer countSysResources(final SysResQueryParam queryParam);
+
+    List<SysResSlaveVO> querySysResources(final SysResQueryParam queryParam, final StdDataQueryCfg queryCfg);
+
+    Integer countAcctUserGrps(final AcctUserGrpQueryParam queryParam);
+
+    List<AcctUserGrpSlaveVO> queryAcctUserGrps(final AcctUserGrpQueryParam queryParam, final UserGrpQueryCfg queryCfg);
+
+    Integer countUserAccts(final UserAcctQueryParam queryParam);
+
+    List<UserAcctSlaveVO> queryUserAccts(final UserAcctQueryParam queryParam, final UserQueryCfg queryCfg);
+
+    Integer countUserAcctRoles(final UserAcctRoleQueryParam queryParam);
+
+    List<UserAcctRoleSlaveVO> queryUserAcctRoles(final UserAcctRoleQueryParam queryParam, final RoleQueryCfg queryCfg);
+
+    Integer countUserAcctTmpRoles(final UserAcctTmpRoleQueryParam queryParam);
+
+    List<UserAcctTmpRoleSlaveVO> queryUserAcctTmpRoles(final UserAcctTmpRoleQueryParam queryParam, final RoleQueryCfg queryCfg);
+
+    Integer countUserAcctSysResRoles(final UserAcctSysResRoleQueryParam queryParam);
+
+    List<UserAcctSysResRoleSlaveVO> queryUserAcctSysResRoles(final UserAcctSysResRoleQueryParam queryParam, final SysResRoleQueryCfg queryCfg);
+
+    Integer countUserAcctTmpSysResRoles(final UserAcctTmpSysResRoleQueryParam queryParam);
+
+    List<UserAcctTmpSysResRoleSlaveVO> queryUserAcctTmpSysResRoles(final UserAcctTmpSysResRoleQueryParam queryParam, final SysResRoleQueryCfg queryCfg);
+
+    Integer countTenants(final TenantQueryParam queryParam);
+
+    List<TenantSlaveVO> queryTenants(final TenantQueryParam queryParam, final TenantQueryCfg queryCfg);
+
+    Integer countTenantUserGrps(final TenantUserGrpQueryParam queryParam);
+
+    List<TenantUserGrpSlaveVO> queryTenantUserGrps(final TenantUserGrpQueryParam queryParam, final UserGrpQueryCfg queryCfg);
+
+    Integer countTenantUsers(final TenantUserQueryParam queryParam);
+
+    List<TenantUserSlaveVO> queryTenantUsers(final TenantUserQueryParam queryParam, final UserQueryCfg queryCfg);
+
+    Integer countTenantUserRoles(final TenantUserRoleQueryParam queryParam);
+
+    List<TenantUserRoleSlaveVO> queryTenantUserRoles(final TenantUserRoleQueryParam queryParam, final RoleQueryCfg queryCfg);
+
+    Integer countTenantUserTmpRoles(final TenantUserTmpRoleQueryParam queryParam);
+
+    List<TenantUserTmpRoleSlaveVO> queryTenantUserTmpRoles(final TenantUserTmpRoleQueryParam queryParam, final RoleQueryCfg queryCfg);
+
+    Integer countTenantUserSysResRoles(final TenantUserSysResRoleQueryParam queryParam);
+
+    List<TenantUserSysResRoleSlaveVO> queryTenantUserSysResRoles(final TenantUserSysResRoleQueryParam queryParam, final SysResRoleQueryCfg queryCfg);
+
+    Integer countTenantUserTmpSysResRoles(final TenantUserTmpSysResRoleQueryParam queryParam);
+
+    List<TenantUserTmpSysResRoleSlaveVO> queryTenantUserTmpSysResRoles(final TenantUserTmpSysResRoleQueryParam queryParam, final SysResRoleQueryCfg queryCfg);
+
+    Integer countEmployeeUserGrps(final EmployeeUserGrpQueryParam queryParam);
+
+    List<EmployeeUserGrpSlaveVO> queryEmployeeUserGrps(final EmployeeUserGrpQueryParam queryParam, final UserGrpQueryCfg queryCfg);
+
+    Integer countEmployees(final EmployeeQueryParam queryParam);
+
+    List<EmployeeSlaveVO> queryEmployees(final EmployeeQueryParam queryParam, final UserQueryCfg queryCfg);
+
+    Integer countEmployeeRoles(final EmployeeRoleQueryParam queryParam);
+
+    List<EmployeeRoleSlaveVO> queryEmployeeRoles(final EmployeeRoleQueryParam queryParam, final RoleQueryCfg queryCfg);
+
+    Integer countEmployeeTmpRoles(final EmployeeTmpRoleQueryParam queryParam);
+
+    List<EmployeeTmpRoleSlaveVO> queryEmployeeTmpRoles(final EmployeeTmpRoleQueryParam queryParam, final RoleQueryCfg queryCfg);
+
+    Integer countEmployeeSysResRoles(final EmployeeSysResRoleQueryParam queryParam);
+
+    List<EmployeeSysResRoleSlaveVO> queryEmployeeSysResRoles(final EmployeeSysResRoleQueryParam queryParam, final SysResRoleQueryCfg queryCfg);
+
+    Integer countEmployeeTmpSysResRoles(final EmployeeTmpSysResRoleQueryParam queryParam);
+
+    List<EmployeeTmpSysResRoleSlaveVO> queryEmployeeTmpSysResRoles(final EmployeeTmpSysResRoleQueryParam queryParam, final SysResRoleQueryCfg queryCfg);
 }

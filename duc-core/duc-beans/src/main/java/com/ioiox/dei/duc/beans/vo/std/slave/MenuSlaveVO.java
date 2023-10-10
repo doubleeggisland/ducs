@@ -65,7 +65,7 @@ public class MenuSlaveVO extends SlaveStdDataVO {
      * 所属的系统
      */
     @JsonIgnore
-    private SysPrjSlaveStdVO sysPrj;
+    private SysPrjSlaveVO sysPrj;
     /**
      * 父菜单
      */

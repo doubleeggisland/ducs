@@ -68,7 +68,7 @@ public abstract class BaseUserSysPrjPrivilegeSlaveStdDataSvc
             sysPrjPrivileges.add(transferToStdDataVO(entity));
         });
 
-        final Map<Long, SysPrjSlaveStdVO> sysPrjMap;
+        final Map<Long, SysPrjSlaveVO> sysPrjMap;
         if (Objects.nonNull(queryCfg)
                 && StringUtils.equals(DeiGlobalConstant.FLAG_YES, queryCfg.getNeedSysPrj())) {
             sysPrjMap = getSysPrjs(sysPrjIds, queryCfg.getSysPrjQueryCfg());
@@ -85,19 +85,19 @@ public abstract class BaseUserSysPrjPrivilegeSlaveStdDataSvc
     protected abstract List<UserSysPrjPrivilege> findByParams(final Map<String, Object> queryParams,
                                                               final List<String> showColumns);
 
-    protected Map<Long, SysPrjSlaveStdVO> getSysPrjs(final List<Long> sysPrjIds,
-                                                     final SysPrjQueryCfg queryCfg) {
+    protected Map<Long, SysPrjSlaveVO> getSysPrjs(final List<Long> sysPrjIds,
+                                                  final SysPrjQueryCfg queryCfg) {
         if (DeiCollectionUtil.isEmpty(sysPrjIds)) {
             return Collections.emptyMap();
         }
         addShowColumnsIfNeeded(queryCfg, Collections.singletonList(BaseDeiEntity.ShowColumn.ID.getCode()));
-        final List<SysPrjSlaveStdVO> sysPrjs =
+        final List<SysPrjSlaveVO> sysPrjs =
                 sysPrjSlaveStdDataSvc.queryByPks(sysPrjIds, queryCfg);
         if (DeiCollectionUtil.isEmpty(sysPrjs)) {
             return Collections.emptyMap();
         }
         return sysPrjs.stream()
-                .collect(Collectors.toMap(SysPrjSlaveStdVO::getId, sysPrj -> sysPrj));
+                .collect(Collectors.toMap(SysPrjSlaveVO::getId, sysPrj -> sysPrj));
     }
 
     @Override

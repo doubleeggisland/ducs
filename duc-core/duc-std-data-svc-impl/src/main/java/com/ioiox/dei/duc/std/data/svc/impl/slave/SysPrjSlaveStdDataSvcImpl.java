@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 
 @Service("sysPrjSlaveStdDataSvc")
 public class SysPrjSlaveStdDataSvcImpl
-        extends BaseDeiSlaveStdDataSvc<SysPrjSlaveStdVO, SysPrj>
+        extends BaseDeiSlaveStdDataSvc<SysPrjSlaveVO, SysPrj>
         implements SysPrjSlaveStdDataSvc {
 
     @Autowired
@@ -55,9 +55,9 @@ public class SysPrjSlaveStdDataSvcImpl
     }
 
     @Override
-    public SysPrjSlaveStdVO queryByPk(final Long sysPrjId,
-                                      final SysPrjQueryCfg queryCfg) {
-        final List<SysPrjSlaveStdVO> sysPrjs = queryByPks(Collections.singletonList(sysPrjId), queryCfg);
+    public SysPrjSlaveVO queryByPk(final Long sysPrjId,
+                                   final SysPrjQueryCfg queryCfg) {
+        final List<SysPrjSlaveVO> sysPrjs = queryByPks(Collections.singletonList(sysPrjId), queryCfg);
         if (DeiCollectionUtil.isEmpty(sysPrjs)) {
             return null;
         }
@@ -65,8 +65,8 @@ public class SysPrjSlaveStdDataSvcImpl
     }
 
     @Override
-    public List<SysPrjSlaveStdVO> queryByPks(final List<Long> sysPrjIds,
-                                             final SysPrjQueryCfg queryCfg) {
+    public List<SysPrjSlaveVO> queryByPks(final List<Long> sysPrjIds,
+                                          final SysPrjQueryCfg queryCfg) {
         if (DeiCollectionUtil.isEmpty(sysPrjIds)) {
             return Collections.emptyList();
         }
@@ -77,8 +77,8 @@ public class SysPrjSlaveStdDataSvcImpl
     }
 
     @Override
-    public List<SysPrjSlaveStdVO> queryByParam(final SysPrjQueryParam queryParam,
-                                               final SysPrjQueryCfg queryCfg) {
+    public List<SysPrjSlaveVO> queryByParam(final SysPrjQueryParam queryParam,
+                                            final SysPrjQueryCfg queryCfg) {
         final Map<String, Object> queryParams =
                 Objects.isNull(queryParam) ? new HashMap<>() : queryParam.queryParams();
 
@@ -96,7 +96,7 @@ public class SysPrjSlaveStdDataSvcImpl
         }
 
         final List<Long> sysPrjIds = new ArrayList<>(entities.size());
-        final List<SysPrjSlaveStdVO> sysPrjs = new ArrayList<>(entities.size());
+        final List<SysPrjSlaveVO> sysPrjs = new ArrayList<>(entities.size());
         entities.forEach(entity -> {
             sysPrjIds.add(entity.getSid());
             sysPrjs.add(transferToStdDataVO(entity));
@@ -168,8 +168,8 @@ public class SysPrjSlaveStdDataSvcImpl
     }
 
     @Override
-    public SysPrjSlaveStdVO transferToStdDataVO(final SysPrj entity) {
-        final SysPrjSlaveStdVO stdVO = new SysPrjSlaveStdVO();
+    public SysPrjSlaveVO transferToStdDataVO(final SysPrj entity) {
+        final SysPrjSlaveVO stdVO = new SysPrjSlaveVO();
         assembleCommonAttrs(stdVO, entity);
         stdVO.setCode(entity.getCode());
         stdVO.setName(entity.getName());

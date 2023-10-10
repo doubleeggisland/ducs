@@ -17,7 +17,7 @@ import org.springframework.web.client.RestTemplate;
 public class DeiRestApiClientsConfiguration {
 
     @Autowired
-    @Qualifier("stmcRestApiClientRestTemplate")
+    @Qualifier("deiRestApiClientRestTemplate")
     private RestTemplate restTemplate;
 
     @Autowired

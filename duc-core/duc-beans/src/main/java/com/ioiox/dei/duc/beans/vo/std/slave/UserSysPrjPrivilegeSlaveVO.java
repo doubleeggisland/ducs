@@ -27,7 +27,7 @@ public class UserSysPrjPrivilegeSlaveVO
     /**
      * 项目
      */
-    private SysPrjSlaveStdVO sysPrj;
+    private SysPrjSlaveVO sysPrj;
 
     public String uniqueKeyDigest() {
         return new UserSysPrjPrivilege.UniqueKey(userId, sysPrjId).toString();

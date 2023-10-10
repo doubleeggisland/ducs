@@ -10,7 +10,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class SysPrjSlaveStdVO extends SlaveStdDataVO {
+public class SysPrjSlaveVO extends SlaveStdDataVO {
     /**
      * 系统编号
      */

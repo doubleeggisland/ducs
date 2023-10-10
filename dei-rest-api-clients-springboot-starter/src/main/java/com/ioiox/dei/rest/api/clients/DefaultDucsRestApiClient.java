@@ -1,6 +1,7 @@
 package com.ioiox.dei.rest.api.clients;
 
 
+import com.ioiox.dei.core.orm.mybatis.model.std.data.StdDataQueryCfg;
 import com.ioiox.dei.core.vo.DeiResponseData;
 import com.ioiox.dei.duc.beans.model.master.MenuDelParam;
 import com.ioiox.dei.duc.beans.model.master.SysApiDelParam;
@@ -12,6 +13,10 @@ import com.ioiox.dei.duc.beans.model.master.user.AcctUserGrpDelParam;
 import com.ioiox.dei.duc.beans.model.master.user.UserAcctDelParam;
 import com.ioiox.dei.duc.beans.model.master.user.UserAcctRoleDelParam;
 import com.ioiox.dei.duc.beans.model.master.user.UserAcctSysResRoleDelParam;
+import com.ioiox.dei.duc.beans.model.slave.*;
+import com.ioiox.dei.duc.beans.model.slave.employee.*;
+import com.ioiox.dei.duc.beans.model.slave.tenant.*;
+import com.ioiox.dei.duc.beans.model.slave.user.*;
 import com.ioiox.dei.duc.beans.vo.std.master.MenuMasterVO;
 import com.ioiox.dei.duc.beans.vo.std.master.SysApiMasterVO;
 import com.ioiox.dei.duc.beans.vo.std.master.SysPrjMasterVO;
@@ -19,12 +24,21 @@ import com.ioiox.dei.duc.beans.vo.std.master.SysResMasterVO;
 import com.ioiox.dei.duc.beans.vo.std.master.employee.*;
 import com.ioiox.dei.duc.beans.vo.std.master.tenant.*;
 import com.ioiox.dei.duc.beans.vo.std.master.user.*;
+import com.ioiox.dei.duc.beans.vo.std.slave.MenuSlaveVO;
+import com.ioiox.dei.duc.beans.vo.std.slave.SysApiSlaveVO;
+import com.ioiox.dei.duc.beans.vo.std.slave.SysPrjSlaveVO;
+import com.ioiox.dei.duc.beans.vo.std.slave.SysResSlaveVO;
+import com.ioiox.dei.duc.beans.vo.std.slave.employee.*;
+import com.ioiox.dei.duc.beans.vo.std.slave.tenant.*;
+import com.ioiox.dei.duc.beans.vo.std.slave.user.*;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.List;
 
 public class DefaultDucsRestApiClient
         extends BaseDeiRestApiClient
@@ -698,6 +712,489 @@ public class DefaultDucsRestApiClient
         final String url = String.format("%s/duc/common/api/employee/tmp-sys-res-roles/remove", this.getServerHost());
         final ResponseEntity<DeiResponseData<Integer>> response = execute(url, HttpMethod.POST, httpEntity, new ParameterizedTypeReference<DeiResponseData<Integer>>() {}, true);
         final DeiResponseData<Integer> result = checkResponse(response);
+        return result.getData();
+    }
+
+    @Override
+    public Integer countMenus(final MenuQueryParam queryParam) {
+        final HttpHeaders httpHeaders = buildCommonHeaders();
+        final HttpEntity<MenuQueryParam> httpEntity = new HttpEntity<>(queryParam, httpHeaders);
+        final String url = String.format("%s/duc/common/api/menus/count", this.getServerHost());
+        final ResponseEntity<DeiResponseData<Integer>> response = execute(url, HttpMethod.POST, httpEntity, new ParameterizedTypeReference<DeiResponseData<Integer>>() {}, true);
+        final DeiResponseData<Integer> result = checkResponse(response);
+        return result.getData();
+    }
+
+    @Override
+    public List<MenuSlaveVO> queryMenus(final MenuQueryParam queryParam, final MenuQueryCfg queryCfg) {
+        final MenuQueryReq queryReq = new MenuQueryReq(queryParam, queryCfg);
+        final HttpHeaders httpHeaders = buildCommonHeaders();
+        final HttpEntity<MenuQueryReq> httpEntity = new HttpEntity<>(queryReq, httpHeaders);
+        final String url = String.format("%s/duc/common/api/menus/query", this.getServerHost());
+        final ResponseEntity<DeiResponseData<List<MenuSlaveVO>>> response = execute(url, HttpMethod.POST, httpEntity, new ParameterizedTypeReference<DeiResponseData<List<MenuSlaveVO>>>() {}, true);
+        final DeiResponseData<List<MenuSlaveVO>> result = checkResponse(response);
+        return result.getData();
+    }
+
+    @Override
+    public Integer countSysApis(final SysApiQueryParam queryParam) {
+        final HttpHeaders httpHeaders = buildCommonHeaders();
+        final HttpEntity<SysApiQueryParam> httpEntity = new HttpEntity<>(queryParam, httpHeaders);
+        final String url = String.format("%s/duc/common/api/sys-apis/count", this.getServerHost());
+        final ResponseEntity<DeiResponseData<Integer>> response = execute(url, HttpMethod.POST, httpEntity, new ParameterizedTypeReference<DeiResponseData<Integer>>() {}, true);
+        final DeiResponseData<Integer> result = checkResponse(response);
+        return result.getData();
+    }
+
+    @Override
+    public List<SysApiSlaveVO> querySysApis(final SysApiQueryParam queryParam, final StdDataQueryCfg queryCfg) {
+        final SysApiQueryReq queryReq = new SysApiQueryReq(queryParam, queryCfg);
+        final HttpHeaders httpHeaders = buildCommonHeaders();
+        final HttpEntity<SysApiQueryReq> httpEntity = new HttpEntity<>(queryReq, httpHeaders);
+        final String url = String.format("%s/duc/common/api/sys-apis/query", this.getServerHost());
+        final ResponseEntity<DeiResponseData<List<SysApiSlaveVO>>> response = execute(url, HttpMethod.POST, httpEntity, new ParameterizedTypeReference<DeiResponseData<List<SysApiSlaveVO>>>() {}, true);
+        final DeiResponseData<List<SysApiSlaveVO>> result = checkResponse(response);
+        return result.getData();
+    }
+
+    @Override
+    public Integer countSysPrjs(final SysPrjQueryParam queryParam) {
+        final HttpHeaders httpHeaders = buildCommonHeaders();
+        final HttpEntity<SysPrjQueryParam> httpEntity = new HttpEntity<>(queryParam, httpHeaders);
+        final String url = String.format("%s/duc/common/api/sys-prjs/count", this.getServerHost());
+        final ResponseEntity<DeiResponseData<Integer>> response = execute(url, HttpMethod.POST, httpEntity, new ParameterizedTypeReference<DeiResponseData<Integer>>() {}, true);
+        final DeiResponseData<Integer> result = checkResponse(response);
+        return result.getData();
+    }
+
+    @Override
+    public List<SysPrjSlaveVO> querySysPrjs(final SysPrjQueryParam queryParam, final SysPrjQueryCfg queryCfg) {
+        final SysPrjQueryReq queryReq = new SysPrjQueryReq(queryParam, queryCfg);
+        final HttpHeaders httpHeaders = buildCommonHeaders();
+        final HttpEntity<SysPrjQueryReq> httpEntity = new HttpEntity<>(queryReq, httpHeaders);
+        final String url = String.format("%s/duc/common/api/sys-prjs/query", this.getServerHost());
+        final ResponseEntity<DeiResponseData<List<SysPrjSlaveVO>>> response = execute(url, HttpMethod.POST, httpEntity, new ParameterizedTypeReference<DeiResponseData<List<SysPrjSlaveVO>>>() {}, true);
+        final DeiResponseData<List<SysPrjSlaveVO>> result = checkResponse(response);
+        return result.getData();
+    }
+
+    @Override
+    public Integer countSysResources(final SysResQueryParam queryParam) {
+        final HttpHeaders httpHeaders = buildCommonHeaders();
+        final HttpEntity<SysResQueryParam> httpEntity = new HttpEntity<>(queryParam, httpHeaders);
+        final String url = String.format("%s/duc/common/api/sys-resources/count", this.getServerHost());
+        final ResponseEntity<DeiResponseData<Integer>> response = execute(url, HttpMethod.POST, httpEntity, new ParameterizedTypeReference<DeiResponseData<Integer>>() {}, true);
+        final DeiResponseData<Integer> result = checkResponse(response);
+        return result.getData();
+    }
+
+    @Override
+    public List<SysResSlaveVO> querySysResources(final SysResQueryParam queryParam, final StdDataQueryCfg queryCfg) {
+        final SysResQueryReq queryReq = new SysResQueryReq(queryParam, queryCfg);
+        final HttpHeaders httpHeaders = buildCommonHeaders();
+        final HttpEntity<SysResQueryReq> httpEntity = new HttpEntity<>(queryReq, httpHeaders);
+        final String url = String.format("%s/duc/common/api/sys-resources/query", this.getServerHost());
+        final ResponseEntity<DeiResponseData<List<SysResSlaveVO>>> response = execute(url, HttpMethod.POST, httpEntity, new ParameterizedTypeReference<DeiResponseData<List<SysResSlaveVO>>>() {}, true);
+        final DeiResponseData<List<SysResSlaveVO>> result = checkResponse(response);
+        return result.getData();
+    }
+
+    @Override
+    public Integer countAcctUserGrps(final AcctUserGrpQueryParam queryParam) {
+        final HttpHeaders httpHeaders = buildCommonHeaders();
+        final HttpEntity<AcctUserGrpQueryParam> httpEntity = new HttpEntity<>(queryParam, httpHeaders);
+        final String url = String.format("%s/duc/common/api/user-acct/user-grps/count", this.getServerHost());
+        final ResponseEntity<DeiResponseData<Integer>> response = execute(url, HttpMethod.POST, httpEntity, new ParameterizedTypeReference<DeiResponseData<Integer>>() {}, true);
+        final DeiResponseData<Integer> result = checkResponse(response);
+        return result.getData();
+    }
+
+    @Override
+    public List<AcctUserGrpSlaveVO> queryAcctUserGrps(final AcctUserGrpQueryParam queryParam, final UserGrpQueryCfg queryCfg) {
+        final AcctUserGrpQueryReq queryReq = new AcctUserGrpQueryReq(queryParam, queryCfg);
+        final HttpHeaders httpHeaders = buildCommonHeaders();
+        final HttpEntity<AcctUserGrpQueryReq> httpEntity = new HttpEntity<>(queryReq, httpHeaders);
+        final String url = String.format("%s/duc/common/api/user-acct/user-grps/query", this.getServerHost());
+        final ResponseEntity<DeiResponseData<List<AcctUserGrpSlaveVO>>> response = execute(url, HttpMethod.POST, httpEntity, new ParameterizedTypeReference<DeiResponseData<List<AcctUserGrpSlaveVO>>>() {}, true);
+        final DeiResponseData<List<AcctUserGrpSlaveVO>> result = checkResponse(response);
+        return result.getData();
+    }
+
+    @Override
+    public Integer countUserAccts(final UserAcctQueryParam queryParam) {
+        final HttpHeaders httpHeaders = buildCommonHeaders();
+        final HttpEntity<UserAcctQueryParam> httpEntity = new HttpEntity<>(queryParam, httpHeaders);
+        final String url = String.format("%s/duc/common/api/user-accts/count", this.getServerHost());
+        final ResponseEntity<DeiResponseData<Integer>> response = execute(url, HttpMethod.POST, httpEntity, new ParameterizedTypeReference<DeiResponseData<Integer>>() {}, true);
+        final DeiResponseData<Integer> result = checkResponse(response);
+        return result.getData();
+    }
+
+    @Override
+    public List<UserAcctSlaveVO> queryUserAccts(final UserAcctQueryParam queryParam, final UserQueryCfg queryCfg) {
+        final UserAcctQueryReq queryReq = new UserAcctQueryReq(queryParam, queryCfg);
+        final HttpHeaders httpHeaders = buildCommonHeaders();
+        final HttpEntity<UserAcctQueryReq> httpEntity = new HttpEntity<>(queryReq, httpHeaders);
+        final String url = String.format("%s/duc/common/api/user-accts/query", this.getServerHost());
+        final ResponseEntity<DeiResponseData<List<UserAcctSlaveVO>>> response = execute(url, HttpMethod.POST, httpEntity, new ParameterizedTypeReference<DeiResponseData<List<UserAcctSlaveVO>>>() {}, true);
+        final DeiResponseData<List<UserAcctSlaveVO>> result = checkResponse(response);
+        return result.getData();
+    }
+
+    @Override
+    public Integer countUserAcctRoles(final UserAcctRoleQueryParam queryParam) {
+        final HttpHeaders httpHeaders = buildCommonHeaders();
+        final HttpEntity<UserAcctRoleQueryParam> httpEntity = new HttpEntity<>(queryParam, httpHeaders);
+        final String url = String.format("%s/duc/common/api/user-acct/roles/count", this.getServerHost());
+        final ResponseEntity<DeiResponseData<Integer>> response = execute(url, HttpMethod.POST, httpEntity, new ParameterizedTypeReference<DeiResponseData<Integer>>() {}, true);
+        final DeiResponseData<Integer> result = checkResponse(response);
+        return result.getData();
+    }
+
+    @Override
+    public List<UserAcctRoleSlaveVO> queryUserAcctRoles(final UserAcctRoleQueryParam queryParam, final RoleQueryCfg queryCfg) {
+        final UserAcctRoleQueryReq queryReq = new UserAcctRoleQueryReq(queryParam, queryCfg);
+        final HttpHeaders httpHeaders = buildCommonHeaders();
+        final HttpEntity<UserAcctRoleQueryReq> httpEntity = new HttpEntity<>(queryReq, httpHeaders);
+        final String url = String.format("%s/duc/common/api/user-acct/roles/query", this.getServerHost());
+        final ResponseEntity<DeiResponseData<List<UserAcctRoleSlaveVO>>> response = execute(url, HttpMethod.POST, httpEntity, new ParameterizedTypeReference<DeiResponseData<List<UserAcctRoleSlaveVO>>>() {}, true);
+        final DeiResponseData<List<UserAcctRoleSlaveVO>> result = checkResponse(response);
+        return result.getData();
+    }
+
+    @Override
+    public Integer countUserAcctTmpRoles(final UserAcctTmpRoleQueryParam queryParam) {
+        final HttpHeaders httpHeaders = buildCommonHeaders();
+        final HttpEntity<UserAcctTmpRoleQueryParam> httpEntity = new HttpEntity<>(queryParam, httpHeaders);
+        final String url = String.format("%s/duc/common/api/user-acct/tmp-roles/count", this.getServerHost());
+        final ResponseEntity<DeiResponseData<Integer>> response = execute(url, HttpMethod.POST, httpEntity, new ParameterizedTypeReference<DeiResponseData<Integer>>() {}, true);
+        final DeiResponseData<Integer> result = checkResponse(response);
+        return result.getData();
+    }
+
+    @Override
+    public List<UserAcctTmpRoleSlaveVO> queryUserAcctTmpRoles(final UserAcctTmpRoleQueryParam queryParam, final RoleQueryCfg queryCfg) {
+        final UserAcctTmpRoleQueryReq queryReq = new UserAcctTmpRoleQueryReq(queryParam, queryCfg);
+        final HttpHeaders httpHeaders = buildCommonHeaders();
+        final HttpEntity<UserAcctTmpRoleQueryReq> httpEntity = new HttpEntity<>(queryReq, httpHeaders);
+        final String url = String.format("%s/duc/common/api/user-acct/tmp-roles/query", this.getServerHost());
+        final ResponseEntity<DeiResponseData<List<UserAcctTmpRoleSlaveVO>>> response = execute(url, HttpMethod.POST, httpEntity, new ParameterizedTypeReference<DeiResponseData<List<UserAcctTmpRoleSlaveVO>>>() {}, true);
+        final DeiResponseData<List<UserAcctTmpRoleSlaveVO>> result = checkResponse(response);
+        return result.getData();
+    }
+
+    @Override
+    public Integer countUserAcctSysResRoles(final UserAcctSysResRoleQueryParam queryParam) {
+        final HttpHeaders httpHeaders = buildCommonHeaders();
+        final HttpEntity<UserAcctSysResRoleQueryParam> httpEntity = new HttpEntity<>(queryParam, httpHeaders);
+        final String url = String.format("%s/duc/common/api/user-acct/sys-res-roles/count", this.getServerHost());
+        final ResponseEntity<DeiResponseData<Integer>> response = execute(url, HttpMethod.POST, httpEntity, new ParameterizedTypeReference<DeiResponseData<Integer>>() {}, true);
+        final DeiResponseData<Integer> result = checkResponse(response);
+        return result.getData();
+    }
+
+    @Override
+    public List<UserAcctSysResRoleSlaveVO> queryUserAcctSysResRoles(final UserAcctSysResRoleQueryParam queryParam, final SysResRoleQueryCfg queryCfg) {
+        final UserAcctSysResRoleQueryReq queryReq = new UserAcctSysResRoleQueryReq(queryParam, queryCfg);
+        final HttpHeaders httpHeaders = buildCommonHeaders();
+        final HttpEntity<UserAcctSysResRoleQueryReq> httpEntity = new HttpEntity<>(queryReq, httpHeaders);
+        final String url = String.format("%s/duc/common/api/user-acct/sys-res-roles/query", this.getServerHost());
+        final ResponseEntity<DeiResponseData<List<UserAcctSysResRoleSlaveVO>>> response = execute(url, HttpMethod.POST, httpEntity, new ParameterizedTypeReference<DeiResponseData<List<UserAcctSysResRoleSlaveVO>>>() {}, true);
+        final DeiResponseData<List<UserAcctSysResRoleSlaveVO>> result = checkResponse(response);
+        return result.getData();
+    }
+
+    @Override
+    public Integer countUserAcctTmpSysResRoles(final UserAcctTmpSysResRoleQueryParam queryParam) {
+        final HttpHeaders httpHeaders = buildCommonHeaders();
+        final HttpEntity<UserAcctTmpSysResRoleQueryParam> httpEntity = new HttpEntity<>(queryParam, httpHeaders);
+        final String url = String.format("%s/duc/common/api/user-acct/tmp-sys-res-roles/count", this.getServerHost());
+        final ResponseEntity<DeiResponseData<Integer>> response = execute(url, HttpMethod.POST, httpEntity, new ParameterizedTypeReference<DeiResponseData<Integer>>() {}, true);
+        final DeiResponseData<Integer> result = checkResponse(response);
+        return result.getData();
+    }
+
+    @Override
+    public List<UserAcctTmpSysResRoleSlaveVO> queryUserAcctTmpSysResRoles(final UserAcctTmpSysResRoleQueryParam queryParam, final SysResRoleQueryCfg queryCfg) {
+        final UserAcctTmpSysResRoleQueryReq queryReq = new UserAcctTmpSysResRoleQueryReq(queryParam, queryCfg);
+        final HttpHeaders httpHeaders = buildCommonHeaders();
+        final HttpEntity<UserAcctTmpSysResRoleQueryReq> httpEntity = new HttpEntity<>(queryReq, httpHeaders);
+        final String url = String.format("%s/duc/common/api/user-acct/tmp-sys-res-roles/query", this.getServerHost());
+        final ResponseEntity<DeiResponseData<List<UserAcctTmpSysResRoleSlaveVO>>> response = execute(url, HttpMethod.POST, httpEntity, new ParameterizedTypeReference<DeiResponseData<List<UserAcctTmpSysResRoleSlaveVO>>>() {}, true);
+        final DeiResponseData<List<UserAcctTmpSysResRoleSlaveVO>> result = checkResponse(response);
+        return result.getData();
+    }
+
+    @Override
+    public Integer countTenants(final TenantQueryParam queryParam) {
+        final HttpHeaders httpHeaders = buildCommonHeaders();
+        final HttpEntity<TenantQueryParam> httpEntity = new HttpEntity<>(queryParam, httpHeaders);
+        final String url = String.format("%s/duc/common/api/tenants/count", this.getServerHost());
+        final ResponseEntity<DeiResponseData<Integer>> response = execute(url, HttpMethod.POST, httpEntity, new ParameterizedTypeReference<DeiResponseData<Integer>>() {}, true);
+        final DeiResponseData<Integer> result = checkResponse(response);
+        return result.getData();
+    }
+
+    @Override
+    public List<TenantSlaveVO> queryTenants(final TenantQueryParam queryParam, final TenantQueryCfg queryCfg) {
+        final TenantQueryReq queryReq = new TenantQueryReq(queryParam, queryCfg);
+        final HttpHeaders httpHeaders = buildCommonHeaders();
+        final HttpEntity<TenantQueryReq> httpEntity = new HttpEntity<>(queryReq, httpHeaders);
+        final String url = String.format("%s/duc/common/api/tenants/query", this.getServerHost());
+        final ResponseEntity<DeiResponseData<List<TenantSlaveVO>>> response = execute(url, HttpMethod.POST, httpEntity, new ParameterizedTypeReference<DeiResponseData<List<TenantSlaveVO>>>() {}, true);
+        final DeiResponseData<List<TenantSlaveVO>> result = checkResponse(response);
+        return result.getData();
+    }
+
+    @Override
+    public Integer countTenantUserGrps(final TenantUserGrpQueryParam queryParam) {
+        final HttpHeaders httpHeaders = buildCommonHeaders();
+        final HttpEntity<TenantUserGrpQueryParam> httpEntity = new HttpEntity<>(queryParam, httpHeaders);
+        final String url = String.format("%s/duc/common/api/tenant-user/user-grps/count", this.getServerHost());
+        final ResponseEntity<DeiResponseData<Integer>> response = execute(url, HttpMethod.POST, httpEntity, new ParameterizedTypeReference<DeiResponseData<Integer>>() {}, true);
+        final DeiResponseData<Integer> result = checkResponse(response);
+        return result.getData();
+    }
+
+    @Override
+    public List<TenantUserGrpSlaveVO> queryTenantUserGrps(final TenantUserGrpQueryParam queryParam, final UserGrpQueryCfg queryCfg) {
+        final TenantUserGrpQueryReq queryReq = new TenantUserGrpQueryReq(queryParam, queryCfg);
+        final HttpHeaders httpHeaders = buildCommonHeaders();
+        final HttpEntity<TenantUserGrpQueryReq> httpEntity = new HttpEntity<>(queryReq, httpHeaders);
+        final String url = String.format("%s/duc/common/api/tenant-user/user-grps/query", this.getServerHost());
+        final ResponseEntity<DeiResponseData<List<TenantUserGrpSlaveVO>>> response = execute(url, HttpMethod.POST, httpEntity, new ParameterizedTypeReference<DeiResponseData<List<TenantUserGrpSlaveVO>>>() {}, true);
+        final DeiResponseData<List<TenantUserGrpSlaveVO>> result = checkResponse(response);
+        return result.getData();
+    }
+
+    @Override
+    public Integer countTenantUsers(final TenantUserQueryParam queryParam) {
+        final HttpHeaders httpHeaders = buildCommonHeaders();
+        final HttpEntity<TenantUserQueryParam> httpEntity = new HttpEntity<>(queryParam, httpHeaders);
+        final String url = String.format("%s/duc/common/api/tenant-users/count", this.getServerHost());
+        final ResponseEntity<DeiResponseData<Integer>> response = execute(url, HttpMethod.POST, httpEntity, new ParameterizedTypeReference<DeiResponseData<Integer>>() {}, true);
+        final DeiResponseData<Integer> result = checkResponse(response);
+        return result.getData();
+    }
+
+    @Override
+    public List<TenantUserSlaveVO> queryTenantUsers(final TenantUserQueryParam queryParam, final UserQueryCfg queryCfg) {
+        final TenantUserQueryReq queryReq = new TenantUserQueryReq(queryParam, queryCfg);
+        final HttpHeaders httpHeaders = buildCommonHeaders();
+        final HttpEntity<TenantUserQueryReq> httpEntity = new HttpEntity<>(queryReq, httpHeaders);
+        final String url = String.format("%s/duc/common/api/tenant-users/query", this.getServerHost());
+        final ResponseEntity<DeiResponseData<List<TenantUserSlaveVO>>> response = execute(url, HttpMethod.POST, httpEntity, new ParameterizedTypeReference<DeiResponseData<List<TenantUserSlaveVO>>>() {}, true);
+        final DeiResponseData<List<TenantUserSlaveVO>> result = checkResponse(response);
+        return result.getData();
+    }
+
+    @Override
+    public Integer countTenantUserRoles(final TenantUserRoleQueryParam queryParam) {
+        final HttpHeaders httpHeaders = buildCommonHeaders();
+        final HttpEntity<TenantUserRoleQueryParam> httpEntity = new HttpEntity<>(queryParam, httpHeaders);
+        final String url = String.format("%s/duc/common/api/tenant-user/roles/count", this.getServerHost());
+        final ResponseEntity<DeiResponseData<Integer>> response = execute(url, HttpMethod.POST, httpEntity, new ParameterizedTypeReference<DeiResponseData<Integer>>() {}, true);
+        final DeiResponseData<Integer> result = checkResponse(response);
+        return result.getData();
+    }
+
+    @Override
+    public List<TenantUserRoleSlaveVO> queryTenantUserRoles(final TenantUserRoleQueryParam queryParam, final RoleQueryCfg queryCfg) {
+        final TenantUserRoleQueryReq queryReq = new TenantUserRoleQueryReq(queryParam, queryCfg);
+        final HttpHeaders httpHeaders = buildCommonHeaders();
+        final HttpEntity<TenantUserRoleQueryReq> httpEntity = new HttpEntity<>(queryReq, httpHeaders);
+        final String url = String.format("%s/duc/common/api/tenant-user/roles/query", this.getServerHost());
+        final ResponseEntity<DeiResponseData<List<TenantUserRoleSlaveVO>>> response = execute(url, HttpMethod.POST, httpEntity, new ParameterizedTypeReference<DeiResponseData<List<TenantUserRoleSlaveVO>>>() {}, true);
+        final DeiResponseData<List<TenantUserRoleSlaveVO>> result = checkResponse(response);
+        return result.getData();
+    }
+
+    @Override
+    public Integer countTenantUserTmpRoles(final TenantUserTmpRoleQueryParam queryParam) {
+        final HttpHeaders httpHeaders = buildCommonHeaders();
+        final HttpEntity<TenantUserTmpRoleQueryParam> httpEntity = new HttpEntity<>(queryParam, httpHeaders);
+        final String url = String.format("%s/duc/common/api/tenant-user/tmp-roles/count", this.getServerHost());
+        final ResponseEntity<DeiResponseData<Integer>> response = execute(url, HttpMethod.POST, httpEntity, new ParameterizedTypeReference<DeiResponseData<Integer>>() {}, true);
+        final DeiResponseData<Integer> result = checkResponse(response);
+        return result.getData();
+    }
+
+    @Override
+    public List<TenantUserTmpRoleSlaveVO> queryTenantUserTmpRoles(final TenantUserTmpRoleQueryParam queryParam, final RoleQueryCfg queryCfg) {
+        final TenantUserTmpRoleQueryReq queryReq = new TenantUserTmpRoleQueryReq(queryParam, queryCfg);
+        final HttpHeaders httpHeaders = buildCommonHeaders();
+        final HttpEntity<TenantUserTmpRoleQueryReq> httpEntity = new HttpEntity<>(queryReq, httpHeaders);
+        final String url = String.format("%s/duc/common/api/tenant-user/tmp-roles/query", this.getServerHost());
+        final ResponseEntity<DeiResponseData<List<TenantUserTmpRoleSlaveVO>>> response = execute(url, HttpMethod.POST, httpEntity, new ParameterizedTypeReference<DeiResponseData<List<TenantUserTmpRoleSlaveVO>>>() {}, true);
+        final DeiResponseData<List<TenantUserTmpRoleSlaveVO>> result = checkResponse(response);
+        return result.getData();
+    }
+
+    @Override
+    public Integer countTenantUserSysResRoles(final TenantUserSysResRoleQueryParam queryParam) {
+        final HttpHeaders httpHeaders = buildCommonHeaders();
+        final HttpEntity<TenantUserSysResRoleQueryParam> httpEntity = new HttpEntity<>(queryParam, httpHeaders);
+        final String url = String.format("%s/duc/common/api/tenant-user/sys-res-roles/count", this.getServerHost());
+        final ResponseEntity<DeiResponseData<Integer>> response = execute(url, HttpMethod.POST, httpEntity, new ParameterizedTypeReference<DeiResponseData<Integer>>() {}, true);
+        final DeiResponseData<Integer> result = checkResponse(response);
+        return result.getData();
+    }
+
+    @Override
+    public List<TenantUserSysResRoleSlaveVO> queryTenantUserSysResRoles(final TenantUserSysResRoleQueryParam queryParam, final SysResRoleQueryCfg queryCfg) {
+        final TenantUserSysResRoleQueryReq queryReq = new TenantUserSysResRoleQueryReq(queryParam, queryCfg);
+        final HttpHeaders httpHeaders = buildCommonHeaders();
+        final HttpEntity<TenantUserSysResRoleQueryReq> httpEntity = new HttpEntity<>(queryReq, httpHeaders);
+        final String url = String.format("%s/duc/common/api/tenant-user/sys-res-roles/query", this.getServerHost());
+        final ResponseEntity<DeiResponseData<List<TenantUserSysResRoleSlaveVO>>> response = execute(url, HttpMethod.POST, httpEntity, new ParameterizedTypeReference<DeiResponseData<List<TenantUserSysResRoleSlaveVO>>>() {}, true);
+        final DeiResponseData<List<TenantUserSysResRoleSlaveVO>> result = checkResponse(response);
+        return result.getData();
+    }
+
+    @Override
+    public Integer countTenantUserTmpSysResRoles(final TenantUserTmpSysResRoleQueryParam queryParam) {
+        final HttpHeaders httpHeaders = buildCommonHeaders();
+        final HttpEntity<TenantUserTmpSysResRoleQueryParam> httpEntity = new HttpEntity<>(queryParam, httpHeaders);
+        final String url = String.format("%s/duc/common/api/tenant-user/tmp-sys-res-roles/count", this.getServerHost());
+        final ResponseEntity<DeiResponseData<Integer>> response = execute(url, HttpMethod.POST, httpEntity, new ParameterizedTypeReference<DeiResponseData<Integer>>() {}, true);
+        final DeiResponseData<Integer> result = checkResponse(response);
+        return result.getData();
+    }
+
+    @Override
+    public List<TenantUserTmpSysResRoleSlaveVO> queryTenantUserTmpSysResRoles(final TenantUserTmpSysResRoleQueryParam queryParam, final SysResRoleQueryCfg queryCfg) {
+        final TenantUserTmpSysResRoleQueryReq queryReq = new TenantUserTmpSysResRoleQueryReq(queryParam, queryCfg);
+        final HttpHeaders httpHeaders = buildCommonHeaders();
+        final HttpEntity<TenantUserTmpSysResRoleQueryReq> httpEntity = new HttpEntity<>(queryReq, httpHeaders);
+        final String url = String.format("%s/duc/common/api/tenant-user/tmp-sys-res-roles/query", this.getServerHost());
+        final ResponseEntity<DeiResponseData<List<TenantUserTmpSysResRoleSlaveVO>>> response = execute(url, HttpMethod.POST, httpEntity, new ParameterizedTypeReference<DeiResponseData<List<TenantUserTmpSysResRoleSlaveVO>>>() {}, true);
+        final DeiResponseData<List<TenantUserTmpSysResRoleSlaveVO>> result = checkResponse(response);
+        return result.getData();
+    }
+
+    @Override
+    public Integer countEmployeeUserGrps(final EmployeeUserGrpQueryParam queryParam) {
+        final HttpHeaders httpHeaders = buildCommonHeaders();
+        final HttpEntity<EmployeeUserGrpQueryParam> httpEntity = new HttpEntity<>(queryParam, httpHeaders);
+        final String url = String.format("%s/duc/common/api/employee/user-grps/count", this.getServerHost());
+        final ResponseEntity<DeiResponseData<Integer>> response = execute(url, HttpMethod.POST, httpEntity, new ParameterizedTypeReference<DeiResponseData<Integer>>() {}, true);
+        final DeiResponseData<Integer> result = checkResponse(response);
+        return result.getData();
+    }
+
+    @Override
+    public List<EmployeeUserGrpSlaveVO> queryEmployeeUserGrps(final EmployeeUserGrpQueryParam queryParam, final UserGrpQueryCfg queryCfg) {
+        final EmployeeUserGrpQueryReq queryReq = new EmployeeUserGrpQueryReq(queryParam, queryCfg);
+        final HttpHeaders httpHeaders = buildCommonHeaders();
+        final HttpEntity<EmployeeUserGrpQueryReq> httpEntity = new HttpEntity<>(queryReq, httpHeaders);
+        final String url = String.format("%s/duc/common/api/employee/user-grps/query", this.getServerHost());
+        final ResponseEntity<DeiResponseData<List<EmployeeUserGrpSlaveVO>>> response = execute(url, HttpMethod.POST, httpEntity, new ParameterizedTypeReference<DeiResponseData<List<EmployeeUserGrpSlaveVO>>>() {}, true);
+        final DeiResponseData<List<EmployeeUserGrpSlaveVO>> result = checkResponse(response);
+        return result.getData();
+    }
+
+    @Override
+    public Integer countEmployees(final EmployeeQueryParam queryParam) {
+        final HttpHeaders httpHeaders = buildCommonHeaders();
+        final HttpEntity<EmployeeQueryParam> httpEntity = new HttpEntity<>(queryParam, httpHeaders);
+        final String url = String.format("%s/duc/common/api/employees/count", this.getServerHost());
+        final ResponseEntity<DeiResponseData<Integer>> response = execute(url, HttpMethod.POST, httpEntity, new ParameterizedTypeReference<DeiResponseData<Integer>>() {}, true);
+        final DeiResponseData<Integer> result = checkResponse(response);
+        return result.getData();
+    }
+
+    @Override
+    public List<EmployeeSlaveVO> queryEmployees(final EmployeeQueryParam queryParam, final UserQueryCfg queryCfg) {
+        final EmployeeQueryReq queryReq = new EmployeeQueryReq(queryParam, queryCfg);
+        final HttpHeaders httpHeaders = buildCommonHeaders();
+        final HttpEntity<EmployeeQueryReq> httpEntity = new HttpEntity<>(queryReq, httpHeaders);
+        final String url = String.format("%s/duc/common/api/employees/query", this.getServerHost());
+        final ResponseEntity<DeiResponseData<List<EmployeeSlaveVO>>> response = execute(url, HttpMethod.POST, httpEntity, new ParameterizedTypeReference<DeiResponseData<List<EmployeeSlaveVO>>>() {}, true);
+        final DeiResponseData<List<EmployeeSlaveVO>> result = checkResponse(response);
+        return result.getData();
+    }
+
+    @Override
+    public Integer countEmployeeRoles(final EmployeeRoleQueryParam queryParam) {
+        final HttpHeaders httpHeaders = buildCommonHeaders();
+        final HttpEntity<EmployeeRoleQueryParam> httpEntity = new HttpEntity<>(queryParam, httpHeaders);
+        final String url = String.format("%s/duc/common/api/employee/roles/count", this.getServerHost());
+        final ResponseEntity<DeiResponseData<Integer>> response = execute(url, HttpMethod.POST, httpEntity, new ParameterizedTypeReference<DeiResponseData<Integer>>() {}, true);
+        final DeiResponseData<Integer> result = checkResponse(response);
+        return result.getData();
+    }
+
+    @Override
+    public List<EmployeeRoleSlaveVO> queryEmployeeRoles(final EmployeeRoleQueryParam queryParam, final RoleQueryCfg queryCfg) {
+        final EmployeeRoleQueryReq queryReq = new EmployeeRoleQueryReq(queryParam, queryCfg);
+        final HttpHeaders httpHeaders = buildCommonHeaders();
+        final HttpEntity<EmployeeRoleQueryReq> httpEntity = new HttpEntity<>(queryReq, httpHeaders);
+        final String url = String.format("%s/duc/common/api/employee/roles/query", this.getServerHost());
+        final ResponseEntity<DeiResponseData<List<EmployeeRoleSlaveVO>>> response = execute(url, HttpMethod.POST, httpEntity, new ParameterizedTypeReference<DeiResponseData<List<EmployeeRoleSlaveVO>>>() {}, true);
+        final DeiResponseData<List<EmployeeRoleSlaveVO>> result = checkResponse(response);
+        return result.getData();
+    }
+
+    @Override
+    public Integer countEmployeeTmpRoles(final EmployeeTmpRoleQueryParam queryParam) {
+        final HttpHeaders httpHeaders = buildCommonHeaders();
+        final HttpEntity<EmployeeTmpRoleQueryParam> httpEntity = new HttpEntity<>(queryParam, httpHeaders);
+        final String url = String.format("%s/duc/common/api/employee/tmp-roles/count", this.getServerHost());
+        final ResponseEntity<DeiResponseData<Integer>> response = execute(url, HttpMethod.POST, httpEntity, new ParameterizedTypeReference<DeiResponseData<Integer>>() {}, true);
+        final DeiResponseData<Integer> result = checkResponse(response);
+        return result.getData();
+    }
+
+    @Override
+    public List<EmployeeTmpRoleSlaveVO> queryEmployeeTmpRoles(final EmployeeTmpRoleQueryParam queryParam, final RoleQueryCfg queryCfg) {
+        final EmployeeTmpRoleQueryReq queryReq = new EmployeeTmpRoleQueryReq(queryParam, queryCfg);
+        final HttpHeaders httpHeaders = buildCommonHeaders();
+        final HttpEntity<EmployeeTmpRoleQueryReq> httpEntity = new HttpEntity<>(queryReq, httpHeaders);
+        final String url = String.format("%s/duc/common/api/employee/tmp-roles/query", this.getServerHost());
+        final ResponseEntity<DeiResponseData<List<EmployeeTmpRoleSlaveVO>>> response = execute(url, HttpMethod.POST, httpEntity, new ParameterizedTypeReference<DeiResponseData<List<EmployeeTmpRoleSlaveVO>>>() {}, true);
+        final DeiResponseData<List<EmployeeTmpRoleSlaveVO>> result = checkResponse(response);
+        return result.getData();
+    }
+
+    @Override
+    public Integer countEmployeeSysResRoles(final EmployeeSysResRoleQueryParam queryParam) {
+        final HttpHeaders httpHeaders = buildCommonHeaders();
+        final HttpEntity<EmployeeSysResRoleQueryParam> httpEntity = new HttpEntity<>(queryParam, httpHeaders);
+        final String url = String.format("%s/duc/common/api/employee/sys-res-roles/count", this.getServerHost());
+        final ResponseEntity<DeiResponseData<Integer>> response = execute(url, HttpMethod.POST, httpEntity, new ParameterizedTypeReference<DeiResponseData<Integer>>() {}, true);
+        final DeiResponseData<Integer> result = checkResponse(response);
+        return result.getData();
+    }
+
+    @Override
+    public List<EmployeeSysResRoleSlaveVO> queryEmployeeSysResRoles(final EmployeeSysResRoleQueryParam queryParam, final SysResRoleQueryCfg queryCfg) {
+        final EmployeeSysResRoleQueryReq queryReq = new EmployeeSysResRoleQueryReq(queryParam, queryCfg);
+        final HttpHeaders httpHeaders = buildCommonHeaders();
+        final HttpEntity<EmployeeSysResRoleQueryReq> httpEntity = new HttpEntity<>(queryReq, httpHeaders);
+        final String url = String.format("%s/duc/common/api/employee/sys-res-roles/query", this.getServerHost());
+        final ResponseEntity<DeiResponseData<List<EmployeeSysResRoleSlaveVO>>> response = execute(url, HttpMethod.POST, httpEntity, new ParameterizedTypeReference<DeiResponseData<List<EmployeeSysResRoleSlaveVO>>>() {}, true);
+        final DeiResponseData<List<EmployeeSysResRoleSlaveVO>> result = checkResponse(response);
+        return result.getData();
+    }
+
+    @Override
+    public Integer countEmployeeTmpSysResRoles(final EmployeeTmpSysResRoleQueryParam queryParam) {
+        final HttpHeaders httpHeaders = buildCommonHeaders();
+        final HttpEntity<EmployeeTmpSysResRoleQueryParam> httpEntity = new HttpEntity<>(queryParam, httpHeaders);
+        final String url = String.format("%s/duc/common/api/employee/tmp-sys-res-roles/count", this.getServerHost());
+        final ResponseEntity<DeiResponseData<Integer>> response = execute(url, HttpMethod.POST, httpEntity, new ParameterizedTypeReference<DeiResponseData<Integer>>() {}, true);
+        final DeiResponseData<Integer> result = checkResponse(response);
+        return result.getData();
+    }
+
+    @Override
+    public List<EmployeeTmpSysResRoleSlaveVO> queryEmployeeTmpSysResRoles(final EmployeeTmpSysResRoleQueryParam queryParam, final SysResRoleQueryCfg queryCfg) {
+        final EmployeeTmpSysResRoleQueryReq queryReq = new EmployeeTmpSysResRoleQueryReq(queryParam, queryCfg);
+        final HttpHeaders httpHeaders = buildCommonHeaders();
+        final HttpEntity<EmployeeTmpSysResRoleQueryReq> httpEntity = new HttpEntity<>(queryReq, httpHeaders);
+        final String url = String.format("%s/duc/common/api/employee/tmp-sys-res-roles/query", this.getServerHost());
+        final ResponseEntity<DeiResponseData<List<EmployeeTmpSysResRoleSlaveVO>>> response = execute(url, HttpMethod.POST, httpEntity, new ParameterizedTypeReference<DeiResponseData<List<EmployeeTmpSysResRoleSlaveVO>>>() {}, true);
+        final DeiResponseData<List<EmployeeTmpSysResRoleSlaveVO>> result = checkResponse(response);
         return result.getData();
     }
 }

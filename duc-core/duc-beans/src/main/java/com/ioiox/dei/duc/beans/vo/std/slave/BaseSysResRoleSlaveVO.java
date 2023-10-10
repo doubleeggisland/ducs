@@ -19,5 +19,5 @@ public abstract class BaseSysResRoleSlaveVO extends SimpleRoleSlaveVO {
      * 所属项目
      */
     @JsonIgnore
-    private SysPrjSlaveStdVO sysPrj;
+    private SysPrjSlaveVO sysPrj;
 }

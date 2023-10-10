@@ -34,5 +34,5 @@ public abstract class BaseRoleSlaveVO
      * 所属项目
      */
     @JsonIgnore
-    private SysPrjSlaveStdVO sysPrj;
+    private SysPrjSlaveVO sysPrj;
 }

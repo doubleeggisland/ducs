@@ -56,5 +56,5 @@ public class SysApiSlaveVO extends SlaveStdDataVO {
      * 所属项目
      */
     @JsonIgnore
-    private SysPrjSlaveStdVO sysPrj;
+    private SysPrjSlaveVO sysPrj;
 }
